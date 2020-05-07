@@ -40,6 +40,10 @@ Check that the new install worked. For example:
 ```
 
 # Release Notes
+Version 0.0.2 (2020/05/7)
+
+* Add plugdev to user groups to ensure serial access on new accounts
+
 Version 0.0.1 (2020/05/6)
 
 * Initial product release.

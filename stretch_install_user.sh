@@ -80,11 +80,19 @@ cd ..
 rm -rf nvme-cli
 
 # add user to the dialout group to access devices
-echo "Adding user hello to the dialout group to access Mechaduinos..."
+echo "Adding user hello to the dialout group to access Arduino..."
 sudo adduser $USER dialout
 echo "This is unlikely to take effect until you log out and log back in."
 echo "Done."
 echo ""
+
+
+echo "Adding user hello to the plugdev group to access serial..."
+sudo adduser $USER plugdev
+echo "This is unlikely to take effect until you log out and log back in."
+echo "Done."
+echo ""
+
 
 # upgrade to the latest versions of Ubuntu packages
 echo "Upgrading Ubuntu packages to the latest versions..."
