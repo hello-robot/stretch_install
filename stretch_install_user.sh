@@ -1,11 +1,10 @@
 #!/bin/bash
 
-echo "Install Python"
-sudo apt --yes install python 
-echo "Install Pip"
-sudo apt --yes install python-pip
-echo "Install Git"
-sudo apt --yes install git
+echo "Setting up Stretch new user account"
+
+
+echo "###########################################"
+echo "INSTALLATION OF STRETCH_BODY"
 
 #Get fleet ID
 . /etc/hello-robot/hello-robot.conf
@@ -24,6 +23,19 @@ chmod a-w ~/stretch_user/$HELLO_FLEET_ID/stretch_re1_factory_params.yaml
 chmod a-w ~/stretch_user/$HELLO_FLEET_ID/udev/*.rules
 chmod a-w ~/stretch_user/$HELLO_FLEET_ID/calibration_steppers/*.yaml
 
+# set up the robot's code to run automatically on boot
+echo "Setting up this machine to start the robot's code automatically on boot..."
+mkdir ~/.config/autostart
+cp ~/repos/stretch_install/factory/hello_robot_audio.desktop ~/.config/autostart/
+cp ~/repos/stretch_install/factory/hello_robot_xbox_teleop.desktop ~/.config/autostart/
+cp ~/repos/stretch_install/factory/hello_robot_lrf_off.desktop ~/.config/autostart/
+echo "Done."
+echo ""
+
+echo "Removing stretch_install"
+rm -rf stretch_install
+
+
 echo "Install stretch_body via pip"
 pip install hello-robot-stretch-body
 pip install hello-robot-stretch-body-tools
@@ -38,54 +50,26 @@ echo "Install drawnow via pip"
 python -m pip install drawnow
 echo "Install rplidar via pip"
 python -m pip install rplidar
-echo "Install rpl via apt"
-sudo apt --yes install rpl
-echo "Install ipython3 via apt"
-sudo apt --yes install ipython3
-sudo apt --yes install python3-pip
-
 echo "Install urdfpy via pip3"
 pip3 install urdfpy
 
-# update .bashrc to add body code directory to the Python path
+
+echo "Setting up .bashrc"
+echo "export EDITOR='emacs -nw'" >> ~/.bashrc
 echo "export HELLO_FLEET_PATH=${HOME}/stretch_user" >> ~/.bashrc
 echo "export HELLO_FLEET_ID=${HELLO_FLEET_ID}">> ~/.bashrc
 echo "export PATH=\${PATH}:~/.local/bin" >> ~/.bashrc
-echo "export PYTHONPATH=\${PATH}:/opt/ros/melodic/lib/python2.7/dist-packages" >> ~/.bashrc
 echo "source .bashrc"
 source ~/.bashrc
 echo "Done."
 echo ""
 
-# set up the robot's code to run automatically on boot
-echo "Setting up this machine to start the robot's code automatically on boot..."
-mkdir ~/.config/autostart
-cp ~/repos/stretch_install/factory/hello_robot_audio.desktop ~/.config/autostart/
-cp ~/repos/stretch_install/factory/hello_robot_xbox_teleop.desktop ~/.config/autostart/
-cp ~/repos/stretch_install/factory/hello_robot_lrf_off.desktop ~/.config/autostart/
-echo "Done."
-echo ""
 
-
-#Install tools for managing hw
-sudo apt-get install lm-sensors
-
-echo "Making and installing nvme"
-cd ~/
-git clone https://github.com/linux-nvme/nvme-cli.git
-cd nvme-cli/
-make
-sudo make install
-cd ..
-rm -rf nvme-cli
-
-# add user to the dialout group to access devices
 echo "Adding user hello to the dialout group to access Arduino..."
 sudo adduser $USER dialout
 echo "This is unlikely to take effect until you log out and log back in."
 echo "Done."
 echo ""
-
 
 echo "Adding user hello to the plugdev group to access serial..."
 sudo adduser $USER plugdev
@@ -93,28 +77,13 @@ echo "This is unlikely to take effect until you log out and log back in."
 echo "Done."
 echo ""
 
-
-# upgrade to the latest versions of Ubuntu packages
-echo "Upgrading Ubuntu packages to the latest versions..."
-sudo apt --yes update
-sudo apt --yes upgrade
-echo "Done."
+echo "DONE WITH ADDITIONAL INSTALLATION STRETCH_BODY"
+echo "###########################################"
 echo ""
 
-# install additional packages
-echo "INSTALL ADDITIONAL PACKAGES WITH APT"
-echo "Install Emacs packages"
-sudo apt --yes install emacs yaml-mode
-echo "Install nettools"
-sudo apt --yes install net-tools
-echo "Install git and wget"
-sudo apt --yes install git wget
-echo "Install Python packages"
-sudo apt --yes install ipython python-pip python-serial
-echo "Install packages to work with URDFs"
-sudo apt --yes install liburdfdom-tools meshlab
 
-echo "INSTALL ADDITIONAL PACKAGES WITH PIP"
+echo "###########################################"
+echo "INSTALLATION OF ADDITIONAL PIP PACKAGES"
 echo "Install pip Python profiler output viewer (SnakeViz)"
 python -m pip install --user snakeviz
 echo "Install pip Python packages for Respeaker and speech recognition"
@@ -129,19 +98,122 @@ echo "Install numba via pip"
 python -m pip install --user numba
 echo "Install scikit-image via pip"
 python -m pip install --user scikit-image
-echo "Install cheese for camera testing"
-sudo apt --yes install cheese
 echo "Install Open3D."
 echo "WARNING: THIS MAY BE INCOMPATIBLE WITH ROSBRIDGE AND WEB TELEOPERATION DUE TO TORNADO PACKAGE INSTALLATION"
 python -m pip install --user open3d
 echo "Install SciPy and related software with pip for recent versions" 
 python -m pip install --user numpy scipy matplotlib ipython jupyter pandas sympy nose
-echo "DONE INSTALLING ADDITIONAL PACKAGES WITH PIP"
-echo ""
-
 # install D435i packages
 echo "INSTALL INTEL D435i"
 echo "Install D435i Python wrapper"
 python -m pip install --user pyrealsense2
 echo "DONE INSTALLING INTEL D435i"
+echo ""
+echo "DONE WITH ADDITIONAL ADDITIONAL PIP PACKAGES"
+echo "###########################################"
+echo ""
+
+
+echo "###########################################"
+echo "INSTALLATION OF ROS WORKSAPCE"
+# create the ROS workspace
+# see http://wiki.ros.org/ROS/Tutorials/InstallingandConfiguringROSEnvironment
+echo "Creating the ROS workspace..."
+mkdir -p ~/catkin_ws/src
+cd ~/catkin_ws/
+catkin_make
+echo "Source .bash file"
+source ~/catkin_ws/devel/setup.bash
+echo "Make sure new ROS package is indexed"
+rospack profile
+echo "Done."
+echo ""
+# update .bashrc
+echo "UPDATE .bashrc for ROS"
+echo "source /opt/ros/melodic/setup.bash" >> ~/.bashrc
+echo "add catkin development workspace overlay to .bashrc"
+echo "source ~/catkin_ws/devel/setup.bash" >> ~/.bashrc
+echo "source .bashrc"
+source ~/.bashrc
+echo "DONE UPDATING .bashrc"
+echo ""
+
+# install ros_numpy from github
+echo "INSTALL ROS_NUMPY FROM GITHUB"
+cd ~/catkin_ws/src/
+echo "Cloning the ros_numpy github repository."
+git clone https://github.com/eric-wieser/ros_numpy.git
+echo "Make ROS package"
+cd ~/catkin_ws/
+catkin_make
+echo "Install ROS package"
+catkin_make install
+echo "Make sure new ROS package is indexed"
+rospack profile
+echo "DONE INSTALLING ROS_NUMPY FROM GITHUB"
+echo ""
+
+# clone the Hello Robot ROS repository
+echo "Install the Hello Robot ROS repository"
+cd ~/catkin_ws/src/
+echo "Clone the github repository"
+git clone https://github.com/hello-robot/stretch_ros.git
+cd ~/catkin_ws/
+echo "Make the ROS repository"
+catkin_make
+echo "Make sure new ROS package is indexed"
+rospack profile
+echo "Install ROS packages. This is important for using Python modules."
+catkin_make install
+echo ""
+
+# compile Cython code
+echo "Compiling Cython code"
+cd ~/catkin_ws/src/stretch_ros/stretch_body/nodes
+./compile_cython_code.sh
+echo "Done"
+
+# create directories for development
+cd ~/catkin_ws/src/stretch_ros/stretch_body/nodes
+mkdir head_scans
+mkdir max_height_images
+mkdir test_scans
+mkdir objects_to_grasp
+
+# install scan_tools for laser range finder odometry
+echo "INSTALL SCAN_TOOLS FROM GITHUB"
+cd ~/catkin_ws/
+echo "Cloning the csm github repository."
+git clone https://github.com/AndreaCensi/csm
+echo "Handle csm dependencies."
+cd ~/catkin_ws/
+rosdep install --from-paths src --ignore-src -r -y
+echo "Make csm."
+cd ~/catkin_ws/csm/
+cmake -DCMAKE_INSTALL_PREFIX:PATH=/usr/local .
+make
+echo "Install csm."
+sudo make install
+echo "Cloning the scan_tools github repository."
+cd ~/catkin_ws/src/
+git clone https://github.com/ccny-ros-pkg/scan_tools.git
+echo "Make scan_tools."
+cd ~/catkin_ws/
+catkin_make
+echo "Make sure new ROS packages are indexed"
+rospack profile
+echo ""
+
+echo "DONE WITH ADDITIONAL ADDITIONAL PIP PACKAGES"
+echo "###########################################"
+echo ""
+
+echo "The IP address for this machine follows:"
+curl ifconfig.me
+echo ""
+echo "Make it a static IP and then use it for SSH and VNC."
+echo "Done!"
+
+echo "DONE WITH STRETCH_USER_INSTALL"
+echo "###########################################"
 echo ""

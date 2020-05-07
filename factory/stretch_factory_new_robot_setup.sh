@@ -1,5 +1,6 @@
 #!/bin/bash
 
+echo "Run this installation for fresh Ubuntu installs only."
 #####################################################
 DIR=`pwd`
 
@@ -23,6 +24,11 @@ sudo mv hello-robot.conf /etc/hello-robot
 cd ~/
 git clone https://github.com/hello-robot/stretch_fleet.git
 sudo cp -rf ~/stretch_fleet/$HELLO_FLEET_ID /etc/hello-robot
+
+echo "Setting up UDEV rules..."
+sudo cp ~/stretch_fleet/$HELLO_FLEET_ID/udev/*.rules /etc/udev/rules.d
+sudo udevadm control --reload
+
 rm -rf stretch_fleet
 
 #Allow shutdown without password
@@ -33,8 +39,7 @@ sudo cp $DIR/hello_robot_audio.sh /usr/bin
 sudo cp $DIR/hello_robot_lrf_off.py /usr/bin
 sudo cp $DIR/hello_robot_xbox_teleop.sh /usr/bin
 sudo cp $DIR/hello_sudoers /etc/sudoers.d/
-#Store this in etc so can be copied to/from .config/autostart by user script to enable/disable it autostarting
-#sudo cp $DIR/hello_robot_xbox_teleop.desktop /etc/hello-robot
+
 echo "Done."
 echo ""
 
