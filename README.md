@@ -2,33 +2,30 @@
 
 ## Overview
 
-The stretch_install repository provides scripts required to install the Stretch software. It also provides 'factory' tools for setting up a new machine. There are three primary install scripts:
+The stretch_install repository provides scripts required to install the Stretch software. There are three primary install scripts:
 
 | Script                     | Use                                                          |
 | -------------------------- | ------------------------------------------------------------ |
-| stretch_install_factory.sh | Run after a fresh OS install of Ubuntu 18.04LTS. Installs system level robot data from factory image. |
+| stretch_install_factory.sh | Installs system level robot data from factory image. Run only after a fresh OS install of Ubuntu 18.04LTS. |
 | stretch_install_system.sh  | Installs system wide packages via apt-get. Installs ROS and related packages. Run after stretch_install_factory.py or when package update is required. |
-| stretch_install_factory.sh | Run when creating a new user account. Replicates robot factory image to local user account. Installs use Python packages and tools to allow robot develpment. |
+| stretch_install_user.sh    | Installs robot factory image to local user account. Installs user Python packages and tools to allow robot development. Run when creating a new user account. |
+
+It is expected that the User install will be run periodically as new users begin working with the robot. In contrast,  it is expected that the System and Factory installs are rarely run and only by qualified administrators.
 
 ## User Install 
-When logged in as administrator, make a new user accout:
-```
+
+While logged in as an administrator, make a new user accout:
+```bash
 sudo adduser <new_user>
 ```
 
 Ensure the user has sudo privileges:
 
-```
+```bash
 sudo usermod -aG sudo <new_user>
 ```
 
-Logout and the log back in as the new user. Ensure git is installed
-
-```
-sudo apt install git
-```
-
-Then pull down the Stretch_Install repository and run the install script
+Logout and the log back in as the new user. Then pull down the Stretch_Install repository and run the install script
 
 ```bash
 cd ~/
@@ -40,24 +37,48 @@ cd stretch_install
 This will install the packages and setup the robot configuration correctly for a new user on a Stretch RE1 computer.
 
 Reboot your computer. After power up, check that the new install worked. For example:
-```
+```bash
 >> source ~/.bashrc
 >> stretch_robot_system_check.py
 ```
 
 ## System Install 
 
-sudo apt-install git
+If running after a Factory install, first install git
 
-\* updates installing, may 'Could not get lock'
+```bash
+sudo apt install git
+```
+
+If stretch_install isn't yet present, first install it. Then run the script.
+
+```bash
+cd ~/
+git clone https://github.com/hello-robot/stretch_install
+cd stretch_install
+./stretch_install_system.sh
+```
+
+**Note**: When booting into Ubuntu immediately after Factory Install the system may not be able to run 'apt-get' immediately, as the OS is running automatic updates in the background.
 
 ## Factory Install 
 
-Installing Ubuntu 18.04LTS
+More coming soon:
 
-Bios setup
+* Installing Ubuntu 18.04LTS
 
-Running script
+* Bios setup
+
+Run the Factory install. You will need to know the serial number of your robot (eg, stretch-re1-1001).
+
+```bash
+cd ~/
+git clone https://github.com/hello-robot/stretch_install
+cd stretch_install/factory
+./stretch_install_factory.sh
+```
+
+
 
 # Release Notes
 
