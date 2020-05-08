@@ -1,5 +1,10 @@
 #!/bin/bash
 
+#Current issues
+# python -m pip install --user numba
+# catkin  - csm
+
+
 echo "Setting up Stretch new user account"
 
 
@@ -15,7 +20,7 @@ mkdir ~/stretch_user/log
 
 echo "Cloning stretch_install repository into standard location."
 cd ~/repos/
-git clone https://github.com/hello-robot/stretch_install.git
+git clone -b ros_install https://github.com/hello-robot/stretch_install.git
 
 echo "Setting up local copy of robot factory data"
 cp -rf /etc/hello-robot/$HELLO_FLEET_ID ~/stretch_user
@@ -32,8 +37,8 @@ cp ~/repos/stretch_install/factory/hello_robot_lrf_off.desktop ~/.config/autosta
 echo "Done."
 echo ""
 
-echo "Removing stretch_install"
-rm -rf stretch_install
+#echo "Removing stretch_install"
+#rm -rf stretch_install
 
 
 echo "Install stretch_body via pip"
