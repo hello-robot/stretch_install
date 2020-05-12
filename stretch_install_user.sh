@@ -97,10 +97,10 @@ echo "Install pip Python CMA-ES optimization package"
 python -m pip install --user cma
 echo "Install latest version of Pythin OpenCV via pip"
 python -m pip install --user opencv-contrib-python
-echo "Install numba and colorama numba dependency via pip"
-python -m pip install --user numba colorama
-echo "Install numba via pip"
-python -m pip install --user numba
+echo "Install colorama via pip"
+python -m pip install --user colorama
+echo "Install numba via pip using pip_constraints.txt file to handle llvmlite version issue"
+python -m pip install --user -c pip_constraints.txt numba
 echo "Install scikit-image via pip"
 python -m pip install --user scikit-image
 echo "Install Open3D."
