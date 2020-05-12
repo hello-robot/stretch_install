@@ -17,6 +17,10 @@ echo "Setting up new user for robot $HELLO_FLEET_ID"
 mkdir ~/repos
 mkdir ~/stretch_user
 mkdir ~/stretch_user/log
+mkdir ~/stretch_user/debug
+mkdir ~/stretch_user/deep_learning_models
+mkdir ~/stretch_user/head_scans
+mkdir ~/stretch_user/maps
 
 echo "Cloning stretch_install repository into standard location."
 cd ~/repos/
