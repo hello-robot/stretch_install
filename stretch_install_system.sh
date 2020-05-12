@@ -163,25 +163,25 @@ echo "###########################################"
 echo ""
 
 
-echo "###########################################"
-echo "INSTALLATION OF NETWORKING"
-# set up SSH
-echo "Setting up SSH..."
-sudo apt --yes install ssh
-# sudo emacs -nw /etc/ssh/sshd_config
-# Change default port “#Port 22” -> “Port 32123”
-echo "Changing SSH port to 32123..."
-sudo sed -i 's/Port 22/Port 32123/g' /etc/ssh/sshd_config
-sudo service ssh restart
-echo "Done."
-echo ""
+# echo "###########################################"
+# echo "INSTALLATION OF NETWORKING"
+# # set up SSH
+# echo "Setting up SSH..."
+# sudo apt --yes install ssh
+# # sudo emacs -nw /etc/ssh/sshd_config
+# # Change default port “#Port 22” -> “Port 32123”
+# echo "Changing SSH port to 32123..."
+# sudo sed -i 's/Port 22/Port 32123/g' /etc/ssh/sshd_config
+# sudo service ssh restart
+# echo "Done."
+# echo ""
 
-echo "The IP address for this machine follows:"
-curl ifconfig.me
-echo ""
-echo "Make it a static IP and then use it for SSH and VNC."
-echo "Done!"
-echo "DONE WITH INSTALLATION OF NETWORKING"
-echo "###########################################"
-echo ""
+# echo "The IP address for this machine follows:"
+# curl ifconfig.me
+# echo ""
+# echo "Make it a static IP and then use it for SSH and VNC."
+# echo "Done!"
+# echo "DONE WITH INSTALLATION OF NETWORKING"
+# echo "###########################################"
+# echo ""
 
