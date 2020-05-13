@@ -28,7 +28,6 @@ git clone -b ros_install https://github.com/hello-robot/stretch_install.git
 
 echo "Setting up local copy of robot factory data"
 cp -rf /etc/hello-robot/$HELLO_FLEET_ID ~/stretch_user
-chmod a-w ~/stretch_user/$HELLO_FLEET_ID/stretch_re1_factory_params.yaml
 chmod a-w ~/stretch_user/$HELLO_FLEET_ID/udev/*.rules
 chmod a-w ~/stretch_user/$HELLO_FLEET_ID/calibration_steppers/*.yaml
 
