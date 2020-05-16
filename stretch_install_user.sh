@@ -59,9 +59,6 @@ echo "Install drawnow via pip"
 python -m pip install drawnow
 echo "Install rplidar via pip"
 python -m pip install rplidar
-echo "Install urdfpy via pip3"
-pip3 install urdfpy
-
 
 echo "Setting up .bashrc"
 echo "export EDITOR='emacs -nw'" >> ~/.bashrc
@@ -119,6 +116,26 @@ python -m pip install --user pyrealsense2
 echo "DONE INSTALLING INTEL D435i"
 echo ""
 echo "DONE WITH ADDITIONAL ADDITIONAL PIP PACKAGES"
+echo "###########################################"
+echo ""
+
+echo "###########################################"
+echo "INSTALLATION OF PYTHON 3 PIP PACKAGES"
+echo ""
+echo "Upgrade pip3"
+python3 -m pip install --user --upgrade pip
+echo "Install urdfpy for Python 3 via pip3"
+python3 -m pip install --user urdfpy
+echo "Install Numba for Python 3 via pip3"
+python3 -m pip install --user numba
+echo "Install Python3 OpenCV with deep neural network (DNN) support via pip3"
+python3 -m pip install --user opencv-python-inference-engine
+echo "Install rospkg for Python 3 via pip3"
+python3 -m pip install --user rospkg
+echo "Install scipy for Python 3 via pip3"
+python3 -m pip install --user scipy
+echo ""
+echo "DONE WITH PYTHON 3 PIP PACKAGES"
 echo "###########################################"
 echo ""
 
