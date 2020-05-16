@@ -23,10 +23,10 @@ sudo mv hello-robot.conf /etc/hello-robot
 
 cd ~/
 git clone https://github.com/hello-robot/stretch_fleet.git
-sudo cp -rf ~/stretch_fleet/$HELLO_FLEET_ID /etc/hello-robot
+sudo cp -rf ~/stretch_fleet/robots/$HELLO_FLEET_ID /etc/hello-robot
 
 echo "Setting up UDEV rules..."
-sudo cp ~/stretch_fleet/$HELLO_FLEET_ID/udev/*.rules /etc/udev/rules.d
+sudo cp ~/stretch_fleet/robots/$HELLO_FLEET_ID/udev/*.rules /etc/udev/rules.d
 sudo udevadm control --reload
 
 rm -rf stretch_fleet
