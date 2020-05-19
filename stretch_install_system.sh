@@ -27,8 +27,12 @@ echo "Install nettools"
 sudo apt --yes install net-tools
 echo "Install git and wget"
 sudo apt --yes install git wget
+echo "Install vim"
+sudo apt --yes install vim
 echo "Install Python packages"
 sudo apt --yes install python-serial
+echo "Install GSL for csm"
+sudo apt --yes install libgsl0-dev
 echo "DONE WITH MAIN INSTALLATION OF OS PACKAGES"
 echo "###########################################"
 echo ""

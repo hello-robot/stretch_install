@@ -95,12 +95,12 @@ echo "Install pip Python packages for Respeaker and speech recognition"
 python -m pip install --user pyusb SpeechRecognition pixel-ring click
 echo "Install pip Python CMA-ES optimization package"
 python -m pip install --user cma
-echo "Install latest version of Pythin OpenCV via pip"
+echo "Install latest version of Python OpenCV via pip"
 python -m pip install --user opencv-contrib-python
 echo "Install colorama via pip"
 python -m pip install --user colorama
 echo "Install numba via pip using pip_constraints.txt file to handle llvmlite version issue"
-python -m pip install --user -c pip_constraints.txt numba
+python -m pip install --user llvmlite==0.31.0 numba
 echo "Install scikit-image via pip"
 python -m pip install --user scikit-image
 echo "Install Open3D."
@@ -141,6 +141,18 @@ echo ""
 
 echo "###########################################"
 echo "INSTALLATION OF ROS WORKSAPCE"
+
+# update .bashrc before using catkin tools
+echo "UPDATE .bashrc for ROS"
+echo "source /opt/ros/melodic/setup.bash" >> ~/.bashrc
+echo "add catkin development workspace overlay to .bashrc"
+echo "source ~/catkin_ws/devel/setup.bash" >> ~/.bashrc
+echo "source .bashrc"
+source ~/.bashrc
+source /opt/ros/melodic/setup.bash
+echo "DONE UPDATING .bashrc"
+echo ""
+
 # create the ROS workspace
 # see http://wiki.ros.org/ROS/Tutorials/InstallingandConfiguringROSEnvironment
 echo "Creating the ROS workspace..."
@@ -152,15 +164,6 @@ source ~/catkin_ws/devel/setup.bash
 echo "Make sure new ROS package is indexed"
 rospack profile
 echo "Done."
-echo ""
-# update .bashrc
-echo "UPDATE .bashrc for ROS"
-echo "source /opt/ros/melodic/setup.bash" >> ~/.bashrc
-echo "add catkin development workspace overlay to .bashrc"
-echo "source ~/catkin_ws/devel/setup.bash" >> ~/.bashrc
-echo "source .bashrc"
-source ~/.bashrc
-echo "DONE UPDATING .bashrc"
 echo ""
 
 # install ros_numpy from github
@@ -212,8 +215,10 @@ echo "Cloning the csm github repository."
 git clone https://github.com/AndreaCensi/csm
 echo "Handle csm dependencies."
 cd ~/catkin_ws/
+rosdep update
 rosdep install --from-paths src --ignore-src -r -y
 echo "Make csm."
+sudo apt --yes install libgsl0-dev
 cd ~/catkin_ws/csm/
 cmake -DCMAKE_INSTALL_PREFIX:PATH=/usr/local .
 make
