@@ -3,6 +3,16 @@
 
 pip install --user --upgrade twine
 
+# install  typora
+wget -qO - https://typora.io/linux/public-key.asc | sudo apt-key add -
+sudo add-apt-repository 'deb https://typora.io/linux ./'
+sudo apt-get update
+sudo apt-get install typora
+
+#Install arduino
+
+#Install PyCharm
+
 #####################################################
 echo "To be run after a user install "
 echo "Configures to use local stretch_body"
