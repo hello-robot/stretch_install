@@ -201,13 +201,6 @@ cd ~/catkin_ws/src/stretch_ros/stretch_body/nodes
 ./compile_cython_code.sh
 echo "Done"
 
-# create directories for development
-cd ~/catkin_ws/src/stretch_ros/stretch_body/nodes
-mkdir head_scans
-mkdir max_height_images
-mkdir test_scans
-mkdir objects_to_grasp
-
 # install scan_tools for laser range finder odometry
 echo "INSTALL SCAN_TOOLS FROM GITHUB"
 cd ~/catkin_ws/
