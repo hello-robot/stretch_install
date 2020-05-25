@@ -22,9 +22,14 @@ mkdir ~/stretch_user/deep_learning_models
 mkdir ~/stretch_user/head_scans
 mkdir ~/stretch_user/maps
 
+
 echo "Cloning stretch_install repository into standard location."
 cd ~/repos/
-git clone -b ros_install https://github.com/hello-robot/stretch_install.git
+git clone https://github.com/hello-robot/stretch_install.git
+
+echo "Cloning stretch_deep_perception_models into standard location."
+cd ~/stretch_user
+git clone git clone https://github.com/hello-robot/stretch_deep_perception_models
 
 echo "Setting up local copy of robot factory data"
 cp -rf /etc/hello-robot/$HELLO_FLEET_ID ~/stretch_user
@@ -45,8 +50,8 @@ echo ""
 
 
 echo "Install stretch_body via pip"
-pip install hello-robot-stretch-body
-pip install hello-robot-stretch-body-tools
+pip2 install hello-robot-stretch-body
+pip2 install hello-robot-stretch-body-tools
 pip3 install hello-robot-stretch-body-tools-py3
 
 #Other packages required by stretch_body
@@ -193,6 +198,11 @@ echo "Make sure new ROS package is indexed"
 rospack profile
 echo "Install ROS packages. This is important for using Python modules."
 catkin_make install
+echo ""
+
+echo "Setup calibrated robot URDF"
+rosrun stretch_calibration update_uncalibrated_urdf.sh
+rosrun stretch_calibration update_with_most_recent_calibration.sh
 echo ""
 
 # compile Cython code
