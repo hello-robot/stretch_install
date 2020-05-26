@@ -29,7 +29,7 @@ git clone https://github.com/hello-robot/stretch_install.git
 
 echo "Cloning stretch_deep_perception_models into standard location."
 cd ~/stretch_user
-git clone git clone https://github.com/hello-robot/stretch_deep_perception_models
+git clone https://github.com/hello-robot/stretch_deep_perception_models
 
 echo "Setting up local copy of robot factory data"
 cp -rf /etc/hello-robot/$HELLO_FLEET_ID ~/stretch_user

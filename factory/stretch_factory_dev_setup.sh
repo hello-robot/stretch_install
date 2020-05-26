@@ -35,6 +35,7 @@ sudo snap install pycharm-community --classic
 echo "Cloning repos."
 cd ~/repos/
 git clone https://github.com/hello-robot/stretch_install.git
+git clone https://github.com/hello-robot/stretch_factory.git
 git clone https://github.com/hello-robot/stretch_body.git
 git clone https://github.com/hello-robot/stretch_firmware.git
 git clone https://github.com/hello-robot/stretch_fleet.git
