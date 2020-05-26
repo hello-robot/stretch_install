@@ -31,6 +31,7 @@ sudo ./install.sh
 #Install PyCharm
 sudo snap install pycharm-community --classic
 
+pip2 install hello-robot-stretch-factory
 #pip uninstall stretch-body
 echo "Cloning repos."
 cd ~/repos/
