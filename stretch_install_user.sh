@@ -18,8 +18,6 @@ mkdir ~/repos
 mkdir ~/stretch_user
 mkdir ~/stretch_user/log
 mkdir ~/stretch_user/debug
-mkdir ~/stretch_user/deep_learning_models
-mkdir ~/stretch_user/head_scans
 mkdir ~/stretch_user/maps
 
 
