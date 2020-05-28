@@ -109,6 +109,7 @@ sudo apt --yes install ros-melodic-teleop-twist-keyboard
 #echo "Install ROS navigation and mapping packages"
 #sudo apt --yes install ros-melodic-move-base ros-melodic-map-server ros-melodic-amcl ros-melodic-cartographer ros-melodic-cartographer-ros ros-melodic-cartographer-rviz
 sudo apt --yes install ros-melodic-move-base ros-melodic-move-base-msgs
+sudo apt --yes install ros-melodic-gmapping
 #echo "Install ROS MoveIt! installation"
 #sudo apt --yes install ros-melodic-moveit
 # SMACH VIEWER HAS A BUG, SO NOT INSTALLING FOR NOW
