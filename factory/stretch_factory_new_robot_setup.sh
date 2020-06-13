@@ -37,6 +37,7 @@ rm -rf stretch_fleet
 #Startup scripts
 sudo cp $DIR/hello_robot_audio.sh /usr/bin
 sudo cp $DIR/hello_robot_lrf_off.py /usr/bin
+sudo cp $DIR/hello_robot_stretch_splash.py /usr/bin
 sudo cp $DIR/hello_robot_xbox_teleop.sh /usr/bin
 sudo cp $DIR/hello_sudoers /etc/sudoers.d/
 
