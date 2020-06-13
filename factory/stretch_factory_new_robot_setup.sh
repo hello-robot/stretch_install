@@ -19,7 +19,7 @@ fi
 echo "HELLO_FLEET_ID=$HELLO_FLEET_ID">>hello-robot.conf
 sudo mkdir /etc/hello-robot
 sudo mv hello-robot.conf /etc/hello-robot
-
+sudo cp $DIR/../images/stretch_about.png /etc/hello-robot
 
 cd ~/
 git clone https://github.com/hello-robot/stretch_fleet.git
@@ -37,7 +37,6 @@ rm -rf stretch_fleet
 #Startup scripts
 sudo cp $DIR/hello_robot_audio.sh /usr/bin
 sudo cp $DIR/hello_robot_lrf_off.py /usr/bin
-sudo cp $DIR/hello_robot_stretch_splash.py /usr/bin
 sudo cp $DIR/hello_robot_xbox_teleop.sh /usr/bin
 sudo cp $DIR/hello_sudoers /etc/sudoers.d/
 

@@ -1,6 +1,0 @@
-[Desktop Entry]
-Type=Application
-Name=hello_stretch_splash
-Exec= /usr/bin/hello_robot_stretch_splash.py
-Hidden=false
-X-GNOME-Autostart-enabled=true
