@@ -37,5 +37,16 @@ cv2.rectangle(image, (280, 333), (720, 443), (255, 255, 255), cv2.FILLED)
 cv2.putText(image, batch_name_string, (text_x, text_y), font, font_scale, line_color, line_width, cv2.LINE_AA)
 cv2.putText(image, serial_number_string, (text_x, text_y + vertical_spacing_pix), font, font_scale, line_color, line_width, cv2.LINE_AA)
 
-cv2.imshow('S T R E T C H RESEARCH EDITION', image)
-cv2.waitKey(0)
+window_name = 'S T R E T C H RESEARCH EDITION'
+cv2.imshow(window_name, image)
+# Used exiting advice found via the following link:
+# https://stackoverflow.com/questions/35003476/opencv-python-how-to-detect-if-a-window-is-closed
+while cv2.getWindowProperty(window_name, 0) >= 0:
+    key_code = cv2.waitKey(1)
+    if key_code > 0:
+        # key pressed
+        cv2.destroyAllWindows()
+        break        
+    elif cv2.getWindowProperty(window_name,cv2.WND_PROP_VISIBLE) < 1:
+        # window closed
+        break     
