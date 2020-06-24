@@ -40,7 +40,6 @@ mkdir ~/.config/autostart
 cp ~/repos/stretch_install/factory/hello_robot_audio.desktop ~/.config/autostart/
 cp ~/repos/stretch_install/factory/hello_robot_xbox_teleop.desktop ~/.config/autostart/
 cp ~/repos/stretch_install/factory/hello_robot_lrf_off.desktop ~/.config/autostart/
-cp ~/repos/stretch_install/factory/hello_robot_stretch_splash.desktop ~/.config/autostart/
 echo "Done."
 echo ""
 

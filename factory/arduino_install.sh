@@ -136,6 +136,6 @@ ARDUINO_VERSION
     	echo "Deleting compressed file."
     rm "$directory"/arduino-"$download".tar.xz > /dev/null
 
-    read -r -p"Installation complete press any key to close Arduino IDE installer..." potato
-    clear
+    #read -r -p"Installation complete press any key to close Arduino IDE installer..." potato
+    #clear
 	return

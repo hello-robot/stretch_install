@@ -24,7 +24,7 @@ sudo apt install --yes typora
 sudo apt install --yes mkdocs
 sudo apt install --yes chromium-browser
 #Install arduino
-./arduino_install.sh -c 64 1.8.12 ~/
+~/stretch_install/factory/arduino_install.sh -c 64 1.8.12 ~/
 cd ~/arduino
 sudo ./install.sh
 
