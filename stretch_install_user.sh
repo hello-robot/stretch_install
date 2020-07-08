@@ -200,8 +200,12 @@ echo ""
 
 echo "Setup calibrated robot URDF"
 rosrun stretch_calibration update_uncalibrated_urdf.sh
-rosrun stretch_calibration update_with_most_recent_calibration.sh
-echo ""
+#This will grab the latest URDF and calibration files from ~/stretch_user
+#rosrun stretch_calibration update_with_most_recent_calibration.sh
+#Force to run interactive so $HELLO_FLEET_ID is found
+echo "This may fail if doing initial robot bringup. That is OK."
+bash -i ~/catkin_ws/stretch_ros/stretch_calibration/nodes/update_with_most_recent_calibration.sh
+echo "--Done--"
 
 # compile Cython code
 echo "Compiling Cython code"
