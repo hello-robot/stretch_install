@@ -40,6 +40,7 @@ git clone https://github.com/hello-robot/stretch_factory.git
 git clone https://github.com/hello-robot/stretch_body.git
 git clone https://github.com/hello-robot/stretch_firmware.git
 git clone https://github.com/hello-robot/stretch_fleet.git
+git clone https://github.com/hello-robot/stretch_fleet_tools.git
 git clone https://github.com/hello-robot/stretch_sandbox.git
 git clone https://github.com/hello-robot/hello-robot.github.io
 git clone https://github.com/hello-robot/stretch_docs
