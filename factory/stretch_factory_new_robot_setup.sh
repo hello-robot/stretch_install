@@ -16,14 +16,17 @@ do
             ;;
         "hank")
             echo "you chose  hank"
+            HELLO_BATCH_ID="hank"
             break
             ;;
         "irma")
             echo "you chose  irma"
+            HELLO_BATCH_ID="irma"
             break
             ;;
         "joplin")
             echo "you chose joplin"
+            HELLO_BATCH_ID="joplin"
             break
             ;;
         *) echo "invalid option $REPLY";;
