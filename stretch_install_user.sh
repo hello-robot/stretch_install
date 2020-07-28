@@ -77,7 +77,7 @@ echo "Install tools for system QC and bringup "
 pip2 install gspread
 pip2 install gspread-formatting
 pip2 install oauth2client
-
+pip2 install twine
 
 echo "Adding user hello to the dialout group to access Arduino..."
 sudo adduser $USER dialout
