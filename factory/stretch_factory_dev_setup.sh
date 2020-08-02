@@ -32,6 +32,13 @@ sudo ./install.sh
 sudo snap install pycharm-community --classic
 
 pip2 install hello-robot-stretch-factory
+
+echo "Install tools for system QC and bringup "
+pip2 install twine
+pip2 install gspread
+pip2 install gspread-formatting
+pip2 install oauth2client
+
 #pip uninstall stretch-body
 echo "Cloning repos."
 cd ~/repos/

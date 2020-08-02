@@ -4,42 +4,12 @@ echo "Run this installation for fresh Ubuntu installs only."
 #####################################################
 DIR=`pwd`
 
-PS3='Please enter batch name: '
-options=("guthrie" "hank" "irma" "joplin")
-select opt in "${options[@]}"
-do
-    case $opt in
-        "guthrie")
-            echo "you chose  guthrie"
-            HELLO_BATCH_ID="guthrie"
-            break
-            ;;
-        "hank")
-            echo "you chose  hank"
-            HELLO_BATCH_ID="hank"
-            break
-            ;;
-        "irma")
-            echo "you chose  irma"
-            HELLO_BATCH_ID="irma"
-            break
-            ;;
-        "joplin")
-            echo "you chose joplin"
-            HELLO_BATCH_ID="joplin"
-            break
-            ;;
-        *) echo "invalid option $REPLY";;
-    esac
-done
-
-
 echo -n "Enter fleet id xxxx for stretch-re1-xxxx >"
 read id
 pre="stretch-re1-"
 HELLO_FLEET_ID="$pre$id"
 
-read -p "HELLO_FLEET_ID of $HELLO_FLEET_ID . HELLO_BATCH_ID of $HELLO_BATCH_ID. Proceed with installation (y/n)?" -n 1 -r
+read -p "HELLO_FLEET_ID of $HELLO_FLEET_ID . Proceed with installation (y/n)?" -n 1 -r
 echo
 if [[ ! $REPLY =~ ^[Yy]$ ]]
 then
@@ -47,7 +17,6 @@ then
 fi
 
 echo "HELLO_FLEET_ID=$HELLO_FLEET_ID">>hello-robot.conf
-echo "HELLO_BATCH_ID=$HELLO_BATCH_ID">>hello-robot.conf
 sudo mkdir /etc/hello-robot
 sudo mv hello-robot.conf /etc/hello-robot
 sudo cp $DIR/../images/stretch_about.png /etc/hello-robot

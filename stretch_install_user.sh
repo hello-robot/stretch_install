@@ -66,7 +66,6 @@ echo "Setting up .bashrc"
 echo "export EDITOR='emacs -nw'" >> ~/.bashrc
 echo "export HELLO_FLEET_PATH=${HOME}/stretch_user" >> ~/.bashrc
 echo "export HELLO_FLEET_ID=${HELLO_FLEET_ID}">> ~/.bashrc
-echo "export HELLO_BATCH_ID=${HELLO_BATCH_ID}">> ~/.bashrc
 echo "export PATH=\${PATH}:~/.local/bin" >> ~/.bashrc
 echo "source .bashrc"
 source ~/.bashrc
@@ -77,7 +76,7 @@ echo "Install tools for system QC and bringup "
 pip2 install gspread
 pip2 install gspread-formatting
 pip2 install oauth2client
-pip2 install twine
+
 
 echo "Adding user hello to the dialout group to access Arduino..."
 sudo adduser $USER dialout
