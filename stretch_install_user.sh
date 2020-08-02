@@ -73,7 +73,7 @@ echo "Done."
 echo ""
 
 echo "Updating media assets"
-sudo cp ./images/stretch_about.png /etc/hello-robot
+sudo cp ~/repos/stretch_install/images/stretch_about.png /etc/hello-robot
 
 
 echo "Install stretch_body and stretch_factory via pip"
