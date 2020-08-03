@@ -231,6 +231,10 @@ git clone https://github.com/hello-robot/stretch_ros.git
 cd stretch_ros
 git pull
 
+echo "Updating meshes in stretch_ros to this robot batch"
+cd ~/catkin_ws/src/stretch_ros/stretch_description/meshes
+./update_meshes.py
+
 cd ~/catkin_ws/
 echo "Make the ROS repository"
 catkin_make
