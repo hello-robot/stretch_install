@@ -10,7 +10,6 @@ else
     echo "###########################################"
     echo "NEW INSTALLATION OF USER SOFTWARE"
     echo "UPDATE .bashrc FOR STRETCH_BODY"
-    echo "export EDITOR='emacs -nw'" >> ~/.bashrc
     echo "export HELLO_FLEET_PATH=${HOME}/stretch_user" >> ~/.bashrc
     echo "export HELLO_FLEET_ID=${HELLO_FLEET_ID}">> ~/.bashrc
     echo "export PATH=\${PATH}:~/.local/bin" >> ~/.bashrc
