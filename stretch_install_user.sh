@@ -110,6 +110,12 @@ echo "This is unlikely to take effect until you log out and log back in."
 echo "Done."
 echo ""
 
+echo "Adding user hello to the input group to access input devices (e.g. gamepad)..."
+sudo adduser $USER input
+echo "This is unlikely to take effect until you log out and log back in."
+echo "Done."
+echo ""
+
 echo "DONE WITH ADDITIONAL INSTALLATION STRETCH_BODY"
 echo "###########################################"
 echo ""
