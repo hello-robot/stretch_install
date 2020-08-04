@@ -51,12 +51,6 @@ git clone https://github.com/hello-robot/stretch_deep_perception_models
 cd stretch_deep_perception_models
 git pull
 
-echo "Retrieving deepspeech models into standard location."
-cd ~/stretch_user/models
-wget https://github.com/mozilla/DeepSpeech/releases/download/v0.6.1/deepspeech-0.6.1-models.tar.gz
-tar -xvf deepspeech-0.6.1-models.tar.gz
-rm deepspeech-0.6.1-models.tar.gz
-
 
 echo "Setting up local copy of robot factory data if not already there"
 #Take care to not copy over existing user data if doing update
@@ -127,7 +121,7 @@ echo "Install pip Python profiler output viewer (SnakeViz)"
 python -m pip install --user snakeviz
 
 echo "Install pip Python packages for Respeaker and speech recognition"
-python -m pip install --user pyusb pyaudio SpeechRecognition pixel-ring click deepspeech-tflite
+python -m pip install --user pyusb pyaudio SpeechRecognition pixel-ring click
 cd ~/repos/usb_4_mic_array/
 echo " - Flashing Respeaker with 6 channel firmware"
 sudo python2 dfu.py --download 6_channels_firmware.bin
