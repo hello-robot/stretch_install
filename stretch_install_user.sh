@@ -1,15 +1,26 @@
 #!/bin/bash
 
-#Current issues
-# python -m pip install --user numba
-# catkin  - csm
 
-
-echo "Setting up Stretch new user account"
-
+if [ "$(ls -A ~/stretch_user)" ]; then
+    echo "###########################################"
+    echo "UPDATING USER SOFTWARE"
+    UPDATING=true
+else
+    UPDATING=false
+    echo "###########################################"
+    echo "NEW INSTALLATION OF USER SOFTWARE"
+    echo "UPDATE .bashrc FOR STRETCH_BODY"
+    echo "export HELLO_FLEET_PATH=${HOME}/stretch_user" >> ~/.bashrc
+    echo "export HELLO_FLEET_ID=${HELLO_FLEET_ID}">> ~/.bashrc
+    echo "export PATH=\${PATH}:~/.local/bin" >> ~/.bashrc
+    echo "source .bashrc"
+    source ~/.bashrc
+    echo "Done."
+    echo ""
+fi
 
 echo "###########################################"
-echo "INSTALLATION OF STRETCH_BODY"
+echo "SETUP OF STRETCH_BODY"
 
 #Get fleet ID
 . /etc/hello-robot/hello-robot.conf
@@ -19,20 +30,38 @@ mkdir ~/stretch_user
 mkdir ~/stretch_user/log
 mkdir ~/stretch_user/debug
 mkdir ~/stretch_user/maps
-
+mkdir ~/stretch_user/models
 
 echo "Cloning stretch_install repository into standard location."
 cd ~/repos/
 git clone https://github.com/hello-robot/stretch_install.git
+cd stretch_install
+git pull
+
+echo "Cloning stretch_install/respeaker repositories into standard location."
+cd ~/repos/
+git clone https://github.com/respeaker/usb_4_mic_array.git
+cd usb_4_mic_array
+git pull
+
 
 echo "Cloning stretch_deep_perception_models into standard location."
 cd ~/stretch_user
 git clone https://github.com/hello-robot/stretch_deep_perception_models
+cd stretch_deep_perception_models
+git pull
 
-echo "Setting up local copy of robot factory data"
-cp -rf /etc/hello-robot/$HELLO_FLEET_ID ~/stretch_user
-chmod a-w ~/stretch_user/$HELLO_FLEET_ID/udev/*.rules
-chmod a-w ~/stretch_user/$HELLO_FLEET_ID/calibration_steppers/*.yaml
+
+echo "Setting up local copy of robot factory data if not already there"
+#Take care to not copy over existing user data if doing update
+
+if [ "$UPDATING" = true ]; then
+     echo "stretch_user data present: not updating"
+else
+    cp -rf /etc/hello-robot/$HELLO_FLEET_ID ~/stretch_user
+    chmod a-w ~/stretch_user/$HELLO_FLEET_ID/udev/*.rules
+    chmod a-w ~/stretch_user/$HELLO_FLEET_ID/calibration_steppers/*.yaml
+fi
 
 # set up the robot's code to run automatically on boot
 echo "Setting up this machine to start the robot's code automatically on boot..."
@@ -43,14 +72,15 @@ cp ~/repos/stretch_install/factory/hello_robot_lrf_off.desktop ~/.config/autosta
 echo "Done."
 echo ""
 
-#echo "Removing stretch_install"
-#rm -rf stretch_install
+echo "Updating media assets"
+sudo cp ~/repos/stretch_install/images/stretch_about.png /etc/hello-robot
 
 
-echo "Install stretch_body via pip"
+echo "Install stretch_body and stretch_factory via pip"
 pip2 install hello-robot-stretch-body
 pip2 install hello-robot-stretch-body-tools
 pip3 install hello-robot-stretch-body-tools-py3
+pip2 install hello-robot-stretch-factory
 
 #Other packages required by stretch_body
 echo "Install PyYaml via pip"
@@ -61,22 +91,6 @@ echo "Install drawnow via pip"
 python -m pip install drawnow
 echo "Install rplidar via pip"
 python -m pip install rplidar
-
-echo "Setting up .bashrc"
-echo "export EDITOR='emacs -nw'" >> ~/.bashrc
-echo "export HELLO_FLEET_PATH=${HOME}/stretch_user" >> ~/.bashrc
-echo "export HELLO_FLEET_ID=${HELLO_FLEET_ID}">> ~/.bashrc
-echo "export PATH=\${PATH}:~/.local/bin" >> ~/.bashrc
-echo "source .bashrc"
-source ~/.bashrc
-echo "Done."
-echo ""
-
-echo "Install tools for system QC and bringup "
-pip2 install gspread
-pip2 install gspread-formatting
-pip2 install oauth2client
-
 
 echo "Adding user hello to the dialout group to access Arduino..."
 sudo adduser $USER dialout
@@ -90,6 +104,12 @@ echo "This is unlikely to take effect until you log out and log back in."
 echo "Done."
 echo ""
 
+echo "Adding user hello to the input group to access input devices (e.g. gamepad)..."
+sudo adduser $USER input
+echo "This is unlikely to take effect until you log out and log back in."
+echo "Done."
+echo ""
+
 echo "DONE WITH ADDITIONAL INSTALLATION STRETCH_BODY"
 echo "###########################################"
 echo ""
@@ -99,8 +119,13 @@ echo "###########################################"
 echo "INSTALLATION OF ADDITIONAL PIP PACKAGES"
 echo "Install pip Python profiler output viewer (SnakeViz)"
 python -m pip install --user snakeviz
+
 echo "Install pip Python packages for Respeaker and speech recognition"
-python -m pip install --user pyusb SpeechRecognition pixel-ring click
+python -m pip install --user pyusb pyaudio SpeechRecognition pixel-ring click
+cd ~/repos/usb_4_mic_array/
+echo " - Flashing Respeaker with 6 channel firmware"
+sudo python2 dfu.py --download 6_channels_firmware.bin
+
 echo "Install pip Python CMA-ES optimization package"
 python -m pip install --user cma
 echo "Install latest version of Python OpenCV via pip"
@@ -149,17 +174,20 @@ echo ""
 
 echo "###########################################"
 echo "INSTALLATION OF ROS WORKSAPCE"
-
-# update .bashrc before using catkin tools
-echo "UPDATE .bashrc for ROS"
-echo "source /opt/ros/melodic/setup.bash" >> ~/.bashrc
-echo "add catkin development workspace overlay to .bashrc"
-echo "source ~/catkin_ws/devel/setup.bash" >> ~/.bashrc
-echo "source .bashrc"
-source ~/.bashrc
-source /opt/ros/melodic/setup.bash
-echo "DONE UPDATING .bashrc"
-echo ""
+ # update .bashrc before using catkin tools
+if [ "$UPDATING" = true ]; then
+     echo "Updating: Not updating ROS in .bashrc"
+else
+    echo "UPDATE .bashrc for ROS"
+    echo "source /opt/ros/melodic/setup.bash" >> ~/.bashrc
+    echo "add catkin development workspace overlay to .bashrc"
+    echo "source ~/catkin_ws/devel/setup.bash" >> ~/.bashrc
+    echo "source .bashrc"
+    source ~/.bashrc
+    source /opt/ros/melodic/setup.bash
+    echo "DONE UPDATING .bashrc"
+    echo ""
+fi
 
 # create the ROS workspace
 # see http://wiki.ros.org/ROS/Tutorials/InstallingandConfiguringROSEnvironment
@@ -177,8 +205,12 @@ echo ""
 # install ros_numpy from github
 echo "INSTALL ROS_NUMPY FROM GITHUB"
 cd ~/catkin_ws/src/
+
 echo "Cloning the ros_numpy github repository."
 git clone https://github.com/eric-wieser/ros_numpy.git
+cd ros_numpy
+git pull
+
 echo "Make ROS package"
 cd ~/catkin_ws/
 catkin_make
@@ -192,8 +224,16 @@ echo ""
 # clone the Hello Robot ROS repository
 echo "Install the Hello Robot ROS repository"
 cd ~/catkin_ws/src/
-echo "Clone the github repository"
+
+echo "Cloning stretch_ros repository"
 git clone https://github.com/hello-robot/stretch_ros.git
+cd stretch_ros
+git pull
+
+echo "Updating meshes in stretch_ros to this robot batch"
+cd ~/catkin_ws/src/stretch_ros/stretch_description/meshes
+./update_meshes.py
+
 cd ~/catkin_ws/
 echo "Make the ROS repository"
 catkin_make
@@ -203,14 +243,18 @@ echo "Install ROS packages. This is important for using Python modules."
 catkin_make install
 echo ""
 
-echo "Setup calibrated robot URDF"
-rosrun stretch_calibration update_uncalibrated_urdf.sh
-#This will grab the latest URDF and calibration files from ~/stretch_user
-#rosrun stretch_calibration update_with_most_recent_calibration.sh
-#Force to run interactive so $HELLO_FLEET_ID is found
-echo "This may fail if doing initial robot bringup. That is OK."
-bash -i ~/catkin_ws/stretch_ros/stretch_calibration/nodes/update_with_most_recent_calibration.sh
-echo "--Done--"
+if [ "$UPDATING" = true ]; then
+    echo "Not updating URDF"
+else
+    echo "Setup calibrated robot URDF"
+    rosrun stretch_calibration update_uncalibrated_urdf.sh
+    #This will grab the latest URDF and calibration files from ~/stretch_user
+    #rosrun stretch_calibration update_with_most_recent_calibration.sh
+    #Force to run interactive so $HELLO_FLEET_ID is found
+    echo "This may fail if doing initial robot bringup. That is OK."
+    bash -i ~/catkin_ws/stretch_ros/stretch_calibration/nodes/update_with_most_recent_calibration.sh
+    echo "--Done--"
+fi
 
 # compile Cython code
 echo "Compiling Cython code"
@@ -223,6 +267,9 @@ echo "INSTALL SCAN_TOOLS FROM GITHUB"
 cd ~/catkin_ws/
 echo "Cloning the csm github repository."
 git clone https://github.com/AndreaCensi/csm
+cd csm
+git pull
+
 echo "Handle csm dependencies."
 cd ~/catkin_ws/
 rosdep update
@@ -237,6 +284,9 @@ sudo make install
 echo "Cloning the scan_tools github repository."
 cd ~/catkin_ws/src/
 git clone https://github.com/ccny-ros-pkg/scan_tools.git
+cd scan_tools
+git pull
+
 echo "Make scan_tools."
 cd ~/catkin_ws/
 catkin_make
