@@ -298,12 +298,6 @@ echo "DONE WITH ADDITIONAL ADDITIONAL PIP PACKAGES"
 echo "###########################################"
 echo ""
 
-echo "The IP address for this machine follows:"
-curl ifconfig.me
-echo ""
-echo "Make it a static IP and then use it for SSH and VNC."
-echo "Done!"
-
 echo "DONE WITH STRETCH_USER_INSTALL"
 echo "###########################################"
 echo ""
