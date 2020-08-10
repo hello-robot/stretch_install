@@ -121,7 +121,7 @@ echo "Install pip Python profiler output viewer (SnakeViz)"
 python -m pip install --user snakeviz
 
 echo "Install pip Python packages for Respeaker and speech recognition"
-python -m pip install --user pyusb pyaudio SpeechRecognition pixel-ring click
+python -m pip install --user pyusb SpeechRecognition pixel-ring click
 cd ~/repos/usb_4_mic_array/
 echo " - Flashing Respeaker with 6 channel firmware"
 sudo python2 dfu.py --download 6_channels_firmware.bin
@@ -297,12 +297,6 @@ echo ""
 echo "DONE WITH ADDITIONAL ADDITIONAL PIP PACKAGES"
 echo "###########################################"
 echo ""
-
-echo "The IP address for this machine follows:"
-curl ifconfig.me
-echo ""
-echo "Make it a static IP and then use it for SSH and VNC."
-echo "Done!"
 
 echo "DONE WITH STRETCH_USER_INSTALL"
 echo "###########################################"
