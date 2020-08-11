@@ -1,5 +1,6 @@
 #!/bin/bash
 
+. /etc/hello-robot/hello-robot.conf
 
 if [ "$(ls -A ~/stretch_user)" ]; then
     echo "###########################################"
