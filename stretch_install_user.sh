@@ -75,23 +75,6 @@ echo ""
 echo "Updating media assets"
 sudo cp ~/repos/stretch_install/images/stretch_about.png /etc/hello-robot
 
-
-echo "Install stretch_body and stretch_factory via pip"
-pip2 install hello-robot-stretch-body
-pip2 install hello-robot-stretch-body-tools
-pip3 install hello-robot-stretch-body-tools-py3
-pip2 install hello-robot-stretch-factory
-
-#Other packages required by stretch_body
-echo "Install PyYaml via pip"
-python -m pip install PyYaml
-echo "Install inputs via pip"
-python -m pip install inputs
-echo "Install drawnow via pip"
-python -m pip install drawnow
-echo "Install rplidar via pip"
-python -m pip install rplidar
-
 echo "Adding user hello to the dialout group to access Arduino..."
 sudo adduser $USER dialout
 echo "This is unlikely to take effect until you log out and log back in."
@@ -116,58 +99,23 @@ echo ""
 
 
 echo "###########################################"
-echo "INSTALLATION OF ADDITIONAL PIP PACKAGES"
-echo "Install pip Python profiler output viewer (SnakeViz)"
-python -m pip install --user snakeviz
+echo "INSTALLATION OF PIP PACKAGES"
+echo ""
+echo "Upgrade pip3"
+python3 -m pip install --user --upgrade pip
 
-echo "Install pip Python packages for Respeaker and speech recognition"
-python -m pip install --user pyusb SpeechRecognition pixel-ring click
+echo "Install stretch_body and stretch_factory via pip"
+python -m pip install hello-robot-stretch-body
+python -m pip install hello-robot-stretch-body-tools
+python3 -m pip install hello-robot-stretch-body-tools-py3
+python -m pip install hello-robot-stretch-factory
+
 cd ~/repos/usb_4_mic_array/
 echo " - Flashing Respeaker with 6 channel firmware"
 sudo python2 dfu.py --download 6_channels_firmware.bin
 
-echo "Install pip Python CMA-ES optimization package"
-python -m pip install --user cma
-echo "Install latest version of Python OpenCV via pip"
-python -m pip install --user opencv-contrib-python
-echo "Install colorama via pip"
-python -m pip install --user colorama
-echo "Install numba via pip using pip_constraints.txt file to handle llvmlite version issue"
-python -m pip install --user llvmlite==0.31.0 numba
-echo "Install scikit-image via pip"
-python -m pip install --user scikit-image
-echo "Install Open3D."
-echo "WARNING: THIS MAY BE INCOMPATIBLE WITH ROSBRIDGE AND WEB TELEOPERATION DUE TO TORNADO PACKAGE INSTALLATION"
-python -m pip install --user open3d
-echo "Install SciPy and related software with pip for recent versions" 
-python -m pip install --user numpy scipy matplotlib ipython jupyter pandas sympy nose
-# install D435i packages
-echo "INSTALL INTEL D435i"
-echo "Install D435i Python wrapper"
-python -m pip install --user pyrealsense2
-echo "DONE INSTALLING INTEL D435i"
 echo ""
-echo "DONE WITH ADDITIONAL ADDITIONAL PIP PACKAGES"
-echo "###########################################"
-echo ""
-
-echo "###########################################"
-echo "INSTALLATION OF PYTHON 3 PIP PACKAGES"
-echo ""
-echo "Upgrade pip3"
-python3 -m pip install --user --upgrade pip
-echo "Install urdfpy for Python 3 via pip3"
-python3 -m pip install --user urdfpy
-echo "Install Numba for Python 3 via pip3"
-python3 -m pip install --user numba
-echo "Install Python3 OpenCV with deep neural network (DNN) support via pip3"
-python3 -m pip install --user opencv-python-inference-engine
-echo "Install rospkg for Python 3 via pip3"
-python3 -m pip install --user rospkg
-echo "Install scipy for Python 3 via pip3"
-python3 -m pip install --user scipy
-echo ""
-echo "DONE WITH PYTHON 3 PIP PACKAGES"
+echo "DONE WITH PIP PACKAGES"
 echo "###########################################"
 echo ""
 
