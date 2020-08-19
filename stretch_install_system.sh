@@ -43,14 +43,16 @@ echo "INSTALLATION OF HARDWARE PACKAGES"
 # packages to support stretch_body
 echo "Installing lm-sensors"
 sudo apt-get install lm-sensors
-echo "Making and installing nvme"
-cd ~/
-git clone https://github.com/linux-nvme/nvme-cli.git
-cd nvme-cli/
-make
-sudo make install
-cd ..
-rm -rf nvme-cli
+if ! nvme_loc="$(type -p "nvme")" || [[ -z $nvme_loc ]]; then
+    echo "Making and installing nvme"
+    cd ~/
+    git clone https://github.com/linux-nvme/nvme-cli.git
+    cd nvme-cli/
+    make
+    sudo make install
+    cd ..
+    rm -rf nvme-cli
+fi
 echo "DONE WITH MAIN INSTALLATION OF HARDWARE PACKAGES"
 echo "###########################################"
 echo ""
