@@ -1,12 +1,14 @@
 #!/bin/bash
 
+#Get fleet ID
 
-if [ "$(ls -A ~/stretch_user)" ]; then
+if [ "$HELLO_FLEET_ID" ]; then
     echo "###########################################"
     echo "UPDATING USER SOFTWARE"
     UPDATING=true
 else
     UPDATING=false
+    . /etc/hello-robot/hello-robot.conf
     echo "###########################################"
     echo "NEW INSTALLATION OF USER SOFTWARE"
     echo "UPDATE .bashrc FOR STRETCH_BODY"
@@ -22,8 +24,6 @@ fi
 echo "###########################################"
 echo "SETUP OF STRETCH_BODY"
 
-#Get fleet ID
-. /etc/hello-robot/hello-robot.conf
 echo "Setting up new user for robot $HELLO_FLEET_ID"
 mkdir ~/repos
 mkdir ~/stretch_user
@@ -58,6 +58,7 @@ echo "Setting up local copy of robot factory data if not already there"
 if [ "$UPDATING" = true ]; then
      echo "stretch_user data present: not updating"
 else
+    echo "Setting up stretch user $HELLO_FLEET_ID"
     cp -rf /etc/hello-robot/$HELLO_FLEET_ID ~/stretch_user
     chmod a-w ~/stretch_user/$HELLO_FLEET_ID/udev/*.rules
     chmod a-w ~/stretch_user/$HELLO_FLEET_ID/calibration_steppers/*.yaml
@@ -180,7 +181,7 @@ git pull
 
 echo "Updating meshes in stretch_ros to this robot batch"
 cd ~/catkin_ws/src/stretch_ros/stretch_description/meshes
-./update_meshes.py
+. ~/catkin_ws/src/stretch_ros/stretch_description/meshes/update_meshes.py
 
 cd ~/catkin_ws/
 echo "Make the ROS repository"
