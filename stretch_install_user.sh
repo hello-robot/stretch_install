@@ -19,6 +19,8 @@ else
     source ~/.bashrc
     echo "Done."
     echo ""
+    export HELLO_FLEET_PATH=${HOME}/stretch_user
+    export HELLO_FLEET_ID=${HELLO_FLEET_ID}
 fi
 
 echo "###########################################"
@@ -180,8 +182,7 @@ cd stretch_ros
 git pull
 
 echo "Updating meshes in stretch_ros to this robot batch"
-cd ~/catkin_ws/src/stretch_ros/stretch_description/meshes
-. ~/catkin_ws/src/stretch_ros/stretch_description/meshes/update_meshes.py
+~/catkin_ws/src/stretch_ros/stretch_description/meshes/update_meshes.py
 
 cd ~/catkin_ws/
 echo "Make the ROS repository"
