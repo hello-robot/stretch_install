@@ -3,7 +3,8 @@
 echo "Run this installation for fresh Ubuntu installs only."
 #####################################################
 DIR=`pwd`
-
+echo "Robot name is:"
+hostname
 echo -n "Enter fleet id xxxx for stretch-re1-xxxx >"
 read id
 pre="stretch-re1-"
@@ -33,14 +34,13 @@ rm -rf stretch_fleet
 
 #Allow shutdown without password
 
-
 #Startup scripts
 sudo cp $DIR/hello_robot_audio.sh /usr/bin
 sudo cp $DIR/hello_robot_lrf_off.py /usr/bin
 sudo cp $DIR/hello_robot_xbox_teleop.sh /usr/bin
 sudo cp $DIR/hello_sudoers /etc/sudoers.d/
 
-echo "Done."
+echo "Done with new robot setup."
 echo ""
 
 
