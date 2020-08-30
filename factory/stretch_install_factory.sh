@@ -11,13 +11,14 @@ echo "#############################################"
 
 timestamp=`date '+%Y%m%d%H%M'`;
 logdir="$HOME/stretch_user/log/$timestamp"
-logfile_system="$logdir/stretch_system_update.txt"
-logfile_user="$logdir/stretch_user_update.txt"
-logfile_qc="$logdir/stretch_user_update.txt"
+logfile_system="$logdir/stretch_system_install.txt"
+logfile_user="$logdir/stretch_user_install.txt"
+logfile_qc="$logdir/stretch_qc_install.txt"
 logzip="$logdir/stretch_logs.zip"
 echo "#############################################"
 echo "Generating log $logfile_system"
 echo "Generating log $logfile_user"
+echo "Generating log $logfile_qc"
 echo "#############################################"
 echo ""
 
