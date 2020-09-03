@@ -134,7 +134,7 @@ else
     echo "add catkin development workspace overlay to .bashrc"
     echo "source ~/catkin_ws/devel/setup.bash" >> ~/.bashrc
     echo "set log level for realsense camera"
-    echo "export LRS_LOG_LEVEL=None" >> ~/.bashrc
+    echo "export LRS_LOG_LEVEL=None #Debug" >> ~/.bashrc
     echo "source .bashrc"
     source ~/.bashrc
     source /opt/ros/melodic/setup.bash
