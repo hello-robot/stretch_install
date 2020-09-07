@@ -1,6 +1,7 @@
 #!/bin/bash
 
 #####################################################
+echo "Starting STRETCH_INSTALL_QC"
 echo "To be run prior to system bringup at the factory "
 
 read -p "Proceed with installation (y/n)?" -n 1 -r
@@ -10,7 +11,7 @@ then
     exit 1
 fi
 
-sudo apt install --yes chromium-browser
+#sudo apt install --yes chromium-browser
 sudo snap install pycharm-community --classic
 pip2 install hello-robot-stretch-factory
 pip2 install gspread
