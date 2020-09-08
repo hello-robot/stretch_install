@@ -4,12 +4,6 @@
 echo "Starting STRETCH_INSTALL_QC"
 echo "To be run prior to system bringup at the factory "
 
-read -p "Proceed with installation (y/n)?" -n 1 -r
-echo
-if [[ ! $REPLY =~ ^[Yy]$ ]]
-then
-    exit 1
-fi
 
 #sudo apt install --yes chromium-browser
 sudo snap install pycharm-community --classic
