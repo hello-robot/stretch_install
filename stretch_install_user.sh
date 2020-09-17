@@ -108,10 +108,10 @@ echo "Upgrade pip3"
 python3 -m pip install --user --upgrade pip
 
 echo "Install stretch_body and stretch_factory via pip"
-python -m pip install hello-robot-stretch-body
-python -m pip install hello-robot-stretch-body-tools
-python3 -m pip install hello-robot-stretch-body-tools-py3
-python -m pip install hello-robot-stretch-factory
+python -m pip install hello-robot-stretch-body pyrsistent==0.16.0
+python -m pip install hello-robot-stretch-body-tools pyrsistent==0.16.0
+python3 -m pip install hello-robot-stretch-body-tools-py3 pyrsistent==0.16.0
+python -m pip install hello-robot-stretch-factory pyrsistent==0.16.0
 
 cd ~/repos/usb_4_mic_array/
 echo " - Flashing Respeaker with 6 channel firmware"
