@@ -23,6 +23,7 @@ sudo mv hello-robot.conf /etc/hello-robot
 sudo cp $DIR/../images/stretch_about.png /etc/hello-robot
 
 cd ~/
+git config --global credential.helper store
 git clone https://github.com/hello-robot/stretch_fleet.git
 sudo cp -rf ~/stretch_fleet/robots/$HELLO_FLEET_ID /etc/hello-robot
 
