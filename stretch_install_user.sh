@@ -155,15 +155,6 @@ rospack profile
 echo "Done."
 echo ""
 
-# install ros_numpy from github
-echo "INSTALL ROS_NUMPY FROM GITHUB"
-cd ~/catkin_ws/src/
-
-echo "Cloning the ros_numpy github repository."
-git clone https://github.com/eric-wieser/ros_numpy.git
-cd ros_numpy
-git pull
-
 echo "Make ROS package"
 cd ~/catkin_ws/
 catkin_make

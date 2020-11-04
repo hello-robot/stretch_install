@@ -100,6 +100,8 @@ sudo apt --yes install ros-melodic-rviz-imu-plugin ros-melodic-imu-filter-madgwi
 #sudo apt --yes install ros-melodic-robot-pose-ekf
 echo "Install robot localization package for use with IMU and wheel odometry"
 sudo apt --yes install ros-melodic-robot-localization
+echo "Install ros_numpy package for msgs conversions"
+sudo apt --yes install ros-melodic-ros-numpy
 echo "Install ROS packages for Robotis Dynamixel actuators"
 sudo apt --yes install ros-melodic-dynamixel-sdk ros-melodic-dynamixel-workbench
 echo "Install ROS control packages (primarily for simulations with Gazebo)"
