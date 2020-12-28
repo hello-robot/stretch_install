@@ -24,9 +24,11 @@ sudo apt install --yes typora
 sudo apt install --yes mkdocs
 sudo apt install --yes chromium-browser
 #Install arduino
-~/stretch_install/factory/arduino_install.sh -c 64 1.8.12 ~/
-cd ~/arduino
-sudo ./install.sh
+
+curl -fsSL https://raw.githubusercontent.com/arduino/arduino-cli/master/install.sh | BINDIR=.local/bin/ sh
+arduino-cli config init
+arduino-cli core install arduino:samd
+cp arduino-cli.yaml ~/.arduino15/
 
 #Install PyCharm
 sudo snap install pycharm-community --classic
