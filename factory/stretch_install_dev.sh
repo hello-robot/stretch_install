@@ -25,7 +25,7 @@ sudo apt install --yes mkdocs
 sudo apt install --yes chromium-browser
 #Install arduino
 
-curl -fsSL https://raw.githubusercontent.com/arduino/arduino-cli/master/install.sh | BINDIR=.local/bin/ sh
+curl -fsSL https://raw.githubusercontent.com/arduino/arduino-cli/master/install.sh | BINDIR=$HOME/.local/bin/ sh
 arduino-cli config init
 arduino-cli core install arduino:samd
 cp arduino-cli.yaml ~/.arduino15/
