@@ -113,6 +113,10 @@ python -m pip install hello-robot-stretch-body-tools
 python3 -m pip install hello-robot-stretch-body-tools-py3
 python -m pip install hello-robot-stretch-factory
 
+echo "Install Pathlib"
+python -m pip install pathlib
+python3 -m pip install pathlib
+
 cd ~/repos/usb_4_mic_array/
 echo " - Flashing Respeaker with 6 channel firmware"
 sudo python2 dfu.py --download 6_channels_firmware.bin
