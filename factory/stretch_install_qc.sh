@@ -10,8 +10,8 @@ sudo snap install pycharm-community --classic
 pip2 install hello-robot-stretch-factory
 pip2 install gspread
 pip2 install gspread-formatting
-pip2 install oauth2client
-
+pip2 install oauth2client rsa==3.4
+#oauth2client-4.1.3
 #pip uninstall stretch-body
 echo "Cloning repos."
 cd ~/repos/
