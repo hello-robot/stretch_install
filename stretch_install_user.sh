@@ -108,6 +108,7 @@ echo "Upgrade pip3"
 python3 -m pip install --user --upgrade pip
 
 echo "Install stretch_body and stretch_factory via pip"
+python -m pip install setuptools-scm==5.0.2
 python -m pip install hello-robot-stretch-body
 python -m pip install hello-robot-stretch-body-tools
 python3 -m pip install hello-robot-stretch-body-tools-py3
