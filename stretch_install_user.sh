@@ -68,7 +68,7 @@ fi
 
 # set up the robot's code to run automatically on boot
 echo "Setting up this machine to start the robot's code automatically on boot..."
-mkdir ~/.config/autostart
+mkdir -p ~/.config/autostart
 cp ~/repos/stretch_install/factory/hello_robot_audio.desktop ~/.config/autostart/
 cp ~/repos/stretch_install/factory/hello_robot_xbox_teleop.desktop ~/.config/autostart/
 cp ~/repos/stretch_install/factory/hello_robot_lrf_off.desktop ~/.config/autostart/
