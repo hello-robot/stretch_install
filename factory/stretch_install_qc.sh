@@ -19,4 +19,5 @@ git clone https://github.com/hello-robot/stretch_fleet.git
 git clone https://github.com/hello-robot/stretch_fleet_tools.git
 echo "Done."
 echo ""
-
+echo "Installing Arduino CLI"
+./stretch_install_arduino.sh
