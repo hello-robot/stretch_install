@@ -10,10 +10,6 @@ sudo apt --yes update
 sudo apt --yes upgrade
 echo "Done."
 echo ""
-echo "Install Python"
-sudo apt --yes install python ipython
-echo "Install Pip"
-sudo apt --yes install python-pip
 echo "Install Git"
 sudo apt --yes install git
 echo "Install rpl via apt"
@@ -30,7 +26,7 @@ sudo apt --yes install git wget
 echo "Install vim"
 sudo apt --yes install vim
 echo "Install Python packages"
-sudo apt --yes install python-serial
+sudo apt --yes install python3-serial
 echo "Install GSL for csm"
 sudo apt --yes install libgsl0-dev
 echo "DONE WITH MAIN INSTALLATION OF OS PACKAGES"
@@ -58,81 +54,81 @@ echo "###########################################"
 echo ""
 
 
-# Install ROS Melodic
-# see http://wiki.ros.org/melodic/Installation/Ubuntu#Installation for details
+# Install ROS Noetic
+# see http://wiki.ros.org/noetic/Installation/Ubuntu for details
 echo "###########################################"
-echo "MAIN INSTALLATION OF ROS MELODIC"
+echo "MAIN INSTALLATION OF ROS NOETIC"
 echo "Setting up sources.list"
 sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'
 echo "Setting up keys"
 # New key as of Jun 8, 2019
-sudo apt-key adv --keyserver hkp://ha.pool.sks-keyservers.net:80 --recv-key C1CF6E31E6BADE8868B172B4F42ED6FBAB17C654
+sudo apt-key adv --keyserver 'hkp://keyserver.ubuntu.com:80' --recv-key C1CF6E31E6BADE8868B172B4F42ED6FBAB17C654
 echo "apt update"
 sudo apt --yes update
 echo "Installating Desktop-Full Version"
-sudo apt --yes install ros-melodic-desktop-full
+sudo apt --yes install ros-noetic-desktop-full
 echo "Initialize rosdep"
-sudo apt --yes install python-rosdep
+sudo apt --yes install python3-rosdep
 sudo rosdep init
 rosdep update
 echo "Install additional ROS packages"
-sudo apt --yes install python-rosinstall python-rosinstall-generator python-wstool build-essential
+sudo apt --yes install python3-rosinstall python3-rosinstall-generator python3-wstool build-essential
 echo "Source .bash file"
-source /opt/ros/melodic/setup.bash
-echo "DONE WITH MAIN INSTALLATION OF ROS MELODIC"
+source /opt/ros/noetic/setup.bash
+echo "DONE WITH MAIN INSTALLATION OF ROS NOETIC"
 echo "###########################################"
 echo ""
 
 ################ Additional packages#####################################
 echo "###########################################"
-echo "ADDITIONAL INSTALLATION OF ROS MELODIC"
+echo "ADDITIONAL INSTALLATION OF ROS NOETIC"
 echo "Install packages to work with URDFs"
 sudo apt --yes install liburdfdom-tools meshlab
 echo "Install cheese for camera testing"
 sudo apt --yes install cheese
 echo "Install joint state GUI package"
-sudo apt --yes install ros-melodic-joint-state-publisher-gui
+sudo apt --yes install ros-noetic-joint-state-publisher-gui
 echo "Install TF2 related packages"
-sudo apt --yes install ros-melodic-tf2-tools
+sudo apt --yes install ros-noetic-tf2-tools
 echo "Install IMU visualization plugin for RViz and IMU filter"
-sudo apt --yes install ros-melodic-rviz-imu-plugin ros-melodic-imu-filter-madgwick
+sudo apt --yes install ros-noetic-rviz-imu-plugin ros-noetic-imu-filter-madgwick
 #echo "Install robot pose filter for use with IMU and wheel odometry"
-#sudo apt --yes install ros-melodic-robot-pose-ekf
+#sudo apt --yes install ros-noetic-robot-pose-ekf
 echo "Install robot localization package for use with IMU and wheel odometry"
-sudo apt --yes install ros-melodic-robot-localization
+sudo apt --yes install ros-noetic-robot-localization
 echo "Install ros_numpy package for msgs conversions"
-sudo apt --yes install ros-melodic-ros-numpy
+sudo apt --yes install ros-noetic-ros-numpy
 echo "Install ROS packages for Robotis Dynamixel actuators"
-sudo apt --yes install ros-melodic-dynamixel-sdk ros-melodic-dynamixel-workbench
+sudo apt --yes install ros-noetic-dynamixel-sdk ros-noetic-dynamixel-workbench
 echo "Install ROS control packages (primarily for simulations with Gazebo)"
-sudo apt --yes install ros-melodic-ros-control ros-melodic-ros-controllers
+sudo apt --yes install ros-noetic-ros-control ros-noetic-ros-controllers
 echo "Install ROS RGB-D package and dynamic reconfiguration package for use with Intel D435i"
-sudo apt --yes install ros-melodic-rgbd-launch ros-melodic-ddynamic-reconfigure-python
+sudo apt --yes install ros-noetic-rgbd-launch ros-noetic-ddynamic-reconfigure-python3
 echo "Install ROS teleop packages"
-sudo apt --yes install ros-melodic-teleop-twist-keyboard
+sudo apt --yes install ros-noetic-teleop-twist-keyboard
 #echo "Install ROS navigation and mapping packages"
-#sudo apt --yes install ros-melodic-move-base ros-melodic-map-server ros-melodic-amcl ros-melodic-cartographer ros-melodic-cartographer-ros ros-melodic-cartographer-rviz
-sudo apt --yes install ros-melodic-move-base ros-melodic-move-base-msgs
-sudo apt --yes install ros-melodic-gmapping ros-melodic-navigation
+#sudo apt --yes install ros-noetic-move-base ros-noetic-map-server ros-noetic-amcl ros-noetic-cartographer ros-noetic-cartographer-ros ros-noetic-cartographer-rviz
+sudo apt --yes install ros-noetic-move-base ros-noetic-move-base-msgs
+sudo apt --yes install ros-noetic-gmapping ros-noetic-navigation
 #echo "Install ROS MoveIt! installation"
-#sudo apt --yes install ros-melodic-moveit
+#sudo apt --yes install ros-noetic-moveit
 # SMACH VIEWER HAS A BUG, SO NOT INSTALLING FOR NOW
 #echo "Install additional SMACH packages"
-#sudo apt install ros-melodic-smach-viewer
+#sudo apt install ros-noetic-smach-viewer
 echo "Install RPLidar A1M8 packages"
-sudo apt --yes install ros-melodic-rplidar-ros ros-melodic-rplidar-ros-dbgsym
+sudo apt --yes install ros-noetic-rplidar-ros ros-noetic-rplidar-ros-dbgsym
 echo "Install Respeaker and speech recognition packages"
-sudo apt --yes install ros-melodic-respeaker-ros ros-melodic-ros-speech-recognition
-echo "DONE WITH ADDITIONAL INSTALLATION OF ROS MELODIC"
+sudo apt --yes install ros-noetic-respeaker-ros ros-noetic-ros-speech-recognition
+echo "DONE WITH ADDITIONAL INSTALLATION OF ROS NOETIC"
 echo "###########################################"
 echo ""
 
 
 echo "###########################################"
 echo "INSTALLATION OF INTEL D435i"
-sudo apt --yes install ros-melodic-realsense2-camera ros-melodic-realsense2-description
+sudo apt --yes install ros-noetic-realsense2-camera ros-noetic-realsense2-description
 # "The following NEW packages will be installed:
-#  ros-melodic-ddynamic-reconfigure ros-melodic-librealsense2 ros-melodic-realsense2-camera"
+#  ros-noetic-ddynamic-reconfigure ros-noetic-librealsense2 ros-noetic-realsense2-camera"
 
 # UNCLEAR IF THE FOLLOWING COMMANDS ARE STILL NEEDED
 # # see https://github.com/IntelRealSense/librealsense/blob/master/doc/distribution_linux.md
@@ -148,50 +144,10 @@ sudo apt --yes update
 echo "Install D435i packages"
 sudo apt --yes install librealsense2-dkms librealsense2-utils librealsense2-dev librealsense2-dbg
 #######
-# NOTE: Use realsense-viewer to install the recommended firmware instead of the following commands.
+# NOTE: Use realsense-viewer to install the recommended firmware.
 #######
-# # attempt to install D435i firmware 
-# echo "Downloading D435i firmware Version: 5.11.6.250 Date: 6/4/2019"
-# echo "WARNING: THIS MAY NOT BE THE LATEST FIRMWARE"
-# mkdir -p ~/firmware/d435i
-# cd ~/firmware/d435i
-# wget https://downloadmirror.intel.com/28870/eng/D400_Series_Production_FW_5_11_6_250.zip
-# unzip D400_Series_Production_FW_5_11_6_250.zip 
-# echo "Installing D435i firmware installation software"
-# echo 'deb http://realsense-hw-public.s3.amazonaws.com/Debian/apt-repo xenial main' | sudo tee /etc/apt/sources.list.d/realsense-public.list
-# sudo apt-key adv --keyserver keys.gnupg.net --recv-key 6F3EFCDE
-# sudo apt --yes update 
-# sudo apt --yes install intel-realsense-dfu
-# echo "########################################################"
-# echo "WARNING: Please pay attention. This firmware upgrade script may not function properly on a new robot, since the bus and device numbers for the D435i may have changed. If this fails, you can find candidates using the following command: lsusb | grep Intel"
-# echo "Attempting to update D435i firmware automatically using the following command"
-# echo "intel-realsense-dfu -b 002 -d 003 -f -i Signed_Image_UVC_5_11_6_250.bin"
-# intel-realsense-dfu -b 002 -d 003 -f -i Signed_Image_UVC_5_11_6_250.bin
-# echo "########################################################"
 echo "DONE WITH INSTALLATION OF INTEL D435i"
 echo "###########################################"
 echo ""
 
-
-# echo "###########################################"
-# echo "INSTALLATION OF NETWORKING"
-# # set up SSH
-# echo "Setting up SSH..."
-# sudo apt --yes install ssh
-# # sudo emacs -nw /etc/ssh/sshd_config
-# # Change default port “#Port 22” -> “Port 32123”
-# echo "Changing SSH port to 32123..."
-# sudo sed -i 's/Port 22/Port 32123/g' /etc/ssh/sshd_config
-# sudo service ssh restart
-# echo "Done."
-# echo ""
-
-# echo "The IP address for this machine follows:"
-# curl ifconfig.me
-# echo ""
-# echo "Make it a static IP and then use it for SSH and VNC."
-# echo "Done!"
-# echo "DONE WITH INSTALLATION OF NETWORKING"
-# echo "###########################################"
-# echo ""
 

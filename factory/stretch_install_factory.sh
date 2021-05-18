@@ -27,8 +27,8 @@ cd $HOME/stretch_install
 ./stretch_install_system.sh |& tee $logfile_system
 cd $HOME/stretch_install
 ./stretch_install_user.sh |& tee $logfile_user
-cd $HOME/stretch_install/factory
-./stretch_install_qc.sh |& tee $logfile_qc
+# cd $HOME/stretch_install/factory
+# ./stretch_install_qc.sh |& tee $logfile_qc
 echo "Generating $logzip. Include with any support tickets."
 zip $logzip $logfile_system $logfile_user $logfile_qc
 echo ""

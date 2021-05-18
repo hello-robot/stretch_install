@@ -108,19 +108,15 @@ echo "Upgrade pip3"
 python3 -m pip install --user --upgrade pip
 
 echo "Install stretch_body and stretch_factory via pip"
-python -m pip install setuptools-scm==5.0.2
-python -m pip install hello-robot-stretch-body
-python -m pip install hello-robot-stretch-body-tools
+python3 -m pip install hello-robot-stretch-body
+python3 -m pip install hello-robot-stretch-body-tools
 python3 -m pip install hello-robot-stretch-body-tools-py3
-python -m pip install hello-robot-stretch-factory
+# python3 -m pip install hello-robot-stretch-factory
 
-echo "Install Pathlib"
-python -m pip install pathlib
-python3 -m pip install pathlib
-
-cd ~/repos/usb_4_mic_array/
-echo " - Flashing Respeaker with 6 channel firmware"
-sudo python2 dfu.py --download 6_channels_firmware.bin
+# TODO RE-ENABLED
+# cd ~/repos/usb_4_mic_array/
+# echo " - Flashing Respeaker with 6 channel firmware"
+# sudo python2 dfu.py --download 6_channels_firmware.bin
 
 echo ""
 echo "DONE WITH PIP PACKAGES"
@@ -135,14 +131,14 @@ if [ "$UPDATING" = true ]; then
      echo "Updating: Not updating ROS in .bashrc"
 else
     echo "UPDATE .bashrc for ROS"
-    echo "source /opt/ros/melodic/setup.bash" >> ~/.bashrc
+    echo "source /opt/ros/noetic/setup.bash" >> ~/.bashrc
     echo "add catkin development workspace overlay to .bashrc"
     echo "source ~/catkin_ws/devel/setup.bash" >> ~/.bashrc
     echo "set log level for realsense camera"
     echo "export LRS_LOG_LEVEL=None #Debug" >> ~/.bashrc
     echo "source .bashrc"
     source ~/.bashrc
-    source /opt/ros/melodic/setup.bash
+    source /opt/ros/noetic/setup.bash
     echo "DONE UPDATING .bashrc"
     echo ""
 fi
