@@ -83,7 +83,7 @@ echo ""
 echo "###########################################"
 echo "ADDITIONAL INSTALLATION OF ROS NOETIC"
 echo "Install packages to work with URDFs"
-sudo apt --yes install liburdfdom-tools meshlab
+sudo apt --yes install liburdfdom-tools meshlab ros-noetic-urdfdom-py
 echo "Install cheese for camera testing"
 sudo apt --yes install cheese
 echo "Install joint state GUI package"
