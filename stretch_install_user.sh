@@ -238,7 +238,17 @@ echo "Make sure new ROS packages are indexed"
 rospack profile
 echo ""
 
-echo "DONE WITH ADDITIONAL ADDITIONAL PIP PACKAGES"
+echo "Initialize URDF and controller calibration parameters to generic uncalibrated defaults."
+echo "Create uncalibrated URDF."
+rosrun stretch_calibration update_uncalibrated_urdf.sh
+rosrun stretch_description xacro_to_urdf.sh 
+echo "Copy factory defaults for controller calibration parameters."
+cp  `rospack find stretch_core`/config/controller_calibration_head_factory_default.yaml `rospack find stretch_core`/config/controller_calibration_head.yaml
+echo "Make sure new ROS packages are indexed"
+rospack profile
+echo ""
+
+echo "DONE WITH ROS WORKSPACE"
 echo "###########################################"
 echo ""
 
