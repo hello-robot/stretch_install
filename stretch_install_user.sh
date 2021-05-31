@@ -113,6 +113,7 @@ python -m pip install hello-robot-stretch-body
 python -m pip install hello-robot-stretch-body-tools
 python3 -m pip install hello-robot-stretch-body-tools-py3
 python -m pip install hello-robot-stretch-factory
+python -m pip install hello-robot-stretch-tool-share
 
 echo "Install Pathlib"
 python -m pip install pathlib
