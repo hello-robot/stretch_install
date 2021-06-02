@@ -117,8 +117,8 @@ sudo apt --yes install ros-noetic-gmapping ros-noetic-navigation
 #sudo apt install ros-noetic-smach-viewer
 echo "Install RPLidar A1M8 packages"
 sudo apt --yes install ros-noetic-rplidar-ros ros-noetic-rplidar-ros-dbgsym
-echo "Install Respeaker and speech recognition packages"
-sudo apt --yes install ros-noetic-respeaker-ros ros-noetic-ros-speech-recognition python3-pyaudio
+#echo "Install Respeaker and speech recognition packages"
+#sudo apt --yes install ros-noetic-respeaker-ros ros-noetic-ros-speech-recognition python3-pyaudio
 echo "DONE WITH ADDITIONAL INSTALLATION OF ROS NOETIC"
 echo "###########################################"
 echo ""
