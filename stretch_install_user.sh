@@ -238,7 +238,7 @@ echo "Make sure new ROS packages are indexed"
 rospack profile
 echo ""
 
-echo "INSTALL SCAN_TOOLS FROM GITHUB"
+echo "INSTALL SLAMTEC RPLIDAR ROS PACKAGE FROM GITHUB"
 echo "Cloning the Slamtec rplidar github repository."
 cd ~/catkin_ws/src
 git clone https://github.com/Slamtec/rplidar_ros.git
