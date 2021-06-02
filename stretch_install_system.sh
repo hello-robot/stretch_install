@@ -29,6 +29,8 @@ echo "Install Python packages"
 sudo apt --yes install python3-serial
 echo "Install GSL for csm"
 sudo apt --yes install libgsl0-dev
+echo "Install Cython for FUNMAP"
+sudo apt --yes install cython3
 echo "DONE WITH MAIN INSTALLATION OF OS PACKAGES"
 echo "###########################################"
 echo ""
