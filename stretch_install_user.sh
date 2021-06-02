@@ -238,6 +238,17 @@ echo "Make sure new ROS packages are indexed"
 rospack profile
 echo ""
 
+echo "INSTALL SCAN_TOOLS FROM GITHUB"
+echo "Cloning the Slamtec rplidar github repository."
+cd ~/catkin_ws/src
+git clone https://github.com/Slamtec/rplidar_ros.git
+echo "Make the Slamtec rplidar package."
+cd ~/catkin_ws
+catkin_make
+echo "Make sure new ROS packages are indexed."
+rospack profile
+echo ""
+
 echo "Initialize URDF and controller calibration parameters to generic uncalibrated defaults."
 echo "Create uncalibrated URDF."
 rosrun stretch_calibration update_uncalibrated_urdf.sh
