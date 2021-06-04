@@ -111,11 +111,12 @@ echo "Install stretch_body and stretch_factory via pip"
 # python3 -m pip install hello-robot-stretch-body
 # python3 -m pip install hello-robot-stretch-body-tools
 # python3 -m pip install hello-robot-stretch-body-tools-py3
+# python3 -m pip install hello-robot-stretch-factory
 python3 -m pip install dynamixel-sdk # TODO: move to setup.sh of stretch_body
 python3 -m pip install git+https://github.com/hello-robot/stretch_body.git@59134986786a9e57da7d6061ad95ed08c6d4699d#subdirectory=body
 python3 -m pip install git+https://github.com/hello-robot/stretch_body.git@59134986786a9e57da7d6061ad95ed08c6d4699d#subdirectory=tools
 python3 -m pip install git+https://github.com/hello-robot/stretch_body.git@59134986786a9e57da7d6061ad95ed08c6d4699d#subdirectory=tools_py3
-# python3 -m pip install hello-robot-stretch-factory
+python3 -m pip uninstall -y opencv-contrib-python
 
 # TODO RE-ENABLED
 # cd ~/repos/usb_4_mic_array/
