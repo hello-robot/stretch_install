@@ -73,8 +73,8 @@ echo "Initialize rosdep"
 sudo apt --yes install python3-rosdep
 sudo rosdep init
 rosdep update
-echo "Install additional ROS packages"
-sudo apt --yes install python3-rosinstall python3-rosinstall-generator python3-wstool build-essential
+# echo "Install additional ROS packages"
+# sudo apt --yes install python3-rosinstall python3-rosinstall-generator python3-wstool build-essential
 echo "Source .bash file"
 source /opt/ros/noetic/setup.bash
 echo "DONE WITH MAIN INSTALLATION OF ROS NOETIC"
@@ -101,14 +101,14 @@ sudo apt --yes install ros-noetic-robot-localization
 echo "Install ros_numpy package for msgs conversions"
 sudo apt --yes install ros-noetic-ros-numpy
 echo "Install ROS packages for Robotis Dynamixel actuators"
-sudo apt --yes install ros-noetic-dynamixel-sdk ros-noetic-dynamixel-workbench
+sudo apt --yes install ros-noetic-dynamixel-sdk
 echo "Install ROS control packages (primarily for simulations with Gazebo)"
 sudo apt --yes install ros-noetic-ros-control ros-noetic-ros-controllers
 echo "Install ROS RGB-D package and dynamic reconfiguration package for use with Intel D435i"
-sudo apt --yes install ros-noetic-rgbd-launch ros-noetic-ddynamic-reconfigure-python3
+sudo apt --yes install ros-noetic-rgbd-launch
 echo "Install ROS teleop packages"
 sudo apt --yes install ros-noetic-teleop-twist-keyboard
-#echo "Install ROS navigation and mapping packages"
+echo "Install ROS navigation and mapping packages"
 #sudo apt --yes install ros-noetic-move-base ros-noetic-map-server ros-noetic-amcl ros-noetic-cartographer ros-noetic-cartographer-ros ros-noetic-cartographer-rviz
 sudo apt --yes install ros-noetic-move-base ros-noetic-move-base-msgs
 sudo apt --yes install ros-noetic-gmapping ros-noetic-navigation
@@ -138,7 +138,7 @@ echo "INSTALL INTEL D435i"
 echo "Register the server's public key"
 sudo apt-key adv --keyserver keys.gnupg.net --recv-key F6E65AC044F831AC80A06380C8B3A55A6F3EFCDE || sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-key F6E65AC044F831AC80A06380C8B3A55A6F3EFCDE
 echo "Add the server to the list of repositories"
-sudo add-apt-repository "deb http://realsense-hw-public.s3.amazonaws.com/Debian/apt-repo bionic main" -u
+sudo add-apt-repository "deb https://librealsense.intel.com/Debian/apt-repo focal main" -u
 echo "Remove old records in case of upgrading"
 sudo rm -f /etc/apt/sources.list.d/realsense-public.list
 echo "Update"
