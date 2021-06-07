@@ -177,7 +177,7 @@ echo "Install the Hello Robot ROS repository"
 cd ~/catkin_ws/src/
 
 echo "Cloning stretch_ros repository"
-git clone https://github.com/hello-robot/stretch_ros.git
+git clone https://github.com/hello-robot/stretch_ros.git -b dev/noetic
 cd stretch_ros
 git pull
 
