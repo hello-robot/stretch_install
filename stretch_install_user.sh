@@ -208,6 +208,7 @@ fi
 
 # compile Cython code
 echo "Compiling Cython code"
+source ~/.bashrc
 cd ~/catkin_ws/src/stretch_ros/stretch_funmap/src/stretch_funmap
 ./compile_cython_code.sh
 echo "Done"
