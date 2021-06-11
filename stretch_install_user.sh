@@ -201,7 +201,7 @@ else
     #rosrun stretch_calibration update_with_most_recent_calibration.sh
     #Force to run interactive so $HELLO_FLEET_ID is found
     echo "This may fail if doing initial robot bringup. That is OK."
-    bash -i ~/catkin_ws/stretch_ros/stretch_calibration/nodes/update_with_most_recent_calibration.sh
+    bash -i ~/catkin_ws/src/stretch_ros/stretch_calibration/nodes/update_with_most_recent_calibration.sh
     echo "--Done--"
 fi
 
