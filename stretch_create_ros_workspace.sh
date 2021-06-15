@@ -6,14 +6,14 @@ if [ ${ROS_DISTRO+x} ]; then
      echo "Updating: Not updating ROS in .bashrc"
 else
     echo "UPDATE .bashrc for ROS"
-    echo "source /opt/ros/melodic/setup.bash" >> ~/.bashrc
+    echo "source /opt/ros/noetic/setup.bash" >> ~/.bashrc
     echo "add catkin development workspace overlay to .bashrc"
     echo "source ~/catkin_ws/devel/setup.bash" >> ~/.bashrc
     echo "set log level for realsense camera"
     echo "export LRS_LOG_LEVEL=None #Debug" >> ~/.bashrc
     echo "source .bashrc"
     source ~/.bashrc
-    source /opt/ros/melodic/setup.bash
+    source /opt/ros/noetic/setup.bash
     echo "DONE UPDATING .bashrc"
     echo ""
 fi
@@ -46,7 +46,7 @@ echo "Install the Hello Robot ROS repository"
 cd ~/catkin_ws/src/
 
 echo "Cloning stretch_ros repository"
-git clone https://github.com/hello-robot/stretch_ros.git
+git clone https://github.com/hello-robot/stretch_ros.git -b dev/noetic
 cd stretch_ros
 git pull
 
@@ -107,6 +107,17 @@ echo "Make scan_tools."
 cd ~/catkin_ws/
 catkin_make
 echo "Make sure new ROS packages are indexed"
+rospack profile
+echo ""
+
+echo "INSTALL SLAMTEC RPLIDAR ROS PACKAGE FROM GITHUB"
+echo "Cloning the Slamtec rplidar github repository."
+cd ~/catkin_ws/src
+git clone https://github.com/Slamtec/rplidar_ros.git
+echo "Make the Slamtec rplidar package."
+cd ~/catkin_ws
+catkin_make
+echo "Make sure new ROS packages are indexed."
 rospack profile
 echo ""
 
