@@ -21,7 +21,6 @@ sudo add-apt-repository 'deb https://typora.io/linux ./'
 sudo apt-get update
 sudo apt install --yes typora
 
-sudo apt install --yes mkdocs
 sudo apt install --yes chromium-browser
 #Install arduino
 
