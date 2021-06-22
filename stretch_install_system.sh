@@ -10,6 +10,8 @@ sudo apt --yes update
 sudo apt --yes upgrade
 echo "Done."
 echo ""
+echo "Install Curl"
+sudo apt --yes install curl
 echo "Install Python"
 sudo apt --yes install python ipython
 echo "Install Pip"
