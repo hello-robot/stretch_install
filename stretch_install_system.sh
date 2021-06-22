@@ -10,6 +10,8 @@ sudo apt --yes update
 sudo apt --yes upgrade
 echo "Done."
 echo ""
+echo "Install Curl"
+sudo apt --yes install curl
 echo "Install Git"
 sudo apt --yes install git
 echo "Install rpl via apt"
