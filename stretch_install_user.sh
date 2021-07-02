@@ -72,6 +72,7 @@ mkdir -p ~/.config/autostart
 cp ~/repos/stretch_install/factory/hello_robot_audio.desktop ~/.config/autostart/
 cp ~/repos/stretch_install/factory/hello_robot_xbox_teleop.desktop ~/.config/autostart/
 cp ~/repos/stretch_install/factory/hello_robot_lrf_off.desktop ~/.config/autostart/
+cp ~/repos/stretch_install/factory/dongle_init.py ~/.local/bin/
 echo "Done."
 echo ""
 
