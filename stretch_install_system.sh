@@ -33,6 +33,8 @@ echo "Install GSL for csm"
 sudo apt --yes install libgsl0-dev
 echo "Install Cython for FUNMAP"
 sudo apt --yes install cython3
+echo "Install Port Audio"
+suod apt --yes intall portaudio19-dev
 echo "DONE WITH MAIN INSTALLATION OF OS PACKAGES"
 echo "###########################################"
 echo ""
