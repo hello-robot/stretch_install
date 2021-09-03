@@ -243,7 +243,17 @@ echo "Make sure new ROS packages are indexed"
 rospack profile
 echo ""
 
-echo "DONE WITH ADDITIONAL ADDITIONAL PIP PACKAGES"
+echo "Cloning the gazebo realsense plugin github repository."
+cd ~/catkin_ws/src
+git clone https://github.com/pal-robotics/realsense_gazebo_plugin
+cd ~/catkin_ws
+rosdep install --from-paths src --ignore-src -r -y
+catkin_make
+echo "Make sure new ROS packages are indexed."
+rospack profile
+echo ""
+
+echo "DONE WITH ROS WORKSPACE"
 echo "###########################################"
 echo ""
 
