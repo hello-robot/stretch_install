@@ -251,6 +251,16 @@ echo "Make sure new ROS packages are indexed."
 rospack profile
 echo ""
 
+echo "Cloning the gazebo realsense plugin github repository."
+cd ~/catkin_ws/src
+git clone https://github.com/pal-robotics/realsense_gazebo_plugin
+cd ~/catkin_ws
+rosdep install --from-paths src --ignore-src -r -y
+catkin_make
+echo "Make sure new ROS packages are indexed."
+rospack profile
+echo ""
+
 echo "Initialize URDF and controller calibration parameters to generic uncalibrated defaults."
 echo "Create uncalibrated URDF."
 rosrun stretch_calibration update_uncalibrated_urdf.sh
