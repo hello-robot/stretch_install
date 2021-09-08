@@ -1,0 +1,28 @@
+Package: librealsense2
+Pin: version 2.45.0-0~realsense0.4551
+Pin-Priority: 999
+
+Package: librealsense2-dbg
+Pin: version 2.45.0-0~realsense0.4551
+Pin-Priority: 999
+
+Package: librealsense2-dev
+Pin: version 2.45.0-0~realsense0.4551
+Pin-Priority: 999
+
+Package: librealsense2-gl
+Pin: version 2.45.0-0~realsense0.4551
+Pin-Priority: 999
+
+Package: librealsense2-net
+Pin: version 2.45.0-0~realsense0.4551
+Pin-Priority: 999
+
+Package: librealsense2-udev-rules
+Pin: version 2.45.0-0~realsense0.4551
+Pin-Priority: 999
+
+Package: librealsense2-utils
+Pin: version 2.45.0-0~realsense0.4551
+Pin-Priority: 999
+
