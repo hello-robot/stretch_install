@@ -21,7 +21,7 @@ catkin_make
 rospack profile
 
 echo "Copying apt pinning file into standard location"
-sudo cp $HOME/repos/stretch_install/factory/librealsense2_packages /etc/apt/preferences.d/
+sudo cp $HOME/stretch_install/factory/librealsense2_packages /etc/apt/preferences.d/
 
 echo "NOTE: Please restart the robot. Then use 'realsense-viewer' to upgrade the camera's firmware to the latest versions."
 
