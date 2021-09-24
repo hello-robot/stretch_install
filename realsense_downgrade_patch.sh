@@ -12,6 +12,7 @@ sudo apt install librealsense2-dkms=1.3.18-0ubuntu1 librealsense2=2.45.0-0~reals
 
 echo "Remove realsense-ros binaries"
 sudo apt remove ros-melodic-realsense2-camera ros-melodic-realsense2-description ros-melodic-librealsense2
+sudo apt remove ros-noetic-realsense2-camera ros-noetic-realsense2-description ros-noetic-librealsense2
 
 echo "Building realsense-ros 2.3.0 from source"
 cd ~/catkin_ws/src
