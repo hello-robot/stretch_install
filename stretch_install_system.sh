@@ -85,6 +85,31 @@ echo "DONE WITH MAIN INSTALLATION OF ROS NOETIC"
 echo "###########################################"
 echo ""
 
+# Install ROS2 Galactic
+# see https://docs.ros.org/en/galactic/Installation/Ubuntu-Install-Binary.html for details
+echo "###########################################"
+echo "MAIN INSTALLATION OF ROS2 GALACTIC"
+echo "Setting up keys"
+# New key as of Jun 22, 2021
+sudo curl -sSL https://raw.githubusercontent.com/ros/rosdistro/master/ros.key  -o /usr/share/keyrings/ros-archive-keyring.gpg
+echo "Setting up sources.list"
+echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/ros-archive-keyring.gpg] http://packages.ros.org/ros2/ubuntu $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/ros2.list > /dev/null
+echo "apt update"
+sudo apt --yes update
+echo "Installating Desktop Version"
+sudo apt --yes install ros-galactic-desktop
+echo "Initialize rosdep"
+sudo apt --yes install python3-rosdep
+sudo rosdep init
+rosdep update
+# echo "Install additional ROS packages"
+# sudo apt --yes install python3-rosinstall python3-rosinstall-generator python3-wstool build-essential
+echo "Source .bash file"
+source /opt/ros/galactic/setup.bash
+echo "DONE WITH MAIN INSTALLATION OF ROS2 GALACTIC"
+echo "###########################################"
+echo ""
+
 ################ Additional packages#####################################
 echo "###########################################"
 echo "ADDITIONAL INSTALLATION OF ROS NOETIC"
@@ -121,22 +146,62 @@ sudo apt --yes install ros-noetic-gmapping ros-noetic-navigation
 # SMACH VIEWER HAS A BUG, SO NOT INSTALLING FOR NOW
 #echo "Install additional SMACH packages"
 #sudo apt install ros-noetic-smach-viewer
-echo "Install RPLidar A1M8 packages"
-sudo apt --yes install ros-noetic-rplidar-ros ros-noetic-rplidar-ros-dbgsym
+echo "Will build RPLidar A1M8 packages in workspace"
+# sudo apt --yes install ros-noetic-rplidar-ros ros-noetic-rplidar-ros-dbgsym
 #echo "Install Respeaker and speech recognition packages"
 #sudo apt --yes install ros-noetic-respeaker-ros ros-noetic-ros-speech-recognition python3-pyaudio
 echo "DONE WITH ADDITIONAL INSTALLATION OF ROS NOETIC"
 echo "###########################################"
 echo ""
 
+echo "###########################################"
+echo "ADDITIONAL INSTALLATION OF ROS2 GALACTIC"
+echo "Install colcon to build ROS2 packages"
+sudo apt --yes install python3-colcon-common-extensions
+echo "Install packages to work with URDFs"
+sudo apt --yes install liburdfdom-tools meshlab ros-galactic-urdfdom-py
+echo "Install joint state GUI package"
+sudo apt --yes install ros-galactic-joint-state-publisher-gui
+echo "Install TF2 related packages"
+sudo apt --yes install ros-galactic-tf2-tools
+echo "Install IMU visualization plugin for RViz and IMU filter"
+sudo apt --yes install ros-galactic-rviz-imu-plugin ros-galactic-imu-filter-madgwick
+#echo "Install robot pose filter for use with IMU and wheel odometry"
+#sudo apt --yes install ros-galactic-robot-pose-ekf
+echo "Install robot localization package for use with IMU and wheel odometry"
+sudo apt --yes install ros-galactic-robot-localization
+echo "Install ros_numpy package for msgs conversions"
+sudo apt --yes install ros-galactic-ros-numpy
+echo "Install ROS packages for Robotis Dynamixel actuators"
+sudo apt --yes install ros-galactic-dynamixel-sdk
+echo "Install ROS control packages (primarily for simulations with Gazebo)"
+sudo apt --yes install ros-galactic-ros-control ros-galactic-ros-controllers
+echo "Install ROS RGB-D package and dynamic reconfiguration package for use with Intel D435i"
+sudo apt --yes install ros-galactic-rgbd-launch
+echo "Install ROS teleop packages"
+sudo apt --yes install ros-galactic-teleop-twist-keyboard
+echo "Install ROS navigation and mapping packages"
+#sudo apt --yes install ros-galactic-move-base ros-galactic-map-server ros-galactic-amcl ros-galactic-cartographer ros-galactic-cartographer-ros ros-galactic-cartographer-rviz
+sudo apt --yes install ros-galactic-move-base ros-galactic-move-base-msgs
+sudo apt --yes install ros-galactic-gmapping ros-galactic-navigation
+#echo "Install ROS MoveIt! installation"
+#sudo apt --yes install ros-galactic-moveit
+# SMACH VIEWER HAS A BUG, SO NOT INSTALLING FOR NOW
+#echo "Install additional SMACH packages"
+#sudo apt install ros-galactic-smach-viewer
+echo "Install RPLidar A1M8 packages"
+sudo apt --yes install ros-galactic-rplidar-ros ros-galactic-rplidar-ros-dbgsym
+#echo "Install Respeaker and speech recognition packages"
+#sudo apt --yes install ros-galactic-respeaker-ros ros-galactic-ros-speech-recognition python3-pyaudio
+echo "DONE WITH ADDITIONAL INSTALLATION OF ROS2 GALACTIC"
+echo "###########################################"
+echo ""
 
 echo "###########################################"
 echo "INSTALLATION OF INTEL D435i"
 sudo apt --yes install ros-noetic-realsense2-camera ros-noetic-realsense2-description
-# "The following NEW packages will be installed:
-#  ros-noetic-ddynamic-reconfigure ros-noetic-librealsense2 ros-noetic-realsense2-camera"
+sudo apt --yes install ros-galactic-realsense2-camera ros-galactic-realsense2-description
 
-# UNCLEAR IF THE FOLLOWING COMMANDS ARE STILL NEEDED
 # # see https://github.com/IntelRealSense/librealsense/blob/master/doc/distribution_linux.md
 echo "INSTALL INTEL D435i"
 echo "Register the server's public key"
