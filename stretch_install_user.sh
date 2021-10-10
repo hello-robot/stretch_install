@@ -211,7 +211,7 @@ git pull
 echo "Handle csm dependencies."
 cd ~/catkin_ws/
 rosdep update
-rosdep install --from-paths src --ignore-src -r -y
+rosdep install --from-paths src --ignore-src -r --rosdistro noetic -y
 echo "Make csm."
 sudo apt --yes install libgsl0-dev
 cd ~/catkin_ws/csm/
@@ -251,7 +251,7 @@ echo "Cloning the gazebo realsense plugin github repository."
 cd ~/catkin_ws/src
 git clone https://github.com/pal-robotics/realsense_gazebo_plugin
 cd ~/catkin_ws
-rosdep install --from-paths src --ignore-src -r -y
+rosdep install --from-paths src --ignore-src -r --rosdistro noetic -y
 catkin_make
 echo "Make sure new ROS packages are indexed."
 rospack profile
@@ -355,6 +355,10 @@ echo ""
 # echo "Make sure new ROS packages are indexed"
 # rospack profile
 # echo ""
+
+echo "Get all rosdep dependencies"
+rosdep install --from-paths src --ignore-src -r --rosdistro galactic -y
+echo ""
 
 echo "DONE WITH ROS WORKSPACE"
 echo "###########################################"
