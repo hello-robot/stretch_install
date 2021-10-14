@@ -20,12 +20,12 @@ fi
 echo "HELLO_FLEET_ID=$HELLO_FLEET_ID">>hello-robot.conf
 sudo mkdir /etc/hello-robot
 sudo mv hello-robot.conf /etc/hello-robot
-sudo cp $DIR/../images/stretch_about.png /etc/hello-robot
+sudo cp $DIR/../images/stretch_about.png /etc/hello-robot/
 
 cd ~/
 git config --global credential.helper store
 git clone https://github.com/hello-robot/stretch_fleet.git
-sudo cp -rf ~/stretch_fleet/robots/$HELLO_FLEET_ID /etc/hello-robot
+sudo cp -rf ~/stretch_fleet/robots/$HELLO_FLEET_ID /etc/hello-robot/
 
 echo "Setting up UDEV rules..."
 sudo cp ~/stretch_fleet/robots/$HELLO_FLEET_ID/udev/*.rules /etc/udev/rules.d
@@ -36,10 +36,10 @@ rm -rf stretch_fleet
 #Allow shutdown without password
 
 #Startup scripts
-sudo cp $DIR/xbox_dongle_init.py ~/.local/bin
-sudo cp $DIR/hello_robot_audio.sh /usr/bin
-sudo cp $DIR/hello_robot_lrf_off.py /usr/bin
-sudo cp $DIR/hello_robot_xbox_teleop.sh /usr/bin
+sudo cp $DIR/xbox_dongle_init.py ~/.local/bin/
+sudo cp $DIR/hello_robot_audio.sh /usr/bin/
+sudo cp $DIR/hello_robot_lrf_off.py /usr/bin/
+sudo cp $DIR/hello_robot_xbox_teleop.sh /usr/bin/
 sudo cp $DIR/hello_sudoers /etc/sudoers.d/
 
 echo "Done with new robot setup."
