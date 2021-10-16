@@ -136,7 +136,7 @@ else
     echo "source /opt/ros/galactic/setup.bash" >> ~/.bashrc
     echo "add catkin development workspace overlay to .bashrc"
     echo "source ~/catkin_ws/devel/setup.bash" >> ~/.bashrc
-    echo "source ~/ament_ws/devel/setup.bash" >> ~/.bashrc
+    echo "source ~/ament_ws/install/setup.bash" >> ~/.bashrc
     echo "set log level for realsense camera"
     echo "export LRS_LOG_LEVEL=None #Debug" >> ~/.bashrc
     echo "source .bashrc"
