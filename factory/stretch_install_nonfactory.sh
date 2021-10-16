@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo "#############################################"
+sudo echo "#############################################"
 echo "Starting installation for a new robot."
 echo "#############################################"
 git clone https://github.com/hello-robot/stretch_install.git -b dev/install_20.04 $HOME/stretch_install
