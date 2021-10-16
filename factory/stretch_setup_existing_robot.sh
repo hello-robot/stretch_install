@@ -30,10 +30,6 @@ echo "Setting up UDEV rules..."
 sudo cp ~/$HELLO_FLEET_ID/udev/*.rules /etc/udev/rules.d
 sudo udevadm control --reload
 
-rm -rf stretch_fleet
-
-#Allow shutdown without password
-
 #Startup scripts
 sudo cp $DIR/hello_robot_audio.sh /usr/bin
 sudo cp $DIR/hello_robot_lrf_off.py /usr/bin
