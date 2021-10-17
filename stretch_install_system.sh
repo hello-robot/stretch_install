@@ -171,7 +171,7 @@ sudo apt --yes install ros-galactic-robot-localization
 echo "Install ros_numpy package for msgs conversions"
 sudo apt --yes install ros-galactic-ros-numpy
 echo "Install ROS control packages (primarily for simulations with Gazebo)"
-sudo apt --yes install ros-galactic-ros-control ros-galactic-ros-controllers
+sudo apt --yes install ros-galactic-ros2-control ros-galactic-ros2-controllers
 echo "Install ROS RGB-D package and dynamic reconfiguration package for use with Intel D435i"
 sudo apt --yes install ros-galactic-rgbd-launch
 echo "Install ROS teleop packages"
