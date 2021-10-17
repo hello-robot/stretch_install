@@ -77,8 +77,8 @@ echo "Initialize rosdep"
 sudo apt --yes install python3-rosdep
 sudo rosdep init
 rosdep update
-# echo "Install additional ROS packages"
-# sudo apt --yes install python3-rosinstall python3-rosinstall-generator python3-wstool build-essential
+echo "Install vcstool ROS packages"
+sudo apt --yes install python3-vcstool
 echo "Source .bash file"
 source /opt/ros/noetic/setup.bash
 echo "DONE WITH MAIN INSTALLATION OF ROS NOETIC"
@@ -102,8 +102,6 @@ echo "Initialize rosdep"
 sudo apt --yes install python3-rosdep
 sudo rosdep init
 rosdep update
-# echo "Install additional ROS packages"
-# sudo apt --yes install python3-rosinstall python3-rosinstall-generator python3-wstool build-essential
 echo "Source .bash file"
 source /opt/ros/galactic/setup.bash
 echo "DONE WITH MAIN INSTALLATION OF ROS2 GALACTIC"
