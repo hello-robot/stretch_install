@@ -197,7 +197,7 @@ echo "###########################################"
 echo "EXTRA PACKAGES OF ROS/ROS2"
 echo ""
 echo "Install ROS packages for Robotis Dynamixel actuators"
-sudo apt --yes install ros-noetic-dynamixel-sdk
+sudo apt --yes install ros-noetic-dynamixel-sdk ros-noetic-dynamixel-workbench
 sudo apt --yes install ros-galactic-dynamixel-sdk
 echo "DONE WITH EXTRA PACKAGES OF ROS/ROS2"
 echo "###########################################"
