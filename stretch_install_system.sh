@@ -129,8 +129,6 @@ echo "Install robot localization package for use with IMU and wheel odometry"
 sudo apt --yes install ros-noetic-robot-localization
 echo "Install ros_numpy package for msgs conversions"
 sudo apt --yes install ros-noetic-ros-numpy
-echo "Install ROS packages for Robotis Dynamixel actuators"
-sudo apt --yes install ros-noetic-dynamixel-sdk
 echo "Install ROS control packages (primarily for simulations with Gazebo)"
 sudo apt --yes install ros-noetic-ros-control ros-noetic-ros-controllers
 echo "Install ROS RGB-D package and dynamic reconfiguration package for use with Intel D435i"
@@ -172,8 +170,6 @@ echo "Install robot localization package for use with IMU and wheel odometry"
 sudo apt --yes install ros-galactic-robot-localization
 echo "Install ros_numpy package for msgs conversions"
 sudo apt --yes install ros-galactic-ros-numpy
-echo "Install ROS packages for Robotis Dynamixel actuators"
-sudo apt --yes install ros-galactic-dynamixel-sdk
 echo "Install ROS control packages (primarily for simulations with Gazebo)"
 sudo apt --yes install ros-galactic-ros-control ros-galactic-ros-controllers
 echo "Install ROS RGB-D package and dynamic reconfiguration package for use with Intel D435i"
@@ -194,6 +190,16 @@ sudo apt --yes install ros-galactic-rplidar-ros ros-galactic-rplidar-ros-dbgsym
 #echo "Install Respeaker and speech recognition packages"
 #sudo apt --yes install ros-galactic-respeaker-ros ros-galactic-ros-speech-recognition python3-pyaudio
 echo "DONE WITH ADDITIONAL INSTALLATION OF ROS2 GALACTIC"
+echo "###########################################"
+echo ""
+
+echo "###########################################"
+echo "EXTRA PACKAGES OF ROS/ROS2"
+echo ""
+echo "Install ROS packages for Robotis Dynamixel actuators"
+sudo apt --yes install ros-noetic-dynamixel-sdk
+sudo apt --yes install ros-galactic-dynamixel-sdk
+echo "DONE WITH EXTRA PACKAGES OF ROS/ROS2"
 echo "###########################################"
 echo ""
 
