@@ -4,6 +4,8 @@
 echo "Starting STRETCH_INSTALL_QC"
 echo "To be run prior to system bringup at the factory "
 
+echo "Installing Arduino CLI"
+./stretch_install_arduino.sh
 
 #sudo apt install --yes chromium-browser
 sudo snap install pycharm-community --classic
@@ -19,5 +21,3 @@ git clone https://github.com/hello-robot/stretch_fleet.git
 git clone https://github.com/hello-robot/stretch_fleet_tools.git
 echo "Done."
 echo ""
-echo "Installing Arduino CLI"
-./stretch_install_arduino.sh
