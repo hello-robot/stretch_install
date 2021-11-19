@@ -36,6 +36,7 @@ rm -rf stretch_fleet
 #Allow shutdown without password
 
 #Startup scripts
+mkdir -p ~/.local/bin
 sudo cp $DIR/xbox_dongle_init.py ~/.local/bin/
 sudo cp $DIR/hello_robot_audio.sh /usr/bin/
 sudo cp $DIR/hello_robot_lrf_off.py /usr/bin/
