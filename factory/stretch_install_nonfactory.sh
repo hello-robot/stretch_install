@@ -4,7 +4,7 @@ echo "#############################################"
 echo "Starting installation for a new robot."
 echo "#############################################"
 cd $HOME/stretch_install/factory
-./stretch_setup_new_robot.sh
+./stretch_setup_existing_robot.sh
 if [ $? -ne 0 ]
 then
 	exit 1
