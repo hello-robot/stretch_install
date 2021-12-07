@@ -23,9 +23,8 @@ sudo mv hello-robot.conf /etc/hello-robot
 sudo cp $DIR/../images/stretch_about.png /etc/hello-robot/
 
 cd ~/
-git config --global credential.helper store
-git clone https://github.com/hello-robot/stretch_fleet.git
-sudo cp -rf ~/stretch_fleet/robots/$HELLO_FLEET_ID /etc/hello-robot/
+echo "Expect stretch-re1-xxxx/ to be in $HOME"
+sudo cp -rf ~/$HELLO_FLEET_ID /etc/hello-robot
 
 echo "Setting up UDEV rules..."
 sudo cp ~/stretch_fleet/robots/$HELLO_FLEET_ID/udev/*.rules /etc/udev/rules.d
