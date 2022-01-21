@@ -18,9 +18,7 @@ echo "Configuring user YAML"
 ./stretch_dex_wrist_yaml_configure.py
 
 echo "Setting up Stretch ROS and URDF"
-#NOTE: Drop this once feature/pluggable_end_effector is merged ot mainline
 cd ~/catkin_ws/src/stretch_ros/
-git checkout feature/pluggable_end_effector
 git pull
 
 cd ~/repos
