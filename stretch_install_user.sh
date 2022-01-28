@@ -278,24 +278,26 @@ source ~/ament_ws/install/setup.bash
 echo "Done."
 echo ""
 
-# clone the Hello Robot ROS repository
-echo "Install the Hello Robot ROS repository"
-cd ~/ament_ws/src/
-echo "Cloning stretch_ros repository"
-git clone https://github.com/hello-robot/stretch_ros2.git
-cd stretch_ros2
-git pull
+# TODO:
+# # clone the Hello Robot ROS repository
+# echo "Install the Hello Robot ROS repository"
+# cd ~/ament_ws/src/
+# echo "Cloning stretch_ros repository"
+# git clone https://github.com/hello-robot/stretch_ros2.git
+# cd stretch_ros2
+# git pull
 
 # TODO:
 # echo "Updating meshes in stretch_ros to this robot batch"
 # ~/catkin_ws/src/stretch_ros/stretch_description/meshes/update_meshes.py
 
-cd ~/ament_ws/
-echo "Make the ROS repository"
-colcon build
-echo "Source .bash file"
-source ~/ament_ws/install/setup.bash
-echo ""
+# TODO:
+# cd ~/ament_ws/
+# echo "Make the ROS repository"
+# colcon build
+# echo "Source .bash file"
+# source ~/ament_ws/install/setup.bash
+# echo ""
 
 # TODO:
 # if [ "$UPDATING" = true ]; then
