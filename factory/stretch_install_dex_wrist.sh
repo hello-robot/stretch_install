@@ -23,6 +23,9 @@ git pull
 
 cd ~/repos
 git clone https://github.com/hello-robot/stretch_tool_share
+cd ~/repos/stretch_tool_share
+git pull
+cd ~/repos
 cd stretch_tool_share/tool_share/stretch_dex_wrist/stretch_description
 cp urdf/stretch_dex_wrist.xacro ~/catkin_ws/src/stretch_ros/stretch_description/urdf
 cp urdf/stretch_descripton.xacro ~/catkin_ws/src/stretch_ros/stretch_description/urdf
