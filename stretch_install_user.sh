@@ -278,6 +278,15 @@ source ~/ament_ws/install/setup.bash
 echo "Done."
 echo ""
 
+echo "INSTALL SLAMTEC RPLIDAR ROS 2 PACKAGE FROM GITHUB"
+echo "Cloning the Slamtec rplidar github repository."
+cd ~/ament_ws/src
+git clone https://github.com/hello-chintan/sllidar_ros2.git
+echo "Make the Slamtec rplidar package."
+cd ~/ament_ws
+colcon build
+echo ""
+
 # TODO:
 # # clone the Hello Robot ROS repository
 # echo "Install the Hello Robot ROS repository"
