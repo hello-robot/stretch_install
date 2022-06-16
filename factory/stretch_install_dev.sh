@@ -1,9 +1,8 @@
 #!/bin/bash
 
 #####################################################
-echo "To be run after a user install "
-echo "Configures to use local stretch_body"
-echo "Pulls down factory repos"
+echo "Installs common developer tools for Hello Robot internal production"
+
 
 read -p "Proceed with installation (y/n)?" -n 1 -r
 echo
