@@ -112,6 +112,7 @@ python3 -m pip install opencv-contrib-python renamed-opencv-python-inference-eng
 python3 -m pip install hello-robot-stretch-body
 python3 -m pip install hello-robot-stretch-body-tools
 python3 -m pip install hello-robot-stretch-factory
+python3 -m pip install --upgrade prompt_toolkit
 
 # TODO RE-ENABLED
 # cd ~/repos/usb_4_mic_array/
