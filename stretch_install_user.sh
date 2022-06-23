@@ -108,11 +108,10 @@ echo "Upgrade pip3"
 python3 -m pip install --user --upgrade pip
 
 echo "Install stretch_body and stretch_factory via pip"
+python3 -m pip install opencv-contrib-python renamed-opencv-python-inference-engine
 python3 -m pip install hello-robot-stretch-body
 python3 -m pip install hello-robot-stretch-body-tools
 python3 -m pip install hello-robot-stretch-factory
-python3 -m pip uninstall -y opencv-contrib-python opencv-python-inference-engine
-python3 -m pip install opencv-python-inference-engine
 
 # TODO RE-ENABLED
 # cd ~/repos/usb_4_mic_array/
