@@ -63,20 +63,32 @@ cd stretch_install
 
 ## Factory Install 
 
-More coming soon:
+A fresh OS install should only be done under the guidance of Hello Robot Support. The steps are:
 
-* Installing Ubuntu 18.04LTS
+* [Setup the BIOS](./docs/configure_BIOS.md)  (only necessary for NUCs not previously configured by Hello Robot)
+* [Install  Ubuntu 20.04LTS](./docs/install_ubuntu_20.04.md)
+* Run the `stretch_new_robot_install.sh` script (below)
 
-* Bios setup
+First you will need to know the serial number of your robot (eg, stretch-re1-1001). 
 
-Run the Factory install. You will need to know the serial number of your robot (eg, stretch-re1-1001).
+Login to the `hello-robot` user account and install git
+
+```bash
+sudo apt install git
+```
+
+**Note**: The system may not be able to run 'apt-get' immediately after a reboot as the OS may be running automatic updates in the background.
+
+Next, pull down the `stretch_install` repository and being the installation process:
 
 ```bash
 cd ~/
-git clone https://github.com/hello-robot/stretch_install
-cd stretch_install/factory
-./stretch_install_factory.sh
+git clone https://github.com/hello-robot/stretch_install -b dev/install_20.04_RE1.5
+cd stretch_install
+./stretch_new_robot_install.sh
 ```
+
+
 
 
 
