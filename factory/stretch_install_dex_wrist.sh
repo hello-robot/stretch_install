@@ -16,7 +16,7 @@ echo "Setting Dynamixel bauds to 115200"
 RE1_dynamixel_set_baud.py /dev/hello-dynamixel-wrist 13 115200
 
 echo "Configuring user YAML"
-./stretch_dex_wrist_yaml_configure.py &1
+./stretch_dex_wrist_yaml_configure.py $1
 
 echo "Setting up Stretch ROS and URDF"
 cd ~/catkin_ws/src/stretch_ros/
