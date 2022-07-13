@@ -27,10 +27,8 @@ echo "Expect stretch-re1-xxxx/ to be in $HOME"
 sudo cp -rf ~/$HELLO_FLEET_ID /etc/hello-robot
 
 echo "Setting up UDEV rules..."
-sudo cp ~/stretch_fleet/robots/$HELLO_FLEET_ID/udev/*.rules /etc/udev/rules.d
+sudo cp ~/$HELLO_FLEET_ID/udev/*.rules /etc/udev/rules.d
 sudo udevadm control --reload
-
-rm -rf stretch_fleet
 
 #Allow shutdown without password
 
