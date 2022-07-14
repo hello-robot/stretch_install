@@ -40,6 +40,8 @@ mkdir -p ~/.local/bin
 sudo cp $DIR/xbox_dongle_init.py ~/.local/bin/
 sudo cp $DIR/hello_robot_audio.sh /usr/bin/
 sudo cp $DIR/hello_robot_lrf_off.py /usr/bin/
+sudo cp $DIR/hello_robot_pimu_ping.py /usr/bin/
+sudo cp $DIR/hello_robot_pimu_ping.sh /usr/bin/
 sudo cp $DIR/hello_robot_xbox_teleop.sh /usr/bin/
 sudo cp $DIR/hello_sudoers /etc/sudoers.d/
 
