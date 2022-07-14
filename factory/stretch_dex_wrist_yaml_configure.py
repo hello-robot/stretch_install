@@ -3,6 +3,8 @@
 from __future__ import print_function
 import stretch_body.hello_utils
 import argparse
+from os.path import exists
+import sys
 
 parser=argparse.ArgumentParser(description='Update YAML for a Dex Wrist install')
 parser.add_argument("--factory", help="Is a factory install",action="store_true")
@@ -29,6 +31,10 @@ else:
         'hello-motor-lift':{'gains':{'i_safety_feedforward':0.75}}
     }
 
+if not exists(hello_utils.get_fleet_directory()+'stretch_user_params.yaml'):
+    print('Please run tool RE1_migrate_params.py before continuing. For more details, see https://forum.hello-robot.com/t/425')
+    sys.exit(1)
 user_yaml=stretch_body.hello_utils.read_fleet_yaml('stretch_user_params.yaml')
 stretch_body.hello_utils.overwrite_dict(overwritee_dict=user_yaml, overwriter_dict=dex_wrist_yaml)
-stretch_body.hello_utils.write_fleet_yaml('stretch_user_params.yaml',user_yaml)
+stretch_body.hello_utils.write_fleet_yaml('stretch_user_params.yaml', user_yaml,
+                                          header=stretch_body.robot_params.RobotParams().get_user_params_header())
