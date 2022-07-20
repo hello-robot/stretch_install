@@ -17,27 +17,8 @@ It is expected that `stretch_new_user_install.sh` and `stretch_update.sh` may be
 
 | Guide                                       | Purpose                                                                    |
 | ------------------------------------------- | -------------------------------------------------------------------------- |
-| [Adding a New User](./docs/add_new_user.md) | Creates a new Ubuntu user and sets it up with Stretch packages and robot configuration |
-
-
-## System Install 
-
-If running after a Factory install, first install git
-
-```bash
-sudo apt install git
-```
-
-If stretch_install isn't yet present, first install it. Then run the script.
-
-```bash
-cd ~/
-git clone https://github.com/hello-robot/stretch_install
-cd stretch_install
-./stretch_install_system.sh
-```
-
-**Note**: When booting into Ubuntu immediately after Factory Install the system may not be able to run 'apt-get' immediately, as the OS is running automatic updates in the background.
+| [Adding a New User](./docs/add_new_user.md) | Creating a new Ubuntu user and setting it up with Stretch packages and robot configuration |
+| [Updating software](./docs/updating_software.md) | Updating the various components of Stretch's software + troubleshooting |
 
 ## Factory Install 
 
