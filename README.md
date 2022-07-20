@@ -2,45 +2,23 @@
 
 ## Overview
 
-The stretch_install repository provides scripts required to install the Stretch software. There are three primary install scripts:
+The stretch_install repository provides scripts required to install the Stretch software. The primary install scripts are:
 
-| Script                     | Use                                                          |
-| -------------------------- | ------------------------------------------------------------ |
-| stretch_install_factory.sh | Installs system level robot data from factory image. Run only after a fresh OS install of Ubuntu 18.04LTS. |
-| stretch_install_system.sh  | Installs system wide packages via apt-get. Installs ROS and related packages. Run after stretch_install_factory.py or when package update is required. |
-| stretch_install_user.sh    | Installs robot factory image to local user account. Installs user Python packages and tools to allow robot development. Run when creating a new user account. |
+| Script                           | Use                                                          |
+| ------------------------------   | ------------------------------------------------------------ |
+| stretch_new_robot_install.sh     | Installs the entire Stretch software stack on a fresh OS install of Ubuntu LTS |
+| stretch_new_user_install.sh      | Installs the Stretch packages and robot configuration required for a new Ubuntu user account |
+| stretch_new_dex_wrist_install.sh | Configures the robot to work with a new DexWrist (see [User Guide here](https://docs.hello-robot.com/dex_wrist_user_guide/) first) |
+| stretch_update.sh                | Updates system packages (apt) and user packages (pip). Updates ROS and related packages. Run periodically when Stretch packages are available |
 
-It is expected that the User install will be run periodically as new users begin working with the robot. In contrast,  it is expected that the System and Factory installs are rarely run and only by qualified administrators.
+It is expected that `stretch_new_user_install.sh` and `stretch_update.sh` may be run periodically. In contrast, running `stretch_new_robot_install.sh` should be a rare event and should only be done under the guidance of Hello Robot support.
 
-## User Install 
+## Guides
 
-While logged in as an administrator, make a new user accout:
-```bash
-sudo adduser <new_user>
-```
+| Guide                                       | Purpose                                                                    |
+| ------------------------------------------- | -------------------------------------------------------------------------- |
+| [Adding a New User](./docs/add_new_user.md) | Creates a new Ubuntu user and sets it up with Stretch packages and robot configuration |
 
-Ensure the user has sudo privileges:
-
-```bash
-sudo usermod -aG sudo <new_user>
-```
-
-Logout and the log back in as the new user. Then pull down the Stretch_Install repository and run the install script
-
-```bash
-cd ~/
-git clone https://github.com/hello-robot/stretch_install
-cd stretch_install
-./stretch_install_user.sh
-```
-
-This will install the packages and setup the robot configuration correctly for a new user on a Stretch RE1 computer.
-
-Reboot your computer. After power up, check that the new install worked. For example:
-```bash
->> source ~/.bashrc
->> stretch_robot_system_check.py
-```
 
 ## System Install 
 
