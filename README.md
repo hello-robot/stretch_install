@@ -19,38 +19,8 @@ It is expected that `stretch_new_user_install.sh` and `stretch_update.sh` may be
 | ------------------------------------------- | -------------------------------------------------------------------------- |
 | [Adding a New User](./docs/add_new_user.md) | Creating a new Ubuntu user and setting it up with Stretch packages and robot configuration |
 | [Updating software](./docs/updating_software.md) | Updating the various components of Stretch's software + troubleshooting |
-
-## Factory Install 
-
-
-A fresh OS install should only be done under the guidance of Hello Robot Support. The steps are:
-
-* [Setup the BIOS](./docs/configure_BIOS.md)  (only necessary for NUCs not previously configured by Hello Robot)
-* [Install  Ubuntu 18.04LTS](./docs/install_ubuntu_18.04.md)
-
-First you will need to know the serial number of your robot (eg, stretch-re1-1001). 
-
-Login to the `hello-robot` user account and install git
-
-```bash
-sudo apt install git
-```
-
-**Note**: The system may not be able to run 'apt-get' immediately after a reboot as the OS may be running automatic updates in the background.
-
-Next, pull down the `stretch_install` repository and being the installation process:
-
-```bash
-cd ~/
-git clone https://github.com/hello-robot/stretch_install
-cd stretch_install/factory
-./stretch_install_factory.sh
-```
-
-
-
+| [Performing a Robot Install](./docs/robot_install.md) | Installing a new operating system and setting it up with the default Ubuntu user and full software stack |
 
 ## License
 
 All Hello Robot installation materials are released under the GNU General Public License v3.0 (GNU GPLv3). Details can be found in the LICENSE file.
-
