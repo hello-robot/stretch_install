@@ -25,12 +25,13 @@ Logout and the log back in as the new user. Open a terminal and execute the foll
 ```bash
 cd ~
 git clone https://github.com/hello-robot/stretch_install
+cd stretch_install
+git pull
 ```
 
 Execute the following to set up the new user account with Stretch packages and the robot's configuration data.
 
 ```bash
-cd stretch_install
 ./stretch_new_user_install.sh
 ```
 
