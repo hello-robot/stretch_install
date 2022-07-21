@@ -52,7 +52,7 @@ Also, check the box next to 'Download updates while installing Ubuntu' (this opt
 
 ### Erase & Reinstall vs Install Alongside
 
-On the next page titled 'Installation type', you may choose between 'Erase disk and reinstall Ubuntu' or 'Install Ubuntu 18.04 alongside <previous ubuntu>'. If you've already backed up data from the previous partition, or the previous partition is corrupted, select the erase & reinstall option. If you'd like to preserve your previous Ubuntu partition, select the alongside option.
+On the next page titled 'Installation type', you may choose between 'Erase disk and reinstall Ubuntu' or 'Install Ubuntu 18.04 alongside Ubuntu XX.04'. If you've already backed up data from the previous partition, or the previous partition is corrupted, select the erase & reinstall option. If you'd like to preserve your previous Ubuntu partition, select the alongside option. If you choose the alongside option, another screen will allow you to change the size of each partition. It's recommended to give each partition at least 50GB.
 
 Here's what the Erase & Reinstall option will look like, and an screenshot of the alongside option is shown below.
 
