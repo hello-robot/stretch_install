@@ -29,7 +29,7 @@ Logout and the log back in as the new user. Then pull down the Stretch_Install r
 
 ```bash
 cd ~/
-git clone https://github.com/hello-robot/stretch_install
+git clone https://github.com/hello-robot/stretch_install -b dev/install_20.04
 cd stretch_install
 ./stretch_install_user.sh
 ```
