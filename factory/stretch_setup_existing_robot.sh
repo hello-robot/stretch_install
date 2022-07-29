@@ -13,8 +13,8 @@ HELLO_FLEET_ID="$pre$id"
 
 read -p "HELLO_FLEET_ID will be $HELLO_FLEET_ID. Proceed with installation (y/n)? " -n 1 -r
 echo
-if [[ ! $REPLY =~ ^[Yy]$ ]]
-then
+if [[ ! $REPLY =~ ^[Yy]$ ]]; then
+    echo "Confirmation failed. Will not proceed with installation."
     exit 1
 fi
 

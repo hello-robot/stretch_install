@@ -1,16 +1,14 @@
 #!/bin/bash
-
-echo "This script will install and update system wide packages for Stretch"
+set -e
 
 echo "###########################################"
-echo "INSTALLATION OF OS PACKAGES"
-# upgrade to the latest versions of Ubuntu packages
+echo "INSTALLATION OF SYSTEM WIDE PACKAGES"
+echo "###########################################"
+echo ""
 echo "Upgrading Ubuntu packages to the latest versions..."
 sudo apt-add-repository universe
 sudo apt --yes update
 sudo apt --yes upgrade
-echo "Done."
-echo ""
 echo "Install Curl"
 sudo apt --yes install curl
 echo "Install Python"
@@ -38,18 +36,21 @@ echo "Install GSL for csm"
 sudo apt --yes install libgsl0-dev
 echo "Install Port Audio"
 sudo apt --yes install portaudio19-dev
-echo "DONE WITH MAIN INSTALLATION OF OS PACKAGES"
+echo "###########################################"
+echo "DONE WITH INSTALLATION OF SYSTEM WIDE PACKAGES"
 echo "###########################################"
 echo ""
 
 
 echo "###########################################"
 echo "INSTALLATION OF HARDWARE PACKAGES"
+echo "###########################################"
 # packages to support stretch_body
 echo "Installing lm-sensors"
 sudo apt-get install lm-sensors
 sudo apt-get install nvme-cli
-echo "DONE WITH MAIN INSTALLATION OF HARDWARE PACKAGES"
+echo "###########################################"
+echo "DONE WITH INSTALLATION OF HARDWARE PACKAGES"
 echo "###########################################"
 echo ""
 
@@ -57,7 +58,9 @@ echo ""
 # Install ROS Melodic
 # see http://wiki.ros.org/melodic/Installation/Ubuntu#Installation for details
 echo "###########################################"
-echo "MAIN INSTALLATION OF ROS MELODIC"
+echo "INSTALLATION OF ROS MELODIC"
+echo "###########################################"
+
 echo "Setting up sources.list"
 sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'
 echo "Setting up keys"
@@ -71,6 +74,7 @@ echo "Initialize rosdep"
 sudo apt --yes install python-rosdep
 echo "Install additional ROS packages"
 sudo apt --yes install python-rosinstall python-rosinstall-generator python-wstool build-essential
+echo "###########################################"
 echo "DONE WITH MAIN INSTALLATION OF ROS MELODIC"
 echo "###########################################"
 echo ""
@@ -78,6 +82,7 @@ echo ""
 ################ Additional packages#####################################
 echo "###########################################"
 echo "ADDITIONAL INSTALLATION OF ROS MELODIC"
+echo "###########################################"
 echo "Install packages to work with URDFs"
 sudo apt --yes install liburdfdom-tools meshlab
 echo "Install cheese for camera testing"
@@ -115,6 +120,7 @@ echo "Install RPLidar A1M8 packages"
 sudo apt --yes install ros-melodic-rplidar-ros ros-melodic-rplidar-ros-dbgsym
 echo "Install Respeaker and speech recognition packages"
 sudo apt --yes install ros-melodic-respeaker-ros ros-melodic-ros-speech-recognition
+echo "###########################################"
 echo "DONE WITH ADDITIONAL INSTALLATION OF ROS MELODIC"
 echo "###########################################"
 echo ""
@@ -122,68 +128,25 @@ echo ""
 
 echo "###########################################"
 echo "INSTALLATION OF INTEL D435i"
+echo "###########################################"
 sudo apt --yes install ros-melodic-realsense2-camera ros-melodic-realsense2-description
 # "The following NEW packages will be installed:
 #  ros-melodic-ddynamic-reconfigure ros-melodic-librealsense2 ros-melodic-realsense2-camera"
 
-# UNCLEAR IF THE FOLLOWING COMMANDS ARE STILL NEEDED
-# # see https://github.com/IntelRealSense/librealsense/blob/master/doc/distribution_linux.md
-echo "INSTALL INTEL D435i"
-echo "Register the server's public key"
+echo "Register the librealsense APT server's public key"
 sudo apt-key adv --keyserver keys.gnupg.net --recv-key F6E65AC044F831AC80A06380C8B3A55A6F3EFCDE || sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-key F6E65AC044F831AC80A06380C8B3A55A6F3EFCDE
-echo "Add the server to the list of repositories"
+echo "Add the librealsense APT server to the list of APT repositories"
 sudo add-apt-repository "deb https://librealsense.intel.com/Debian/apt-repo bionic main" -u
 echo "Remove old records in case of upgrading"
 sudo rm -f /etc/apt/sources.list.d/realsense-public.list
-echo "Update"
+echo "Apt update"
 sudo apt --yes update
 echo "Install D435i packages"
 sudo apt --yes install librealsense2-dkms librealsense2-utils librealsense2-dev librealsense2-dbg
-#######
-# NOTE: Use realsense-viewer to install the recommended firmware instead of the following commands.
-#######
-# # attempt to install D435i firmware 
-# echo "Downloading D435i firmware Version: 5.11.6.250 Date: 6/4/2019"
-# echo "WARNING: THIS MAY NOT BE THE LATEST FIRMWARE"
-# mkdir -p ~/firmware/d435i
-# cd ~/firmware/d435i
-# wget https://downloadmirror.intel.com/28870/eng/D400_Series_Production_FW_5_11_6_250.zip
-# unzip D400_Series_Production_FW_5_11_6_250.zip 
-# echo "Installing D435i firmware installation software"
-# echo 'deb http://realsense-hw-public.s3.amazonaws.com/Debian/apt-repo xenial main' | sudo tee /etc/apt/sources.list.d/realsense-public.list
-# sudo apt-key adv --keyserver keys.gnupg.net --recv-key 6F3EFCDE
-# sudo apt --yes update 
-# sudo apt --yes install intel-realsense-dfu
-# echo "########################################################"
-# echo "WARNING: Please pay attention. This firmware upgrade script may not function properly on a new robot, since the bus and device numbers for the D435i may have changed. If this fails, you can find candidates using the following command: lsusb | grep Intel"
-# echo "Attempting to update D435i firmware automatically using the following command"
-# echo "intel-realsense-dfu -b 002 -d 003 -f -i Signed_Image_UVC_5_11_6_250.bin"
-# intel-realsense-dfu -b 002 -d 003 -f -i Signed_Image_UVC_5_11_6_250.bin
-# echo "########################################################"
+echo "###########################################"
 echo "DONE WITH INSTALLATION OF INTEL D435i"
+echo "NOTE: Update firmware using realsense-viewer"
 echo "###########################################"
 echo ""
 
-
-# echo "###########################################"
-# echo "INSTALLATION OF NETWORKING"
-# # set up SSH
-# echo "Setting up SSH..."
-# sudo apt --yes install ssh
-# # sudo emacs -nw /etc/ssh/sshd_config
-# # Change default port “#Port 22” -> “Port 32123”
-# echo "Changing SSH port to 32123..."
-# sudo sed -i 's/Port 22/Port 32123/g' /etc/ssh/sshd_config
-# sudo service ssh restart
-# echo "Done."
-# echo ""
-
-# echo "The IP address for this machine follows:"
-# curl ifconfig.me
-# echo ""
-# echo "Make it a static IP and then use it for SSH and VNC."
-# echo "Done!"
-# echo "DONE WITH INSTALLATION OF NETWORKING"
-# echo "###########################################"
-# echo ""
 

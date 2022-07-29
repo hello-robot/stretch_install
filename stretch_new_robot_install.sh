@@ -1,5 +1,6 @@
 #!/bin/bash
 set -e
+set -o pipefail
 
 do_factory_install='false'
 if getopts ":f:" opt && [[ $opt == : ]]; then
