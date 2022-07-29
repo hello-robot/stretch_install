@@ -6,7 +6,7 @@ This documentation describes how to configure the BIOS of an Intel NUC for compa
 
 First plug in the NUC to a 19V DC power supply. Next power on the NUC using the power button on the fron of the NUC.
 
-When powered on, a NUC with factory settings, should display a welcome screen sBIOS access instructions similar to the picture below:
+When powered on, the NUC should display a welcome screen similar to the picture below:
 
 ![](./images/NUC_startup.png)
 

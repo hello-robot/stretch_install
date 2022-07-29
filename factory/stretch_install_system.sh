@@ -6,6 +6,7 @@ echo "###########################################"
 echo "INSTALLATION OF OS PACKAGES"
 # upgrade to the latest versions of Ubuntu packages
 echo "Upgrading Ubuntu packages to the latest versions..."
+sudo apt-add-repository universe
 sudo apt --yes update
 sudo apt --yes upgrade
 echo "Done."
@@ -28,7 +29,7 @@ sudo apt --yes install emacs yaml-mode
 echo "Install nettools"
 sudo apt --yes install net-tools
 echo "Install git and wget"
-sudo apt --yes install git wget
+sudo apt --yes install wget
 echo "Install vim"
 sudo apt --yes install vim
 echo "Install Python packages"
@@ -47,7 +48,7 @@ echo "INSTALLATION OF HARDWARE PACKAGES"
 # packages to support stretch_body
 echo "Installing lm-sensors"
 sudo apt-get install lm-sensors
-sudo apt-get install nvmi-cli
+sudo apt-get install nvme-cli
 echo "DONE WITH MAIN INSTALLATION OF HARDWARE PACKAGES"
 echo "###########################################"
 echo ""
@@ -68,12 +69,8 @@ echo "Installating Desktop-Full Version"
 sudo apt --yes install ros-melodic-desktop-full
 echo "Initialize rosdep"
 sudo apt --yes install python-rosdep
-sudo rosdep init
-rosdep update
 echo "Install additional ROS packages"
 sudo apt --yes install python-rosinstall python-rosinstall-generator python-wstool build-essential
-echo "Source .bash file"
-source /opt/ros/melodic/setup.bash
 echo "DONE WITH MAIN INSTALLATION OF ROS MELODIC"
 echo "###########################################"
 echo ""
@@ -91,8 +88,8 @@ echo "Install TF2 related packages"
 sudo apt --yes install ros-melodic-tf2-tools
 echo "Install IMU visualization plugin for RViz and IMU filter"
 sudo apt --yes install ros-melodic-rviz-imu-plugin ros-melodic-imu-filter-madgwick
-#echo "Install robot pose filter for use with IMU and wheel odometry"
-#sudo apt --yes install ros-melodic-robot-pose-ekf
+echo "Install robot pose filter for use with IMU and wheel odometry"
+sudo apt --yes install ros-melodic-robot-pose-ekf
 echo "Install robot localization package for use with IMU and wheel odometry"
 sudo apt --yes install ros-melodic-robot-localization
 echo "Install ros_numpy package for msgs conversions"
@@ -101,8 +98,8 @@ echo "Install ROS packages for Robotis Dynamixel actuators"
 sudo apt --yes install ros-melodic-dynamixel-sdk ros-melodic-dynamixel-workbench
 echo "Install ROS control packages (primarily for simulations with Gazebo)"
 sudo apt --yes install ros-melodic-ros-control ros-melodic-ros-controllers
-echo "Install ROS RGB-D package and dynamic reconfiguration package for use with Intel D435i"
-sudo apt --yes install ros-melodic-rgbd-launch ros-melodic-ddynamic-reconfigure-python
+echo "Install dynamic reconfiguration package for use with Intel D435i"
+sudo apt --yes install ros-melodic-ddynamic-reconfigure-python
 echo "Install ROS teleop packages"
 sudo apt --yes install ros-melodic-teleop-twist-keyboard
 #echo "Install ROS navigation and mapping packages"

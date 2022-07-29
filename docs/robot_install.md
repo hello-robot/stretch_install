@@ -16,21 +16,24 @@ Currently, there are two available versions of the software stack, one with Ubun
 
 There are a few steps to performing a new robot install:
 
- - Backup robot configuration data
- - Setup the BIOS (only necessary for NUCs not previously configured by Hello Robot)
- - Install Ubuntu 18.04 or 20.04
- - Run the new robot installation script
+ 1. Backup robot configuration data
+ 2. Setup the BIOS (only necessary for NUCs not previously configured by Hello Robot)
+ 3. Install Ubuntu 18.04 or 20.04
+ 4. Run the new robot installation script
 
 ## Back up robot configuration data
 
-If your new robot install will replace a previous one, it is a good idea to backup all valuable data beforehand. **Data from the previous robot install will be deleted.** In particular, your new robot install will require the old robot install's robot configuration data. The steps to copy this material from an existing install is:
+It is a good idea to backup all valuable data beforehand. If your new robot install will replace a previous one, **data from the previous robot install will be deleted.** Even if your new robot install will live alongside the previous one(s), **data from the previous robot install(s) can be lost.**
 
- 1. Boot into the robot's original Ubuntu partition.
- 2. Copy the /etc/hello-robot to a USB key.
-    - For example, you can run `cp -r /etc/hello-robot /media/$USER/<USBKEY>` from the command line where `<USBKEY>` is replaced with the mounted USB key's name.
+In particular, your new robot install will require the old install's robot calibration data. The steps to copy this material from an existing install is:
+
+ 1. Boot into the robot's original Ubuntu partition and plug in a USB key.
+ 2. The robot calibration data lives inside of a directory called `stretch-re1-<xxxx>`, where `<xxxx>` is your robot's serial number. There's a few versions of this directory and you will need to decide which version to backup. Each Ubuntu user has a version of this directory located at `/home/$USER/stretch_user/stretch-re1-<xxxx>`. These user versions are updated when the user runs a URDF calibration, swaps out an end effector, updates Stretch parameters, and more. There's also a system version located at `/etc/hello-robot/stretch-re1-<xxxx>`, which is likely the oldest version since it was created at Hello Robot HQ. If you're not sure which version to backup, use the version at `/etc/hello-robot/stretch-re1-<xxxx>` for the next step.
+ 3. Copy the `stretch-re1-<xxxx>` directory, where `<xxxx>` is your robot's serial number, to a USB key.
+    - For example, if you're copying the system version, you can run a command similar to `cp -r /etc/hello-robot/stretch-re1-<xxxx> /media/$USER/<USBKEY>` from the command line, where `<USBKEY>` and `<xxxx>` is replaced with the mounted USB key's name and the robot's serial number, respectively.
     - Or, you can open the file explorer to copy the directory.
 
-If your previous partition is corrupted or inaccessible, contact Hello Robot support and they will be able to give a copy of this material.
+If your previous partition is corrupted or inaccessible, contact Hello Robot support and they will be able to supply an older version of the `stretch-re1-<xxxx>` directory.
 
 ## Setup the BIOS
 
@@ -47,7 +50,7 @@ After the Ubuntu install, the default `hello-robot` user account will be set up.
 
 ## Run the new robot installation script
 
-Login to the `hello-robot` user account, open a terminal, and install git:
+Login to the `hello-robot` user account on your new Ubuntu partition, open a terminal, and install git:
 
 ```bash
 sudo apt update
@@ -56,11 +59,12 @@ sudo apt install git
 
 **Note**: The system may not be able to run 'apt' immediately after a reboot as the OS may be running automatic updates in the background. Typically, waiting 10-20 minutes will allow you to use 'apt' again.
 
-Next, place the robot calibration data in the home folder (i.e. /home/$USER/) of your new Ubuntu partition:
+Next, place the robot's calibration data in the home folder using the following steps:
 
- 1. Copy the folder of the form "stretch-re1-xxxx" into the home folder (i.e. /home/$USER/). If you backed this up from `/etc/hello-robot` previously, it will be found within the `hello-robot` directory on the USB key.
-    - For example, you can run a command similar to `cp -r /media/$USER/USBKEY/hello-robot/stretch-re1-xxxx /home/$USER/` where `xxxx` is replaced with your robot's serial number.
-    - Or, you can use the visual file explorer.
+ 1. Boot into the robot's new Ubuntu partition and plug in the USB key that contains the backed up calibration data.
+ 2. Copy the `stretch-re1-<xxxx>` directory, where `<xxxx>` is your robot's serial number, from the USB key into the home folder (i.e. `/home/$USER/`).
+    - For example, you can run a command similar to `cp -r /media/$USER/<USBKEY>/stretch-re1-<xxxx> /home/$USER/` from the command line, where `<USBKEY>` and `<xxxx>` are replaced with your USB key's name and your robot's serial number, respectively.
+    - Or, you can open the file explorer to copy the directory.
 
 Next, pull down the Stretch Install repository and being the installation process:
 
