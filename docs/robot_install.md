@@ -76,7 +76,7 @@ git pull
 ./stretch_new_robot_install.sh
 ```
 
-Once the script has started, it will ask you for your robot's serial numbers, Y/N confirmation, and the password. Then, the script will take 20-30 minutes to complete. Once it finishes, reboot your robot.
+Once the script has started, it will ask you for your robot's serial number, Y/N confirmation, and the password. Then, the script will take 20-30 minutes to complete. Once it finishes, reboot your robot.
 
 Finally, execute the following to confirm the new robot install was set up successfully.
 

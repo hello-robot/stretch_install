@@ -7,7 +7,7 @@ if getopts ":f:" opt && [[ $opt == : ]]; then
 fi
 
 echo "#############################################"
-echo "Starting installation for a new robot."
+echo "Starting new robot install."
 echo "#############################################"
 cd $HOME/stretch_install/factory
 if $do_factory_install; then
