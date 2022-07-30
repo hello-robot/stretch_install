@@ -38,7 +38,7 @@ The next page will show a menu to select a wifi network if you are not already c
 
 ![](./images/18.04/installer_network.png)
 
-It is suggested to use a wired connection if possible for a faster install; your connection status should be visible in the top right of the display
+It is suggested to use a wired connection if possible for a faster install; your connection status should be visible in the top right of the display.
 
 ![](./images/18.04/wifi.png)
 
@@ -54,7 +54,7 @@ Also, check the box next to 'Download updates while installing Ubuntu' (this opt
 
 On the next page titled 'Installation type', you may choose between 'Erase disk and reinstall Ubuntu' or 'Install Ubuntu 18.04 alongside Ubuntu XX.04'. If you've already backed up data from the previous partition, or the previous partition is corrupted, select the erase & reinstall option. If you'd like to preserve your previous Ubuntu partition, select the alongside option. If you choose the alongside option, another screen will allow you to change the size of each partition. It's recommended to give each partition at least 50GB.
 
-Here's what the Erase & Reinstall option will look like, and an screenshot of the alongside option is shown below.
+Here's what the Erase & Reinstall option will look like, and an screenshot of the Install Alongside option is shown below.
 
 ![](./images/18.04/erase_reinstall_disk.png)
 
@@ -85,7 +85,7 @@ Ubuntu will now be installed.
 
 ![](./images/18.04/installing.png)
 
-After the installation is completed You will be prompted to remove the installation medium and restart.
+After the installation is completed, you will be prompted to remove the installation medium and restart.
 
 ![](./images/18.04/installer_finished.png)
 
