@@ -60,6 +60,9 @@ done
 
 echo "Setting up /etc/hello-robot directory..."
 echo "HELLO_FLEET_ID=$HELLO_FLEET_ID">>hello-robot.conf
+if [ -d "/etc/hello-robot" ]; then
+    sudo rm -rf /etc/hello-robot
+fi
 sudo mkdir /etc/hello-robot
 sudo mv hello-robot.conf /etc/hello-robot
 sudo cp $DIR/stretch_about.png /etc/hello-robot/
