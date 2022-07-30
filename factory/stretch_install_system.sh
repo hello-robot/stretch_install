@@ -9,11 +9,10 @@ echo "###########################################"
 echo "INSTALLATION OF SYSTEM WIDE PACKAGES"
 echo "###########################################"
 echo ""
-echo "Upgrading Ubuntu packages to the latest versions..."
-sudo apt-add-repository universe
+sudo apt-add-repository universe > /dev/null
 sudo apt-get --yes update > /dev/null
 sudo apt-get --yes upgrade > /dev/null
-echo "Install zip/unzip"
+echo "Install zip & unzip"
 install zip unzip
 echo "Install Curl"
 install curl
@@ -32,7 +31,7 @@ echo "Install Emacs packages"
 install emacs yaml-mode
 echo "Install nettools"
 install net-tools
-echo "Install git and wget"
+echo "Install wget"
 install wget
 echo "Install vim"
 install vim
@@ -42,53 +41,42 @@ echo "Install GSL for csm"
 install libgsl0-dev
 echo "Install Port Audio"
 install portaudio19-dev
+echo "Installing lm-sensors & nvme-cli"
+install lm-sensors
+install nvme-cli
 echo "###########################################"
 echo "DONE WITH INSTALLATION OF SYSTEM WIDE PACKAGES"
 echo "###########################################"
 echo ""
-
-
-echo "###########################################"
-echo "INSTALLATION OF HARDWARE PACKAGES"
-echo "###########################################"
-# packages to support stretch_body
-echo "Installing lm-sensors"
-sudo apt install lm-sensors
-sudo apt install nvme-cli
-echo "###########################################"
-echo "DONE WITH INSTALLATION OF HARDWARE PACKAGES"
-echo "###########################################"
-echo ""
-
 
 # Install ROS Melodic
 # see http://wiki.ros.org/melodic/Installation/Ubuntu#Installation for details
 echo "###########################################"
 echo "INSTALLATION OF ROS MELODIC"
 echo "###########################################"
-
+echo ""
 echo "Setting up sources.list"
 sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'
 echo "Setting up keys"
 # New key as of Jun 22, 2021
 curl -s https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc | sudo apt-key add -
-echo "apt update"
+echo "Apt update"
 sudo apt-get --yes update > /dev/null
-echo "Installating Desktop-Full Version"
+echo "Installing ROS desktop-full version"
 install ros-melodic-desktop-full
 echo "Initialize rosdep"
 install python-rosdep
-echo "Install additional ROS packages"
+echo "Install other ROS workspace tools"
 install python-rosinstall python-rosinstall-generator python-wstool build-essential
 echo "###########################################"
-echo "DONE WITH MAIN INSTALLATION OF ROS MELODIC"
+echo "DONE WITH INSTALLATION OF ROS MELODIC"
 echo "###########################################"
 echo ""
 
-################ Additional packages#####################################
 echo "###########################################"
-echo "ADDITIONAL INSTALLATION OF ROS MELODIC"
+echo "INSTALLATION OF ADDITIONAL ROS MELODIC PKGS"
 echo "###########################################"
+echo ""
 echo "Install packages to work with URDFs"
 install liburdfdom-tools meshlab
 echo "Install cheese for camera testing"
@@ -122,7 +110,7 @@ install ros-melodic-rplidar-ros ros-melodic-rplidar-ros-dbgsym
 echo "Install Respeaker and speech recognition packages"
 install ros-melodic-respeaker-ros ros-melodic-ros-speech-recognition
 echo "###########################################"
-echo "DONE WITH ADDITIONAL INSTALLATION OF ROS MELODIC"
+echo "DONE WITH INSTALLATION OF ADDITIONAL ROS MELODIC PKGS"
 echo "###########################################"
 echo ""
 
@@ -130,10 +118,9 @@ echo ""
 echo "###########################################"
 echo "INSTALLATION OF INTEL D435i"
 echo "###########################################"
+echo ""
+echo "Install realsense-ros"
 install ros-melodic-realsense2-camera ros-melodic-realsense2-description
-# "The following NEW packages will be installed:
-#  ros-melodic-ddynamic-reconfigure ros-melodic-librealsense2 ros-melodic-realsense2-camera"
-
 echo "Register the librealsense APT server's public key"
 sudo apt-key adv --keyserver keys.gnupg.net --recv-key F6E65AC044F831AC80A06380C8B3A55A6F3EFCDE || sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-key F6E65AC044F831AC80A06380C8B3A55A6F3EFCDE
 echo "Add the librealsense APT server to the list of APT repositories"
@@ -142,7 +129,7 @@ echo "Remove old records in case of upgrading"
 sudo rm -f /etc/apt/sources.list.d/realsense-public.list
 echo "Apt update"
 sudo apt-get --yes update > /dev/null
-echo "Install D435i packages"
+echo "Install librealsense2 packages"
 install librealsense2-dkms librealsense2-utils librealsense2-dev librealsense2-dbg
 echo "###########################################"
 echo "DONE WITH INSTALLATION OF INTEL D435i"
