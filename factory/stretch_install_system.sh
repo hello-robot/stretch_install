@@ -8,7 +8,6 @@ function install {
 echo "###########################################"
 echo "INSTALLATION OF SYSTEM WIDE PACKAGES"
 echo "###########################################"
-echo ""
 echo "Apt update & upgrade"
 sudo apt-add-repository universe > /dev/null
 sudo apt-get --yes update > /dev/null
@@ -55,7 +54,6 @@ echo ""
 echo "###########################################"
 echo "INSTALLATION OF ROS MELODIC"
 echo "###########################################"
-echo ""
 echo "Setting up sources.list"
 sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'
 echo "Setting up keys"
@@ -63,9 +61,9 @@ echo "Setting up keys"
 curl -s https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc | sudo apt-key add -
 echo "Apt update"
 sudo apt-get --yes update > /dev/null
-echo "Install ROS Melodic desktop-full"
+echo "Install ROS Melodic desktop"
 install ros-melodic-desktop-full
-echo "Initialize rosdep"
+echo "Install rosdep"
 install python-rosdep
 echo "Install other ROS workspace tools"
 install python-rosinstall python-rosinstall-generator python-wstool build-essential
@@ -77,7 +75,6 @@ echo ""
 echo "###########################################"
 echo "INSTALLATION OF ADDITIONAL ROS MELODIC PKGS"
 echo "###########################################"
-echo ""
 echo "Install packages to work with URDFs"
 install liburdfdom-tools meshlab
 echo "Install cheese for camera testing"
@@ -106,7 +103,7 @@ install ros-melodic-teleop-twist-keyboard
 #install ros-melodic-move-base ros-melodic-map-server ros-melodic-amcl ros-melodic-cartographer ros-melodic-cartographer-ros ros-melodic-cartographer-rviz
 install ros-melodic-move-base ros-melodic-move-base-msgs
 install ros-melodic-gmapping ros-melodic-navigation
-cho "Install RPLidar A1M8 packages"
+echo "Install RPLidar A1M8 packages"
 install ros-melodic-rplidar-ros ros-melodic-rplidar-ros-dbgsym
 echo "Install Respeaker and speech recognition packages"
 install ros-melodic-respeaker-ros ros-melodic-ros-speech-recognition
@@ -119,7 +116,6 @@ echo ""
 echo "###########################################"
 echo "INSTALLATION OF INTEL D435i"
 echo "###########################################"
-echo ""
 echo "Install realsense-ros"
 install ros-melodic-realsense2-camera ros-melodic-realsense2-description
 echo "Register the librealsense APT server's public key"
