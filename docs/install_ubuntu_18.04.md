@@ -22,33 +22,33 @@ From the boot menu, select 'OS BOOTLOADER' or look for a similar option that men
 
 From here, the monitor should show the grub bootloader and display a menu similar to what is shown below:
 
-![](./images/grub.png)
+![](./images/18.04/grub.png)
 
 From this menu select 'Install Ubuntu'. The Ubuntu 18.04 installer will be launched.
 
 At the first screen you will be prompted to select a language for the system. Select 'English' as shown below
 
-![](./images/installer_language.png)
+![](./images/18.04/installer_language.png)
 
 Next you will be prompted to select a keyboard layout. Select 'English(US)'.
 
-![](./images/installer_keyboard.png)
+![](./images/18.04/installer_keyboard.png)
 
 The next page will show a menu to select a wifi network if you are not already connected.
 
-![](./images/installer_network.png)
+![](./images/18.04/installer_network.png)
 
 It is suggested to use a wired connection if possible for a faster install; your connection status should be visible in the top right of the display
 
-![](./images/wifi.png)
+![](./images/18.04/wifi.png)
 
-![](./images/ethernet.png)
+![](./images/18.04/ethernet.png)
 
 On the next page titled, 'Updates and other software', select 'Minimal Installation' under 'What apps would you like to install to start with?'
 
 Also, check the box next to 'Download updates while installing Ubuntu' (this option will be unavailable if there is no interent connection) and, uncheck 'Install third-party software for graphics and Wi-Fi hardware and additional media formats'.
 
-![](./images/installer_software.png)
+![](./images/18.04/installer_software.png)
 
 ### Erase & Reinstall vs Install Alongside
 
@@ -56,19 +56,19 @@ On the next page titled 'Installation type', you may choose between 'Erase disk 
 
 Here's what the Erase & Reinstall option will look like, and an screenshot of the alongside option is shown below.
 
-![](./images/erase_reinstall_disk.png)
+![](./images/18.04/erase_reinstall_disk.png)
 
-![](./images/install_alongside_disk.jpg)
+![](./images/20.04/install_alongside_disk.jpg)
 
 There will be a prompt to confirm you wish to create the appropriate partitions for the ubuntu install.
 
 If you've chosen the erase & reinstall option, ensure there is nothing on the hard drive you wish to save before selecting continue
 
-![](./images/installer_disk_prompt.png)
+![](./images/18.04/installer_disk_prompt.png)
 
 Next, select your timezone.
 
-![](./images/installer_location.png)
+![](./images/18.04/installer_location.png)
 
 Finally, enter the identifying information as written below replacing '1000' with the appropriate serial number for the robot. The robot's serial number can be found on the left wall of the robot's trunk.
 
@@ -79,15 +79,15 @@ Finally, enter the identifying information as written below replacing '1000' wit
 
 Also select the 'Log in automatically' option. When finished the 'Who are you' page should look like the picture below.
 
-![](./images/installer_identity.png)
+![](./images/18.04/installer_identity.png)
 
 Ubuntu will now be installed.
 
-![](./images/installing.png)
+![](./images/18.04/installing.png)
 
 After the installation is completed You will be prompted to remove the installation medium and restart.
 
-![](./images/installer_finished.png)
+![](./images/18.04/installer_finished.png)
 
 Remove the installation medium and turn off the robot.
 
