@@ -1,6 +1,12 @@
 #!/bin/bash
 
-#####################################################
+source /etc/os-release
+factory_osdir="$VERSION_ID"
+if [[ ! $factory_osdir =~ ^(18.04|20.04)$ ]]; then
+    echo "Could not identify OS. Please contact Hello Robot Support."
+    exit 1
+fi
+
 echo "To be run once a robot has gone through production bringup "
 echo "Configures to use an attached DexWrist"
 echo "Use --factory if this is a factory installation"
@@ -16,7 +22,7 @@ echo "Setting Dynamixel bauds to 115200"
 RE1_dynamixel_set_baud.py /dev/hello-dynamixel-wrist 13 115200
 
 echo "Configuring user YAML"
-./factory/stretch_dex_wrist_yaml_configure.py $1
+./factory/$factory_osdir/stretch_dex_wrist_yaml_configure.py $1
 
 echo "Setting up Stretch ROS and URDF"
 cd ~/catkin_ws/src/stretch_ros/

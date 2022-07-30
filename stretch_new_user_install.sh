@@ -3,6 +3,13 @@ set -e
 
 REDIRECT_LOGFILE="$HOME/stretch_user/log/stretch_new_user_install.`date '+%Y%m%d%H%M'`_redirected.txt"
 
+source /etc/os-release
+factory_osdir="$VERSION_ID"
+if [[ ! $factory_osdir =~ ^(18.04|20.04)$ ]]; then
+    echo "Could not identify OS. Please contact Hello Robot Support."
+    exit 1
+fi
+
 if [ "$HELLO_FLEET_ID" ]; then
     UPDATING=true
     echo "###########################################"
@@ -20,7 +27,12 @@ else
     echo "export HELLO_FLEET_ID=${HELLO_FLEET_ID}">> ~/.bashrc
     echo "export PATH=\${PATH}:~/.local/bin" >> ~/.bashrc
     echo "export LRS_LOG_LEVEL=None #Debug" >> ~/.bashrc
-    echo "source /opt/ros/melodic/setup.bash" >> ~/.bashrc
+    if [[ $factory_osdir = "18.04" ]]; then
+        echo "source /opt/ros/melodic/setup.bash" >> ~/.bashrc
+    elif [[ $factory_osdir = "20.04" ]]; then
+        echo "source /opt/ros/noetic/setup.bash" >> ~/.bashrc
+        echo "#source /opt/ros/galactic/setup.bash" >> ~/.bashrc
+    fi
 fi
 
 echo "Creating repos and stretch_user directories..."
@@ -50,13 +62,13 @@ fi
 
 echo "Setting up this user to start the robot's code automatically on boot..."
 mkdir -p ~/.config/autostart
-cp ~/stretch_install/factory/hello_robot_audio.desktop ~/.config/autostart/
-cp ~/stretch_install/factory/hello_robot_xbox_teleop.desktop ~/.config/autostart/
-cp ~/stretch_install/factory/hello_robot_lrf_off.desktop ~/.config/autostart/
-cp ~/stretch_install/factory/hello_robot_pimu_ping.desktop ~/.config/autostart/
+cp ~/stretch_install/factory/$factory_osdir/hello_robot_audio.desktop ~/.config/autostart/
+cp ~/stretch_install/factory/$factory_osdir/hello_robot_xbox_teleop.desktop ~/.config/autostart/
+cp ~/stretch_install/factory/$factory_osdir/hello_robot_lrf_off.desktop ~/.config/autostart/
+cp ~/stretch_install/factory/$factory_osdir/hello_robot_pimu_ping.desktop ~/.config/autostart/
 
 echo "Updating media assets..."
-sudo cp $HOME/stretch_install/images/stretch_about.png /etc/hello-robot
+sudo cp $HOME/stretch_install/factory/$factory_osdir/stretch_about.png /etc/hello-robot
 
 echo "Adding user to the dialout group to access Arduino..."
 sudo adduser $USER dialout
@@ -66,26 +78,53 @@ echo "Adding user to the input group to access input devices (e.g. gamepad)..."
 sudo adduser $USER input
 echo ""
 
-echo "###########################################"
-echo "INSTALLATION OF USER LEVEL PIP2 PACKAGES"
-echo "###########################################"
-echo "Upgrade pip3"
-python3 -m pip -q install --user --upgrade pip
-echo "Install setuptools"
-python2 -m pip -q install setuptools-scm==5.0.2
-echo "Install Stretch Body (this will take a long time)"
-python2 -m pip -q install hello-robot-stretch-body
-echo "Install Stretch Body Tools"
-python2 -m pip -q install hello-robot-stretch-body-tools
-echo "Install Stretch Factory"
-python2 -m pip -q install hello-robot-stretch-factory
-echo "Install Stretch Tool Share"
-python2 -m pip -q install hello-robot-stretch-tool-share
-echo "Install opencv-python-inference-engine"
-python3 -m pip -q install --no-warn-script-location opencv-python-inference-engine
-echo "###########################################"
-echo "DONE WITH INSTALLATION OF USER LEVEL PIP2 PACKAGES"
-echo "###########################################"
-echo ""
+if [[ $factory_osdir = "18.04" ]]; then
+    echo "###########################################"
+    echo "INSTALLATION OF USER LEVEL PIP2 PACKAGES"
+    echo "###########################################"
+    echo "Upgrade pip3"
+    python3 -m pip -q install --user --upgrade pip
+    echo "Install setuptools"
+    python2 -m pip -q install setuptools-scm==5.0.2
+    echo "Install Stretch Body (this will take a long time)"
+    python2 -m pip -q install hello-robot-stretch-body
+    echo "Install Stretch Body Tools"
+    python2 -m pip -q install hello-robot-stretch-body-tools
+    echo "Install Stretch Factory"
+    python2 -m pip -q install hello-robot-stretch-factory
+    echo "Install Stretch Tool Share"
+    python2 -m pip -q install hello-robot-stretch-tool-share
+    echo "Install opencv-python-inference-engine"
+    python3 -m pip -q install --no-warn-script-location opencv-python-inference-engine
+    echo "###########################################"
+    echo "DONE WITH INSTALLATION OF USER LEVEL PIP2 PACKAGES"
+    echo "###########################################"
+    echo ""
+elif [[ $factory_osdir = "20.04" ]]; then
+    echo "###########################################"
+    echo "INSTALLATION OF USER LEVEL PIP3 PACKAGES"
+    echo "###########################################"
+    echo "Upgrade pip3"
+    python3 -m pip -q install --user --upgrade pip
+    echo "Install Stretch Body"
+    python3 -m pip -q install hello-robot-stretch-body
+    echo "Install Stretch Body Tools"
+    python3 -m pip -q install hello-robot-stretch-body-tools
+    echo "Install Stretch Factory"
+    python3 -m pip -q install hello-robot-stretch-factory
+    echo "Install Stretch Tool Share"
+    python3 -m pip -q install hello-robot-stretch-tool-share
+    echo "Install renamed-opencv-python-inference-engine"
+    python3 -m pip -q install --no-warn-script-location renamed-opencv-python-inference-engine
+    echo "###########################################"
+    echo "DONE WITH INSTALLATION OF USER LEVEL PIP3 PACKAGES"
+    echo "###########################################"
+    echo ""
+fi
 
-~/stretch_install/factory/stretch_create_catkin_workspace.sh "$HOME/catkin_ws"
+if [[ $factory_osdir = "18.04" ]]; then
+    ~/stretch_install/factory/$factory_osdir/stretch_create_catkin_workspace.sh "$HOME/catkin_ws"
+elif [[ $factory_osdir = "20.04" ]]; then
+    ~/stretch_install/factory/$factory_osdir/stretch_create_catkin_workspace.sh "$HOME/catkin_ws"
+    ~/stretch_install/factory/$factory_osdir/stretch_create_ament_workspace.sh "$HOME/ament_ws"
+fi

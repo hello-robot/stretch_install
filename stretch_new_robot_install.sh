@@ -7,6 +7,14 @@ if getopts ":f:" opt && [[ $opt == : ]]; then
     do_factory_install='true'
 fi
 
+source /etc/os-release
+factory_osdir="$VERSION_ID"
+if [[ ! $factory_osdir =~ ^(18.04|20.04)$ ]]; then
+    echo "Could not identify OS. Please contact Hello Robot Support."
+    exit 1
+fi
+
+
 echo "#############################################"
 echo "STARTING NEW ROBOT INSTALL"
 echo "#############################################"
@@ -22,7 +30,7 @@ mkdir -p $logdir
 
 echo ""
 echo "Running initial configuration script (will log to $logfile_initial)..."
-cd $HOME/stretch_install/factory
+cd $HOME/stretch_install/factory/$factory_osdir
 if $do_factory_install; then
     ./stretch_setup_new_robot.sh |& tee $logfile_initial
 else
@@ -31,7 +39,7 @@ fi
 
 echo ""
 echo "Running system install script (will log to $logfile_system)..."
-cd $HOME/stretch_install/factory
+cd $HOME/stretch_install/factory/$factory_osdir
 ./stretch_install_system.sh |& tee $logfile_system
 
 echo ""
@@ -43,7 +51,7 @@ cd $HOME/stretch_install
 if $do_factory_install; then
     echo ""
     echo "Running dev tools install script (will log to $logfile_dev_tools)..."
-    cd $HOME/stretch_install/factory
+    cd $HOME/stretch_install/factory/$factory_osdir
     ./stretch_install_dev_tools.sh |& tee $logfile_dev_tools
 fi
 

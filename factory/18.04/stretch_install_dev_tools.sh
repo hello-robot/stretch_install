@@ -17,7 +17,7 @@ echo "Install Chromium"
 sudo apt-get install --yes chromium-browser >> $REDIRECT_LOGFILE
 
 echo "Install Arduino CLI"
-cd ~/stretch_install/factory/
+cd ~/stretch_install/factory/18.04/
 ./stretch_install_arduino.sh >> $REDIRECT_LOGFILE
 
 echo "Install PyCharm"

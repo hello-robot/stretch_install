@@ -62,7 +62,7 @@ echo "Setting up /etc/hello-robot directory..."
 echo "HELLO_FLEET_ID=$HELLO_FLEET_ID">>hello-robot.conf
 sudo mkdir /etc/hello-robot
 sudo mv hello-robot.conf /etc/hello-robot
-sudo cp $DIR/../images/stretch_about.png /etc/hello-robot/
+sudo cp $DIR/stretch_about.png /etc/hello-robot/
 
 echo "Fetching robot's calibration data locally from $HOME/$HELLO_FLEET_ID directory..."
 sudo cp -rf ~/$HELLO_FLEET_ID /etc/hello-robot
