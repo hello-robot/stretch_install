@@ -24,9 +24,9 @@ echo "Install Pip"
 install python-pip
 echo "Install Git"
 install git
-echo "Install rpl via apt"
+echo "Install rpl"
 install rpl
-echo "Install ipython3 via apt"
+echo "Install ipython3"
 install ipython3
 install python3-pip
 echo "Install Emacs packages"
@@ -37,10 +37,8 @@ echo "Install wget"
 install wget
 echo "Install vim"
 install vim
-echo "Install Python packages"
+echo "Install pyserial"
 install python-serial
-echo "Install GSL for csm"
-install libgsl0-dev
 echo "Install Port Audio"
 install portaudio19-dev
 echo "Install lm-sensors & nvme-cli"
@@ -58,7 +56,6 @@ echo "###########################################"
 echo "Setting up sources.list"
 sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'
 echo "Setting up keys"
-# New key as of Jun 22, 2021
 curl -s https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc | sudo apt-key add -
 echo "Apt update"
 sudo apt-get --yes update >> $REDIRECT_LOGFILE
@@ -106,7 +103,7 @@ echo "Install dynamic reconfiguration package for use with Intel D435i"
 install ros-melodic-ddynamic-reconfigure-python
 echo "Install ROS teleop packages"
 install ros-melodic-teleop-twist-keyboard
-#echo "Install ROS navigation and mapping packages"
+echo "Install ROS navigation and mapping packages"
 #install ros-melodic-move-base ros-melodic-map-server ros-melodic-amcl ros-melodic-cartographer ros-melodic-cartographer-ros ros-melodic-cartographer-rviz
 install ros-melodic-move-base ros-melodic-move-base-msgs
 install ros-melodic-gmapping ros-melodic-navigation
@@ -120,7 +117,6 @@ echo "###########################################"
 echo "DONE WITH INSTALLATION OF ADDITIONAL ROS MELODIC PKGS"
 echo "###########################################"
 echo ""
-
 
 echo "###########################################"
 echo "INSTALLATION OF INTEL D435i"
@@ -142,4 +138,3 @@ echo "DONE WITH INSTALLATION OF INTEL D435i"
 echo "NOTE: Update firmware using realsense-viewer"
 echo "###########################################"
 echo ""
-

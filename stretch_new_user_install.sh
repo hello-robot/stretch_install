@@ -82,7 +82,7 @@ python2 -m pip -q install hello-robot-stretch-factory
 echo "Install Stretch Tool Share"
 python2 -m pip -q install hello-robot-stretch-tool-share
 echo "Install opencv-python-inference-engine"
-python3 -m pip -q install opencv-python-inference-engine
+python3 -m pip -q install --no-warn-script-location opencv-python-inference-engine
 echo "###########################################"
 echo "DONE WITH INSTALLATION OF USER LEVEL PIP2 PACKAGES"
 echo "###########################################"
