@@ -49,7 +49,6 @@ echo "DONE WITH INSTALLATION OF SYSTEM WIDE PACKAGES"
 echo "###########################################"
 echo ""
 
-# Install ROS Melodic
 # see http://wiki.ros.org/melodic/Installation/Ubuntu#Installation for details
 echo "###########################################"
 echo "INSTALLATION OF ROS MELODIC"
@@ -65,8 +64,11 @@ echo "Install ROS Melodic desktop"
 install ros-melodic-desktop-full
 echo "Install rosdep"
 install python-rosdep
+echo "Configure rosdep"
+sudo rosdep init > /dev/null
+rosdep update > /dev/null
 echo "Install other ROS workspace tools"
-install python-rosinstall python-rosinstall-generator python-wstool build-essential
+install python-vcstool python-rosinstall python-rosinstall-generator python-wstool build-essential
 echo "###########################################"
 echo "DONE WITH INSTALLATION OF ROS MELODIC"
 echo "###########################################"
@@ -107,6 +109,8 @@ echo "Install RPLidar A1M8 packages"
 install ros-melodic-rplidar-ros ros-melodic-rplidar-ros-dbgsym
 echo "Install Respeaker and speech recognition packages"
 install ros-melodic-respeaker-ros ros-melodic-ros-speech-recognition
+echo "Install scan tools for Canonical Scan Matching using the laser_scan_matcher"
+install ros-melodic-scan-tools
 echo "###########################################"
 echo "DONE WITH INSTALLATION OF ADDITIONAL ROS MELODIC PKGS"
 echo "###########################################"

@@ -12,14 +12,13 @@ else
     echo "###########################################"
     echo "NEW INSTALLATION OF USER SOFTWARE"
     echo "###########################################"
-    echo "Update .bashrc"
+    echo "Update ~/.bashrc dotfile..."
+    echo "" >> ~/.bashrc
     echo "export HELLO_FLEET_PATH=${HOME}/stretch_user" >> ~/.bashrc
     echo "export HELLO_FLEET_ID=${HELLO_FLEET_ID}">> ~/.bashrc
     echo "export PATH=\${PATH}:~/.local/bin" >> ~/.bashrc
-    echo "Source .bashrc"
-    source ~/.bashrc
-    export HELLO_FLEET_PATH=${HOME}/stretch_user
-    export HELLO_FLEET_ID=${HELLO_FLEET_ID}
+    echo "export LRS_LOG_LEVEL=None #Debug" >> ~/.bashrc
+    echo "source /opt/ros/melodic/setup.bash" >> ~/.bashrc
 fi
 
 echo "Creating repos and stretch_user directories..."
@@ -32,7 +31,9 @@ mkdir -p ~/stretch_user/models
 
 echo "Cloning Stretch deep perception models..."
 cd ~/stretch_user
-git clone https://github.com/hello-robot/stretch_deep_perception_models > /dev/null
+if [ ! -d "$HOME/stretch_user/stretch_deep_perception_models" ]; then
+    git clone https://github.com/hello-robot/stretch_deep_perception_models > /dev/null
+fi
 cd stretch_deep_perception_models
 git pull > /dev/null
 
@@ -64,7 +65,7 @@ sudo adduser $USER input
 echo ""
 
 echo "###########################################"
-echo "INSTALLATION OF USER LEVEL PIP PACKAGES"
+echo "INSTALLATION OF USER LEVEL PIP2 PACKAGES"
 echo "###########################################"
 echo "Upgrade pip3"
 python3 -m pip -q install --user --upgrade pip
@@ -79,8 +80,8 @@ python2 -m pip -q install hello-robot-stretch-factory
 echo "Install Stretch Tool Share"
 python2 -m pip -q install hello-robot-stretch-tool-share
 echo "###########################################"
-echo "DONE WITH INSTALLATION OF USER LEVEL PIP PACKAGES"
+echo "DONE WITH INSTALLATION OF USER LEVEL PIP2 PACKAGES"
 echo "###########################################"
 echo ""
 
-~/stretch_install/factory/stretch_create_catkin_workspace.sh
+~/stretch_install/factory/stretch_create_catkin_workspace.sh "$HOME/catkin_ws"
