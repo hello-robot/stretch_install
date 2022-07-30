@@ -1,0 +1,21 @@
+repositories:
+  moveit_task_constructor:
+    type: git
+    url: https://github.com/JafarAbdi/moveit_task_constructor
+    version: ros2
+  rosparam_shortcuts:
+    type: git
+    url: https://github.com/PickNikRobotics/rosparam_shortcuts
+    version: ros2
+  rviz_visual_tools:
+    type: git
+    url: https://github.com/PickNikRobotics/rviz_visual_tools
+    version: ros2
+  stretch_moveit_plugins:
+    type: git
+    url: https://github.com/PickNikRobotics/stretch_moveit_plugins
+    version: main
+  stretch_ros2:
+    type: git
+    url: https://github.com/hello-robot/stretch_ros2
+    version: feature/hybrid_planning

@@ -116,6 +116,8 @@ elif [[ $factory_osdir = "20.04" ]]; then
     python3 -m pip -q install hello-robot-stretch-tool-share
     echo "Install renamed-opencv-python-inference-engine"
     python3 -m pip -q install --no-warn-script-location renamed-opencv-python-inference-engine
+    echo "Upgrade prompt_toolkit"
+    python3 -m pip -q install -U prompt_toolkit
     echo "###########################################"
     echo "DONE WITH INSTALLATION OF USER LEVEL PIP3 PACKAGES"
     echo "###########################################"
