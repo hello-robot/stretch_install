@@ -43,6 +43,9 @@ echo "#source $AMENT_WSDIR/devel/setup.bash" >> ~/.bashrc
 #echo "Compiling FUNMAP's Cython code..."
 #cd $CATKIN_WSDIR/src/stretch_ros/stretch_funmap/src/stretch_funmap
 #./compile_cython_code.sh &>> $REDIRECT_LOGFILE
+# TODO: replace these hacks
+cp `rospack find stretch_description`/urdf/stretch.urdf $AMENT_WSDIR/src/stretch_ros2/stretch_description/urdf/
+cp `rospack find stretch_core`/config/controller_calibration_head.yaml $AMENT_WSDIR/src/stretch_ros2/stretch_core/config/
 echo "###########################################"
 echo "DONE WITH CREATING GALACTIC AMENT WORKSPACE at $AMENT_WSDIR"
 echo "###########################################"
