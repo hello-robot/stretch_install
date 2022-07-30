@@ -5,9 +5,12 @@ echo ""
 echo "WARNING: Running a FACTORY install. This is only meant to be run at Hello Robot HQ."
 echo "WARNING: Run this installation for fresh Ubuntu installs only."
 #####################################################
-DIR=`pwd`
 echo -n "Enter fleet id xxxx for stretch-re1-xxxx> "
 read id
+if [[ ! $id =~ ^[0-9]{4}$ ]]; then
+    echo "Input should be four digits. Exiting."
+    exit 1
+fi
 pre="stretch-re1-"
 HELLO_FLEET_ID="$pre$id"
 
@@ -19,6 +22,37 @@ if [[ ! $REPLY =~ ^[Yy]$ ]]; then
 fi
 
 echo ""
+DIR=`pwd`
+echo "Checking running script from correct folder..."
+if [[ ! $DIR =~ stretch_install ]]; then
+    echo "Run this script from the stretch_install folder. Exiting."
+    exit 1
+fi
+
+echo "Waiting to get online..."
+while ! timeout 0.2 ping -c 1 -n google.com &> /dev/null
+do
+    sleep 1
+    printf "%c" "."
+done
+
+echo "Checking install repo is up-to-date..."
+git remote update > /dev/null
+ATU="@{u}"
+UPSTREAM=${1:-$ATU}
+LOCAL=$(git rev-parse @)
+REMOTE=$(git rev-parse "$UPSTREAM")
+if [ ! $LOCAL = $REMOTE ]; then
+    echo "Repo not up-to-date. Please perform a 'git pull'. Exiting."
+    exit 1
+fi
+
+echo "Waiting for apt lock..."
+while sudo fuser /var/{lib/{dpkg,apt/lists},cache/apt/archives}/lock >/dev/null 2>&1; do
+    sleep 1
+    printf "%c" "."
+done
+
 echo "Setting up /etc/hello-robot directory..."
 echo "HELLO_FLEET_ID=$HELLO_FLEET_ID">>hello-robot.conf
 sudo mkdir /etc/hello-robot
