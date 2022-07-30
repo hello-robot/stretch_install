@@ -1,0 +1,6 @@
+[Desktop Entry]
+Type=Application
+Name=hello_robot_audio
+Exec= canberra-gtk-play --id="system-ready"
+Hidden=false
+X-GNOME-Autostart-enabled=true

@@ -1,0 +1,19 @@
+board_manager:
+  additional_urls: []
+daemon:
+  port: "50051"
+directories:
+  data: /home/hello-robot/.arduino15
+  downloads: /home/hello-robot/.arduino15/staging
+  user: /home/hello-robot/repos/stretch_firmware/arduino
+library:
+  enable_unsafe_install: false
+logging:
+  file: ""
+  format: text
+  level: info
+sketch:
+  always_export_binaries: false
+telemetry:
+  addr: :9090
+  enabled: true

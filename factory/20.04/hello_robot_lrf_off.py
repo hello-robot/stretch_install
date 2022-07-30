@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 import serial
 import time
 #This script keeps the lrf port open while the computer is on

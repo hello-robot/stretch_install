@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 import stretch_body.pimu
 import time
 #This script establishes communications with the Pimu at launch then shutsdown
