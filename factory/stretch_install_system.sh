@@ -9,6 +9,7 @@ echo "###########################################"
 echo "INSTALLATION OF SYSTEM WIDE PACKAGES"
 echo "###########################################"
 echo ""
+echo "Apt update & upgrade"
 sudo apt-add-repository universe > /dev/null
 sudo apt-get --yes update > /dev/null
 sudo apt-get --yes upgrade > /dev/null
@@ -41,7 +42,7 @@ echo "Install GSL for csm"
 install libgsl0-dev
 echo "Install Port Audio"
 install portaudio19-dev
-echo "Installing lm-sensors & nvme-cli"
+echo "Install lm-sensors & nvme-cli"
 install lm-sensors
 install nvme-cli
 echo "###########################################"
@@ -62,7 +63,7 @@ echo "Setting up keys"
 curl -s https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc | sudo apt-key add -
 echo "Apt update"
 sudo apt-get --yes update > /dev/null
-echo "Installing ROS desktop-full version"
+echo "Install ROS Melodic desktop-full"
 install ros-melodic-desktop-full
 echo "Initialize rosdep"
 install python-rosdep
