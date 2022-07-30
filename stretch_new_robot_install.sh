@@ -8,7 +8,7 @@ if getopts ":f:" opt && [[ $opt == : ]]; then
 fi
 
 echo "#############################################"
-echo "Starting new robot install."
+echo "STARTING NEW ROBOT INSTALL"
 echo "#############################################"
 
 timestamp='stretch_install_'`date '+%Y%m%d%H%M'`;
@@ -17,7 +17,7 @@ logfile_initial="$logdir/stretch_initial_configuration.txt"
 logfile_system="$logdir/stretch_system_install.txt"
 logfile_user="$logdir/stretch_user_install.txt"
 logfile_dev_tools="$logdir/stretch_dev_tools_install.txt"
-logzip="$logdir/stretch_logs.zip"
+logzip="$logdir/stretch_robot_install_logs.zip"
 mkdir -p $logdir
 
 echo ""
@@ -49,11 +49,12 @@ fi
 
 echo ""
 echo "Generating $logzip. Include with any support tickets."
-zip $logzip $logfile_initial $logfile_system $logfile_user $logfile_dev_tools
+mv $HOME/stretch_user/log/*_redirected.txt $logdir
+zip -r $logzip $logdir/ > /dev/null
 
 echo ""
 echo "#############################################"
-echo "Done. A full reboot is recommended."
+echo "DONE! A FULL REBOOT IS RECOMMENDED"
 echo "#############################################"
 echo ""
 

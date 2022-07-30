@@ -1,52 +1,45 @@
 #!/bin/bash
+set -e
 
-#####################################################
-echo "Installs common developer tools for Hello Robot internal production"
+REDIRECT_LOGFILE="$HOME/stretch_user/log/stretch_install_dev_tools.`date '+%Y%m%d%H%M'`_redirected.txt"
 
-
-read -p "Proceed with installation (y/n)?" -n 1 -r
-echo
-if [[ ! $REPLY =~ ^[Yy]$ ]]
-then
-    exit 1
-fi
+echo "#############################################"
+echo "INSTALLATION OF DEV TOOLS FOR HELLO ROBOT INTERNAL PRODUCTION"
+echo "#############################################"
 
 echo "Install Typora"
 wget -qO - https://typora.io/linux/public-key.asc | sudo apt-key add -
 sudo add-apt-repository 'deb https://typora.io/linux ./'
-sudo apt-get update
-sudo apt install --yes typora
+sudo apt-get update >> $REDIRECT_LOGFILE
+sudo apt install --yes typora >> $REDIRECT_LOGFILE
 
 echo "Install Chromium"
-sudo apt install --yes chromium-browser
+sudo apt install --yes chromium-browser >> $REDIRECT_LOGFILE
 
 echo "Install Arduino"
+cd ~/stretch_install/factory/
 ./stretch_install_arduino.sh
 
 echo "Install PyCharm"
 sudo snap install pycharm-community --classic
 
-echo "Install tools for system QC and bringup "
-pip2 install twine
-pip2 install gspread
-pip2 install gspread-formatting
-pip2 install oauth2client rsa==3.4
-pip3 install mkdocs mkdocs-material mkdocstrings==0.17.0 pytkdocs[numpy-style] jinja2=3.0.3
+echo "Install tools for system QC and bringup"
+pip2 install -q twine
+pip2 install -q gspread
+pip2 install -q gspread-formatting
+pip2 install -q oauth2client rsa==3.4
+pip3 install -q mkdocs mkdocs-material mkdocstrings==0.17.0 pytkdocs[numpy-style] jinja2=3.0.3
 
-echo "Cloning repos."
+echo "Cloning repos"
 cd ~/repos/
-git clone https://github.com/hello-robot/stretch_install.git
-git clone https://github.com/hello-robot/stretch_factory.git
-git clone https://github.com/hello-robot/stretch_body.git
-git clone https://github.com/hello-robot/stretch_firmware.git
-git clone https://github.com/hello-robot/stretch_fleet.git
-git clone https://github.com/hello-robot/stretch_fleet_tools.git
-git clone https://github.com/hello-robot/hello-robot.github.io
-git clone https://github.com/hello-robot/stretch_docs
-
-echo "Done."
-echo ""
-
+git clone https://github.com/hello-robot/stretch_install.git >> $REDIRECT_LOGFILE
+git clone https://github.com/hello-robot/stretch_factory.git >> $REDIRECT_LOGFILE
+git clone https://github.com/hello-robot/stretch_body.git >> $REDIRECT_LOGFILE
+git clone https://github.com/hello-robot/stretch_firmware.git >> $REDIRECT_LOGFILE
+git clone https://github.com/hello-robot/stretch_fleet.git >> $REDIRECT_LOGFILE
+git clone https://github.com/hello-robot/stretch_fleet_tools.git >> $REDIRECT_LOGFILE
+git clone https://github.com/hello-robot/hello-robot.github.io >> $REDIRECT_LOGFILE
+git clone https://github.com/hello-robot/stretch_docs >> $REDIRECT_LOGFILE
 
 # update .bashrc to add body code directory to the Python path
 

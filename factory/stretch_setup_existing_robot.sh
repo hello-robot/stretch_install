@@ -22,9 +22,9 @@ fi
 
 echo ""
 DIR=`pwd`
-echo "Checking running script from correct folder..."
-if [[ ! $DIR =~ stretch_install ]]; then
-    echo "Run this script from the stretch_install folder. Exiting."
+echo "Checking Stretch Install cloned to right place..."
+if [[ ! $DIR = "$HOME/stretch_install" ]]; then
+    echo "Expecting Stretch Install to be in home folder. Exiting."
     exit 1
 fi
 
