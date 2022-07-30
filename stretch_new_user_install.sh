@@ -83,7 +83,7 @@ if [[ $factory_osdir = "18.04" ]]; then
     echo "INSTALLATION OF USER LEVEL PIP2 PACKAGES"
     echo "###########################################"
     echo "Upgrade pip3"
-    python3 -m pip -q install --user --upgrade pip
+    python3 -m pip -q install --no-warn-script-location --user --upgrade pip
     echo "Install setuptools"
     python2 -m pip -q install setuptools-scm==5.0.2
     echo "Install Stretch Body (this will take a long time)"
@@ -105,19 +105,19 @@ elif [[ $factory_osdir = "20.04" ]]; then
     echo "INSTALLATION OF USER LEVEL PIP3 PACKAGES"
     echo "###########################################"
     echo "Upgrade pip3"
-    python3 -m pip -q install --user --upgrade pip
+    python3 -m pip -q install --no-warn-script-location --user --upgrade pip
     echo "Install Stretch Body"
-    python3 -m pip -q install hello-robot-stretch-body
+    python3 -m pip -q install --no-warn-script-location hello-robot-stretch-body
     echo "Install Stretch Body Tools"
-    python3 -m pip -q install hello-robot-stretch-body-tools
+    python3 -m pip -q install --no-warn-script-location hello-robot-stretch-body-tools
     echo "Install Stretch Factory"
-    python3 -m pip -q install hello-robot-stretch-factory
+    python3 -m pip -q install --no-warn-script-location hello-robot-stretch-factory
     echo "Install Stretch Tool Share"
-    python3 -m pip -q install hello-robot-stretch-tool-share
+    python3 -m pip -q install --no-warn-script-location hello-robot-stretch-tool-share
     echo "Install renamed-opencv-python-inference-engine"
     python3 -m pip -q install --no-warn-script-location renamed-opencv-python-inference-engine
     echo "Upgrade prompt_toolkit"
-    python3 -m pip -q install -U prompt_toolkit
+    python3 -m pip -q install --no-warn-script-location -U prompt_toolkit
     echo "###########################################"
     echo "DONE WITH INSTALLATION OF USER LEVEL PIP3 PACKAGES"
     echo "###########################################"
