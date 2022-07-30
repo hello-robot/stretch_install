@@ -8,7 +8,7 @@ We develop our software publicly on Github, allowing anyone to follow/propose th
 
 ## How to Update
 
-Each Stretch RE1 is shipped with firmware, a Python SDK, and ROS packages developed specifically for Stretch. At the moment, there are three separate processes for updating each of these components.
+Each Stretch RE1 is shipped with firmware, a Python SDK, and ROS packages developed specifically for Stretch. There are separate processes for updating each of these components.
 
 ### Stretch ROS
 
@@ -17,14 +17,22 @@ Stretch ROS is the [Robot Operating System](https://www.ros.org/about-ros/) (ROS
 ```console
 roscd stretch_core
 git pull
+cd ..
+rosdep install --from-paths src --ignore-src -r -y
 ```
 
 ### Stretch Body
 
-Stretch Body is the Python SDK to the robot. It abstracts away the low level details of communication with the embedded devices and provides an intuitive API to working with the robot. You may update it using the following commands:
+Stretch Body is the Python SDK to the robot. It abstracts away the low level details of communication with the embedded devices and provides an intuitive API to working with the robot.
 
+On Ubuntu 18.04, run:
 ```console
-pip install -U hello-robot-stretch-body hello-robot-stretch-body-tools hello-robot-stretch-tool-share hello-robot-stretch-factory
+python -m pip install -U hello-robot-stretch-body hello-robot-stretch-body-tools hello-robot-stretch-tool-share hello-robot-stretch-factory
+```
+
+On Ubuntu 20.04, run:
+```console
+python3 -m pip install -U hello-robot-stretch-body hello-robot-stretch-body-tools hello-robot-stretch-tool-share hello-robot-stretch-factory renamed-opencv-python-inference-engine
 ```
 
 ### Stretch Firmware
@@ -32,7 +40,7 @@ pip install -U hello-robot-stretch-body hello-robot-stretch-body-tools hello-rob
 The firmware and the Python SDK (called Stretch Body) communicate on an established protocol. Therefore, it is important to maintain a protocol match between the different firmware and Stretch Body versions. Fortunately, there is a tool that handles this automatically. In the command line, run the following command:
 
 ```console
-RE1_firmware_updater.py --status
+RE1_firmware_updater.py --recommended
 ```
 
 This script will automatically determine what version is currently running on the robot and provide a recommendation for a next step. Follow the next steps provided by the firmware updater script.
@@ -42,8 +50,9 @@ This script will automatically determine what version is currently running on th
 The operating system upon which Stretch RE1 is built is called Ubuntu. This operating system provides the underlying packages that power Stretch's software packages. Furthermore, users of Stretch depend on this operating system and the underlying packages to develop software on Stretch. Therefore, it is important to keep the OS and these underlying packages up to date. In the command line, run the following command:
 
 ```console
-$ sudo apt update
-$ sudo apt upgrade
+sudo apt update
+sudo apt upgrade
+sudo apt autoremove
 ```
 
 [Apt](https://en.wikipedia.org/wiki/APT_(software)) is the package manager that handles updates for all Ubuntu packages.
