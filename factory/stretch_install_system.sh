@@ -67,6 +67,9 @@ install ros-melodic-desktop-full
 echo "Install rosdep"
 install python-rosdep
 echo "Configure rosdep"
+if [ -f "/etc/ros/rosdep/sources.list.d/20-default.list" ]; then
+    sudo rm /etc/ros/rosdep/sources.list.d/20-default.list
+fi
 sudo rosdep init >> $REDIRECT_LOGFILE
 rosdep update >> $REDIRECT_LOGFILE
 echo "Install other ROS workspace tools"
