@@ -21,9 +21,9 @@ mkdir -p $AMENT_WSDIR/src
 echo "Cloning the workspace's packages..."
 cd $AMENT_WSDIR/src
 vcs import --input ~/stretch_install/factory/20.04/stretch_ros2_galactic.repos >> $REDIRECT_LOGFILE
-echo "Fetch ROS packages' dependencies..."
+echo "Fetch ROS packages' dependencies (this will take a long time)..."
 cd $AMENT_WSDIR/
-rosdep install --from-paths src --ignore-src -r -y >> $REDIRECT_LOGFILE
+rosdep install --from-paths src --ignore-src -r -y &>> $REDIRECT_LOGFILE
 echo "Compile the workspace..."
 colcon build &>> $REDIRECT_LOGFILE
 echo "Source setup.bash file..."

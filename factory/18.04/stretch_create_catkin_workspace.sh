@@ -22,9 +22,9 @@ mkdir -p $CATKIN_WSDIR/src
 echo "Cloning the workspace's packages..."
 cd $CATKIN_WSDIR/src
 vcs import --input ~/stretch_install/factory/18.04/stretch_ros_melodic.repos >> $REDIRECT_LOGFILE
-echo "Fetch ROS packages' dependencies..."
+echo "Fetch ROS packages' dependencies (this will take a long time)..."
 cd $CATKIN_WSDIR/
-rosdep install --from-paths src --ignore-src -r -y >> $REDIRECT_LOGFILE
+rosdep install --from-paths src --ignore-src -r -y &>> $REDIRECT_LOGFILE
 echo "Make the workspace..."
 catkin_make &>> $REDIRECT_LOGFILE
 echo "Source setup.bash file..."
