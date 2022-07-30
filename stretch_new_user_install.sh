@@ -1,6 +1,8 @@
 #!/bin/bash
 set -e
 
+REDIRECT_LOGFILE="$HOME/stretch_user/log/stretch_new_user_install.`date '+%Y%m%d%H%M'`_redirected.txt"
+
 if [ "$HELLO_FLEET_ID" ]; then
     UPDATING=true
     echo "###########################################"
@@ -32,10 +34,10 @@ mkdir -p ~/stretch_user/models
 echo "Cloning Stretch deep perception models..."
 cd ~/stretch_user
 if [ ! -d "$HOME/stretch_user/stretch_deep_perception_models" ]; then
-    git clone https://github.com/hello-robot/stretch_deep_perception_models > /dev/null
+    git clone https://github.com/hello-robot/stretch_deep_perception_models >> $REDIRECT_LOGFILE
 fi
 cd stretch_deep_perception_models
-git pull > /dev/null
+git pull >> $REDIRECT_LOGFILE
 
 echo "Setting up user copy of robot factory data (if not already there)..."
 if [ "$UPDATING" = true ]; then
@@ -56,11 +58,11 @@ cp ~/stretch_install/factory/hello_robot_pimu_ping.desktop ~/.config/autostart/
 echo "Updating media assets..."
 sudo cp $HOME/stretch_install/images/stretch_about.png /etc/hello-robot
 
-echo "Adding user hello to the dialout group to access Arduino..."
+echo "Adding user to the dialout group to access Arduino..."
 sudo adduser $USER dialout
-echo "Adding user hello to the plugdev group to access serial..."
+echo "Adding user to the plugdev group to access serial..."
 sudo adduser $USER plugdev
-echo "Adding user hello to the input group to access input devices (e.g. gamepad)..."
+echo "Adding user to the input group to access input devices (e.g. gamepad)..."
 sudo adduser $USER input
 echo ""
 
@@ -71,7 +73,7 @@ echo "Upgrade pip3"
 python3 -m pip -q install --user --upgrade pip
 echo "Install setuptools"
 python2 -m pip -q install setuptools-scm==5.0.2
-echo "Install Stretch Body"
+echo "Install Stretch Body (this will take a long time)"
 python2 -m pip -q install hello-robot-stretch-body
 echo "Install Stretch Body Tools"
 python2 -m pip -q install hello-robot-stretch-body-tools
@@ -79,6 +81,8 @@ echo "Install Stretch Factory"
 python2 -m pip -q install hello-robot-stretch-factory
 echo "Install Stretch Tool Share"
 python2 -m pip -q install hello-robot-stretch-tool-share
+echo "Install opencv-python-inference-engine"
+python3 -m pip -q install opencv-python-inference-engine
 echo "###########################################"
 echo "DONE WITH INSTALLATION OF USER LEVEL PIP2 PACKAGES"
 echo "###########################################"

@@ -1,17 +1,19 @@
 #!/bin/bash
 set -e
 
+REDIRECT_LOGFILE="$HOME/stretch_user/log/stretch_install_system.`date '+%Y%m%d%H%M'`_redirected.txt"
+
 function install {
-    sudo apt-get install -y "$@" > /dev/null
+    sudo apt-get install -y "$@" >> $REDIRECT_LOGFILE
 }
 
 echo "###########################################"
 echo "INSTALLATION OF SYSTEM WIDE PACKAGES"
 echo "###########################################"
 echo "Apt update & upgrade"
-sudo apt-add-repository universe > /dev/null
-sudo apt-get --yes update > /dev/null
-sudo apt-get --yes upgrade > /dev/null
+sudo apt-add-repository universe >> $REDIRECT_LOGFILE
+sudo apt-get --yes update >> $REDIRECT_LOGFILE
+sudo apt-get --yes upgrade >> $REDIRECT_LOGFILE
 echo "Install zip & unzip"
 install zip unzip
 echo "Install Curl"
@@ -59,14 +61,14 @@ echo "Setting up keys"
 # New key as of Jun 22, 2021
 curl -s https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc | sudo apt-key add -
 echo "Apt update"
-sudo apt-get --yes update > /dev/null
-echo "Install ROS Melodic desktop"
+sudo apt-get --yes update >> $REDIRECT_LOGFILE
+echo "Install ROS Melodic (this will take a long time)"
 install ros-melodic-desktop-full
 echo "Install rosdep"
 install python-rosdep
 echo "Configure rosdep"
-sudo rosdep init > /dev/null
-rosdep update > /dev/null
+sudo rosdep init >> $REDIRECT_LOGFILE
+rosdep update >> $REDIRECT_LOGFILE
 echo "Install other ROS workspace tools"
 install python-vcstool python-rosinstall python-rosinstall-generator python-wstool build-essential
 echo "###########################################"
@@ -129,7 +131,7 @@ sudo add-apt-repository "deb https://librealsense.intel.com/Debian/apt-repo bion
 echo "Remove old records in case of upgrading"
 sudo rm -f /etc/apt/sources.list.d/realsense-public.list
 echo "Apt update"
-sudo apt-get --yes update > /dev/null
+sudo apt-get --yes update >> $REDIRECT_LOGFILE
 echo "Install librealsense2 packages"
 install librealsense2-dkms librealsense2-utils librealsense2-dev librealsense2-dbg
 echo "###########################################"
