@@ -41,7 +41,7 @@ echo "Install lm-sensors & nvme-cli"
 install lm-sensors
 install nvme-cli
 echo "Install Cython for FUNMAP"
-sudo apt --yes install cython3
+install cython3
 echo "Install cheese for camera testing"
 install cheese
 echo "###########################################"
@@ -113,20 +113,20 @@ install ros-noetic-rviz-imu-plugin ros-noetic-imu-filter-madgwick
 install ros-galactic-rviz-imu-plugin ros-galactic-imu-filter-madgwick
 echo "Install robot pose filter for use with IMU and wheel odometry"
 install ros-noetic-robot-pose-ekf
-install ros-galactic-robot-pose-ekf
+# install ros-galactic-robot-pose-ekf # not available for galactic
 echo "Install robot localization package for use with IMU and wheel odometry"
 install ros-noetic-robot-localization
 install ros-galactic-robot-localization
 echo "Install ros_numpy package for msgs conversions"
 install ros-noetic-ros-numpy
-install ros-galactic-ros-numpy
+# install ros-galactic-ros-numpy # not available for ROS2 yet (see https://github.com/eric-wieser/ros_numpy/issues/20)
 echo "Install ROS control packages (primarily for simulations with Gazebo)"
 install ros-noetic-ros-control ros-noetic-ros-controllers
 echo "Install ROS2 control packages for MoveIt2"
 install ros-galactic-ros2-control ros-galactic-ros2-controllers
 echo "Install dynamic reconfiguration package for use with Intel D435i"
 install ros-noetic-ddynamic-reconfigure-python
-install ros-galactic-ddynamic-reconfigure-python
+# install ros-galactic-ddynamic-reconfigure-python # not available
 echo "Install ROS teleop packages"
 install ros-noetic-teleop-twist-keyboard
 install ros-galactic-teleop-twist-keyboard
@@ -134,18 +134,18 @@ echo "Install ROS navigation and mapping packages"
 #install ros-noetic-move-base ros-noetic-map-server ros-noetic-amcl ros-noetic-cartographer ros-noetic-cartographer-ros ros-noetic-cartographer-rviz
 install ros-noetic-move-base ros-noetic-move-base-msgs
 install ros-noetic-gmapping ros-noetic-navigation
-install ros-galactic-move-base ros-galactic-move-base-msgs
-install ros-galactic-gmapping ros-galactic-navigation
+# install ros-galactic-move-base ros-galactic-move-base-msgs # not available
+# install ros-galactic-gmapping ros-galactic-navigation # not available
 echo "Install RPLidar A1M8 packages"
 install ros-noetic-rplidar-ros ros-noetic-rplidar-ros-dbgsym
 install ros-galactic-rplidar-ros ros-galactic-rplidar-ros-dbgsym
 echo "Install Respeaker and speech recognition packages"
 install python3-pyaudio
 install ros-noetic-respeaker-ros ros-noetic-ros-speech-recognition
-install ros-galactic-respeaker-ros ros-galactic-ros-speech-recognition
+# install ros-galactic-respeaker-ros ros-galactic-ros-speech-recognition # not available
 echo "Install scan tools for Canonical Scan Matching using the laser_scan_matcher"
 install ros-noetic-scan-tools
-install ros-galactic-scan-tools
+# install ros-galactic-scan-tools # not available
 echo "###########################################"
 echo "DONE WITH INSTALLATION OF ADDITIONAL ROS NOETIC/GALACTIC PKGS"
 echo "###########################################"
