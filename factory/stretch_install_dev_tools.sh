@@ -11,17 +11,17 @@ echo "Install Typora"
 wget -qO - https://typora.io/linux/public-key.asc | sudo apt-key add -
 sudo add-apt-repository 'deb https://typora.io/linux ./'
 sudo apt-get update >> $REDIRECT_LOGFILE
-sudo apt install --yes typora >> $REDIRECT_LOGFILE
+sudo apt-get install --yes typora >> $REDIRECT_LOGFILE
 
 echo "Install Chromium"
-sudo apt install --yes chromium-browser >> $REDIRECT_LOGFILE
+sudo apt-get install --yes chromium-browser >> $REDIRECT_LOGFILE
 
-echo "Install Arduino"
+echo "Install Arduino CLI"
 cd ~/stretch_install/factory/
-./stretch_install_arduino.sh
+./stretch_install_arduino.sh >> $REDIRECT_LOGFILE
 
 echo "Install PyCharm"
-sudo snap install pycharm-community --classic
+sudo snap install pycharm-community --classic >> $REDIRECT_LOGFILE
 
 echo "Install tools for system QC and bringup"
 pip2 install -q twine
