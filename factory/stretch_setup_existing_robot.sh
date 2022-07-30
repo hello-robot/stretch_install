@@ -28,6 +28,12 @@ if [[ ! $DIR =~ stretch_install ]]; then
     exit 1
 fi
 
+echo "Checking robot calibration data in home folder..."
+if [[ ! -d "$HOME/$HELLO_FLEET_ID" ]]; then
+    echo "Expecting backed up version of $HELLO_FLEET_ID to be present in the the home folder. Exiting."
+    exit 1
+fi
+
 echo "Waiting to get online..."
 while ! timeout 0.2 ping -c 1 -n google.com &> /dev/null
 do
