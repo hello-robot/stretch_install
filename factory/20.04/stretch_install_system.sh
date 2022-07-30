@@ -18,8 +18,6 @@ echo "Install zip & unzip"
 install zip unzip
 echo "Install Curl"
 install curl
-echo "Install Pip"
-install python-pip
 echo "Install Git"
 install git
 echo "Install rpl"
