@@ -24,7 +24,7 @@ fi
 echo ""
 DIR=`pwd`
 echo "Checking Stretch Install cloned to right place..."
-if [[ ! $DIR = "$HOME/stretch_install" ]]; then
+if [[ ! -d "$HOME/stretch_install" ]]; then
     echo "Expecting Stretch Install to be in home folder. Exiting."
     exit 1
 fi
