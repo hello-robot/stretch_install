@@ -1,4 +1,4 @@
-![](./images/banner.png)
+![](./docs/images/banner.png)
 
 ## Guides
 
