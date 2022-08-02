@@ -77,7 +77,7 @@ Finally, enter the identifying information as written below replacing '1000' wit
  - **name:** Hello Robot Inc.
  - **computer name:** stretch-re1-1000
  - **username:** hello-robot
- - **password:** hello2020
+ - **password:** xxxx
 
 Also select the 'Log in automatically' option. When finished the 'Who are you' page should look like the picture below.
 
