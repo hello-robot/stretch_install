@@ -71,11 +71,11 @@ echo "Updating media assets..."
 sudo cp $HOME/stretch_install/factory/$factory_osdir/stretch_about.png /etc/hello-robot
 
 echo "Adding user to the dialout group to access Arduino..."
-sudo adduser $USER dialout
+sudo adduser $USER dialout >> $REDIRECT_LOGFILE
 echo "Adding user to the plugdev group to access serial..."
-sudo adduser $USER plugdev
+sudo adduser $USER plugdev >> $REDIRECT_LOGFILE
 echo "Adding user to the input group to access input devices (e.g. gamepad)..."
-sudo adduser $USER input
+sudo adduser $USER input >> $REDIRECT_LOGFILE
 echo ""
 
 if [[ $factory_osdir = "18.04" ]]; then
@@ -86,7 +86,7 @@ if [[ $factory_osdir = "18.04" ]]; then
     python3 -m pip -q install --no-warn-script-location --user --upgrade pip
     echo "Install setuptools"
     python2 -m pip -q install setuptools-scm==5.0.2
-    echo "Install Stretch Body (this will take a long time)"
+    echo "Install Stretch Body (this might take a while)"
     python2 -m pip -q install hello-robot-stretch-body
     echo "Install Stretch Body Tools"
     python2 -m pip -q install hello-robot-stretch-body-tools
@@ -96,9 +96,6 @@ if [[ $factory_osdir = "18.04" ]]; then
     python2 -m pip -q install hello-robot-stretch-tool-share
     echo "Install opencv-python-inference-engine"
     python3 -m pip -q install --no-warn-script-location opencv-python-inference-engine
-    echo "###########################################"
-    echo "DONE WITH INSTALLATION OF USER LEVEL PIP2 PACKAGES"
-    echo "###########################################"
     echo ""
 elif [[ $factory_osdir = "20.04" ]]; then
     echo "###########################################"
@@ -118,9 +115,6 @@ elif [[ $factory_osdir = "20.04" ]]; then
     python3 -m pip -q install --no-warn-script-location renamed-opencv-python-inference-engine
     echo "Upgrade prompt_toolkit"
     python3 -m pip -q install --no-warn-script-location -U prompt_toolkit
-    echo "###########################################"
-    echo "DONE WITH INSTALLATION OF USER LEVEL PIP3 PACKAGES"
-    echo "###########################################"
     echo ""
 fi
 
@@ -128,5 +122,6 @@ if [[ $factory_osdir = "18.04" ]]; then
     ~/stretch_install/factory/$factory_osdir/stretch_create_catkin_workspace.sh "$HOME/catkin_ws"
 elif [[ $factory_osdir = "20.04" ]]; then
     ~/stretch_install/factory/$factory_osdir/stretch_create_catkin_workspace.sh "$HOME/catkin_ws"
+    echo ""
     ~/stretch_install/factory/$factory_osdir/stretch_create_ament_workspace.sh "$HOME/ament_ws"
 fi

@@ -28,8 +28,6 @@ logfile_dev_tools="$logdir/stretch_dev_tools_install.txt"
 logzip="$logdir/stretch_robot_install_logs.zip"
 mkdir -p $logdir
 
-echo ""
-echo "Running initial configuration script (will log to $logfile_initial)..."
 cd $HOME/stretch_install/factory/$factory_osdir
 if $do_factory_install; then
     ./stretch_setup_new_robot.sh |& tee $logfile_initial
@@ -38,19 +36,16 @@ else
 fi
 
 echo ""
-echo "Running system install script (will log to $logfile_system)..."
 cd $HOME/stretch_install/factory/$factory_osdir
 ./stretch_install_system.sh |& tee $logfile_system
 
 echo ""
-echo "Running user install script (will log to $logfile_user)..."
 cd $HOME/stretch_install
 ./stretch_new_user_install.sh |& tee $logfile_user
 
 
 if $do_factory_install; then
     echo ""
-    echo "Running dev tools install script (will log to $logfile_dev_tools)..."
     cd $HOME/stretch_install/factory/$factory_osdir
     ./stretch_install_dev_tools.sh |& tee $logfile_dev_tools
 fi

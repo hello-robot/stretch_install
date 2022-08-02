@@ -1,7 +1,6 @@
 #!/bin/bash
 set -e
 
-echo ""
 echo "WARNING: Run this installation for fresh Ubuntu installs only."
 #####################################################
 echo -n "Enter fleet id xxxx for stretch-re1-xxxx> "

@@ -10,10 +10,10 @@ function install {
 echo "###########################################"
 echo "INSTALLATION OF SYSTEM WIDE PACKAGES"
 echo "###########################################"
-echo "Apt update & upgrade"
+echo "Apt update & upgrade (this might take a while)"
 sudo apt-add-repository universe >> $REDIRECT_LOGFILE
 sudo apt-get --yes update >> $REDIRECT_LOGFILE
-sudo apt-get --yes upgrade >> $REDIRECT_LOGFILE
+sudo apt-get --yes upgrade &>> $REDIRECT_LOGFILE
 echo "Install zip & unzip"
 install zip unzip
 echo "Install Curl"
@@ -44,9 +44,6 @@ echo "Install Cython for FUNMAP"
 install cython3
 echo "Install cheese for camera testing"
 install cheese
-echo "###########################################"
-echo "DONE WITH INSTALLATION OF SYSTEM WIDE PACKAGES"
-echo "###########################################"
 echo ""
 
 # see http://wiki.ros.org/noetic/Installation/Ubuntu for details
@@ -56,10 +53,10 @@ echo "###########################################"
 echo "Setting up sources.list"
 sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'
 echo "Setting up keys"
-curl -s https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc | sudo apt-key add -
+curl -s https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc | sudo apt-key add - &>> $REDIRECT_LOGFILE
 echo "Apt update"
 sudo apt-get --yes update >> $REDIRECT_LOGFILE
-echo "Install ROS Noetic (this will take a long time)"
+echo "Install ROS Noetic (this might take a while)"
 install ros-noetic-desktop-full
 echo "Install rosdep"
 install python3-rosdep
@@ -71,9 +68,6 @@ sudo rosdep init >> $REDIRECT_LOGFILE
 rosdep update >> $REDIRECT_LOGFILE
 echo "Install vcstool"
 install python3-vcstool
-echo "###########################################"
-echo "DONE WITH INSTALLATION OF ROS NOETIC"
-echo "###########################################"
 echo ""
 
 # see https://docs.ros.org/en/galactic/Installation/Ubuntu-Install-Debians.html for details
@@ -86,13 +80,10 @@ echo "Setting up sources.list"
 echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/ros-archive-keyring.gpg] http://packages.ros.org/ros2/ubuntu $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/ros2.list > /dev/null
 echo "Apt update"
 sudo apt-get --yes update >> $REDIRECT_LOGFILE
-echo "Install ROS2 Galactic (this will take a long time)"
+echo "Install ROS2 Galactic (this might take a while)"
 install ros-galactic-desktop
 echo "Install colcon"
 install python3-colcon-common-extensions
-echo "###########################################"
-echo "DONE WITH INSTALLATION OF ROS2 GALACTIC"
-echo "###########################################"
 echo ""
 
 echo "###########################################"
@@ -146,9 +137,6 @@ install ros-noetic-respeaker-ros ros-noetic-ros-speech-recognition
 echo "Install scan tools for Canonical Scan Matching using the laser_scan_matcher"
 install ros-noetic-scan-tools
 # install ros-galactic-scan-tools # not available
-echo "###########################################"
-echo "DONE WITH INSTALLATION OF ADDITIONAL ROS NOETIC/GALACTIC PKGS"
-echo "###########################################"
 echo ""
 
 echo "###########################################"
@@ -158,17 +146,13 @@ echo "Install realsense-ros"
 install ros-noetic-realsense2-camera ros-noetic-realsense2-description
 install ros-galactic-realsense2-camera ros-galactic-realsense2-description
 echo "Register the librealsense APT server's public key"
-sudo apt-key adv --keyserver keys.gnupg.net --recv-key F6E65AC044F831AC80A06380C8B3A55A6F3EFCDE || sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-key F6E65AC044F831AC80A06380C8B3A55A6F3EFCDE
+sudo apt-key adv --keyserver keys.gnupg.net --recv-key F6E65AC044F831AC80A06380C8B3A55A6F3EFCDE || sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-key F6E65AC044F831AC80A06380C8B3A55A6F3EFCDE &>> $REDIRECT_LOGFILE
 echo "Add the librealsense APT server to the list of APT repositories"
-sudo add-apt-repository "deb https://librealsense.intel.com/Debian/apt-repo bionic main" -u
+sudo add-apt-repository "deb https://librealsense.intel.com/Debian/apt-repo bionic main" -u &>> $REDIRECT_LOGFILE
 echo "Remove old records in case of upgrading"
 sudo rm -f /etc/apt/sources.list.d/realsense-public.list
 echo "Apt update"
 sudo apt-get --yes update >> $REDIRECT_LOGFILE
 echo "Install librealsense2 packages"
 install librealsense2-dkms librealsense2-utils librealsense2-dev librealsense2-dbg
-echo "###########################################"
-echo "DONE WITH INSTALLATION OF INTEL D435i"
-echo "NOTE: Update firmware using realsense-viewer"
-echo "###########################################"
-echo ""
+

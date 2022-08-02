@@ -22,7 +22,7 @@ mkdir -p $CATKIN_WSDIR/src
 echo "Cloning the workspace's packages..."
 cd $CATKIN_WSDIR/src
 vcs import --input ~/stretch_install/factory/18.04/stretch_ros_melodic.repos >> $REDIRECT_LOGFILE
-echo "Fetch ROS packages' dependencies (this will take a long time)..."
+echo "Fetch ROS packages' dependencies (this might take a while)..."
 cd $CATKIN_WSDIR/
 rosdep install --from-paths src --ignore-src -r -y &>> $REDIRECT_LOGFILE
 echo "Make the workspace..."
@@ -47,7 +47,4 @@ bash -i $CATKIN_WSDIR/src/stretch_ros/stretch_calibration/nodes/update_with_most
 echo "Compiling FUNMAP's Cython code..."
 cd $CATKIN_WSDIR/src/stretch_ros/stretch_funmap/src/stretch_funmap
 ./compile_cython_code.sh &>> $REDIRECT_LOGFILE
-echo "###########################################"
-echo "DONE WITH CREATING MELODIC CATKIN WORKSPACE at $CATKIN_WSDIR"
-echo "###########################################"
-echo ""
+

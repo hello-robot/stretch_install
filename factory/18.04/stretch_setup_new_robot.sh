@@ -1,7 +1,6 @@
 #!/bin/bash
 set -e
 
-echo ""
 echo "WARNING: Running a FACTORY install. This is only meant to be run at Hello Robot HQ."
 echo "WARNING: Run this installation for fresh Ubuntu installs only."
 #####################################################

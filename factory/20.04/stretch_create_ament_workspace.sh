@@ -21,10 +21,10 @@ mkdir -p $AMENT_WSDIR/src
 echo "Cloning the workspace's packages..."
 cd $AMENT_WSDIR/src
 vcs import --input ~/stretch_install/factory/20.04/stretch_ros2_galactic.repos >> $REDIRECT_LOGFILE
-echo "Fetch ROS packages' dependencies (this will take a long time)..."
+echo "Fetch ROS packages' dependencies (this might take a while)..."
 cd $AMENT_WSDIR/
 rosdep install --from-paths src --ignore-src -r -y &>> $REDIRECT_LOGFILE
-echo "Compile the workspace..."
+echo "Compile the workspace (this might take a while)..."
 colcon build &>> $REDIRECT_LOGFILE
 echo "Source setup.bash file..."
 source $AMENT_WSDIR/install/setup.bash
@@ -46,7 +46,4 @@ echo "#source $AMENT_WSDIR/devel/setup.bash" >> ~/.bashrc
 # TODO: replace these hacks
 cp ~/catkin_ws/src/stretch_ros/stretch_description/urdf/stretch.urdf $AMENT_WSDIR/src/stretch_ros2/stretch_description/urdf/
 cp ~/catkin_ws/src/stretch_ros/stretch_core/config/controller_calibration_head.yaml $AMENT_WSDIR/src/stretch_ros2/stretch_core/config/
-echo "###########################################"
-echo "DONE WITH CREATING GALACTIC AMENT WORKSPACE at $AMENT_WSDIR"
-echo "###########################################"
-echo ""
+

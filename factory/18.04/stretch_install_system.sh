@@ -13,7 +13,7 @@ echo "###########################################"
 echo "Apt update & upgrade"
 sudo apt-add-repository universe >> $REDIRECT_LOGFILE
 sudo apt-get --yes update >> $REDIRECT_LOGFILE
-sudo apt-get --yes upgrade >> $REDIRECT_LOGFILE
+sudo apt-get --yes upgrade &>> $REDIRECT_LOGFILE
 echo "Install zip & unzip"
 install zip unzip
 echo "Install Curl"
@@ -44,9 +44,6 @@ install portaudio19-dev
 echo "Install lm-sensors & nvme-cli"
 install lm-sensors
 install nvme-cli
-echo "###########################################"
-echo "DONE WITH INSTALLATION OF SYSTEM WIDE PACKAGES"
-echo "###########################################"
 echo ""
 
 # see http://wiki.ros.org/melodic/Installation/Ubuntu#Installation for details
@@ -56,10 +53,10 @@ echo "###########################################"
 echo "Setting up sources.list"
 sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'
 echo "Setting up keys"
-curl -s https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc | sudo apt-key add -
+curl -s https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc | sudo apt-key add - &>> $REDIRECT_LOGFILE
 echo "Apt update"
 sudo apt-get --yes update >> $REDIRECT_LOGFILE
-echo "Install ROS Melodic (this will take a long time)"
+echo "Install ROS Melodic (this might take a while)"
 install ros-melodic-desktop-full
 echo "Install rosdep"
 install python-rosdep
@@ -71,9 +68,6 @@ sudo rosdep init >> $REDIRECT_LOGFILE
 rosdep update >> $REDIRECT_LOGFILE
 echo "Install other ROS workspace tools"
 install python-vcstool python-rosinstall python-rosinstall-generator python-wstool build-essential
-echo "###########################################"
-echo "DONE WITH INSTALLATION OF ROS MELODIC"
-echo "###########################################"
 echo ""
 
 echo "###########################################"
@@ -113,9 +107,6 @@ echo "Install Respeaker and speech recognition packages"
 install ros-melodic-respeaker-ros ros-melodic-ros-speech-recognition
 echo "Install scan tools for Canonical Scan Matching using the laser_scan_matcher"
 install ros-melodic-scan-tools
-echo "###########################################"
-echo "DONE WITH INSTALLATION OF ADDITIONAL ROS MELODIC PKGS"
-echo "###########################################"
 echo ""
 
 echo "###########################################"
@@ -124,17 +115,13 @@ echo "###########################################"
 echo "Install realsense-ros"
 install ros-melodic-realsense2-camera ros-melodic-realsense2-description
 echo "Register the librealsense APT server's public key"
-sudo apt-key adv --keyserver keys.gnupg.net --recv-key F6E65AC044F831AC80A06380C8B3A55A6F3EFCDE || sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-key F6E65AC044F831AC80A06380C8B3A55A6F3EFCDE
+sudo apt-key adv --keyserver keys.gnupg.net --recv-key F6E65AC044F831AC80A06380C8B3A55A6F3EFCDE || sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-key F6E65AC044F831AC80A06380C8B3A55A6F3EFCDE &>> $REDIRECT_LOGFILE
 echo "Add the librealsense APT server to the list of APT repositories"
-sudo add-apt-repository "deb https://librealsense.intel.com/Debian/apt-repo bionic main" -u
+sudo add-apt-repository "deb https://librealsense.intel.com/Debian/apt-repo bionic main" -u &>> $REDIRECT_LOGFILE
 echo "Remove old records in case of upgrading"
 sudo rm -f /etc/apt/sources.list.d/realsense-public.list
 echo "Apt update"
 sudo apt-get --yes update >> $REDIRECT_LOGFILE
 echo "Install librealsense2 packages"
 install librealsense2-dkms librealsense2-utils librealsense2-dev librealsense2-dbg
-echo "###########################################"
-echo "DONE WITH INSTALLATION OF INTEL D435i"
-echo "NOTE: Update firmware using realsense-viewer"
-echo "###########################################"
-echo ""
+

@@ -10,7 +10,7 @@ repositories:
   moveit_task_constructor:
     type: git
     url: https://github.com/JafarAbdi/moveit_task_constructor
-    version: ros2
+    version: 4f453d32653fe2519d2a046c5845570bc98029b6
   rosparam_shortcuts:
     type: git
     url: https://github.com/PickNikRobotics/rosparam_shortcuts
