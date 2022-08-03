@@ -44,6 +44,8 @@ echo "Install Cython for FUNMAP"
 install cython3
 echo "Install cheese for camera testing"
 install cheese
+echo "Install SSH Server"
+install ssh
 echo ""
 
 # see http://wiki.ros.org/noetic/Installation/Ubuntu for details

@@ -44,6 +44,8 @@ install portaudio19-dev
 echo "Install lm-sensors & nvme-cli"
 install lm-sensors
 install nvme-cli
+echo "Install SSH Server"
+install ssh
 echo ""
 
 # see http://wiki.ros.org/melodic/Installation/Ubuntu#Installation for details
