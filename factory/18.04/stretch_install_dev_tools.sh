@@ -28,7 +28,7 @@ pip2 install -q twine
 pip2 install -q gspread
 pip2 install -q gspread-formatting
 pip2 install -q oauth2client rsa==3.4
-pip3 install -q mkdocs mkdocs-material mkdocstrings==0.17.0 pytkdocs[numpy-style] jinja2=3.0.3
+pip3 install -q mkdocs mkdocs-material mkdocstrings==0.17.0 pytkdocs[numpy-style] jinja2==3.0.3
 
 echo "Cloning repos"
 cd ~/repos/
