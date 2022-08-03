@@ -7,13 +7,12 @@ echo "###########################################"
 echo "CREATING GALACTIC AMENT WORKSPACE at $AMENT_WSDIR"
 echo "###########################################"
 
-source /opt/ros/galactic/setup.bash
 echo "Ensuring correct version of ROS is sourced..."
 if [[ $ROS_DISTRO && ! $ROS_DISTRO = "galactic" ]]; then
     echo "Cannot create workspace while a conflicting ROS version is sourced. Exiting."
     exit 1
 fi
-
+source /opt/ros/galactic/setup.bash
 
 echo "Deleting $AMENT_WSDIR if it already exists..."
 sudo rm -rf $AMENT_WSDIR
