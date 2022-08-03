@@ -37,7 +37,8 @@ git clone https://github.com/hello-robot/stretch_factory.git >> $REDIRECT_LOGFIL
 git clone https://github.com/hello-robot/stretch_body.git >> $REDIRECT_LOGFILE
 git clone https://github.com/hello-robot/stretch_firmware.git >> $REDIRECT_LOGFILE
 git clone https://github.com/hello-robot/stretch_fleet.git >> $REDIRECT_LOGFILE
-git clone https://github.com/hello-robot/stretch_fleet_tools.git >> $REDIRECT_LOGFILE
+git clone https://github.com/hello-robot/stretch_production_tools.git >> $REDIRECT_LOGFILE
+git clone https://github.com/hello-robot/stretch_production_data.git >> $REDIRECT_LOGFILE
 git clone https://github.com/hello-robot/hello-robot.github.io >> $REDIRECT_LOGFILE
 git clone https://github.com/hello-robot/stretch_docs >> $REDIRECT_LOGFILE
 
