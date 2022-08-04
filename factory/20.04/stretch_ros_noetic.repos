@@ -9,5 +9,5 @@ repositories:
     version: melodic-devel
   respeaker_ros:
     type: git
-    url: https://github.com/zacharykratochvil/respeaker_ros/
+    url: https://github.com/hello-binit/respeaker_ros/
     version: python3.9.7
