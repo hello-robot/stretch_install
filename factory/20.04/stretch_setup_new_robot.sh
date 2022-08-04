@@ -4,6 +4,12 @@ set -e
 echo "WARNING: Running a FACTORY install. This is only meant to be run at Hello Robot HQ."
 echo "WARNING: Run this installation for fresh Ubuntu installs only."
 #####################################################
+echo "Checking ~/.bashrc doesn't already define HELLO_FLEET_ID..."
+if [[ $HELLO_FLEET_ID ]]; then
+    echo "Expecting var HELLO_FLEET_ID to be undefined. Check end of ~/.bashrc file, delete all lines in 'STRETCH BASHRC SETUP' section, and open a new terminal. Exiting."
+    exit 1
+fi
+
 echo -n "Enter fleet id xxxx for stretch-re1-xxxx> "
 read id
 if [[ ! $id =~ ^[0-9]{4}$ ]]; then
@@ -20,7 +26,6 @@ if [[ ! $REPLY =~ ^[Yy]$ ]]; then
     exit 1
 fi
 
-echo ""
 DIR=`pwd`
 echo "Checking Stretch Install cloned to right place..."
 if [[ ! -d "$HOME/stretch_install" ]]; then

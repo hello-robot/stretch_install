@@ -23,6 +23,8 @@ else
     echo "###########################################"
     echo "Update ~/.bashrc dotfile..."
     echo "" >> ~/.bashrc
+    echo "STRETCH BASHRC SETUP" >> ~/.bashrc
+    echo "####################" >> ~/.bashrc
     echo "export HELLO_FLEET_PATH=${HOME}/stretch_user" >> ~/.bashrc
     echo "export HELLO_FLEET_ID=${HELLO_FLEET_ID}">> ~/.bashrc
     echo "export PATH=\${PATH}:~/.local/bin" >> ~/.bashrc
