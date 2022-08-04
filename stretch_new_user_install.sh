@@ -120,6 +120,12 @@ elif [[ $factory_osdir = "20.04" ]]; then
     echo ""
 fi
 
+echo "Migrating Stretch's parameter management system..."
+. /etc/hello-robot/hello-robot.conf
+export HELLO_FLEET_ID HELLO_FLEET_ID
+export HELLO_FLEET_PATH=${HOME}/stretch_user
+RE1_migrate_params.py
+
 if [[ $factory_osdir = "18.04" ]]; then
     ~/stretch_install/factory/$factory_osdir/stretch_create_catkin_workspace.sh "$HOME/catkin_ws"
 elif [[ $factory_osdir = "20.04" ]]; then
