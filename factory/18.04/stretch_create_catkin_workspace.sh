@@ -1,8 +1,22 @@
 #!/bin/bash
 set -e
 
-REDIRECT_LOGFILE="$HOME/stretch_user/log/stretch_create_catkin_workspace.`date '+%Y%m%d%H%M'`_redirected.txt"
-CATKIN_WSDIR=${1:-"$HOME/catkin_ws"}
+REDIRECT_LOGDIR="$HOME/stretch_user/log"
+CATKIN_WSDIR="$HOME/catkin_ws"
+while getopts l:w: opt; do
+    case $opt in
+        l)
+            if [[ -d $OPTARG ]]; then
+                REDIRECT_LOGDIR=$OPTARG
+            fi
+            ;;
+        w)
+            CATKIN_WSDIR=$OPTARG
+            ;;
+    esac
+done
+REDIRECT_LOGFILE="$REDIRECT_LOGDIR/stretch_create_catkin_workspace.`date '+%Y%m%d%H%M'`_redirected.txt"
+
 echo "###########################################"
 echo "CREATING MELODIC CATKIN WORKSPACE at $CATKIN_WSDIR"
 echo "###########################################"

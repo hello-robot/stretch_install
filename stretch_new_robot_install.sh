@@ -37,17 +37,17 @@ fi
 
 echo ""
 cd $HOME/stretch_install/factory/$factory_osdir
-./stretch_install_system.sh |& tee $logfile_system
+./stretch_install_system.sh -l $logdir |& tee $logfile_system
 
 echo ""
 cd $HOME/stretch_install
-./stretch_new_user_install.sh |& tee $logfile_user
+./stretch_new_user_install.sh -l $logdir |& tee $logfile_user
 
 
 if $do_factory_install; then
     echo ""
     cd $HOME/stretch_install/factory/$factory_osdir
-    ./stretch_install_dev_tools.sh |& tee $logfile_dev_tools
+    ./stretch_install_dev_tools.sh -l $logdir |& tee $logfile_dev_tools
 fi
 
 echo ""

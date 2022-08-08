@@ -1,7 +1,11 @@
 #!/bin/bash
 set -e
 
-REDIRECT_LOGFILE="$HOME/stretch_user/log/stretch_install_system.`date '+%Y%m%d%H%M'`_redirected.txt"
+REDIRECT_LOGDIR="$HOME/stretch_user/log"
+if getopts ":l:" opt && [[ $opt == "l" && -d $OPTARG ]]; then
+    REDIRECT_LOGDIR=$OPTARG
+fi
+REDIRECT_LOGFILE="$REDIRECT_LOGDIR/stretch_install_system.`date '+%Y%m%d%H%M'`_redirected.txt"
 
 function install {
     sudo apt-get install -y "$@" >> $REDIRECT_LOGFILE

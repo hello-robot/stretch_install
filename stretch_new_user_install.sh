@@ -1,7 +1,11 @@
 #!/bin/bash
 set -e
 
-REDIRECT_LOGFILE="$HOME/stretch_user/log/stretch_new_user_install.`date '+%Y%m%d%H%M'`_redirected.txt"
+REDIRECT_LOGDIR="$HOME/stretch_user/log"
+if getopts ":l:" opt && [[ $opt == "l" && -d $OPTARG ]]; then
+    REDIRECT_LOGDIR=$OPTARG
+fi
+REDIRECT_LOGFILE="$REDIRECT_LOGDIR/stretch_new_user_install.`date '+%Y%m%d%H%M'`_redirected.txt"
 
 source /etc/os-release
 factory_osdir="$VERSION_ID"
@@ -120,9 +124,9 @@ elif [[ $factory_osdir = "20.04" ]]; then
 fi
 
 if [[ $factory_osdir = "18.04" ]]; then
-    ~/stretch_install/factory/$factory_osdir/stretch_create_catkin_workspace.sh "$HOME/catkin_ws"
+    ~/stretch_install/factory/$factory_osdir/stretch_create_catkin_workspace.sh -w "$HOME/catkin_ws" -l $REDIRECT_LOGDIR
 elif [[ $factory_osdir = "20.04" ]]; then
-    ~/stretch_install/factory/$factory_osdir/stretch_create_catkin_workspace.sh "$HOME/catkin_ws"
+    ~/stretch_install/factory/$factory_osdir/stretch_create_catkin_workspace.sh -w "$HOME/catkin_ws" -l $REDIRECT_LOGDIR
     echo ""
-    ~/stretch_install/factory/$factory_osdir/stretch_create_ament_workspace.sh "$HOME/ament_ws"
+    ~/stretch_install/factory/$factory_osdir/stretch_create_ament_workspace.sh -w "$HOME/ament_ws" -l $REDIRECT_LOGDIR
 fi
