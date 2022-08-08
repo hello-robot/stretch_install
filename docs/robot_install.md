@@ -79,7 +79,38 @@ git checkout feature/install_reorg
 ./stretch_new_robot_install.sh
 ```
 
-Once the script has started, it will ask you for your robot's serial number, Y/N confirmation, and the password. Then, the script will take 20-30 minutes to complete. Once it finishes, reboot your robot.
+Once the script has started, it will ask you for your robot's serial number, Y/N confirmation, and the password. Then, the script will take 20-30 minutes to complete. Once it finishes, it should print out something similar to:
+
+```
+#############################################
+DONE! COMPLETE THESE POST INSTALL STEPS:
+ 1. Perform a FULL reboot by power cycling the robot
+[...]
+#############################################
+```
+
+If it has not printed out 'DONE', then the robot install did not complete successfully. Take a look at the [troubleshooting](#troubleshooting) section below for solutions to common issues, or contact Hello Robot support via email or [the forum](https://forum.hello-robot.com/).
+
+Next, we'll complete the post install steps. First, in order for the many changes to take effect, the robot will need a full reboot. The steps are:
+
+ 1. Shutdown the Ubuntu OS through the GUI or use `sudo shutdown -h now` in the terminal
+ 2. Ensure there's a clamp under the lift
+ 3. Turn the power switch in the robot's trunk to the off position (orange power LED becomes unlit)
+ 4. Ensure a keyboard/monitor is plugged into the robot. When the robot powers up, you can use the keyboard to decide which OS to boot into.
+ 5. Turn the power switch in the robot's trunk to the on position (orange power LED becomes lit)
+ 6. Boot into the new Ubuntu partition and log in if necessary
+
+Next, we'll ensure the robot's parameter YAML files are migrated to the new parameter management system (see https://forum.hello-robot.com/t/425/ for details).
+
+```bash
+RE1_migrate_params.py
+```
+
+Next, we'll ensure the robot's firmware is upgraded to the latest available. Newer firmware unlocks new features (e.g. waypoint trajectory following, which is used in ROS2 to support MoveIt2) and fixes bugs. See the [firmware releases](https://github.com/hello-robot/stretch_firmware/tags) for details.
+
+```bash
+RE1_firmware_updater.py --install
+```
 
 Finally, execute the following to confirm the new robot install was set up successfully.
 
