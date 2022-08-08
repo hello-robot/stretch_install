@@ -164,6 +164,18 @@ Expecting backed up version of stretch-re1-xxxx to be present in the the home fo
 
 The install scripts exited before performing the robot install because it was unable to find the robot's calibration data folder, 'stretch-re1-xxxx'. Please ensure you have [backed up your robot's calibration data](#back-up-robot-configuration-data) to a USB key and copied the 'stretch-re1-xxxx' folder to the home folder of your new partition. See the [Run the new robot installation script](#run-the-new-robot-installation-script) section for more details. Then, run the install scripts again and the error should be gone.
 
+### 'Repo not up-to-date' error
+
+If you are seeing the following error:
+
+```
+[...]
+Checking install repo is up-to-date...
+Repo not up-to-date. Please perform a 'git pull'. Exiting.
+```
+
+The version of Stretch Install being used is out of date. In a terminal, go to the Stretch Install folder (should be in the home folder: `cd ~/stretch_install`), and perform a `git pull` to pull down the latest version. If the git pull fails, ensure Stretch Install has a clean working tree using `git status`. If you see any red files, save them if important, delete Stretch Install, and reclone it.
+
 ### Firmware Mismatch Error
 
 If you are seeing the following error:

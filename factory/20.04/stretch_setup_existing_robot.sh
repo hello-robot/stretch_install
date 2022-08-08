@@ -46,7 +46,7 @@ do
 done
 
 echo "Checking install repo is up-to-date..."
-git remote update > /dev/null
+git remote update &> /dev/null
 ATU="@{u}"
 UPSTREAM=${1:-$ATU}
 LOCAL=$(git rev-parse @)
