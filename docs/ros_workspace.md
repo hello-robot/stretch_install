@@ -40,3 +40,32 @@ Choose one of the following commands to create either or both ROS1/ROS2 workspac
 Close your current terminal and open a new one. The new terminal will have automatically activated the ROS workspace(s).
 
 Your new ROS workspace is now set up successfully!
+
+## Troubleshooting
+
+This section provides suggestions for common errors that occur during installation. If you become stuck and don't find an answer here, please email us or contact us through [the forum](https://forum.hello-robot.com/).
+
+### 'Conflicting ROS version sourced' error
+
+If you are seeing the following error:
+
+```
+###########################################
+CREATING <ROS VERSION> WORKSPACE at <WS DIR>
+###########################################
+[...]
+Ensuring correct version of ROS is sourced...
+Cannot create workspace while a conflicting ROS version is sourced. Exiting.
+```
+
+The ROS workspace is not created because the check that a conflicting ROS version isn't already sourced has failed. For example, if you're creating an ROS2 Ament workspace, but ROS1 Noetic was previously sourced in the same environment, the check will error out since the new ROS2 workspace would fail to find its dependencies correctly in this environment. Sourcing a version of ROS typically happens using the following command: `source /opt/ros/<ros version>/setup.bash`. If you ran this command to source a conflicting version previously, simply open a new terminal and the new environment won't have the conflicting ROS version sourced. If you didn't run this command and you're still getting the error, it's likely because the command exists in the `~/.bashrc` dotfile. Every new bash shell (i.e. the terminal you open when searching for 'Terminal' in system applications) runs the commands in the `~/.bashrc` dotfile. Look at the bottom of this dotfile for this command, comment it out temporarily, and open a new terminal. This new shell environment should have no trouble creating the ROS workspace.
+
+### 'ROS_DISTRO was set before' warning
+
+If you are seeing the following warning:
+
+```
+ROS_DISTRO was set to '<ROS VERSION>' before. Please make sure that the environment does not mix paths from different distributions.
+```
+
+Multiple versions of ROS are being sourced in the same environment. This is known to cause issues with the `rosdep` tool, and might cause issues elsewhere as well. If you haven't explicitly sourced conflicting versions by using the `source /opt/ros/<ros version>/setup.bash` (a variant on this command could look like `source ~/<ws dir>/develop/setup.bash`) command twice, then it's likely that one or two versions of ROS are implicitly being sourced in the `~/.bashrc` dofile. Every new bash shell (i.e. the terminal you open when searching for 'Terminal' in system applications) runs the commands in the `~/.bashrc` dotfile. Look at the bottom of this dotfile for the `source` command and ensure conflicting versions aren't being sourced.

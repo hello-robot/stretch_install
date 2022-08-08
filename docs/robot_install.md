@@ -21,6 +21,8 @@ There are a few steps to performing a new robot install:
  3. Install Ubuntu 18.04 or 20.04
  4. Run the new robot installation script
 
+It typically takes ~2 hours to go through these steps and complete a new robot install.
+
 ## Back up robot configuration data
 
 It is a good idea to backup all valuable data beforehand. If your new robot install will replace a previous one, **data from the previous robot install will be deleted.** Even if your new robot install will live alongside the previous one(s), **data from the previous robot install(s) can be lost.**
@@ -89,7 +91,7 @@ Your robot is now configured with a new robot install! In order to set up new us
 
 # Troubleshooting
 
-This section provides suggestions for common errors that occur during installation. If you become stuck and don't find an answer here, please email us or contact us through the forum.
+This section provides suggestions for common errors that occur during installation. If you become stuck and don't find an answer here, please email us or contact us through [the forum](https://forum.hello-robot.com/).
 
 ### Firmware Mismatch Error
 

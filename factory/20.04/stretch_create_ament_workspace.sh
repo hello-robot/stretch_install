@@ -44,6 +44,9 @@ echo "#source $AMENT_WSDIR/devel/setup.bash" >> ~/.bashrc
 #cd $CATKIN_WSDIR/src/stretch_ros/stretch_funmap/src/stretch_funmap
 #./compile_cython_code.sh &>> $REDIRECT_LOGFILE
 # TODO: replace these hacks
-cp ~/catkin_ws/src/stretch_ros/stretch_description/urdf/stretch.urdf $AMENT_WSDIR/src/stretch_ros2/stretch_description/urdf/
-cp ~/catkin_ws/src/stretch_ros/stretch_core/config/controller_calibration_head.yaml $AMENT_WSDIR/src/stretch_ros2/stretch_core/config/
-
+if [ -f "$HOME/catkin_ws/src/stretch_ros/stretch_description/urdf/stretch.urdf" ]; then
+    cp ~/catkin_ws/src/stretch_ros/stretch_description/urdf/stretch.urdf $AMENT_WSDIR/src/stretch_ros2/stretch_description/urdf/
+fi
+if [ -f "$HOME/catkin_ws/src/stretch_ros/stretch_core/config/controller_calibration_head.yaml" ]; then
+    cp ~/catkin_ws/src/stretch_ros/stretch_core/config/controller_calibration_head.yaml $AMENT_WSDIR/src/stretch_ros2/stretch_core/config/
+fi
