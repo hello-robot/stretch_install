@@ -21,18 +21,25 @@ cd ..
 rosdep install --from-paths src --ignore-src -r -y
 ```
 
-### Stretch Body
+### Stretch Python Modules
 
-Stretch Body is the Python SDK to the robot. It abstracts away the low level details of communication with the embedded devices and provides an intuitive API to working with the robot.
+There are a few Python modules that allow users to work with the robot in pure Python2/3. These modules are:
 
-On Ubuntu 18.04, run:
+ - Stretch Body is the Python SDK to the robot. It abstracts away the low level details of communication with the embedded devices and provides an intuitive API to working with the robot.
+ - Stretch Body Tools is a set of command line tools that builds on Stretch Body. They allow you to quickly home, stow, command joints, read sensors, and more on the robot.
+ - Stretch Tool Share is a repository of accessories (e.g. expo marker gripper, docking station) for Stretch, created by the community and Hello Robot.
+ - Stretch Factory is a library/set of command line tools that enable calibrations, firmware upgrading, and other factory related tasks.
+
+On Ubuntu 18.04, update them using:
+
 ```console
 python -m pip install -U hello-robot-stretch-body hello-robot-stretch-body-tools hello-robot-stretch-tool-share hello-robot-stretch-factory
 ```
 
-On Ubuntu 20.04, run:
+On Ubuntu 20.04, update them using:
+
 ```console
-python3 -m pip install -U hello-robot-stretch-body hello-robot-stretch-body-tools hello-robot-stretch-tool-share hello-robot-stretch-factory renamed-opencv-python-inference-engine
+python3 -m pip install -U hello-robot-stretch-body hello-robot-stretch-body-tools hello-robot-stretch-tool-share hello-robot-stretch-factory
 ```
 
 ### Stretch Firmware

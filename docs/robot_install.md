@@ -124,30 +124,73 @@ Your robot is now configured with a new robot install! In order to set up new us
 
 This section provides suggestions for common errors that occur during installation. If you become stuck and don't find an answer here, please email us or contact us through [the forum](https://forum.hello-robot.com/).
 
+### 'Expecting stretch-re1-xxxx to be present in the home folder' error
+
+If you are seeing the following error:
+
+```
+[...]
+Checking ~/.bashrc doesn't already define HELLO_FLEET_ID...
+Expecting var HELLO_FLEET_ID to be undefined. Check end of ~/.bashrc file, delete all lines in 'STRETCH BASHRC SETUP' section, and open a new terminal. Exiting.
+```
+
+You are performing a new robot install on a robot that has already gone through the robot install process. If this is intentional, you will need to manually delete lines that a previous robot install appended to the `~/.bashrc` dotfile. Open the `~/.bashrc` file in an editor and look near the end for a section that looks like:
+
+```
+######################
+# STRETCH BASHRC SETUP
+######################
+export HELLO_FLEET_PATH=/home/ubuntu/stretch_user
+export HELLO_FLEET_ID=stretch-re1-2000
+export PATH=${PATH}:~/.local/bin
+export LRS_LOG_LEVEL=None #Debug
+source /opt/ros/noetic/setup.bash
+#source /opt/ros/galactic/setup.bash
+source /home/ubuntu/catkin_ws/devel/setup.bash
+[...]
+```
+
+Delete this section from the `~/.bashrc`. Note that it's common for other programs (e.g. Conda, Ruby) to append to your `~/.bashrc` as well, and deleting those lines accidentally can impede their functionality. Take care to only delete lines related to 'STRETCH BASHRC SETUP' section. Next, open a new terminal. Every new bash shell (i.e. the terminal you open when searching for 'Terminal' in system applications) automatically runs the commands in the `~/.bashrc` dotfile when opened, so the new terminal won't be set up with the lines that were just deleted. Now you can run a new robot install and this error should gone.
+
+### 'Expecting stretch-re1-xxxx to be present in the home folder' error
+
+If you are seeing the following error:
+
+```
+[...]
+Checking robot calibration data in home folder...
+Expecting backed up version of stretch-re1-xxxx to be present in the the home folder. Exiting.
+```
+
+The install scripts exited before performing the robot install because it was unable to find the robot's calibration data folder, 'stretch-re1-xxxx'. Please ensure you have [backed up your robot's calibration data](#back-up-robot-configuration-data) to a USB key and copied the 'stretch-re1-xxxx' folder to the home folder of your new partition. See the [Run the new robot installation script](#run-the-new-robot-installation-script) section for more details. Then, run the install scripts again and the error should be gone.
+
 ### Firmware Mismatch Error
 
 If you are seeing the following error:
 ```
 ----------------
-Firmware protocol mismatch on hello-.
-Protocol on board is pX.
-Valid protocol is: pX.
+Firmware protocol mismatch on hello-<X>.
+Protocol on board is p<X>.
+Valid protocol is: p<X>.
 Disabling device.
 Please upgrade the firmware and/or version of Stretch Body.
 ----------------
 ```
 
-Your version of Stretch Body does not align with the firmware installed with your robot. Run the firmware updater tool to automatically update the firmware to the required version for your software.
+Your version of Stretch Body does not align with the firmware installed with your robot. It's recommended that Stretch Body is first upgraded to the latest version available (but if you're intentionally running an older version, you can skip this step and the firmware updater will downgrade your firmware appriopriately). To upgrade Stretch Body, follow the [instructions here](./updating_software.md#stretch-python-modules).
+
+Next, run the firmware updater tool to automatically update the firmware to the required version for your software.
 
 ```
-python3 -m pip install hello-robot-stretch-factory
-RE1_firmware_updater.py --recommended
+RE1_firmware_updater.py --install
 ```
+
+The firmware mismatch errors should now be gone.
 
 ### Homing Error
 
-If using `stretch_robot_home.py` does not result in the robot being calibrated, try running the command again. If this does not work, try shutting down the robot, turning off the robot with the power switch, waiting for a few seconds, and then powering it on again. Then, try `stretch_robot_home.py` again. For unknown reasons, one of our robots has needed to be homed, rebooted, and homed again after following this installation guide.
+If using `stretch_robot_home.py` does not result in the robot being calibrated, try running the command again. If this does not work, try shutting down the robot, turning off the robot with the power switch, waiting for a few seconds, and then powering it on again. Then, try `stretch_robot_home.py` again.
 
 ### ROS Launch File Fails
 
-The launch files have nondeterministic behavior. Sometimes they need to be run more than once for the nodes to start in a successful order that works. For example, a common symptom of a failed launch is the visualization of the robot's body appearing white and flat in RViz.
+ROS launch files have nondeterministic behavior. Sometimes they need to be run more than once for the nodes to start in a successful order that works. For example, a common symptom of a failed launch is the visualization of the robot's body appearing white and flat in RViz.
