@@ -57,7 +57,10 @@ zip -r $logzip $logdir/ > /dev/null
 
 echo ""
 echo "#############################################"
-echo "DONE! A FULL REBOOT IS RECOMMENDED"
+echo "DONE! COMPLETE THESE POST INSTALL STEPS:"
+echo " 1. Perform a FULL reboot by power cycling the robot"
+echo " 2. Run 'RE1_migrate_params.py' in the command line"
+echo " 3. Run 'RE1_firmware_updater.py --install' in the command line"
 echo "#############################################"
 echo ""
 
