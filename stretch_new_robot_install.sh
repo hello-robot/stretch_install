@@ -50,9 +50,6 @@ if $do_factory_install; then
     ./stretch_install_dev_tools.sh -l $logdir |& tee $logfile_dev_tools
 fi
 
-echo ""
-echo "Generating $logzip. Include with any support tickets."
-mv $HOME/stretch_user/log/*_redirected.txt $logdir
 zip -r $logzip $logdir/ > /dev/null
 
 echo ""
