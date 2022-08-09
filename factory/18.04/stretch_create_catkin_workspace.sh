@@ -53,12 +53,13 @@ echo "Updating meshes in stretch_ros to this robot's batch..."
 . /etc/hello-robot/hello-robot.conf
 export HELLO_FLEET_ID HELLO_FLEET_ID
 export HELLO_FLEET_PATH=${HOME}/stretch_user
-$CATKIN_WSDIR/src/stretch_ros/stretch_description/meshes/update_meshes.py >> $REDIRECT_LOGFILE
+# TODO: will print to stderr but report exit code 0 for prebatch meshes not present, it should exit 1 and mitigate missing batch meshes within script
+$CATKIN_WSDIR/src/stretch_ros/stretch_description/meshes/update_meshes.py &>> $REDIRECT_LOGFILE
 echo "Setup uncalibrated robot URDF..."
 bash -i $CATKIN_WSDIR/src/stretch_ros/stretch_calibration/nodes/update_uncalibrated_urdf.sh >> $REDIRECT_LOGFILE
 echo "Setup calibrated robot URDF..."
-bash -i $CATKIN_WSDIR/src/stretch_ros/stretch_calibration/nodes/update_with_most_recent_calibration.sh >> $REDIRECT_LOGFILE
+# TODO: will print to stderr but report exit code 0 for precalibrated robots, it should exit 1 and mitigate precalibration within script
+bash -i $CATKIN_WSDIR/src/stretch_ros/stretch_calibration/nodes/update_with_most_recent_calibration.sh &>> $REDIRECT_LOGFILE
 echo "Compiling FUNMAP's Cython code..."
 cd $CATKIN_WSDIR/src/stretch_ros/stretch_funmap/src/stretch_funmap
 ./compile_cython_code.sh &>> $REDIRECT_LOGFILE
-

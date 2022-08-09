@@ -17,16 +17,6 @@ sudo add-apt-repository 'deb https://typora.io/linux ./'
 sudo apt-get update >> $REDIRECT_LOGFILE
 sudo apt-get install --yes typora >> $REDIRECT_LOGFILE
 
-echo "Install Chromium"
-sudo apt-get install --yes chromium-browser >> $REDIRECT_LOGFILE
-
-echo "Install Arduino CLI"
-cd ~/stretch_install/factory/18.04/
-./stretch_install_arduino.sh >> $REDIRECT_LOGFILE
-
-echo "Install PyCharm"
-sudo snap install pycharm-community --classic >> $REDIRECT_LOGFILE
-
 echo "Install tools for system QC and bringup"
 pip2 install -q twine
 pip2 install -q gspread

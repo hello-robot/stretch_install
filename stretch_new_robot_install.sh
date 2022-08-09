@@ -1,5 +1,4 @@
 #!/bin/bash
-set -e
 set -o pipefail
 
 do_factory_install='false'
@@ -28,26 +27,45 @@ logfile_dev_tools="$logdir/stretch_dev_tools_install.txt"
 logzip="$logdir/stretch_robot_install_logs.zip"
 mkdir -p $logdir
 
+function echo_failure_help {
+    zip -r $logzip $logdir/ > /dev/null
+    echo ""
+    echo "#############################################"
+    echo "FAILURE. INSTALLATION DID NOT COMPLETE."
+    echo "Look at the troubleshooting guide for solutions to common issues: docs.hello-robot.com/0.2/robot_install#troubleshooting"
+    echo "or contact Hello Robot support and include $logzip"
+    echo "#############################################"
+    echo ""
+    exit 1
+}
+
 cd $HOME/stretch_install/factory/$factory_osdir
-if $do_factory_install; then
-    ./stretch_setup_new_robot.sh |& tee $logfile_initial
-else
-    ./stretch_setup_existing_robot.sh |& tee $logfile_initial
+./stretch_initial_setup.sh $do_factory_install |& tee $logfile_initial
+if [ $? -ne 0 ]; then
+    echo_failure_help
 fi
 
 echo ""
 cd $HOME/stretch_install/factory/$factory_osdir
 ./stretch_install_system.sh -l $logdir |& tee $logfile_system
+if [ $? -ne 0 ]; then
+    echo_failure_help
+fi
 
 echo ""
 cd $HOME/stretch_install
 ./stretch_new_user_install.sh -l $logdir |& tee $logfile_user
-
+if [ $? -ne 0 ]; then
+    echo_failure_help
+fi
 
 if $do_factory_install; then
     echo ""
     cd $HOME/stretch_install/factory/$factory_osdir
     ./stretch_install_dev_tools.sh -l $logdir |& tee $logfile_dev_tools
+    if [ $? -ne 0 ]; then
+        echo_failure_help
+    fi
 fi
 
 zip -r $logzip $logdir/ > /dev/null
@@ -60,4 +78,3 @@ echo " 2. Run 'RE1_migrate_params.py' in the command line"
 echo " 3. Run 'RE1_firmware_updater.py --install' in the command line"
 echo "#############################################"
 echo ""
-

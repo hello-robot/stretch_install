@@ -77,6 +77,12 @@ cp ~/stretch_install/factory/$factory_osdir/hello_robot_pimu_ping.desktop ~/.con
 echo "Updating media assets..."
 sudo cp $HOME/stretch_install/factory/$factory_osdir/stretch_about.png /etc/hello-robot
 
+echo "Installing PyCharm..."
+sudo snap install pycharm-community --classic >> $REDIRECT_LOGFILE
+
+echo "Installing Arduino CLI..."
+~/stretch_install/factory/$factory_osdir/stretch_install_arduino.sh >> $REDIRECT_LOGFILE
+
 echo "Adding user to the dialout group to access Arduino..."
 sudo adduser $USER dialout >> $REDIRECT_LOGFILE
 echo "Adding user to the plugdev group to access serial..."
@@ -90,36 +96,36 @@ if [[ $factory_osdir = "18.04" ]]; then
     echo "INSTALLATION OF USER LEVEL PIP2 PACKAGES"
     echo "###########################################"
     echo "Upgrade pip3"
-    python3 -m pip -q install --no-warn-script-location --user --upgrade pip
+    python3 -m pip -q install --no-warn-script-location --user --upgrade pip &>> $REDIRECT_LOGFILE
     echo "Install setuptools"
-    python2 -m pip -q install setuptools-scm==5.0.2
+    python2 -m pip -q install setuptools-scm==5.0.2 &>> $REDIRECT_LOGFILE
     echo "Install Stretch Body (this might take a while)"
-    python2 -m pip -q install hello-robot-stretch-body
+    python2 -m pip -q install hello-robot-stretch-body &>> $REDIRECT_LOGFILE
     echo "Install Stretch Body Tools"
-    python2 -m pip -q install hello-robot-stretch-body-tools
+    python2 -m pip -q install hello-robot-stretch-body-tools &>> $REDIRECT_LOGFILE
     echo "Install Stretch Factory"
-    python2 -m pip -q install hello-robot-stretch-factory
+    python2 -m pip -q install hello-robot-stretch-factory &>> $REDIRECT_LOGFILE
     echo "Install Stretch Tool Share"
-    python2 -m pip -q install hello-robot-stretch-tool-share
+    python2 -m pip -q install hello-robot-stretch-tool-share &>> $REDIRECT_LOGFILE
     echo "Install opencv-python-inference-engine"
-    python3 -m pip -q install --no-warn-script-location opencv-python-inference-engine
+    python3 -m pip -q install --no-warn-script-location opencv-python-inference-engine &>> $REDIRECT_LOGFILE
     echo ""
 elif [[ $factory_osdir = "20.04" ]]; then
     echo "###########################################"
     echo "INSTALLATION OF USER LEVEL PIP3 PACKAGES"
     echo "###########################################"
     echo "Upgrade pip3"
-    python3 -m pip -q install --no-warn-script-location --user --upgrade pip
+    python3 -m pip -q install --no-warn-script-location --user --upgrade pip &>> $REDIRECT_LOGFILE
     echo "Install Stretch Body"
-    python3 -m pip -q install --no-warn-script-location hello-robot-stretch-body
+    python3 -m pip -q install --no-warn-script-location hello-robot-stretch-body &>> $REDIRECT_LOGFILE
     echo "Install Stretch Body Tools"
-    python3 -m pip -q install --no-warn-script-location hello-robot-stretch-body-tools
+    python3 -m pip -q install --no-warn-script-location hello-robot-stretch-body-tools &>> $REDIRECT_LOGFILE
     echo "Install Stretch Factory"
-    python3 -m pip -q install --no-warn-script-location hello-robot-stretch-factory
+    python3 -m pip -q install --no-warn-script-location hello-robot-stretch-factory &>> $REDIRECT_LOGFILE
     echo "Install Stretch Tool Share"
-    python3 -m pip -q install --no-warn-script-location hello-robot-stretch-tool-share
+    python3 -m pip -q install --no-warn-script-location hello-robot-stretch-tool-share &>> $REDIRECT_LOGFILE
     echo "Upgrade prompt_toolkit"
-    python3 -m pip -q install --no-warn-script-location -U prompt_toolkit
+    python3 -m pip -q install --no-warn-script-location -U prompt_toolkit &>> $REDIRECT_LOGFILE
     echo ""
 fi
 
