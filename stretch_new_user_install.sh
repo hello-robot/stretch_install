@@ -64,7 +64,7 @@ if [ "$UPDATING" = true ]; then
 else
     cp -rf /etc/hello-robot/$HELLO_FLEET_ID $HOME/stretch_user
     chmod a-w $HOME/stretch_user/$HELLO_FLEET_ID/udev/*.rules
-    chmod a-w $HOME/stretch_user/$HELLO_FLEET_ID/calibration_steppers/*.yaml
+    #chmod a-w $HOME/stretch_user/$HELLO_FLEET_ID/calibration_steppers/*.yaml
 fi
 
 echo "Setting up this user to start the robot's code automatically on boot..."
