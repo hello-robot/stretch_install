@@ -1,5 +1,10 @@
 #!/bin/bash
 
+#To install IDE
+# ./arduino_install_ide.sh -c 64 1.8.12 ~/
+#cd ~/arduino
+#sudo ./install.sh
+
 ARDUINOCLI_YAML = "
 board_manager:
   additional_urls: []
@@ -26,3 +31,4 @@ curl -fsSL https://raw.githubusercontent.com/arduino/arduino-cli/master/install.
 $HOME/.local/bin/arduino-cli config init
 $HOME/.local/bin/arduino-cli core install arduino:samd@1.6.21
 echo $ARDUINOCLI_YAML >> ~/.arduino15/arduino-cli.yaml
+

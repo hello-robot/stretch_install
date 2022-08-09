@@ -1,5 +1,10 @@
 #!/bin/bash
 
+#To install IDE
+# ./arduino_install_ide.sh -c 64 1.8.12 ~/
+#cd ~/arduino
+#sudo ./install.sh
+
 ARDUINOCLI_YAML = "
 board_manager:
   additional_urls: []
