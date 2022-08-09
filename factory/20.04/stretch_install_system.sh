@@ -50,6 +50,8 @@ echo "Install cheese for camera testing"
 install cheese
 echo "Install SSH Server"
 install ssh
+echo "Install Chromium"
+install chromium-browser
 echo ""
 
 # see http://wiki.ros.org/noetic/Installation/Ubuntu for details

@@ -50,6 +50,8 @@ install lm-sensors
 install nvme-cli
 echo "Install SSH Server"
 install ssh
+echo "Install Chromium"
+install chromium-browser
 echo ""
 
 # see http://wiki.ros.org/melodic/Installation/Ubuntu#Installation for details
