@@ -40,11 +40,7 @@ function echo_failure_help {
 }
 
 cd $HOME/stretch_install/factory/$factory_osdir
-if $do_factory_install; then
-    ./stretch_setup_new_robot.sh |& tee $logfile_initial
-else
-    ./stretch_setup_existing_robot.sh |& tee $logfile_initial
-fi
+./stretch_initial_setup.sh $do_factory_install |& tee $logfile_initial
 if [ $? -ne 0 ]; then
     echo_failure_help
 fi
