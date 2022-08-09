@@ -1,7 +1,8 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 from __future__ import print_function
 import stretch_body.hello_utils
+import stretch_body.robot_params
 import argparse
 from os.path import exists
 import sys
@@ -31,7 +32,7 @@ else:
         'hello-motor-lift':{'gains':{'i_safety_feedforward':0.75}}
     }
 
-if not exists(hello_utils.get_fleet_directory()+'stretch_user_params.yaml'):
+if not exists(stretch_body.hello_utils.get_fleet_directory()+'stretch_user_params.yaml'):
     print('Please run tool RE1_migrate_params.py before continuing. For more details, see https://forum.hello-robot.com/t/425')
     sys.exit(1)
 user_yaml=stretch_body.hello_utils.read_fleet_yaml('stretch_user_params.yaml')
