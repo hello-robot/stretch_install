@@ -104,3 +104,7 @@ sudo cp $DIR/hello_robot_lrf_off.py /usr/bin/
 sudo cp $DIR/hello_robot_pimu_ping.py /usr/bin/
 sudo cp $DIR/hello_robot_pimu_ping.sh /usr/bin/
 sudo cp $DIR/hello_robot_xbox_teleop.sh /usr/bin/
+
+echo "Setting up apt retries..."
+echo 'Acquire::Retries "3";' > 80-retries
+sudo mv 80-retries /etc/apt/apt.conf.d/

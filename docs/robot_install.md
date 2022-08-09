@@ -124,7 +124,7 @@ Your robot is now configured with a new robot install! In order to set up new us
 
 This section provides suggestions for common errors that occur during installation. If you become stuck and don't find an answer here, please email us or contact us through [the forum](https://forum.hello-robot.com/).
 
-### 'Expecting stretch-re1-xxxx to be present in the home folder' error
+### 'Expecting var HELLO_FLEET_ID to be undefined' error
 
 If you are seeing the following error:
 
@@ -132,6 +132,10 @@ If you are seeing the following error:
 [...]
 Checking ~/.bashrc doesn't already define HELLO_FLEET_ID...
 Expecting var HELLO_FLEET_ID to be undefined. Check end of ~/.bashrc file, delete all lines in 'STRETCH BASHRC SETUP' section, and open a new terminal. Exiting.
+
+#############################################
+FAILURE. INSTALLATION DID NOT COMPLETE.
+[...]
 ```
 
 You are performing a new robot install on a robot that has already gone through the robot install process. If this is intentional, you will need to manually delete lines that a previous robot install appended to the `~/.bashrc` dotfile. Open the `~/.bashrc` file in an editor and look near the end for a section that looks like:
@@ -160,6 +164,10 @@ If you are seeing the following error:
 [...]
 Checking robot calibration data in home folder...
 Expecting backed up version of stretch-re1-xxxx to be present in the the home folder. Exiting.
+
+#############################################
+FAILURE. INSTALLATION DID NOT COMPLETE.
+[...]
 ```
 
 The install scripts exited before performing the robot install because it was unable to find the robot's calibration data folder, 'stretch-re1-xxxx'. Please ensure you have [backed up your robot's calibration data](#back-up-robot-configuration-data) to a USB key and copied the 'stretch-re1-xxxx' folder to the home folder of your new partition. See the [Run the new robot installation script](#run-the-new-robot-installation-script) section for more details. Then, run the install scripts again and the error should be gone.
@@ -172,11 +180,31 @@ If you are seeing the following error:
 [...]
 Checking install repo is up-to-date...
 Repo not up-to-date. Please perform a 'git pull'. Exiting.
+
+#############################################
+FAILURE. INSTALLATION DID NOT COMPLETE.
+[...]
 ```
 
 The version of Stretch Install being used is out of date. In a terminal, go to the Stretch Install folder (should be in the home folder: `cd ~/stretch_install`), and perform a `git pull` to pull down the latest version. If the git pull fails, ensure Stretch Install has a clean working tree using `git status`. If you see any red files, save them if important, delete Stretch Install, and reclone it.
 
-### Firmware Mismatch Error
+### 'Failed to fetch' error
+
+If you are seeing the following error:
+
+```
+Install <some package>
+E: Failed to fetch http://archive.ubuntu.com/ubuntu/pool/main/s/slang2/libslang2-dev_2.3.2-4_amd64.deb  Connection failed [IP: 185.125.190.36 80]
+E: Unable to fetch some archives, maybe run apt-get update or try with --fix-missing?
+
+#############################################
+FAILURE. INSTALLATION DID NOT COMPLETE.
+[...]
+```
+
+Ubuntu's system package manager, Apt, has failed to contact the server that hosts some package that the install scripts need to download. Typically, these issues are transient and waiting some time before rerunning the install script will solve the issue.
+
+### 'Firmware protocol mismatch' error
 
 If you are seeing the following error:
 ```
@@ -201,7 +229,7 @@ The firmware mismatch errors should now be gone.
 
 ### Homing Error
 
-If using `stretch_robot_home.py` does not result in the robot being calibrated, try running the command again. If this does not work, try shutting down the robot, turning off the robot with the power switch, waiting for a few seconds, and then powering it on again. Then, try `stretch_robot_home.py` again.
+If using `stretch_robot_home.py` does not result in the robot being homed, try running the command again. If this does not work, try shutting down the robot, turning off the robot with the power switch, waiting for a few seconds, and then powering it on again. Then, try `stretch_robot_home.py` again.
 
 ### ROS Launch File Fails
 
