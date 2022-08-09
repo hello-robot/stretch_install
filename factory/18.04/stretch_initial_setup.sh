@@ -54,10 +54,8 @@ done
 
 echo "Checking install repo is up-to-date..."
 git remote update > /dev/null
-ATU="@{u}"
-UPSTREAM=${1:-$ATU}
 LOCAL=$(git rev-parse @)
-REMOTE=$(git rev-parse "$UPSTREAM")
+REMOTE=$(git rev-parse @{u})
 if [ ! $LOCAL = $REMOTE ]; then
     echo "Repo not up-to-date. Please perform a 'git pull'. Exiting."
     exit 1

@@ -56,7 +56,7 @@ Login to the `hello-robot` user account on your new Ubuntu partition, open a ter
 
 ```bash
 sudo apt update
-sudo apt install git
+sudo apt install git zip
 ```
 
 **Note**: The system may not be able to run 'apt' immediately after a reboot as the OS may be running automatic updates in the background. Typically, waiting 10-20 minutes will allow you to use 'apt' again.
@@ -68,7 +68,6 @@ Next, place the robot's calibration data in the home folder using the following 
     - For example, you can run a command similar to `cp -r /media/$USER/<USBKEY>/stretch-re1-<xxxx> /home/$USER/` from the command line, where `<USBKEY>` and `<xxxx>` are replaced with your USB key's name and your robot's serial number, respectively.
     - Or, you can open the file explorer to copy the directory.
 
-**Note**: If this is a fresh factory install at Hello Robot HQ then run `stretch_new_robot_install.sh -f` instead of the above commands
 Next, pull down the Stretch Install repository and being the installation process:
 
 ```bash
