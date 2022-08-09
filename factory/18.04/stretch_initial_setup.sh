@@ -53,7 +53,7 @@ do
 done
 
 echo "Checking install repo is up-to-date..."
-git remote update > /dev/null
+git remote update &> /dev/null
 LOCAL=$(git rev-parse @)
 REMOTE=$(git rev-parse @{u})
 if [ ! $LOCAL = $REMOTE ]; then
