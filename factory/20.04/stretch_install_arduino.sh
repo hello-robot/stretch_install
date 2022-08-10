@@ -5,7 +5,7 @@
 #cd ~/arduino
 #sudo ./install.sh
 
-ARDUINOCLI_YAML = "
+ARDUINOCLI_YAML="
 board_manager:
   additional_urls: []
 daemon:

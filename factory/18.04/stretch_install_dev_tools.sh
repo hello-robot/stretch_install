@@ -12,17 +12,17 @@ echo "INSTALLATION OF DEV TOOLS FOR HELLO ROBOT INTERNAL PRODUCTION"
 echo "#############################################"
 
 echo "Install Typora"
-wget -qO - https://typora.io/linux/public-key.asc | sudo apt-key add -
-sudo add-apt-repository 'deb https://typora.io/linux ./'
+wget -qO - https://typora.io/linux/public-key.asc | sudo apt-key add - &>> $REDIRECT_LOGFILE
+sudo add-apt-repository 'deb https://typora.io/linux ./' &>> $REDIRECT_LOGFILE
 sudo apt-get update >> $REDIRECT_LOGFILE
 sudo apt-get install --yes typora >> $REDIRECT_LOGFILE
 
 echo "Install tools for system QC and bringup"
-pip2 install -q twine
-pip2 install -q gspread
-pip2 install -q gspread-formatting
-pip2 install -q oauth2client rsa==3.4
-pip3 install -q mkdocs mkdocs-material mkdocstrings==0.17.0 pytkdocs[numpy-style] jinja2==3.0.3
+pip2 install -q twine &>> $REDIRECT_LOGFILE
+pip2 install -q gspread &>> $REDIRECT_LOGFILE
+pip2 install -q gspread-formatting &>> $REDIRECT_LOGFILE
+pip2 install -q oauth2client rsa==3.4 &>> $REDIRECT_LOGFILE
+pip3 install -q --no-warn-script-location mkdocs mkdocs-material mkdocstrings==0.17.0 pytkdocs[numpy-style] jinja2==3.0.3 &>> $REDIRECT_LOGFILE
 
 echo "Cloning repos"
 cd ~/repos/

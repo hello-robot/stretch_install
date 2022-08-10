@@ -194,7 +194,7 @@ If you are seeing the following error:
 
 ```
 Install <some package>
-E: Failed to fetch http://archive.ubuntu.com/ubuntu/pool/main/s/slang2/libslang2-dev_2.3.2-4_amd64.deb  Connection failed [IP: 185.125.190.36 80]
+E: Failed to fetch <url to some .deb file>  Connection failed [IP: <some IP address>]
 E: Unable to fetch some archives, maybe run apt-get update or try with --fix-missing?
 
 #############################################

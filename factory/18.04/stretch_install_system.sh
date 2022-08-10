@@ -123,7 +123,10 @@ echo "###########################################"
 echo "Install realsense-ros"
 install ros-melodic-realsense2-camera ros-melodic-realsense2-description
 echo "Register the librealsense APT server's public key"
-sudo apt-key adv --keyserver keys.gnupg.net --recv-key F6E65AC044F831AC80A06380C8B3A55A6F3EFCDE || sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-key F6E65AC044F831AC80A06380C8B3A55A6F3EFCDE &>> $REDIRECT_LOGFILE
+function register_librealsense_apt_server {
+    sudo apt-key adv --keyserver keys.gnupg.net --recv-key F6E65AC044F831AC80A06380C8B3A55A6F3EFCDE || sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-key F6E65AC044F831AC80A06380C8B3A55A6F3EFCDE
+}
+register_librealsense_apt_server &>> $REDIRECT_LOGFILE
 echo "Add the librealsense APT server to the list of APT repositories"
 sudo add-apt-repository "deb https://librealsense.intel.com/Debian/apt-repo bionic main" -u &>> $REDIRECT_LOGFILE
 echo "Remove old records in case of upgrading"
