@@ -52,7 +52,7 @@ After the Ubuntu install, the default `hello-robot` user account will be set up.
 
 ## Run the new robot installation script
 
-Login to the `hello-robot` user account on your new Ubuntu partition, open a terminal, and install git:
+Login to the `hello-robot` user account on your new Ubuntu partition, open a terminal, and run:
 
 ```bash
 sudo apt update
@@ -63,7 +63,7 @@ sudo apt install git zip
 
 Next, place the robot's calibration data in the home folder using the following steps:
 
- 1. Boot into the robot's new Ubuntu partition and plug in the USB key that contains the backed up calibration data.
+ 1. Plug in the USB key that contains the backed up calibration data.
  2. Copy the `stretch-re1-<xxxx>` directory, where `<xxxx>` is your robot's serial number, from the USB key into the home folder (i.e. `/home/$USER/`).
     - For example, you can run a command similar to `cp -r /media/$USER/<USBKEY>/stretch-re1-<xxxx> /home/$USER/` from the command line, where `<USBKEY>` and `<xxxx>` are replaced with your USB key's name and your robot's serial number, respectively.
     - Or, you can open the file explorer to copy the directory.
@@ -79,7 +79,7 @@ git checkout feature/install_reorg
 ./stretch_new_robot_install.sh
 ```
 
-Once the script has started, it will ask you for your robot's serial number, Y/N confirmation, and the password. Then, the script will take 20-30 minutes to complete. Once it finishes, it should print out something similar to:
+Once the script has started, it will ask you for your robot's serial number, Y/N confirmation, and the password. Then, the script will typically take 20-30 minutes to complete on a wired connection. Once it finishes, it should print out something similar to:
 
 ```
 #############################################
