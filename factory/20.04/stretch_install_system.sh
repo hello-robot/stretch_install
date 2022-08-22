@@ -53,6 +53,10 @@ install ssh
 echo "Install Chromium"
 install chromium-browser
 echo ""
+echo "Install Ubuntu Sounds"
+install ubuntu-sounds
+echo ""
+
 
 # see http://wiki.ros.org/noetic/Installation/Ubuntu for details
 echo "###########################################"
