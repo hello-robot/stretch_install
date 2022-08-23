@@ -14,13 +14,35 @@ if [[ $HELLO_FLEET_ID ]]; then
     exit 1
 fi
 
-echo -n "Enter fleet id xxxx for stretch-re1-xxxx> "
+
+PS3="Select model type: "
+
+select model in stretch-re1 stretch-re2
+do
+    echo "Selected model: $model"
+
+  if [[ "$model" == "stretch-re1" ]]
+  then
+    break
+  fi
+
+ if [[ "$model" == "stretch-re2" ]]
+  then
+    break
+  fi
+
+done
+
+pre=$model"-"
+
+echo -n "Enter fleet id xxxx for $pre""xxxx> "
 read id
 if [[ ! $id =~ ^[0-9]{4}$ ]]; then
     echo "Input should be four digits. Exiting."
     exit 1
 fi
-pre="stretch-re1-"
+
+
 HELLO_FLEET_ID="$pre$id"
 
 read -p "HELLO_FLEET_ID will be $HELLO_FLEET_ID. Proceed with installation (y/n)? " -n 1 -r
