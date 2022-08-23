@@ -117,11 +117,11 @@ elif [[ $factory_osdir = "20.04" ]]; then
     echo "Upgrade pip3"
     python3 -m pip -q install --no-warn-script-location --user --upgrade pip &>> $REDIRECT_LOGFILE
     echo "Install Stretch Body"
-    python3 -m pip -q install --no-warn-script-location hello-robot-stretch-body &>> $REDIRECT_LOGFILE
+    python3 -m pip -q install --no-warn-script-location hello-robot-stretch-body --pre &>> $REDIRECT_LOGFILE
     echo "Install Stretch Body Tools"
-    python3 -m pip -q install --no-warn-script-location hello-robot-stretch-body-tools &>> $REDIRECT_LOGFILE
+    python3 -m pip -q install --no-warn-script-location hello-robot-stretch-body-tools --pre &>> $REDIRECT_LOGFILE
     echo "Install Stretch Factory"
-    python3 -m pip -q install --no-warn-script-location hello-robot-stretch-factory &>> $REDIRECT_LOGFILE
+    python3 -m pip -q install --no-warn-script-location hello-robot-stretch-factory --pre &>> $REDIRECT_LOGFILE
     echo "Install Stretch Tool Share"
     python3 -m pip -q install --no-warn-script-location hello-robot-stretch-tool-share &>> $REDIRECT_LOGFILE
     echo "Upgrade prompt_toolkit"
