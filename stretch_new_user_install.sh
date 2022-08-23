@@ -43,6 +43,7 @@ else
 fi
 
 echo "Creating repos and stretch_user directories..."
+mkdir -p ~/.local/bin
 mkdir -p ~/repos
 mkdir -p ~/stretch_user
 mkdir -p ~/stretch_user/log
