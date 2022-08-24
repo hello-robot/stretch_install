@@ -123,9 +123,6 @@ echo "Install ROS control packages (primarily for simulations with Gazebo)"
 install ros-noetic-ros-control ros-noetic-ros-controllers
 echo "Install ROS2 control packages for MoveIt2"
 install ros-galactic-ros2-control ros-galactic-ros2-controllers
-echo "Install dynamic reconfiguration package for use with Intel D435i"
-install ros-noetic-ddynamic-reconfigure-python
-# install ros-galactic-ddynamic-reconfigure-python # not available
 echo "Install ROS teleop packages"
 install ros-noetic-teleop-twist-keyboard
 install ros-galactic-teleop-twist-keyboard
@@ -150,9 +147,8 @@ echo ""
 echo "###########################################"
 echo "INSTALLATION OF INTEL D435i"
 echo "###########################################"
-echo "Install realsense-ros"
-install ros-noetic-realsense2-camera ros-noetic-realsense2-description
-install ros-galactic-realsense2-camera ros-galactic-realsense2-description
+echo "Install dynamic reconfiguration"
+install ros-noetic-ddynamic-reconfigure ros-noetic-ddynamic-reconfigure-python
 echo "Register the librealsense APT server's public key"
 function register_librealsense_apt_server {
     sudo apt-key adv --keyserver keys.gnupg.net --recv-key F6E65AC044F831AC80A06380C8B3A55A6F3EFCDE || sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-key F6E65AC044F831AC80A06380C8B3A55A6F3EFCDE
@@ -165,5 +161,4 @@ sudo rm -f /etc/apt/sources.list.d/realsense-public.list
 echo "Apt update"
 sudo apt-get --yes update >> $REDIRECT_LOGFILE
 echo "Install librealsense2 packages"
-install librealsense2-dkms librealsense2-utils librealsense2-dev librealsense2-dbg
-
+install librealsense2 librealsense2-dkms librealsense2-udev-rules librealsense2-utils librealsense2-dev librealsense2-dbg

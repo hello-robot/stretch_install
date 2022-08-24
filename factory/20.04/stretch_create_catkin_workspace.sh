@@ -39,14 +39,11 @@ echo "Fetch ROS packages' dependencies (this might take a while)..."
 cd $CATKIN_WSDIR/
 rosdep install --from-paths src --ignore-src -r -y &>> $REDIRECT_LOGFILE
 echo "Make the workspace..."
-catkin_make &>> $REDIRECT_LOGFILE
+catkin_make -DCATKIN_ENABLE_TESTING=False -DCMAKE_BUILD_TYPE=Release &>> $REDIRECT_LOGFILE
 echo "Source setup.bash file..."
 source $CATKIN_WSDIR/devel/setup.bash
 echo "Index ROS packages..."
 rospack profile >> $REDIRECT_LOGFILE
-# TODO:
-#echo "Install ROS packages..."
-#catkin_make install >> $REDIRECT_LOGFILE
 echo "Update ~/.bashrc dotfile to source workspace..."
 echo "source $CATKIN_WSDIR/devel/setup.bash" >> ~/.bashrc
 echo "Updating meshes in stretch_ros to this robot's batch..."

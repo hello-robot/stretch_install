@@ -101,8 +101,6 @@ echo "Install ROS packages for Robotis Dynamixel actuators"
 install ros-melodic-dynamixel-sdk ros-melodic-dynamixel-workbench
 echo "Install ROS control packages (primarily for simulations with Gazebo)"
 install ros-melodic-ros-control ros-melodic-ros-controllers
-echo "Install dynamic reconfiguration package for use with Intel D435i"
-install ros-melodic-ddynamic-reconfigure-python
 echo "Install ROS teleop packages"
 install ros-melodic-teleop-twist-keyboard
 echo "Install ROS navigation and mapping packages"
@@ -120,8 +118,8 @@ echo ""
 echo "###########################################"
 echo "INSTALLATION OF INTEL D435i"
 echo "###########################################"
-echo "Install realsense-ros"
-install ros-melodic-realsense2-camera ros-melodic-realsense2-description
+echo "Install dynamic reconfiguration"
+install ros-melodic-ddynamic-reconfigure ros-melodic-ddynamic-reconfigure-python
 echo "Register the librealsense APT server's public key"
 function register_librealsense_apt_server {
     sudo apt-key adv --keyserver keys.gnupg.net --recv-key F6E65AC044F831AC80A06380C8B3A55A6F3EFCDE || sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-key F6E65AC044F831AC80A06380C8B3A55A6F3EFCDE
@@ -134,5 +132,4 @@ sudo rm -f /etc/apt/sources.list.d/realsense-public.list
 echo "Apt update"
 sudo apt-get --yes update >> $REDIRECT_LOGFILE
 echo "Install librealsense2 packages"
-install librealsense2-dkms librealsense2-utils librealsense2-dev librealsense2-dbg
-
+install librealsense2 librealsense2-dkms librealsense2-udev-rules librealsense2-utils librealsense2-dev librealsense2-dbg

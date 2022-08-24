@@ -23,6 +23,10 @@ repositories:
     type: git
     url: https://github.com/PickNikRobotics/stretch_moveit_plugins
     version: main
+  realsense-ros:
+    type: git
+    url: https://github.com/IntelRealSense/realsense-ros.git
+    version: ros2-beta
   stretch_ros2:
     type: git
     url: https://github.com/hello-robot/stretch_ros2
