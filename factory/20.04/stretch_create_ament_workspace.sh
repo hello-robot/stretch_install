@@ -39,7 +39,7 @@ echo "Fetch ROS packages' dependencies (this might take a while)..."
 cd $AMENT_WSDIR/
 rosdep install --from-paths src --ignore-src -r -y &>> $REDIRECT_LOGFILE
 echo "Compile the workspace (this might take a while)..."
-colcon build &>> $REDIRECT_LOGFILE
+colcon build --cmake-args -DCMAKE_BUILD_TYPE=Release &>> $REDIRECT_LOGFILE
 echo "Source setup.bash file..."
 source $AMENT_WSDIR/install/setup.bash
 echo "Update ~/.bashrc dotfile to source workspace..."
