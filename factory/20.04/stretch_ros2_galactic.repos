@@ -23,6 +23,10 @@ repositories:
     type: git
     url: https://github.com/PickNikRobotics/stretch_moveit_plugins
     version: main
+  ros2_numpy:
+    type: git
+    url: https://github.com/Box-Robotics/ros2_numpy
+    version: humble
   realsense-ros:
     type: git
     url: https://github.com/IntelRealSense/realsense-ros.git
