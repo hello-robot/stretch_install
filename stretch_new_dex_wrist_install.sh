@@ -19,7 +19,7 @@ then
 fi
 
 echo "Setting Dynamixel bauds to 115200"
-RE1_dynamixel_set_baud.py /dev/hello-dynamixel-wrist 13 115200
+REx_dynamixel_set_baud.py /dev/hello-dynamixel-wrist 13 115200
 
 echo "Configuring user YAML"
 ./factory/$factory_osdir/stretch_dex_wrist_yaml_configure.py $1
