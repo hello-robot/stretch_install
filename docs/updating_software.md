@@ -1,14 +1,14 @@
 # Updating Stretch Software
 
-Stretch's software is improved with new features and bug fixes with each update. In this guide, we cover when and how to update the various software components on your Stretch RE1.
+Stretch's software is improved with new features and bug fixes with each update. In this guide, we cover when and how to update the various software components on your Stretch.
 
 ## When to Update
 
-We develop our software publicly on Github, allowing anyone to follow/propose the development of a code feature or bug fix. While we wholeheartedly welcome collaboration on Github, it is not necessary to be active on Github to follow our software releases. We announce every major release of software on our [forum](https://forum.hello-robot.com/c/announcements). These are stable releases with code that has been extensively tested on many Stretch RE1s. To be notified of new releases, create an account on the forum and click the bell icon in the top left of the [announcements section](https://forum.hello-robot.com/c/announcements/6). The forum is also available to report issues and ask questions about any of our software packages.
+We develop our software publicly on Github, allowing anyone to follow/propose the development of a code feature or bug fix. While we wholeheartedly welcome collaboration on Github, it is not necessary to be active on Github to follow our software releases. We announce every major release of software on our [forum](https://forum.hello-robot.com/c/announcements). These are stable releases with code that has been extensively tested on many Stretch robots. To be notified of new releases, create an account on the forum and click the bell icon in the top left of the [announcements section](https://forum.hello-robot.com/c/announcements/6). The forum is also available to report issues and ask questions about any of our software packages.
 
 ## How to Update
 
-Each Stretch RE1 is shipped with firmware, a Python SDK, and ROS packages developed specifically for Stretch. There are separate processes for updating each of these components.
+Each Stretch is shipped with firmware, a Python SDK, and ROS packages developed specifically for Stretch. There are separate processes for updating each of these components.
 
 ### Stretch ROS
 
@@ -47,14 +47,14 @@ python3 -m pip install -U hello-robot-stretch-body hello-robot-stretch-body-tool
 The firmware and the Python SDK (called Stretch Body) communicate on an established protocol. Therefore, it is important to maintain a protocol match between the different firmware and Stretch Body versions. Fortunately, there is a tool that handles this automatically. In the command line, run the following command:
 
 ```console
-RE1_firmware_updater.py --recommended
+REx_firmware_updater.py --recommended
 ```
 
 This script will automatically determine what version is currently running on the robot and provide a recommendation for a next step. Follow the next steps provided by the firmware updater script.
 
 ### Ubuntu
 
-The operating system upon which Stretch RE1 is built is called Ubuntu. This operating system provides the underlying packages that power Stretch's software packages. Furthermore, users of Stretch depend on this operating system and the underlying packages to develop software on Stretch. Therefore, it is important to keep the OS and these underlying packages up to date. In the command line, run the following command:
+The operating system upon which Stretch is built is called Ubuntu. This operating system provides the underlying packages that power Stretch's software packages. Furthermore, users of Stretch depend on this operating system and the underlying packages to develop software on Stretch. Therefore, it is important to keep the OS and these underlying packages up to date. In the command line, run the following command:
 
 ```console
 sudo apt update
@@ -81,13 +81,13 @@ If you run into any errors, see the troubleshooting guide below or contact [Hell
 If you see the following error:
 
 ```
-Please run tool RE1_migrate_params.py before continuing. For more details, see https://forum.hello-robot.com/t/425
+Please run tool REx_migrate_params.py before continuing. For more details, see https://forum.hello-robot.com/t/425
 ```
 
 This error appears because the organization of Stretch's parameters has changed since Stretch Body v0.3 and requires a migration of these parameters to the new organization system. Executing the following command will automaticaly migrate your parameters over:
 
 ```console
-RE1_migrate_params.py
+REx_migrate_params.py
 ```
 
 To learn more about Stretch's parameter system, see [this tutorial](https://docs.hello-robot.com/0.1/parameters_tutorial/).
@@ -109,5 +109,5 @@ Please upgrade the firmware and/or version of Stretch Body.
 This error appears because the low level Python SDK and the firmware cannot communicate to each other. There is a protocol mismatch preventing communication between the two. Simply run the following script and follow its recommendations to upgrade/downgrade the firmware as necessary to match the protocol level of Stretch Body.
 
 ```console
-$ RE1_firmware_updater.py --status
+$ REx_firmware_updater.py --status
 ```

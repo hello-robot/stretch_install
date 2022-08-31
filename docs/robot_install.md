@@ -30,12 +30,12 @@ It is a good idea to backup all valuable data beforehand. If your new robot inst
 In particular, your new robot install will require the old install's robot calibration data. The steps to copy this material from an existing install is:
 
  1. Boot into the robot's original Ubuntu partition and plug in a USB key.
- 2. The robot calibration data lives inside of a directory called `stretch-re1-<xxxx>`, where `<xxxx>` is your robot's serial number. There's a few versions of this directory and you will need to decide which version to backup. Each Ubuntu user has a version of this directory located at `/home/$USER/stretch_user/stretch-re1-<xxxx>`. These user versions are updated when the user runs a URDF calibration, swaps out an end effector, updates Stretch parameters, and more. There's also a system version located at `/etc/hello-robot/stretch-re1-<xxxx>`, which is likely the oldest version since it was created at Hello Robot HQ. If you're not sure which version to backup, use the version at `/etc/hello-robot/stretch-re1-<xxxx>` for the next step.
- 3. Copy the `stretch-re1-<xxxx>` directory, where `<xxxx>` is your robot's serial number, to a USB key.
-    - For example, if you're copying the system version, you can run a command similar to `cp -r /etc/hello-robot/stretch-re1-<xxxx> /media/$USER/<USBKEY>` from the command line, where `<USBKEY>` and `<xxxx>` is replaced with the mounted USB key's name and the robot's serial number, respectively.
+ 2. The robot calibration data lives inside of a directory called `stretch-re<y>-<xxxx>`, where `<y>` is your robot model number (1 or 2), and `<xxxx>` is your robot's serial number. There's a few versions of this directory and you will need to decide which version to backup. Each Ubuntu user has a version of this directory located at `/home/$USER/stretch_user/stretch-re<y>-<xxxx>`. These user versions are updated when the user runs a URDF calibration, swaps out an end effector, updates Stretch parameters, and more. There's also a system version located at `/etc/hello-robot/stretch-re<y>-<xxxx>`, which is likely the oldest version since it was created at Hello Robot HQ. If you're not sure which version to backup, use the version at `/etc/hello-robot/stretch-re<y>-<xxxx>` for the next step.
+ 3. Copy the `stretch-re<y>-<xxxx>` directory, where `<xxxx>` is your robot's serial number, to a USB key.
+    - For example, if you're copying the system version, you can run a command similar to `cp -r /etc/hello-robot/stretch-re<y>-<xxxx> /media/$USER/<USBKEY>` from the command line, where `<USBKEY>` and `<xxxx>` is replaced with the mounted USB key's name and the robot's serial number, respectively.
     - Or, you can open the file explorer to copy the directory.
 
-If your previous partition is corrupted or inaccessible, contact Hello Robot support and they will be able to supply an older version of the `stretch-re1-<xxxx>` directory.
+If your previous partition is corrupted or inaccessible, contact Hello Robot support and they will be able to supply an older version of the `stretch-re<y>-<xxxx>` directory.
 
 ## Setup the BIOS
 
@@ -64,8 +64,8 @@ sudo apt install git zip
 Next, place the robot's calibration data in the home folder using the following steps:
 
  1. Plug in the USB key that contains the backed up calibration data.
- 2. Copy the `stretch-re1-<xxxx>` directory, where `<xxxx>` is your robot's serial number, from the USB key into the home folder (i.e. `/home/$USER/`).
-    - For example, you can run a command similar to `cp -r /media/$USER/<USBKEY>/stretch-re1-<xxxx> /home/$USER/` from the command line, where `<USBKEY>` and `<xxxx>` are replaced with your USB key's name and your robot's serial number, respectively.
+ 2. Copy the `stretch-re<y>-<xxxx>` directory, where `<xxxx>` is your robot's serial number, from the USB key into the home folder (i.e. `/home/$USER/`).
+    - For example, you can run a command similar to `cp -r /media/$USER/<USBKEY>/stretch-re<y>-<xxxx> /home/$USER/` from the command line, where `<USBKEY>` and `<xxxx>` are replaced with your USB key's name and your robot's serial number, respectively.
     - Or, you can open the file explorer to copy the directory.
 
 Next, pull down the Stretch Install repository and being the installation process:
@@ -103,13 +103,13 @@ Next, we'll complete the post install steps. First, in order for the many change
 Next, we'll ensure the robot's parameter YAML files are migrated to the new parameter management system (see https://forum.hello-robot.com/t/425/ for details).
 
 ```bash
-RE1_migrate_params.py
+REx_migrate_params.py
 ```
 
 Next, we'll ensure the robot's firmware is upgraded to the latest available. Newer firmware unlocks new features (e.g. waypoint trajectory following, which is used in ROS2 to support MoveIt2) and fixes bugs. See the [firmware releases](https://github.com/hello-robot/stretch_firmware/tags) for details.
 
 ```bash
-RE1_firmware_updater.py --install
+REx_firmware_updater.py --install
 ```
 
 Finally, execute the following to confirm the new robot install was set up successfully.
@@ -170,7 +170,7 @@ FAILURE. INSTALLATION DID NOT COMPLETE.
 [...]
 ```
 
-The install scripts exited before performing the robot install because it was unable to find the robot's calibration data folder, 'stretch-re1-xxxx'. Please ensure you have [backed up your robot's calibration data](#back-up-robot-configuration-data) to a USB key and copied the 'stretch-re1-xxxx' folder to the home folder of your new partition. See the [Run the new robot installation script](#run-the-new-robot-installation-script) section for more details. Then, run the install scripts again and the error should be gone.
+The install scripts exited before performing the robot install because it was unable to find the robot's calibration data folder, 'stretch-rey-xxxx'. Please ensure you have [backed up your robot's calibration data](#back-up-robot-configuration-data) to a USB key and copied the 'stretch-re1-xxxx' folder to the home folder of your new partition. See the [Run the new robot installation script](#run-the-new-robot-installation-script) section for more details. Then, run the install scripts again and the error should be gone.
 
 ### 'Repo not up-to-date' error
 
@@ -222,7 +222,7 @@ Your version of Stretch Body does not align with the firmware installed with you
 Next, run the firmware updater tool to automatically update the firmware to the required version for your software.
 
 ```
-RE1_firmware_updater.py --install
+REx_firmware_updater.py --install
 ```
 
 The firmware mismatch errors should now be gone.
