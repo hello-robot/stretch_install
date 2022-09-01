@@ -17,8 +17,8 @@ Stretch ROS is the [Robot Operating System](https://www.ros.org/about-ros/) (ROS
 ```console
 roscd stretch_core
 git pull
-cd ..
-rosdep install --from-paths src --ignore-src -r -y
+cd ../../..
+rosdep install -iy --from-paths src
 ```
 
 ### Stretch Python Modules
