@@ -1,5 +1,7 @@
 ![](./docs/images/banner.png)
 
+The stretch_install repository provides scripts required to install the Stretch software.
+
 ## Guides
 
 | Guide                                                                                                                      | Purpose                                                                    |
