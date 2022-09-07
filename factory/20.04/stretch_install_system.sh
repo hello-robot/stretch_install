@@ -56,7 +56,9 @@ echo ""
 echo "Install Ubuntu Sounds"
 install ubuntu-sounds
 echo ""
-
+echo "Install BleachBit"
+install bleachbit
+echo ""
 
 # see http://wiki.ros.org/noetic/Installation/Ubuntu for details
 echo "###########################################"
