@@ -75,7 +75,6 @@ cd ~/
 git clone https://github.com/hello-robot/stretch_install
 cd stretch_install
 git pull
-git checkout feature/install_reorg
 ./stretch_new_robot_install.sh
 ```
 
