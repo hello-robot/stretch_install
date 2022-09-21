@@ -37,7 +37,7 @@ cd $AMENT_WSDIR/src
 vcs import --input ~/stretch_install/factory/20.04/stretch_ros2_galactic.repos >> $REDIRECT_LOGFILE
 echo "Fetch ROS packages' dependencies (this might take a while)..."
 cd $AMENT_WSDIR/
-rosdep install -iy --from-paths src &>> $REDIRECT_LOGFILE
+rosdep install -iy --skip-keys="librealsense2" --from-paths src &>> $REDIRECT_LOGFILE
 echo "Compile the workspace (this might take a while)..."
 colcon build --cmake-args -DCMAKE_BUILD_TYPE=Release &>> $REDIRECT_LOGFILE
 echo "Source setup.bash file..."
