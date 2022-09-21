@@ -102,7 +102,13 @@ Next, we'll complete the post install steps. First, in order for the many change
 Next, we'll ensure the robot's parameter YAML files are migrated to the new parameter management system (see https://forum.hello-robot.com/t/425/ for details).
 
 ```bash
-REx_migrate_params.py
+RE1_migrate_params.py
+```
+
+Next, we'll ensure the robot's contact parameters are migrated to the new contact threshold system (see https://forum.hello-robot.com/t/476/ for details).
+
+```bash
+RE1_migrate_contacts.py
 ```
 
 Next, we'll ensure the robot's firmware is upgraded to the latest available. Newer firmware unlocks new features (e.g. waypoint trajectory following, which is used in ROS2 to support MoveIt2) and fixes bugs. See the [firmware releases](https://github.com/hello-robot/stretch_firmware/tags) for details.
