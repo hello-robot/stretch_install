@@ -90,10 +90,12 @@ DONE! COMPLETE THESE POST INSTALL STEPS:
 
 If it has not printed out 'DONE', then the robot install did not complete successfully. Take a look at the [troubleshooting](#troubleshooting) section below for solutions to common issues, or contact Hello Robot support via email or [the forum](https://forum.hello-robot.com/).
 
+### Post install steps
+
 Next, we'll complete the post install steps. First, in order for the many changes to take effect, the robot will need a full reboot. The steps are:
 
- 1. Shutdown the Ubuntu OS through the GUI or use `sudo shutdown -h now` in the terminal
- 2. Ensure there's a clamp under the lift
+ 1. Ensure there's a clamp under the lift
+ 2. Shutdown the Ubuntu OS through the GUI or use `sudo shutdown -h now` in the terminal
  3. Turn the power switch in the robot's trunk to the off position (orange power LED becomes unlit)
  4. Ensure a keyboard/monitor is plugged into the robot. When the robot powers up, you can use the keyboard to decide which OS to boot into.
  5. Turn the power switch in the robot's trunk to the on position (orange power LED becomes lit)
