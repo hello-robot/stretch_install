@@ -52,6 +52,8 @@ echo "Install SSH Server"
 install ssh
 echo "Install Chromium"
 install chromium-browser
+echo "Install htop"
+install htop
 echo "Install Ubuntu Sounds"
 install ubuntu-sounds
 echo "Install BleachBit"

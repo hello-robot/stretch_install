@@ -52,6 +52,8 @@ echo "Install SSH Server"
 install ssh
 echo "Install Chromium"
 install chromium-browser
+echo "Install htop"
+install htop
 echo ""
 
 # see http://wiki.ros.org/melodic/Installation/Ubuntu#Installation for details
