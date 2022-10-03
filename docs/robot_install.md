@@ -119,6 +119,14 @@ Next, we'll ensure the robot's firmware is upgraded to the latest available. New
 REx_firmware_updater.py --install
 ```
 
+Next, if your robot has the [Stretch Dex Wrist](https://hello-robot.com/stretch-dex-wrist), we'll configure the software to recognize it. **Skip this step if you are not using the Dex Wrist.**
+
+```
+cd ~/stretch_install
+./stretch_new_dex_wrist_install.sh
+REx_calibrate_guarded_contact.py
+```
+
 Finally, execute the following to confirm the new robot install was set up successfully.
 
 ```bash
