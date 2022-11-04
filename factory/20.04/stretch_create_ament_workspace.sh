@@ -43,7 +43,7 @@ colcon build --cmake-args -DCMAKE_BUILD_TYPE=Release &>> $REDIRECT_LOGFILE
 echo "Source setup.bash file..."
 source $AMENT_WSDIR/install/setup.bash
 echo "Update ~/.bashrc dotfile to source workspace..."
-echo "#source $AMENT_WSDIR/devel/setup.bash" >> ~/.bashrc
+echo "#source $AMENT_WSDIR/install/setup.bash" >> ~/.bashrc
 # TODO:
 #echo "Updating meshes in stretch_ros to this robot's batch..."
 #. /etc/hello-robot/hello-robot.conf
