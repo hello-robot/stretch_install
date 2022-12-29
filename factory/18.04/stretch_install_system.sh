@@ -75,7 +75,7 @@ if [ -f "/etc/ros/rosdep/sources.list.d/20-default.list" ]; then
     sudo rm /etc/ros/rosdep/sources.list.d/20-default.list
 fi
 sudo rosdep init >> $REDIRECT_LOGFILE
-rosdep update >> $REDIRECT_LOGFILE
+rosdep update --include-eol-distros >> $REDIRECT_LOGFILE
 echo "Install other ROS workspace tools"
 install python-vcstool python-rosinstall python-rosinstall-generator python-wstool build-essential
 echo ""
