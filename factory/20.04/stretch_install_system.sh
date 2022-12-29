@@ -79,8 +79,7 @@ if [ -f "/etc/ros/rosdep/sources.list.d/20-default.list" ]; then
     sudo rm /etc/ros/rosdep/sources.list.d/20-default.list
 fi
 sudo rosdep init >> $REDIRECT_LOGFILE
-rosdep update --rosdistro=noetic >> $REDIRECT_LOGFILE
-rosdep update --rosdistro=galactic >> $REDIRECT_LOGFILE
+rosdep update --include-eol-distros >> $REDIRECT_LOGFILE
 echo "Install vcstool"
 install python3-vcstool
 echo ""
