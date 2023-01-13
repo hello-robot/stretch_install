@@ -124,7 +124,6 @@ Next, if your robot has the [Stretch Dex Wrist](https://hello-robot.com/stretch-
 ```
 cd ~/stretch_install
 ./stretch_new_dex_wrist_install.sh
-REx_calibrate_guarded_contact.py
 ```
 
 Finally, execute the following to confirm the new robot install was set up successfully.
