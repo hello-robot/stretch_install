@@ -4,9 +4,7 @@ This guide describes how to perform an OS installation of Ubuntu 20.04 LTS onto 
 
 ## Ubuntu Image
 
-Download the 20.04.4 amd64 Ubuntu desktop image by clicking this link:
-
-https://releases.ubuntu.com/20.04/ubuntu-20.04.4-desktop-amd64.iso
+Download the [20.04.4 amd64 Ubuntu desktop image](https://old-releases.ubuntu.com/releases/20.04/).
 
 Create a bootable drive with this Ubuntu image. There are many ways to do this, but the recommended way is to use [Etcher](https://www.balena.io/etcher/) on your personal machine. Open the Etcher software and follow it's instructions to create the bootable drive.
 
