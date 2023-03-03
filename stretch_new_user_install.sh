@@ -75,22 +75,22 @@ cp ~/stretch_install/factory/$factory_osdir/hello_robot_xbox_teleop.desktop ~/.c
 cp ~/stretch_install/factory/$factory_osdir/hello_robot_lrf_off.desktop ~/.config/autostart/
 cp ~/stretch_install/factory/$factory_osdir/hello_robot_pimu_ping.desktop ~/.config/autostart/
 
-echo "Updating media assets..."
-sudo cp $HOME/stretch_install/factory/$factory_osdir/stretch_about.png /etc/hello-robot
+# echo "Updating media assets..."
+# sudo cp $HOME/stretch_install/factory/$factory_osdir/stretch_about.png /etc/hello-robot
 
-echo "Installing PyCharm..."
-sudo snap install pycharm-community --classic >> $REDIRECT_LOGFILE
+# echo "Installing PyCharm..."
+# sudo snap install pycharm-community --classic >> $REDIRECT_LOGFILE
 
-echo "Installing Arduino CLI..."
-~/stretch_install/factory/$factory_osdir/stretch_install_arduino.sh >> $REDIRECT_LOGFILE
+# echo "Installing Arduino CLI..."
+# ~/stretch_install/factory/$factory_osdir/stretch_install_arduino.sh >> $REDIRECT_LOGFILE
 
-echo "Adding user to the dialout group to access Arduino..."
-sudo adduser $USER dialout >> $REDIRECT_LOGFILE
-echo "Adding user to the plugdev group to access serial..."
-sudo adduser $USER plugdev >> $REDIRECT_LOGFILE
-echo "Adding user to the input group to access input devices (e.g. gamepad)..."
-sudo adduser $USER input >> $REDIRECT_LOGFILE
-echo ""
+# echo "Adding user to the dialout group to access Arduino..."
+# sudo adduser $USER dialout >> $REDIRECT_LOGFILE
+# echo "Adding user to the plugdev group to access serial..."
+# sudo adduser $USER plugdev >> $REDIRECT_LOGFILE
+# echo "Adding user to the input group to access input devices (e.g. gamepad)..."
+# sudo adduser $USER input >> $REDIRECT_LOGFILE
+# echo ""
 
 if [[ $factory_osdir = "18.04" ]]; then
     echo "###########################################"
