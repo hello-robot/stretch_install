@@ -52,6 +52,7 @@ echo "Source setup.bash file..."
 source $AMENT_WSDIR/install/setup.bash
 echo "Update ~/.bashrc dotfile to source workspace..."
 echo "#source $AMENT_WSDIR/install/setup.bash" >> ~/.bashrc
+echo "source /usr/share/colcon_cd/function/colcon_cd.sh" >> ~/.bashrc
 # TODO:
 #echo "Updating meshes in stretch_ros to this robot's batch..."
 #. /etc/hello-robot/hello-robot.conf
