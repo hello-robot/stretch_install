@@ -25,7 +25,9 @@ echo "Configuring user YAML"
 ./factory/$factory_osdir/stretch_dex_wrist_yaml_configure.py $1
 
 echo "Updating ROS or ROS 2 workspace to work with a dex wrist"
+echo "---------------------------------------------------------------------------"
 echo "Pleas source the ROS distribution you want to work with before proceeding"
+echo "---------------------------------------------------------------------------"
 if [ $ROS_VERSION = 1 ]
 then
     echo "Setting up Stretch ROS and URDF"
