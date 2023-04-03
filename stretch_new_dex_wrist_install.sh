@@ -51,6 +51,10 @@ else
     echo "Updating Stretch ROS 2 and URDF"
     cd ~/ament_ws/src/stretch_ros2
     git pull
+    
+    cd ~/ament_ws
+    colcon build
+    source install/setup.bash
 
     ros2 run hello_helpers configure_wrist --dex
     cd ~/ament_ws/src/stretch_ros2/stretch_description/urdf
