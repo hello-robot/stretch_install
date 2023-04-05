@@ -34,14 +34,8 @@ then
     cd ~/catkin_ws/src/stretch_ros/
     git pull
 
-    cd ~/repos
-    git clone https://github.com/hello-robot/stretch_tool_share
-    cd ~/repos/stretch_tool_share
-    git pull
-    cd ~/repos/stretch_tool_share/tool_share/stretch_dex_wrist/stretch_description
-    cp urdf/stretch_dex_wrist.xacro ~/catkin_ws/src/stretch_ros/stretch_description/urdf
-    cp urdf/stretch_description.xacro ~/catkin_ws/src/stretch_ros/stretch_description/urdf
-    cp meshes/*.STL ~/catkin_ws/src/stretch_ros/stretch_description/meshes
+    cd ~/catkin_ws/src/stretch_ros/stretch_description/urdf
+    cp stretch_description_dex.xacro stretch_description.xacro
 
     echo "Updating URDF calibration "
     rosrun stretch_calibration update_urdf_after_xacro_change.sh
