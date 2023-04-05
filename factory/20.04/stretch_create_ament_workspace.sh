@@ -28,6 +28,22 @@ if [[ $ROS_DISTRO && ! $ROS_DISTRO = "galactic" ]]; then
 fi
 source /opt/ros/galactic/setup.bash
 
+echo "You are about to delete and replace the existing ament workspace. If you have any personal data in the workspace, please create a back up before proceeding."
+prompt_yes_no(){
+read -p "Do you want to continue? Press (y/n for yes/no): " x
+if [ $x = "n" ]; then
+		echo "Exiting the script."
+		exit 1
+elif [ $x = "y" ]; then
+		echo "Continuing to create a new ament workspace."
+else
+	echo "Press 'y' for yes or 'n' for no."
+	prompt_yes_no
+fi
+}
+
+prompt_yes_no
+
 echo "Deleting $AMENT_WSDIR if it already exists..."
 sudo rm -rf $AMENT_WSDIR
 echo "Creating the workspace directory..."
