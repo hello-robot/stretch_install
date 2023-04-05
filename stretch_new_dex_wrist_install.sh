@@ -26,7 +26,7 @@ echo "Configuring user YAML"
 
 echo "Updating ROS or ROS 2 workspace to work with a dex wrist"
 echo "---------------------------------------------------------------------------"
-echo "Pleas source the ROS distribution you want to work with before proceeding"
+echo "Please source the ROS distribution you want to work with before proceeding"
 echo "---------------------------------------------------------------------------"
 if [ $ROS_VERSION = 1 ]
 then
@@ -57,6 +57,7 @@ else
     source install/setup.bash
 
     ros2 run hello_helpers configure_wrist --dex
+    colcon build
     cd ~/ament_ws/src/stretch_ros2/stretch_description/urdf
     ./export_urdf.sh
 fi
