@@ -9,7 +9,7 @@ REDIRECT_LOGFILE="$REDIRECT_LOGDIR/stretch_new_user_install.`date '+%Y%m%d%H%M'`
 
 source /etc/os-release
 factory_osdir="$VERSION_ID"
-if [[ ! $factory_osdir =~ ^(18.04|20.04)$ ]]; then
+if [[ ! $factory_osdir =~ ^(18.04|20.04|22.04)$ ]]; then
     echo "Could not identify OS. Please contact Hello Robot Support."
     exit 1
 fi
@@ -39,6 +39,8 @@ else
     elif [[ $factory_osdir = "20.04" ]]; then
         echo "source /opt/ros/noetic/setup.bash" >> ~/.bashrc
         echo "#source /opt/ros/galactic/setup.bash" >> ~/.bashrc
+    elif [[ $factory_osdir = "22.04" ]]; then
+        echo "source /opt/ros/humble/setup.bash" >> ~/.bashrc
     fi
 fi
 
@@ -111,7 +113,7 @@ if [[ $factory_osdir = "18.04" ]]; then
     echo "Install opencv-python-inference-engine"
     python3 -m pip -q install --no-warn-script-location opencv-python-inference-engine &>> $REDIRECT_LOGFILE
     echo ""
-elif [[ $factory_osdir = "20.04" ]]; then
+elif [[ $factory_osdir = "20.04" || $factory_osdir = "22.04" ]]; then
     echo "###########################################"
     echo "INSTALLATION OF USER LEVEL PIP3 PACKAGES"
     echo "###########################################"
@@ -135,5 +137,7 @@ if [[ $factory_osdir = "18.04" ]]; then
 elif [[ $factory_osdir = "20.04" ]]; then
     ~/stretch_install/factory/$factory_osdir/stretch_create_catkin_workspace.sh -w "$HOME/catkin_ws" -l $REDIRECT_LOGDIR
     echo ""
+    ~/stretch_install/factory/$factory_osdir/stretch_create_ament_workspace.sh -w "$HOME/ament_ws" -l $REDIRECT_LOGDIR
+elif [[ $factory_osdir = "22.04" ]]; then
     ~/stretch_install/factory/$factory_osdir/stretch_create_ament_workspace.sh -w "$HOME/ament_ws" -l $REDIRECT_LOGDIR
 fi

@@ -2,7 +2,7 @@
 
 source /etc/os-release
 factory_osdir="$VERSION_ID"
-if [[ ! $factory_osdir =~ ^(18.04|20.04)$ ]]; then
+if [[ ! $factory_osdir =~ ^(18.04|20.04|22.04)$ ]]; then
     echo "Could not identify OS. Please contact Hello Robot Support."
     exit 1
 fi
