@@ -34,7 +34,7 @@ repositories:
   stretch_ros2:
     type: git
     url: https://github.com/hello-robot/stretch_ros2
-    version: galactic
+    version: humble
   sllidar_ros2:
     type: git
     url: https://github.com/hello-chintan/sllidar_ros2.git
