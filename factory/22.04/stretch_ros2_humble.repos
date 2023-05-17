@@ -6,11 +6,11 @@ repositories:
   moveit_visual_tools:
     type: git
     url: https://github.com/ros-planning/moveit_visual_tools
-    version: 4.0.0
+    version: 4.1.0
   moveit_task_constructor:
     type: git
     url: https://github.com/ros-planning/moveit_task_constructor
-    version: galactic
+    version: humble
   rosparam_shortcuts:
     type: git
     url: https://github.com/PickNikRobotics/rosparam_shortcuts
@@ -21,8 +21,8 @@ repositories:
     version: ros2
   stretch_moveit_plugins:
     type: git
-    url: https://github.com/PickNikRobotics/stretch_moveit_plugins
-    version: main
+    url: https://github.com/atharva-18/stretch_moveit_plugins.git
+    version: humble
   ros2_numpy:
     type: git
     url: https://github.com/Box-Robotics/ros2_numpy
@@ -33,14 +33,17 @@ repositories:
     version: ros2-development
   stretch_ros2:
     type: git
-    url: https://github.com/hello-robot/stretch_ros2
+    url: https://github.com/atharva-18/stretch_ros2
     version: humble
   sllidar_ros2:
     type: git
-    url: https://github.com/hello-chintan/sllidar_ros2.git
+    url: https://github.com/Slamtec/sllidar_ros2.git
     version: main
   stretch_tutorials:
     type: git
     url: https://github.com/hello-robot/stretch_tutorials.git
     version: ROS2
-    
+  warehouse_ros_mongo:
+    type: git
+    url: https://github.com/ros-planning/warehouse_ros_mongo.git
+    version: ros2

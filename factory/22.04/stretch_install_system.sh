@@ -15,7 +15,7 @@ echo "###########################################"
 echo "INSTALLATION OF SYSTEM WIDE PACKAGES"
 echo "###########################################"
 echo "Apt update & upgrade (this might take a while)"
-sudo apt-add-repository universe >> $REDIRECT_LOGFILE
+sudo apt-add-repository universe -y >> $REDIRECT_LOGFILE
 sudo apt-get --yes update >> $REDIRECT_LOGFILE
 sudo apt-get --yes upgrade &>> $REDIRECT_LOGFILE
 echo "Install zip & unzip"
@@ -67,7 +67,7 @@ echo "###########################################"
 
 echo "Ensuring Ubuntu Universe repository is enabled"
 sudo apt install software-properties-common
-sudo add-apt-repository universe
+sudo add-apt-repository universe # TODO(atharva-18): Do we really need this?
 
 echo "Setting up keys"
 sudo curl -sSL https://raw.githubusercontent.com/ros/rosdistro/master/ros.key  -o /usr/share/keyrings/ros-archive-keyring.gpg
@@ -83,6 +83,17 @@ install ros-humble-desktop
 
 echo "Install colcon"
 install python3-colcon-common-extensions
+
+echo "Install rosdep"
+install python3-rosdep
+echo "Configure rosdep"
+if [ -f "/etc/ros/rosdep/sources.list.d/20-default.list" ]; then
+    sudo rm /etc/ros/rosdep/sources.list.d/20-default.list
+fi
+sudo rosdep init >> $REDIRECT_LOGFILE
+rosdep update --include-eol-distros >> $REDIRECT_LOGFILE
+echo "Install vcstool"
+install python3-vcstool
 echo ""
 
 echo "###########################################"
@@ -124,21 +135,21 @@ echo "Install scan tools for Canonical Scan Matching using the laser_scan_matche
 # install ros-humble-scan-tools # not available
 echo ""
 
-# echo "###########################################"
-# echo "INSTALLATION OF INTEL D435i"
-# echo "###########################################"
-# echo "Install dynamic reconfiguration"
-# install ros-noetic-ddynamic-reconfigure ros-noetic-ddynamic-reconfigure-python
-# echo "Register the librealsense APT server's public key"
-# function register_librealsense_apt_server {
-#     sudo apt-key adv --keyserver keys.gnupg.net --recv-key F6E65AC044F831AC80A06380C8B3A55A6F3EFCDE || sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-key F6E65AC044F831AC80A06380C8B3A55A6F3EFCDE
-# }
-# register_librealsense_apt_server &>> $REDIRECT_LOGFILE
-# echo "Add the librealsense APT server to the list of APT repositories"
-# sudo add-apt-repository "deb https://librealsense.intel.com/Debian/apt-repo bionic main" -u &>> $REDIRECT_LOGFILE
-# echo "Remove old records in case of upgrading"
-# sudo rm -f /etc/apt/sources.list.d/realsense-public.list
-# echo "Apt update"
-# sudo apt-get --yes update >> $REDIRECT_LOGFILE
-# echo "Install librealsense2 packages"
-# install librealsense2 librealsense2-dkms librealsense2-udev-rules librealsense2-utils librealsense2-dev librealsense2-dbg
+echo "###########################################"
+echo "INSTALLATION OF INTEL D435i"
+echo "###########################################"
+echo "Install dynamic reconfiguration"
+# install ros-humble-ddynamic-reconfigure ros-humble-ddynamic-reconfigure-python
+echo "Register the librealsense APT server's public key"
+function register_librealsense_apt_server {
+    sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-key F6E65AC044F831AC80A06380C8B3A55A6F3EFCDE || sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-key F6E65AC044F831AC80A06380C8B3A55A6F3EFCDE
+}
+register_librealsense_apt_server &>> $REDIRECT_LOGFILE
+echo "Add the librealsense APT server to the list of APT repositories"
+sudo add-apt-repository "deb https://librealsense.intel.com/Debian/apt-repo $(lsb_release -cs) main" -y -u
+echo "Remove old records in case of upgrading"
+sudo rm -f /etc/apt/sources.list.d/realsense-public.list
+echo "Apt update"
+sudo apt-get --yes update >> $REDIRECT_LOGFILE
+echo "Install librealsense2 packages"
+install librealsense2 librealsense2-dkms librealsense2-udev-rules librealsense2-utils librealsense2-dev librealsense2-dbg
