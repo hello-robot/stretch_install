@@ -67,7 +67,6 @@ echo "###########################################"
 
 echo "Ensuring Ubuntu Universe repository is enabled"
 sudo apt install software-properties-common
-sudo add-apt-repository universe # TODO(atharva-18): Do we really need this?
 
 echo "Setting up keys"
 sudo curl -sSL https://raw.githubusercontent.com/ros/rosdistro/master/ros.key  -o /usr/share/keyrings/ros-archive-keyring.gpg
