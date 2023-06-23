@@ -22,16 +22,13 @@ echo "CREATING ROS 2 AMENT WORKSPACE at $AMENT_WSDIR"
 echo "###########################################"
 
 echo "Ensuring correct version of ROS is sourced..."
-if [[ ! $ROS_VERSION -eq 2 ]]; then
+if [[ $ROS_VERSION && ! $ROS_VERSION -eq 2 ]]; then
     echo "Cannot create workspace while a conflicting ROS version is sourced. Exiting."
     exit 1
 fi
 
-if [ $ROS_DISTRO = "humble" ]; then
-    source /opt/ros/humble/setup.bash
-else
-    echo "Please source a valid ROS 2 distro. Only ROS 2 Humble supported currently."
-fi
+source /opt/ros/humble/setup.bash
+echo "ROS $ROS_VERSION detected. Version: $ROS_DISTRO."
 
 echo "You are about to delete and replace the existing ament workspace. If you have any personal data in the workspace, please create a back up before proceeding."
 prompt_yes_no(){
