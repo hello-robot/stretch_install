@@ -73,7 +73,7 @@ mkdir -p ~/.config/autostart
 cp ~/stretch_install/factory/$factory_osdir/hello_robot_audio.desktop ~/.config/autostart/
 cp ~/stretch_install/factory/$factory_osdir/hello_robot_xbox_teleop.desktop ~/.config/autostart/
 cp ~/stretch_install/factory/$factory_osdir/hello_robot_lrf_off.desktop ~/.config/autostart/
-cp ~/stretch_install/factory/$factory_osdir/hello_robot_pimu_ping.desktop ~/.config/autostart/
+cp ~/stretch_install/factory/$factory_osdir/hello_robot_devices_ping.desktop ~/.config/autostart/
 
 echo "Updating media assets..."
 sudo cp $HOME/stretch_install/factory/$factory_osdir/stretch_about.png /etc/hello-robot
