@@ -19,10 +19,6 @@ repositories:
     type: git
     url: https://github.com/PickNikRobotics/rviz_visual_tools
     version: ros2
-  stretch_moveit_plugins:
-    type: git
-    url: https://github.com/hello-atharva/stretch_moveit_plugins.git
-    version: humble
   ros2_numpy:
     type: git
     url: https://github.com/Box-Robotics/ros2_numpy
