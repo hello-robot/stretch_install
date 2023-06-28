@@ -8,11 +8,11 @@ import time
 
 class TimeoutProcesses:
     """
-    Execute each given list of worker functions with arguments from a different process
-    and kill all the process based on a timeout
+    Execute each given list of worker functions with arguments asynchronously by
+    spawning induvidual processes and kill all the process on a timeout.
     
     timeout_s: Timout in seconds
-    worker_functiosn: [] of tuples containing the worker functions with arguments
+    worker_functions: [] of tuples containing the worker functions with arguments
                       E.g. [(func, arg1, arg2), ...] 
     """
     def __init__(self, timeout_s, worker_functions=[]):
