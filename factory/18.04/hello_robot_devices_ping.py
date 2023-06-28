@@ -111,6 +111,10 @@ worker_functions = [(ping_pimu,),
 
 tp = TimeoutProcesses(timeout_s=2, worker_functions=worker_functions)
 all_devices_successfully_pinged = tp.run()
+if all_devices_successfully_pinged:
+    print("ALL DEVICES PING SUCCESS")
+else:
+    print("ALL DEVICES PING FAILED")
         
     
 
