@@ -60,33 +60,22 @@ echo "Install BleachBit"
 install bleachbit
 echo ""
 
-# see https://docs.ros.org/en/galactic/Installation/Ubuntu-Install-Debians.html for details
+# see https://docs.ros.org/en/humble/Installation/Ubuntu-Install-Debians.html for details
 echo "###########################################"
 echo "INSTALLATION OF ROS 2 HUMBLE"
 echo "###########################################"
-
-echo "Ensuring Ubuntu Universe repository is enabled"
-sudo apt install software-properties-common
-
 echo "Setting up keys"
 sudo curl -sSL https://raw.githubusercontent.com/ros/rosdistro/master/ros.key  -o /usr/share/keyrings/ros-archive-keyring.gpg
-
 echo "Setting up sources.list"
 echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/ros-archive-keyring.gpg] http://packages.ros.org/ros2/ubuntu $(. /etc/os-release && echo $UBUNTU_CODENAME) main" | sudo tee /etc/apt/sources.list.d/ros2.list > /dev/null
-
-echo "Setting up moveit py for humble sources"
-echo "deb [trusted=yes] https://raw.githubusercontent.com/moveit/moveit2_packages/jammy-humble/ ./" | sudo tee /etc/apt/sources.list.d/moveit_moveit2_packages.list
-echo "yaml https://raw.githubusercontent.com/moveit/moveit2_packages/jammy-humble/local.yaml humble" | sudo tee /etc/ros/rosdep/sources.list.d/1-moveit_moveit2_packages.list
-
+echo "deb [trusted=yes] https://raw.githubusercontent.com/moveit/moveit2_packages/jammy-humble/ ./" | sudo tee /etc/apt/sources.list.d/moveit_moveit2_packages.list > /dev/null
+echo "yaml https://raw.githubusercontent.com/moveit/moveit2_packages/jammy-humble/local.yaml humble" | sudo tee /etc/ros/rosdep/sources.list.d/1-moveit_moveit2_packages.list > /dev/null
 echo "Apt update"
 sudo apt-get --yes update >> $REDIRECT_LOGFILE
-
 echo "Install ROS 2 Humble (this might take a while)"
 install ros-humble-desktop
-
 echo "Install colcon"
 install python3-colcon-common-extensions
-
 echo "Install rosdep"
 install python3-rosdep
 echo "Configure rosdep"
@@ -105,43 +94,37 @@ echo "###########################################"
 echo "Install packages to work with URDFs"
 install liburdfdom-tools meshlab
 install ros-humble-urdfdom-py
-
 echo "Install joint state GUI package"
 install ros-humble-joint-state-publisher-gui
-
 echo "Install TF2 related packages"
 install ros-humble-tf2-tools
-
 echo "Install IMU visualization plugin for RViz and IMU filter"
 install ros-humble-rviz-imu-plugin ros-humble-imu-filter-madgwick
-
+# TODO:
+# echo "Install robot pose filter for use with IMU and wheel odometry"
+# install ros-noetic-robot-pose-ekf
 echo "Install robot localization package for use with IMU and wheel odometry"
 install ros-humble-robot-localization
-
-echo "Install ros_numpy package for msgs conversions"
-# install ros-humble-ros-numpy # not available for ROS2 yet (see https://github.com/eric-wieser/ros_numpy/issues/20)
-
 echo "Install control packages for MoveIt 2"
 install ros-humble-ros2-control ros-humble-ros2-controllers
-
 echo "Install teleop packages"
 install ros-humble-teleop-twist-keyboard
-
+# TODO: are we using sllidar from source instead of this rplidar binary?
 echo "Install RPLidar A1M8 packages"
 install ros-humble-rplidar-ros ros-humble-rplidar-ros-dbgsym
-
+# TODO: where is the nav2 binary installed
 echo "Install Respeaker and speech recognition packages"
 install python3-pyaudio
-# install ros-humble-respeaker-ros ros-humble-ros-speech-recognition # not available
-
+# install ros-humble-respeaker-ros ros-humble-ros-speech-recognition # TODO: not available
 echo "Install scan tools for Canonical Scan Matching using the laser_scan_matcher"
-# install ros-humble-scan-tools # not available
+# install ros-humble-scan-tools # TODO: not available
 echo ""
 
 echo "###########################################"
 echo "INSTALLATION OF INTEL D435i"
 echo "###########################################"
-echo "Install dynamic reconfiguration"
+# TODO:
+# echo "Install dynamic reconfiguration"
 # install ros-humble-ddynamic-reconfigure ros-humble-ddynamic-reconfigure-python
 echo "Register the librealsense APT server's public key"
 function register_librealsense_apt_server {
@@ -149,7 +132,7 @@ function register_librealsense_apt_server {
 }
 register_librealsense_apt_server &>> $REDIRECT_LOGFILE
 echo "Add the librealsense APT server to the list of APT repositories"
-sudo add-apt-repository "deb https://librealsense.intel.com/Debian/apt-repo $(lsb_release -cs) main" -y -u
+sudo add-apt-repository "deb https://librealsense.intel.com/Debian/apt-repo $(lsb_release -cs) main" -y -u &>> $REDIRECT_LOGFILE
 echo "Remove old records in case of upgrading"
 sudo rm -f /etc/apt/sources.list.d/realsense-public.list
 echo "Apt update"
