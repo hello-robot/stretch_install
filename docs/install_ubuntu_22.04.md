@@ -4,7 +4,7 @@ This guide describes how to perform an OS installation of Ubuntu 22.04 LTS onto 
 
 ## Ubuntu Image
 
-Download the [22.04.4 amd64 Ubuntu desktop image](https://ubuntu.com/download/desktop).
+Download the [22.04.2 amd64 Ubuntu desktop image](https://ubuntu.com/download/desktop).
 
 Create a bootable drive with this Ubuntu image. There are many ways to do this, but the recommended way is to use [Etcher](https://www.balena.io/etcher/) on your personal machine. Open the Etcher software and follow it's instructions to create the bootable drive.
 
@@ -70,10 +70,10 @@ Next, select your timezone.
 
 ![](./images/20.04/installer_location.png)
 
-Finally, enter the identifying information as written below replacing '1000' with the appropriate serial number for the robot. The robot's serial number can be found on the left wall of the robot's trunk.
+Finally, enter the identifying information as written below, replacing 'xxxx' with the appropriate serial number for the robot. The robot's serial number can be found on the left wall of the robot's trunk.
 
  - **name:** Hello Robot Inc.
- - **computer name:** stretch-rex-xxxx
+ - **computer name:** stretch-rey-xxxx
  - **username:** hello-robot
  - **password:** xxxx
 
