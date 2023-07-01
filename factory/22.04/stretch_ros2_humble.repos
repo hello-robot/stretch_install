@@ -1,12 +1,4 @@
 repositories:
-  launch_param_builder:
-    type: git
-    url: https://github.com/PickNikRobotics/launch_param_builder
-    version: main
-  rosparam_shortcuts:
-    type: git
-    url: https://github.com/PickNikRobotics/rosparam_shortcuts
-    version: ros2
   ros2_numpy:
     type: git
     url: https://github.com/Box-Robotics/ros2_numpy
@@ -23,11 +15,3 @@ repositories:
     type: git
     url: https://github.com/Slamtec/sllidar_ros2.git
     version: main
-  stretch_tutorials:
-    type: git
-    url: https://github.com/hello-robot/stretch_tutorials.git
-    version: ROS2
-  warehouse_ros_mongo:
-    type: git
-    url: https://github.com/ros-planning/warehouse_ros_mongo.git
-    version: ros2
