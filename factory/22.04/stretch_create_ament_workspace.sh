@@ -80,7 +80,3 @@ ros2 run stretch_calibration update_with_most_recent_calibration >> $REDIRECT_LO
 
 colcon build >> $REDIRECT_LOGFILE
 
-#TODO:
-#echo "Compiling FUNMAP's Cython code..."
-#cd $CATKIN_WSDIR/src/stretch_ros/stretch_funmap/src/stretch_funmap
-#./compile_cython_code.sh &>> $REDIRECT_LOGFILE

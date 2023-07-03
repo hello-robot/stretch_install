@@ -81,7 +81,7 @@ HELP_USAGE
     	cat << ARDUINO_PLATFORM
 #####################################################################################
 
-Which plataform are you using?
+Which platform are you using?
 [1] ARM
 [2] 32
 [3] 64
