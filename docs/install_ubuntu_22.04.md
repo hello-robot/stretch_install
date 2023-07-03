@@ -10,21 +10,17 @@ Create a bootable drive with this Ubuntu image. There are many ways to do this, 
 
 ## Installation
 
-Insert a bootable drive into the USB hub in the robot's trunk, as well as a monitor and keyboard. Next, power on the robot and at the bios startup screen (shown below) press *F10* when prompted to enter the boot menu.
+ 1. Insert a bootable drive into the USB hub in the robot's trunk, as well as a monitor and keyboard. Next, power on the robot and at the bios startup screen (shown below) press *F10* when prompted to enter the boot menu.
+    - ![](./images/22.04/NUC_startup_splash.jpg)
 
-![](./images/NUC_startup.png)
+ 2. From the boot menu, select 'OS BOOTLOADER' or look for a similar option that mentions "USB", "LIVE INSTALLATION", or "UBUNTU". This will take you to the grub menu.
+    - ![](./images/22.04/boot_select.jpg)
 
-From the boot menu, select 'OS BOOTLOADER' or look for a similar option that mentions "USB", "LIVE INSTALLATION", or "UBUNTU".
+ 3. From the grub menu, select 'Ubuntu' or look for a similar option that mentions "Install Ubuntu".
+    - ![](./images/22.04/grub_menu.jpg)
 
-![](./images/BIOS_boot.png)
-
-From here, the monitor should show the grub bootloader and display a menu similar to what is shown below:
-
-![](./images/20.04/grub.png)
-
-From this menu select 'Ubuntu'. A disk errors checker will start and then the Ubuntu 22.04 installer will be launched.
-
-![](./images/20.04/installer_system_check.png)
+ 4. A disk errors checker will start and then the Ubuntu 22.04 installer will be launched.
+    - ![](./images/22.04/installer_system_check.jpg)
 
 At the first screen you will be prompted to select a language for the system. Select 'English' as shown below and click on the "Install Ubuntu".
 
