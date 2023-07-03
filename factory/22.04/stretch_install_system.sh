@@ -58,6 +58,8 @@ echo "Install Ubuntu Sounds"
 install ubuntu-sounds
 echo "Install BleachBit"
 install bleachbit
+echo "Install APT HTTPS"
+install apt-transport-https
 echo ""
 
 # see https://docs.ros.org/en/humble/Installation/Ubuntu-Install-Debians.html for details
@@ -103,8 +105,6 @@ install ros-humble-rviz-imu-plugin ros-humble-imu-filter-madgwick
 # install ros-noetic-robot-pose-ekf
 echo "Install robot localization package for use with IMU and wheel odometry"
 install ros-humble-robot-localization
-echo "Install control packages for MoveIt 2"
-install ros-humble-ros2-control ros-humble-ros2-controllers
 echo "Install teleop packages"
 install ros-humble-teleop-twist-keyboard
 # TODO: are we using sllidar from source instead of this rplidar binary?
@@ -121,16 +121,16 @@ echo ""
 echo "###########################################"
 echo "INSTALLATION OF INTEL D435i"
 echo "###########################################"
-# TODO:
-# echo "Install dynamic reconfiguration"
-# install ros-humble-ddynamic-reconfigure ros-humble-ddynamic-reconfigure-python
 echo "Register the librealsense APT server's public key"
 function register_librealsense_apt_server {
-    sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-key F6E65AC044F831AC80A06380C8B3A55A6F3EFCDE || sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-key F6E65AC044F831AC80A06380C8B3A55A6F3EFCDE
+    curl -sSf https://librealsense.intel.com/Debian/librealsense.pgp | sudo tee /etc/apt/keyrings/librealsense.pgp > /dev/null
 }
 register_librealsense_apt_server &>> $REDIRECT_LOGFILE
 echo "Add the librealsense APT server to the list of APT repositories"
-sudo add-apt-repository "deb https://librealsense.intel.com/Debian/apt-repo $(lsb_release -cs) main" -y -u &>> $REDIRECT_LOGFILE
+function add_librealsense_apt_server {
+    echo "deb [signed-by=/etc/apt/keyrings/librealsense.pgp] https://librealsense.intel.com/Debian/apt-repo `lsb_release -cs` main" | sudo tee /etc/apt/sources.list.d/librealsense.list
+}
+add_librealsense_apt_server &>> $REDIRECT_LOGFILE
 echo "Remove old records in case of upgrading"
 sudo rm -f /etc/apt/sources.list.d/realsense-public.list
 echo "Apt update"
