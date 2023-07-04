@@ -72,4 +72,4 @@ echo "Setup uncalibrated robot URDF..."
 ros2 run stretch_calibration update_uncalibrated_urdf >> $REDIRECT_LOGFILE
 echo "Setup calibrated robot URDF..."
 ros2 run stretch_calibration update_with_most_recent_calibration >> $REDIRECT_LOGFILE
-colcon build >> $REDIRECT_LOGFILE
+colcon build &>> $REDIRECT_LOGFILE
