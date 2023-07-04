@@ -6,11 +6,15 @@ A fresh robot-level install should only be done under the guidance of [Hello Rob
 
  - Erase the previous OS and set up Stretch with an entirely fresh software stack
  - Erase a corrupted OS and set up Stretch with an entirely fresh software stack
- - Upgrade Stretch by installing the 20.04 software stack alongside the previous OS
+ - Upgrade Stretch by installing a newer software stack alongside the previous OS
 
 Each OS installs on a separate partition on the hard drive. You can create as many robot-level installs (i.e. new partitions) as will fit in your robot's 500GB hard drive.
 
-Currently, there are two available versions of the software stack, one with Ubuntu 18.04 LTS and another with Ubuntu 20.04 LTS. Ubuntu 18.04 LTS shipped on robots until summer 2022, and included software for ROS Melodic and Python2. Ubuntu 20.04 LTS, the newest software stack, comes with ROS Noetic, Python3, and experimental ROS2 Galactic software. You can look at your robot's About page in system settings to identify which OS it is running.
+Currently, there are 3 available versions of the software stack, listed from oldest to newest:
+
+ 1. **(Deprecated)** Ubuntu 18.04 LTS shipped on robots until summer 2022, and included software for ROS Melodic and Python2
+ 2. **(Stable)** Ubuntu 20.04 LTS comes with ROS Noetic, Python3.8, and experimental ROS2 Galactic. This is what currently ships on robots.
+ 3. **(Experimental)** Ubuntu 22.04 LTS comes with ROS2 Humble and Python3.10. In the future, this version will ship on robots. **Warning:** Both the installation scripts and the software installed are under active development. Please proceed with caution. 
 
 # How
 
@@ -18,7 +22,7 @@ There are a few steps to performing a new robot install:
 
  1. Backup robot configuration data
  2. Setup the BIOS (only necessary for NUCs not previously configured by Hello Robot)
- 3. Install Ubuntu 18.04 or 20.04
+ 3. Install Ubuntu
  4. Run the new robot installation script
 
 It typically takes ~2 hours to go through these steps and complete a new robot install.
@@ -43,10 +47,11 @@ This step can be skipped if your robot had an existing software install on it. O
 
 ## Install Ubuntu
 
-Choose between the following guides based on whether you're installing Ubuntu 18.04 or Ubuntu 20.04 (see above for info on what software ships with each OS). Within these guides, you'll have the choice of whether to replace the previous OS partition or to install alongside it. If you choose to install alongside it, you'll also be able to choose the size of each partition on the hard drive.
+Choose between the following guides based on which version of Ubuntu you're installing ([see above](#why) for info on what software ships with each OS). Within these guides, you'll have the choice of whether to replace the previous OS partition or to install alongside it. If you choose to install alongside it, you'll also be able to choose the size of each partition on the hard drive.
 
- - [Ubuntu 18.04 Installation guide](./install_ubuntu_18.04.md).
- - [Ubuntu 20.04 Installation guide](./install_ubuntu_20.04.md).
+ - [Ubuntu 18.04 Installation guide](./install_ubuntu_18.04.md)
+ - [Ubuntu 20.04 Installation guide](./install_ubuntu_20.04.md)
+ - [Ubuntu 22.04 Installation guide](./install_ubuntu_22.04.md)
 
 After the Ubuntu install, the default `hello-robot` user account will be set up.
 
