@@ -62,9 +62,9 @@ echo "Install APT HTTPS"
 install apt-transport-https
 echo ""
 
-# see https://docs.ros.org/en/humble/Installation/Ubuntu-Install-Debians.html for details
+# https://docs.ros.org/en/iron/Installation/Ubuntu-Install-Debians.html
 echo "###########################################"
-echo "INSTALLATION OF ROS 2 HUMBLE"
+echo "INSTALLATION OF ROS 2 IRON"
 echo "###########################################"
 echo "Setting up keys"
 sudo curl -sSL https://raw.githubusercontent.com/ros/rosdistro/master/ros.key  -o /usr/share/keyrings/ros-archive-keyring.gpg
@@ -72,8 +72,8 @@ echo "Setting up sources.list"
 echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/ros-archive-keyring.gpg] http://packages.ros.org/ros2/ubuntu $(. /etc/os-release && echo $UBUNTU_CODENAME) main" | sudo tee /etc/apt/sources.list.d/ros2.list > /dev/null
 echo "Apt update"
 sudo apt-get --yes update >> $REDIRECT_LOGFILE
-echo "Install ROS 2 Humble (this might take a while)"
-install ros-humble-desktop
+echo "Install ROS 2 Iron (this might take a while)"
+install ros-iron-desktop-full
 echo "Install colcon"
 install python3-colcon-common-extensions
 echo "Install rosdep"
