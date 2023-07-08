@@ -74,6 +74,9 @@ echo "Apt update"
 sudo apt-get --yes update >> $REDIRECT_LOGFILE
 echo "Install ROS 2 Iron (this might take a while)"
 install ros-iron-desktop-full
+# https://discourse.ros.org/t/ros-developer-tools-now-in-binary-form/29802
+echo "Install ROS 2 Dev Tools"
+install ros-dev-tools
 echo "Install colcon"
 install python3-colcon-common-extensions
 echo "Install rosdep"
