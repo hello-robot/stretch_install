@@ -92,22 +92,17 @@ install python3-vcstool
 echo ""
 
 echo "###########################################"
-echo "INSTALLATION OF ADDITIONAL ROS HUMBLE PKGS"
+echo "INSTALLATION OF ADDITIONAL ROS IRON PKGS"
 echo "###########################################"
 echo "Install packages to work with URDFs"
 install liburdfdom-tools meshlab
-install ros-humble-urdfdom-py
+install ros-iron-urdfdom-py
 echo "Install joint state GUI package"
-install ros-humble-joint-state-publisher-gui
-echo "Install TF2 related packages"
-install ros-humble-tf2-tools
+install ros-iron-joint-state-publisher-gui
 echo "Install IMU visualization plugin for RViz and IMU filter"
-install ros-humble-rviz-imu-plugin ros-humble-imu-filter-madgwick
-# TODO:
-# echo "Install robot pose filter for use with IMU and wheel odometry"
-# install ros-noetic-robot-pose-ekf
+install ros-iron-rviz-imu-plugin ros-iron-imu-filter-madgwick
 echo "Install robot localization package for use with IMU and wheel odometry"
-install ros-humble-robot-localization
+install ros-iron-robot-localization
 echo "Install teleop packages"
 install ros-humble-teleop-twist-keyboard
 # TODO: are we using sllidar from source instead of this rplidar binary?
