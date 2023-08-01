@@ -28,7 +28,10 @@ echo "Install rpl"
 install rpl
 echo "Install ipython3"
 install ipython3
+echo "Install pip3"
 install python3-pip
+echo "Install pyaudio"
+install python3-pyaudio
 echo "Install Emacs packages"
 install emacs yaml-mode
 echo "Install nettools"
@@ -104,16 +107,7 @@ install ros-iron-rviz-imu-plugin ros-iron-imu-filter-madgwick
 echo "Install robot localization package for use with IMU and wheel odometry"
 install ros-iron-robot-localization
 echo "Install teleop packages"
-install ros-humble-teleop-twist-keyboard
-# TODO: are we using sllidar from source instead of this rplidar binary?
-echo "Install RPLidar A1M8 packages"
-install ros-humble-rplidar-ros ros-humble-rplidar-ros-dbgsym
-# TODO: where is the nav2 binary installed
-echo "Install Respeaker and speech recognition packages"
-install python3-pyaudio
-# install ros-humble-respeaker-ros ros-humble-ros-speech-recognition # TODO: not available
-echo "Install scan tools for Canonical Scan Matching using the laser_scan_matcher"
-# install ros-humble-scan-tools # TODO: not available
+install ros-iron-teleop-twist-keyboard
 echo ""
 
 echo "###########################################"
