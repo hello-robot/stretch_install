@@ -10,7 +10,10 @@ REDIRECT_LOGFILE="$REDIRECT_LOGDIR/stretch_install_firmware.`date '+%Y%m%d%H%M'`
 echo "###########################################"
 echo "INSTALLATION OF STRETCH FIRMWARE"
 echo "###########################################"
+. /etc/hello-robot/hello-robot.conf
+export HELLO_FLEET_ID HELLO_FLEET_ID
+export HELLO_FLEET_PATH=$HOME/stretch_user
 echo "Read ttyACMx mapping"
-REx_firmware_flash.py --map &>> $REDIRECT_LOGFILE
+/usr/bin/python3 $HOME/.local/bin/REx_firmware_flash.py --map &>> $REDIRECT_LOGFILE
 echo "Perform firmware update (this might take a while)"
-REx_firmware_updater.py --install --no_prompts &>> $REDIRECT_LOGFILE
+/usr/bin/python3 $HOME/.local/bin/REx_firmware_updater.py --install --no_prompts &>> $REDIRECT_LOGFILE
