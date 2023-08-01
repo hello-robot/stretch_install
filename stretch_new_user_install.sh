@@ -40,7 +40,7 @@ else
         echo "source /opt/ros/noetic/setup.bash" >> ~/.bashrc
         echo "#source /opt/ros/galactic/setup.bash" >> ~/.bashrc
     elif [[ $factory_osdir = "22.04" ]]; then
-        echo "source /opt/ros/humble/setup.bash" >> ~/.bashrc
+        echo "source /opt/ros/iron/setup.bash" >> ~/.bashrc
     fi
 fi
 
@@ -80,9 +80,6 @@ cp ~/stretch_install/factory/$factory_osdir/hello_robot_pimu_ping.desktop ~/.con
 echo "Updating media assets..."
 sudo cp $HOME/stretch_install/factory/$factory_osdir/stretch_about.png /etc/hello-robot
 
-echo "Installing PyCharm..."
-sudo snap install pycharm-community --classic >> $REDIRECT_LOGFILE
-
 echo "Installing Arduino CLI..."
 ~/stretch_install/factory/$factory_osdir/stretch_install_arduino.sh >> $REDIRECT_LOGFILE
 
@@ -120,13 +117,15 @@ elif [[ $factory_osdir = "20.04" || $factory_osdir = "22.04" ]]; then
     echo "Upgrade pip3"
     python3 -m pip -q install --no-warn-script-location --user --upgrade pip &>> $REDIRECT_LOGFILE
     echo "Install Stretch Body"
-    python3 -m pip -q install --no-warn-script-location hello-robot-stretch-body &>> $REDIRECT_LOGFILE
+    python3 -m pip -q install --no-warn-script-location --upgrade hello-robot-stretch-body &>> $REDIRECT_LOGFILE
     echo "Install Stretch Body Tools"
-    python3 -m pip -q install --no-warn-script-location hello-robot-stretch-body-tools &>> $REDIRECT_LOGFILE
+    python3 -m pip -q install --no-warn-script-location --upgrade hello-robot-stretch-body-tools &>> $REDIRECT_LOGFILE
     echo "Install Stretch Factory"
-    python3 -m pip -q install --no-warn-script-location hello-robot-stretch-factory &>> $REDIRECT_LOGFILE
+    python3 -m pip -q install --no-warn-script-location --upgrade hello-robot-stretch-factory &>> $REDIRECT_LOGFILE
     echo "Install Stretch Tool Share"
-    python3 -m pip -q install --no-warn-script-location hello-robot-stretch-tool-share &>> $REDIRECT_LOGFILE
+    python3 -m pip -q install --no-warn-script-location --upgrade hello-robot-stretch-tool-share &>> $REDIRECT_LOGFILE
+    echo "Install Stretch Diagnostics"
+    python3 -m pip -q install --no-warn-script-location --upgrade hello-robot-stretch-diagnostics &>> $REDIRECT_LOGFILE
     echo "Upgrade prompt_toolkit"
     python3 -m pip -q install --no-warn-script-location -U prompt_toolkit &>> $REDIRECT_LOGFILE
     echo ""
