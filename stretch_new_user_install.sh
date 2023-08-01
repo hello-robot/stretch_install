@@ -38,7 +38,6 @@ else
         echo "source /opt/ros/melodic/setup.bash" >> ~/.bashrc
     elif [[ $factory_osdir = "20.04" ]]; then
         echo "source /opt/ros/noetic/setup.bash" >> ~/.bashrc
-        echo "#source /opt/ros/galactic/setup.bash" >> ~/.bashrc
     elif [[ $factory_osdir = "22.04" ]]; then
         echo "source /opt/ros/iron/setup.bash" >> ~/.bashrc
     fi
@@ -135,8 +134,6 @@ if [[ $factory_osdir = "18.04" ]]; then
     ~/stretch_install/factory/$factory_osdir/stretch_create_catkin_workspace.sh -w "$HOME/catkin_ws" -l $REDIRECT_LOGDIR
 elif [[ $factory_osdir = "20.04" ]]; then
     ~/stretch_install/factory/$factory_osdir/stretch_create_catkin_workspace.sh -w "$HOME/catkin_ws" -l $REDIRECT_LOGDIR
-    echo ""
-    ~/stretch_install/factory/$factory_osdir/stretch_create_ament_workspace.sh -w "$HOME/ament_ws" -l $REDIRECT_LOGDIR
 elif [[ $factory_osdir = "22.04" ]]; then
     ~/stretch_install/factory/$factory_osdir/stretch_create_ament_workspace.sh -w "$HOME/ament_ws" -l $REDIRECT_LOGDIR
 fi
