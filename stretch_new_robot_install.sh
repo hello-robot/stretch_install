@@ -71,7 +71,7 @@ fi
 
 echo ""
 cd $HOME/stretch_install/factory/$factory_osdir
-./stretch_install_firmware.sh -l $logdir |& tee $logfile_firmware
+bash -i ./stretch_install_firmware.sh -l $logdir |& tee $logfile_firmware
 if [ $? -ne 0 ]; then
     echo_failure_help
 fi
