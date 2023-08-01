@@ -87,8 +87,7 @@ Once the script has started, it will ask you for your robot's serial number, Y/N
 
 ```
 #############################################
-DONE! COMPLETE THESE POST INSTALL STEPS:
- 1. Perform a FULL reboot by power cycling the robot
+DONE! INSTALLATION COMPLETED SUCCESSFULLY.
 [...]
 #############################################
 ```
@@ -118,7 +117,7 @@ Next, we'll ensure the robot's contact parameters are migrated to the new contac
 RE1_migrate_contacts.py
 ```
 
-Next, we'll ensure the robot's firmware is upgraded to the latest available. Newer firmware unlocks new features (e.g. waypoint trajectory following, which is used in ROS2 to support MoveIt2) and fixes bugs. See the [firmware releases](https://github.com/hello-robot/stretch_firmware/tags) for details.
+Next, we'll ensure the robot's firmware is upgraded to the latest available. Newer firmware unlocks new features (e.g. [waypoint trajectory following](https://docs.hello-robot.com/0.2/stretch-tutorials/stretch_body/tutorial_splined_trajectories/)) and fixes bugs. See the [firmware releases](https://github.com/hello-robot/stretch_firmware/tags) for details.
 
 ```bash
 REx_firmware_updater.py --install
