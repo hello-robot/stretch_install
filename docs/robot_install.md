@@ -183,14 +183,14 @@ If you are seeing the following error:
 ```
 [...]
 Checking robot calibration data in home folder...
-Expecting backed up version of stretch-re1-xxxx to be present in the the home folder. Exiting.
+Expecting robot calibration stretch-rey-xxxx to be present in the the home folder. Exiting.
 
 #############################################
 FAILURE. INSTALLATION DID NOT COMPLETE.
 [...]
 ```
 
-The install scripts exited before performing the robot install because it was unable to find the robot's calibration data folder, 'stretch-rey-xxxx'. Please ensure you have [backed up your robot's calibration data](#back-up-robot-configuration-data) to a USB key and copied the 'stretch-re1-xxxx' folder to the home folder of your new partition. See the [Run the new robot installation script](#run-the-new-robot-installation-script) section for more details. Then, run the install scripts again and the error should be gone.
+The install scripts exited before performing the robot install because it was unable to find the robot's calibration data folder, 'stretch-rey-xxxx'. Please ensure you have [backed up your robot's calibration data](#back-up-robot-configuration-data) to a USB key and copied the 'stretch-rey-xxxx' folder to the home folder of your new partition. See the [Run the new robot installation script](#run-the-new-robot-installation-script) section for more details. Then, run the install scripts again and the error should be gone.
 
 ### 'Repo not up-to-date' error
 
