@@ -13,7 +13,7 @@ Each OS installs on a separate partition on the hard drive. You can create as ma
 Currently, there are 3 available versions of the software stack, listed from oldest to newest:
 
  1. **(Deprecated)** Ubuntu 18.04 LTS shipped on robots until summer 2022, and included software for ROS Melodic and Python2
- 2. **(Stable)** Ubuntu 20.04 LTS comes with ROS Noetic, Python3.8, and experimental ROS2 Galactic. This is what currently ships on robots.
+ 2. **(Stable)** Ubuntu 20.04 LTS comes with ROS Noetic and Python3.8. This is what currently ships on robots.
  3. **(Experimental)** Ubuntu 22.04 LTS comes with ROS2 Iron and Python3.10. In the future, this version will ship on robots. **Warning:** Both the installation scripts and the software installed are under active development. Please proceed with caution.
 
 # How
@@ -169,7 +169,6 @@ export HELLO_FLEET_ID=stretch-re1-2000
 export PATH=${PATH}:~/.local/bin
 export LRS_LOG_LEVEL=None #Debug
 source /opt/ros/noetic/setup.bash
-#source /opt/ros/galactic/setup.bash
 source /home/ubuntu/catkin_ws/devel/setup.bash
 [...]
 ```
