@@ -24,6 +24,7 @@ logfile_initial="$logdir/stretch_initial_configuration.txt"
 logfile_system="$logdir/stretch_system_install.txt"
 logfile_user="$logdir/stretch_user_install.txt"
 logfile_dev_tools="$logdir/stretch_dev_tools_install.txt"
+logfile_firmware="$logdir/stretch_firmware_install.txt"
 logzip="$logdir/stretch_robot_install_logs.zip"
 mkdir -p $logdir
 
@@ -66,6 +67,13 @@ if $do_factory_install; then
     if [ $? -ne 0 ]; then
         echo_failure_help
     fi
+fi
+
+echo ""
+cd $HOME/stretch_install/factory/$factory_osdir
+./stretch_install_firmware.sh -l $logdir |& tee $logfile_firmware
+if [ $? -ne 0 ]; then
+    echo_failure_help
 fi
 
 zip -r $logzip $logdir/ > /dev/null

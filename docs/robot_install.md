@@ -20,12 +20,21 @@ Currently, there are 3 available versions of the software stack, listed from old
 
 There are a few steps to performing a new robot install:
 
- 1. Backup robot configuration data
- 2. Setup the BIOS (only necessary for NUCs not previously configured by Hello Robot)
- 3. Install Ubuntu
- 4. Run the new robot installation script
+ 1. Plug in charger & Attach clip-clamp
+ 2. Backup robot configuration data
+ 3. Setup the BIOS (only necessary for NUCs not previously configured by Hello Robot)
+ 4. Install Ubuntu
+ 5. Run the new robot installation script
 
 It typically takes ~2 hours to go through these steps and complete a new robot install.
+
+## Plug in charger & Attach clip-clamp
+
+Since a new robot install can take a few hours, it's important the robot remain on the charger throughout the install. Switch the charger into [SUPPLY mode](https://docs.hello-robot.com/0.2/stretch-hardware-guides/docs/battery_maintenance_guide_re2/#charger) and plug the charger into the robot.
+
+![](./images/clamp_lift.png)
+
+Next, attach the clip-clamp below the shoulder as shown. This allows the arm to rest on the clamp during the firmware portion of the install.
 
 ## Back up robot configuration data
 
@@ -104,12 +113,6 @@ Next, we'll complete the post install steps. First, in order for the many change
  4. Ensure a keyboard/monitor is plugged into the robot. When the robot powers up, you can use the keyboard to decide which OS to boot into.
  5. Turn the power switch in the robot's trunk to the on position (orange power LED becomes lit)
  6. Boot into the new Ubuntu partition and log in if necessary
-
-Next, we'll ensure the robot's firmware is upgraded to the latest available. Newer firmware unlocks new features (e.g. [waypoint trajectory following](https://docs.hello-robot.com/0.2/stretch-tutorials/stretch_body/tutorial_splined_trajectories/)) and fixes bugs. See the [firmware releases](https://github.com/hello-robot/stretch_firmware/tags) for details.
-
-```bash
-REx_firmware_updater.py --install
-```
 
 Next, if your robot has the [Stretch Dex Wrist](https://hello-robot.com/stretch-dex-wrist), we'll configure the software to recognize it. **Skip this step if you are not using the Dex Wrist.**
 
