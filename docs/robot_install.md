@@ -105,18 +105,6 @@ Next, we'll complete the post install steps. First, in order for the many change
  5. Turn the power switch in the robot's trunk to the on position (orange power LED becomes lit)
  6. Boot into the new Ubuntu partition and log in if necessary
 
-Next, we'll ensure the robot's parameter YAML files are migrated to the new parameter management system (see https://forum.hello-robot.com/t/425/ for details).
-
-```bash
-RE1_migrate_params.py
-```
-
-Next, we'll ensure the robot's contact parameters are migrated to the new contact threshold system (see https://forum.hello-robot.com/t/476/ for details).
-
-```bash
-RE1_migrate_contacts.py
-```
-
 Next, we'll ensure the robot's firmware is upgraded to the latest available. Newer firmware unlocks new features (e.g. [waypoint trajectory following](https://docs.hello-robot.com/0.2/stretch-tutorials/stretch_body/tutorial_splined_trajectories/)) and fixes bugs. See the [firmware releases](https://github.com/hello-robot/stretch_firmware/tags) for details.
 
 ```bash
@@ -131,7 +119,13 @@ cd ~/stretch_install
 REx_calibrate_guarded_contact.py --arm
 ```
 
-Finally, execute the following to confirm the new robot install was set up successfully.
+Next, we'll run Stretch's homing procedure, where every joint's zero is found. Robots with relative encoders (vs absolute encoders) need a homing procedure when they power on. For Stretch, it's a 30-second procedure that must occur everytime the robot wakes up.
+
+```bash
+stretch_robot_home.py
+```
+
+Finally, we'll run the system check to confirm the robot is ready to use. If you see any failures or errors, contact Hello Robot support via email or [the forum](https://forum.hello-robot.com/).
 
 ```bash
 stretch_robot_system_check.py
