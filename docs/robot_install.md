@@ -14,7 +14,7 @@ Currently, there are 3 available versions of the software stack, listed from old
 
  1. **(Deprecated)** Ubuntu 18.04 LTS shipped on robots until summer 2022, and included software for ROS Melodic and Python2
  2. **(Stable)** Ubuntu 20.04 LTS comes with ROS Noetic, Python3.8, and experimental ROS2 Galactic. This is what currently ships on robots.
- 3. **(Experimental)** Ubuntu 22.04 LTS comes with ROS2 Humble and Python3.10. In the future, this version will ship on robots. **Warning:** Both the installation scripts and the software installed are under active development. Please proceed with caution. 
+ 3. **(Experimental)** Ubuntu 22.04 LTS comes with ROS2 Iron and Python3.10. In the future, this version will ship on robots. **Warning:** Both the installation scripts and the software installed are under active development. Please proceed with caution.
 
 # How
 
