@@ -42,5 +42,5 @@ repositories:
   stretch_tutorials:
     type: git
     url: https://github.com/hello-robot/stretch_tutorials.git
-    version: ROS2
+    version: galactic
     
