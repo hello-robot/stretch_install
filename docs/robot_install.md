@@ -219,6 +219,21 @@ FAILURE. INSTALLATION DID NOT COMPLETE.
 
 Ubuntu's system package manager, Apt, has failed to contact the server that hosts some package that the install scripts need to download. Typically, these issues are transient and waiting some time before rerunning the install script will solve the issue.
 
+### 'dpkg returned an error code' error
+
+If you are seeing the following error:
+
+```
+Install <some package>
+E: Sub-process /usr/bin/dpkg returned an error code (1)
+
+#############################################
+FAILURE. INSTALLATION DID NOT COMPLETE.
+[...]
+```
+
+Ubuntu's system package manager, Apt, has failed to complete some step of the install process for a package that the install scripts need to install. Typically, these issues are transient and waiting some time before rerunning the install script will solve the issue. If you continue to see this error, contact Hello Robot support via email or [the forum](https://forum.hello-robot.com/).
+
 ### 'Firmware protocol mismatch' error
 
 If you are seeing the following error:
