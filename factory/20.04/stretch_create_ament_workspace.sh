@@ -54,7 +54,7 @@ cd $AMENT_WSDIR/src
 vcs import --input ~/stretch_install/factory/20.04/stretch_ros2_galactic.repos >> $REDIRECT_LOGFILE
 echo "Fetch ROS packages' dependencies (this might take a while)..."
 cd $AMENT_WSDIR/
-rosdep install --rosdistro=galactic -iy --skip-keys="librealsense2" --from-paths src &>> $REDIRECT_LOGFILE
+rosdep install --rosdistro=galactic -iry --skip-keys="librealsense2" --from-paths src &>> $REDIRECT_LOGFILE
 # TODO: replace these hacks
 echo "Fetch calibration data from catkin_ws..."
 if [ -f "$HOME/catkin_ws/src/stretch_ros/stretch_description/urdf/stretch.urdf" ]; then
