@@ -69,12 +69,14 @@ if $do_factory_install; then
     fi
 fi
 
-echo ""
-cd $HOME/stretch_install/factory/$factory_osdir
-bash -i ./stretch_install_firmware.sh -l $logdir |& tee $logfile_firmware
-if [ $? -ne 0 ]; then
-    echo_failure_help
-fi
+# # Update Aug 24th 2023: Automatic firmware updating during the robot install causes devices to soft brick.
+# # This functionality is disabled until the problem can be identified.
+# echo ""
+# cd $HOME/stretch_install/factory/$factory_osdir
+# bash -i ./stretch_install_firmware.sh -l $logdir |& tee $logfile_firmware
+# if [ $? -ne 0 ]; then
+#     echo_failure_help
+# fi
 
 zip -r $logzip $logdir/ > /dev/null
 

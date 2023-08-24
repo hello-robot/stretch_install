@@ -79,6 +79,9 @@ cp ~/stretch_install/factory/$factory_osdir/hello_robot_pimu_ping.desktop ~/.con
 echo "Updating media assets..."
 sudo cp $HOME/stretch_install/factory/$factory_osdir/stretch_about.png /etc/hello-robot
 
+echo "Installing Arduino CLI..."
+~/stretch_install/factory/$factory_osdir/stretch_install_arduino.sh >> $REDIRECT_LOGFILE
+
 echo "Adding user to the dialout group to access Arduino..."
 sudo adduser $USER dialout >> $REDIRECT_LOGFILE
 echo "Adding user to the plugdev group to access serial..."

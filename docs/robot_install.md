@@ -114,6 +114,12 @@ Next, we'll complete the post install steps. First, in order for the many change
  5. Turn the power switch in the robot's trunk to the on position (orange power LED becomes lit)
  6. Boot into the new Ubuntu partition and log in if necessary
 
+Next, we'll ensure the robot's firmware is upgraded to the latest available. Newer firmware unlocks new features (e.g. [waypoint trajectory following](https://docs.hello-robot.com/0.2/stretch-tutorials/stretch_body/tutorial_splined_trajectories/)) and fixes bugs. See the [firmware releases](https://github.com/hello-robot/stretch_firmware/tags) for details.
+
+```bash
+REx_firmware_updater.py --install
+```
+
 Next, if your robot has the [Stretch Dex Wrist](https://hello-robot.com/stretch-dex-wrist), we'll configure the software to recognize it. **Skip this step if you are not using the Dex Wrist.**
 
 ```
