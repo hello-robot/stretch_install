@@ -14,6 +14,13 @@ if [[ $HELLO_FLEET_ID ]]; then
     exit 1
 fi
 
+read -p "Plug in charger & attach clip-clamp. Ready to proceed (y/n)? " -n 1 -r
+echo
+if [[ ! $REPLY =~ ^[Yy]$ ]]; then
+    echo "Confirmation failed. Will not proceed with installation."
+    exit 1
+fi
+
 PS3="Select model type: "
 
 select model in stretch-re1 stretch-re2
@@ -128,3 +135,8 @@ sudo cp $DIR/hello_robot_xbox_teleop.sh /usr/bin/
 echo "Setting up apt retries..."
 echo 'Acquire::Retries "3";' > 80-retries
 sudo mv 80-retries /etc/apt/apt.conf.d/
+
+echo "Prevent screen dimming..."
+gsettings set org.gnome.desktop.session idle-delay 0
+gsettings set org.gnome.settings-daemon.plugins.power sleep-inactive-ac-timeout 0
+gsettings set org.gnome.settings-daemon.plugins.power idle-dim false

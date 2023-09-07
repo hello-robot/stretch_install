@@ -28,7 +28,10 @@ echo "Install rpl"
 install rpl
 echo "Install ipython3"
 install ipython3
+echo "Install pip3"
 install python3-pip
+echo "Install pyaudio"
+install python3-pyaudio
 echo "Install Emacs packages"
 install emacs yaml-mode
 echo "Install nettools"
@@ -62,9 +65,9 @@ echo "Install APT HTTPS"
 install apt-transport-https
 echo ""
 
-# see https://docs.ros.org/en/humble/Installation/Ubuntu-Install-Debians.html for details
+# https://docs.ros.org/en/iron/Installation/Ubuntu-Install-Debians.html
 echo "###########################################"
-echo "INSTALLATION OF ROS 2 HUMBLE"
+echo "INSTALLATION OF ROS 2 IRON"
 echo "###########################################"
 echo "Setting up keys"
 sudo curl -sSL https://raw.githubusercontent.com/ros/rosdistro/master/ros.key  -o /usr/share/keyrings/ros-archive-keyring.gpg
@@ -72,8 +75,11 @@ echo "Setting up sources.list"
 echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/ros-archive-keyring.gpg] http://packages.ros.org/ros2/ubuntu $(. /etc/os-release && echo $UBUNTU_CODENAME) main" | sudo tee /etc/apt/sources.list.d/ros2.list > /dev/null
 echo "Apt update"
 sudo apt-get --yes update >> $REDIRECT_LOGFILE
-echo "Install ROS 2 Humble (this might take a while)"
-install ros-humble-desktop
+echo "Install ROS 2 Iron (this might take a while)"
+install ros-iron-desktop-full
+# https://discourse.ros.org/t/ros-developer-tools-now-in-binary-form/29802
+echo "Install ROS 2 Dev Tools"
+install ros-dev-tools
 echo "Install colcon"
 install python3-colcon-common-extensions
 echo "Install rosdep"
@@ -89,33 +95,19 @@ install python3-vcstool
 echo ""
 
 echo "###########################################"
-echo "INSTALLATION OF ADDITIONAL ROS HUMBLE PKGS"
+echo "INSTALLATION OF ADDITIONAL ROS IRON PKGS"
 echo "###########################################"
 echo "Install packages to work with URDFs"
 install liburdfdom-tools meshlab
-install ros-humble-urdfdom-py
+install ros-iron-urdfdom-py
 echo "Install joint state GUI package"
-install ros-humble-joint-state-publisher-gui
-echo "Install TF2 related packages"
-install ros-humble-tf2-tools
+install ros-iron-joint-state-publisher-gui
 echo "Install IMU visualization plugin for RViz and IMU filter"
-install ros-humble-rviz-imu-plugin ros-humble-imu-filter-madgwick
-# TODO:
-# echo "Install robot pose filter for use with IMU and wheel odometry"
-# install ros-noetic-robot-pose-ekf
+install ros-iron-rviz-imu-plugin ros-iron-imu-filter-madgwick
 echo "Install robot localization package for use with IMU and wheel odometry"
-install ros-humble-robot-localization
+install ros-iron-robot-localization
 echo "Install teleop packages"
-install ros-humble-teleop-twist-keyboard
-# TODO: are we using sllidar from source instead of this rplidar binary?
-echo "Install RPLidar A1M8 packages"
-install ros-humble-rplidar-ros ros-humble-rplidar-ros-dbgsym
-# TODO: where is the nav2 binary installed
-echo "Install Respeaker and speech recognition packages"
-install python3-pyaudio
-# install ros-humble-respeaker-ros ros-humble-ros-speech-recognition # TODO: not available
-echo "Install scan tools for Canonical Scan Matching using the laser_scan_matcher"
-# install ros-humble-scan-tools # TODO: not available
+install ros-iron-teleop-twist-keyboard
 echo ""
 
 echo "###########################################"

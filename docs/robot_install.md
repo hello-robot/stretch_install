@@ -13,19 +13,28 @@ Each OS installs on a separate partition on the hard drive. You can create as ma
 Currently, there are 3 available versions of the software stack, listed from oldest to newest:
 
  1. **(Deprecated)** Ubuntu 18.04 LTS shipped on robots until summer 2022, and included software for ROS Melodic and Python2
- 2. **(Stable)** Ubuntu 20.04 LTS comes with ROS Noetic, Python3.8, and experimental ROS2 Galactic. This is what currently ships on robots.
- 3. **(Experimental)** Ubuntu 22.04 LTS comes with ROS2 Humble and Python3.10. In the future, this version will ship on robots. **Warning:** Both the installation scripts and the software installed are under active development. Please proceed with caution. 
+ 2. **(Stable)** Ubuntu 20.04 LTS comes with ROS Noetic and Python3.8. This is what currently ships on robots.
+ 3. **(Experimental)** Ubuntu 22.04 LTS comes with ROS2 Iron and Python3.10. In the future, this version will ship on robots. **Warning:** Both the installation scripts and the software installed are under active development. Please proceed with caution.
 
 # How
 
 There are a few steps to performing a new robot install:
 
- 1. Backup robot configuration data
- 2. Setup the BIOS (only necessary for NUCs not previously configured by Hello Robot)
- 3. Install Ubuntu
- 4. Run the new robot installation script
+ 1. Plug in charger & Attach clip-clamp
+ 2. Backup robot configuration data
+ 3. Setup the BIOS (only necessary for NUCs not previously configured by Hello Robot)
+ 4. Install Ubuntu
+ 5. Run the new robot installation script
 
 It typically takes ~2 hours to go through these steps and complete a new robot install.
+
+## Plug in charger & Attach clip-clamp
+
+Since a new robot install can take a few hours, it's important the robot remain on the charger throughout the install. Switch the charger into [SUPPLY mode](https://docs.hello-robot.com/0.2/stretch-hardware-guides/docs/battery_maintenance_guide_re2/#charger) and plug the charger into the robot.
+
+![](./images/clamp_lift.png)
+
+Next, attach the clip-clamp below the shoulder as shown. This allows the arm to rest on the clamp during the firmware portion of the install.
 
 ## Back up robot configuration data
 
@@ -87,8 +96,7 @@ Once the script has started, it will ask you for your robot's serial number, Y/N
 
 ```
 #############################################
-DONE! COMPLETE THESE POST INSTALL STEPS:
- 1. Perform a FULL reboot by power cycling the robot
+DONE! INSTALLATION COMPLETED SUCCESSFULLY.
 [...]
 #############################################
 ```
@@ -106,19 +114,7 @@ Next, we'll complete the post install steps. First, in order for the many change
  5. Turn the power switch in the robot's trunk to the on position (orange power LED becomes lit)
  6. Boot into the new Ubuntu partition and log in if necessary
 
-Next, we'll ensure the robot's parameter YAML files are migrated to the new parameter management system (see https://forum.hello-robot.com/t/425/ for details).
-
-```bash
-RE1_migrate_params.py
-```
-
-Next, we'll ensure the robot's contact parameters are migrated to the new contact threshold system (see https://forum.hello-robot.com/t/476/ for details).
-
-```bash
-RE1_migrate_contacts.py
-```
-
-Next, we'll ensure the robot's firmware is upgraded to the latest available. Newer firmware unlocks new features (e.g. waypoint trajectory following, which is used in ROS2 to support MoveIt2) and fixes bugs. See the [firmware releases](https://github.com/hello-robot/stretch_firmware/tags) for details.
+Next, we'll ensure the robot's firmware is upgraded to the latest available. Newer firmware unlocks new features (e.g. [waypoint trajectory following](https://docs.hello-robot.com/0.2/stretch-tutorials/stretch_body/tutorial_splined_trajectories/)) and fixes bugs. See the [firmware releases](https://github.com/hello-robot/stretch_firmware/tags) for details.
 
 ```bash
 REx_firmware_updater.py --install
@@ -132,7 +128,13 @@ cd ~/stretch_install
 REx_calibrate_guarded_contact.py --arm
 ```
 
-Finally, execute the following to confirm the new robot install was set up successfully.
+Next, we'll run Stretch's homing procedure, where every joint's zero is found. Robots with relative encoders (vs absolute encoders) need a homing procedure when they power on. For Stretch, it's a 30-second procedure that must occur everytime the robot wakes up.
+
+```bash
+stretch_robot_home.py
+```
+
+Finally, we'll run the system check to confirm the robot is ready to use. If you see any failures or errors, contact Hello Robot support via email or [the forum](https://forum.hello-robot.com/).
 
 ```bash
 stretch_robot_system_check.py
@@ -169,7 +171,6 @@ export HELLO_FLEET_ID=stretch-re1-2000
 export PATH=${PATH}:~/.local/bin
 export LRS_LOG_LEVEL=None #Debug
 source /opt/ros/noetic/setup.bash
-#source /opt/ros/galactic/setup.bash
 source /home/ubuntu/catkin_ws/devel/setup.bash
 [...]
 ```
@@ -183,14 +184,14 @@ If you are seeing the following error:
 ```
 [...]
 Checking robot calibration data in home folder...
-Expecting backed up version of stretch-re1-xxxx to be present in the the home folder. Exiting.
+Expecting robot calibration stretch-rey-xxxx to be present in the the home folder. Exiting.
 
 #############################################
 FAILURE. INSTALLATION DID NOT COMPLETE.
 [...]
 ```
 
-The install scripts exited before performing the robot install because it was unable to find the robot's calibration data folder, 'stretch-rey-xxxx'. Please ensure you have [backed up your robot's calibration data](#back-up-robot-configuration-data) to a USB key and copied the 'stretch-re1-xxxx' folder to the home folder of your new partition. See the [Run the new robot installation script](#run-the-new-robot-installation-script) section for more details. Then, run the install scripts again and the error should be gone.
+The install scripts exited before performing the robot install because it was unable to find the robot's calibration data folder, 'stretch-rey-xxxx'. Please ensure you have [backed up your robot's calibration data](#back-up-robot-configuration-data) to a USB key and copied the 'stretch-rey-xxxx' folder to the home folder of your new partition. See the [Run the new robot installation script](#run-the-new-robot-installation-script) section for more details. Then, run the install scripts again and the error should be gone.
 
 ### 'Repo not up-to-date' error
 
@@ -223,6 +224,21 @@ FAILURE. INSTALLATION DID NOT COMPLETE.
 ```
 
 Ubuntu's system package manager, Apt, has failed to contact the server that hosts some package that the install scripts need to download. Typically, these issues are transient and waiting some time before rerunning the install script will solve the issue.
+
+### 'dpkg returned an error code' error
+
+If you are seeing the following error:
+
+```
+Install <some package>
+E: Sub-process /usr/bin/dpkg returned an error code (1)
+
+#############################################
+FAILURE. INSTALLATION DID NOT COMPLETE.
+[...]
+```
+
+Ubuntu's system package manager, Apt, has failed to complete some step of the install process for a package that the install scripts need to install. Typically, these issues are transient and waiting some time before rerunning the install script will solve the issue. If you continue to see this error, contact Hello Robot support via email or [the forum](https://forum.hello-robot.com/).
 
 ### 'Firmware protocol mismatch' error
 
