@@ -39,7 +39,7 @@ else
     elif [[ $factory_osdir = "20.04" ]]; then
         echo "source /opt/ros/noetic/setup.bash" >> ~/.bashrc
     elif [[ $factory_osdir = "22.04" ]]; then
-        echo "source /opt/ros/iron/setup.bash" >> ~/.bashrc
+        echo "source /opt/ros/humble/setup.bash" >> ~/.bashrc
     fi
 fi
 
