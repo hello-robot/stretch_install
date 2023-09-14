@@ -55,7 +55,7 @@ mkdir -p ~/stretch_user/models
 echo "Cloning Stretch deep perception models..."
 cd ~/stretch_user
 if [ ! -d "$HOME/stretch_user/stretch_deep_perception_models" ]; then
-    git clone https://github.com/hello-robot/stretch_deep_perception_models >> $REDIRECT_LOGFILE
+    git clone https://github.com/hello-robot/stretch_deep_perception_models &>> $REDIRECT_LOGFILE
 fi
 cd stretch_deep_perception_models
 git pull >> $REDIRECT_LOGFILE
