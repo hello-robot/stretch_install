@@ -35,7 +35,8 @@ The Stretch Install repo has switched the version of ROS2 installed with the Ubu
 
  5. Run the ament workspace creation script
     ```
-    ./factory/20.04/stretch_create_ament_workspace.sh
+    cd ~/stretch_install
+    ./factory/22.04/stretch_create_ament_workspace.sh
     ```
     The script can fails silently. If the last line printed out isn't "Setup calibrated robot URDF...", something went wrong. Contact Hello Robot Support.
 
