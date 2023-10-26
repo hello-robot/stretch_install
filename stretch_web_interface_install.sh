@@ -102,7 +102,7 @@ cd $HOME/web_interface_ws/src
 vcs import --input ~/stretch_install/factory/22.04/stretch_web_interface.repos &>> $REDIRECT_LOGFILE
 echo "Installing package dependencies..."
 pip install pyquaternion &>> $REDIRECT_LOGFILE
-sudo apt-get install python3-pcl python3-pykdl &>> $REDIRECT_LOGFILE
+sudo apt-get install python3-pcl python3-pykdl screen &>> $REDIRECT_LOGFILE
 rosdep install --from-paths . --ignore-src -y -r &>> $REDIRECT_LOGFILE
 sudo npm install -g pm2 &&>> $REDIRECT_LOGFILE
 cd /home/hello-robot/web_interface_ws/src/stretch_teleop_interface
@@ -112,16 +112,16 @@ echo ""
 
 echo "Installing mkcert..."
 cd /home/hello-robot/web_interface_ws/src/stretch_teleop_interface/certificates
-curl -JLO "https://dl.filippo.io/mkcert/latest?for=linux/amd64"
+curl -JLO "https://dl.filippo.io/mkcert/latest?for=linux/amd64" &&>> $REDIRECT_LOGFILE
 chmod +x mkcert-v*-linux-amd64
 sudo cp mkcert-v*-linux-amd64 /usr/local/bin/mkcert
-sudo apt-get install libnss3-tools
+sudo apt-get install libnss3-tools &&>> $REDIRECT_LOGFILE
 CAROOT=`pwd` mkcert --install
 mkdir -p ~/.local/share/mkcert
 sudo cp root* ~/.local/share/mkcert
-rm mkcert-v*-linux-amd64
 echo "Generating certificates..."
-mkcert ${HELLO_FLEET_ID} ${HELLO_FLEET_ID}.local ${HELLO_FLEET_ID}.dev localhost 127.0.0.1 0.0.0.0 ::1
+mkcert ${HELLO_FLEET_ID} ${HELLO_FLEET_ID}.local ${HELLO_FLEET_ID}.dev localhost 127.0.0.1 0.0.0.0 ::1 &&>> $REDIRECT_LOGFILE
+rm mkcert-v*-linux-amd64
 echo "Adding certificates to environment file..."
 cd /home/hello-robot/web_interface_ws/src/stretch_teleop_interface
 touch .env
