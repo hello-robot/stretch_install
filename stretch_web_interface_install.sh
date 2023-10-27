@@ -99,7 +99,7 @@ echo "Creating the workspace directory..."
 mkdir -p $HOME/web_interface_ws/src
 echo "Cloning the workspace's packages..."
 cd $HOME/web_interface_ws/src
-vcs import --input ~/stretch_install/factory/22.04/stretch_web_interface.repos &>> $REDIRECT_LOGFILE
+vcs import --input ~/repos/stretch_install/factory/22.04/stretch_web_interface.repos &>> $REDIRECT_LOGFILE
 echo "Installing package dependencies..."
 pip install pyquaternion &>> $REDIRECT_LOGFILE
 sudo apt-get install python3-pcl python3-pykdl screen -y &>> $REDIRECT_LOGFILE
