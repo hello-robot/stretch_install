@@ -102,7 +102,7 @@ cd $HOME/web_interface_ws/src
 vcs import --input ~/stretch_install/factory/22.04/stretch_web_interface.repos &>> $REDIRECT_LOGFILE
 echo "Installing package dependencies..."
 pip install pyquaternion &>> $REDIRECT_LOGFILE
-sudo apt-get install python3-pcl python3-pykdl screen &>> $REDIRECT_LOGFILE
+sudo apt-get install python3-pcl python3-pykdl screen -y &>> $REDIRECT_LOGFILE
 rosdep install --from-paths . --ignore-src -y -r &>> $REDIRECT_LOGFILE
 sudo npm install -g pm2 &&>> $REDIRECT_LOGFILE
 cd /home/hello-robot/web_interface_ws/src/stretch_teleop_interface
