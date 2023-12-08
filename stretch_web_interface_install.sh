@@ -24,56 +24,10 @@ fi
 source /opt/ros/humble/setup.bash
 
 #################### Installing/Upgrading NodeJS #################### 
-function install_nodejs {
-    sudo apt-get update &>> $REDIRECT_LOGFILE
-    sudo apt-get install -y ca-certificates curl gnupg &>> $REDIRECT_LOGFILE
-    sudo mkdir -p /etc/apt/keyrings &>> $REDIRECT_LOGFILE
-    curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | sudo gpg --dearmor -o /etc/apt/keyrings/nodesource.gpg &>> $REDIRECT_LOGFILE
-    NODE_MAJOR=21 &>> $REDIRECT_LOGFILE
-    echo "deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesource.com/node_$NODE_MAJOR.x nodistro main" | sudo tee /etc/apt/sources.list.d/nodesource.list &>> $REDIRECT_LOGFILE
-    sudo apt-get update &>> $REDIRECT_LOGFILE
-    sudo apt-get install nodejs -y &>> $REDIRECT_LOGFILE
-}
 
-function uninstall_nodejs {
-    sudo apt-get remove -y nodejs npm &>> $REDIRECT_LOGFILE
-    sudo apt-get purge -y nodejs npm &>> $REDIRECT_LOGFILE
-    if [[ -f /etc/apt/sources.list.d/nodesource.list ]]; then
-        sudo rm -r /etc/apt/sources.list.d/nodesource.list &>> $REDIRECT_LOGFILE
-    fi
-    
-    if [[ -f /etc/apt/keyrings/nodesource.gpg ]]; then
-        sudo rm -r /etc/apt/keyrings/nodesource.gpg &>> $REDIRECT_LOGFILE
-    fi
-}
 
-echo "Ensuring correct version of NodeJS is installed..."
-if ! dpkg -s nodejs 2>/dev/null >/dev/null; then 
-    echo "Installing NodeJS..."
-    install_nodejs
-else
-    NODEJS_VERSION=`node --version | cut -d'v' -f2`
-    if dpkg --compare-versions $NODEJS_VERSION ge 19.0; then
-        echo "Correct version of NodeJS is already installed"
-    else
-        echo "NodeJS version is less than the required version (v19.0). NodeJS has to be upgraded."
-        prompt_yes_no(){
-            read -p "Do you want to continue? Press (y/n for yes/no): " x
-            if [ $x = "n" ]; then
-                    echo "Exiting the script."
-                    exit 1
-            elif [ $x = "y" ]; then
-                    echo "Upgrading NodeJS to v21.1.0..."
-                    uninstall_nodejs
-                    install_nodejs
-            else
-                echo "Press 'y' for yes or 'n' for no."
-                prompt_yes_no
-            fi
-        }
-        prompt_yes_no
-    fi
-fi
+
+
 ##################################################################### 
 
 if [[ -d $WEB_INTERFACE_WSDIR ]]; then
