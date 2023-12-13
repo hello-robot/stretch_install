@@ -65,22 +65,24 @@ cd $AMENT_WSDIR/src/stretch_teleop_interface/certificates
 curl -JLO "https://dl.filippo.io/mkcert/latest?for=linux/amd64" &>> $REDIRECT_LOGFILE
 chmod +x mkcert-v*-linux-amd64
 sudo cp mkcert-v*-linux-amd64 /usr/local/bin/mkcert
-CAROOT=`pwd` mkcert --install
+CAROOT=`pwd` mkcert --install &>> $REDIRECT_LOGFILE
 mkdir -p ~/.local/share/mkcert
-sudo cp root* ~/.local/share/mkcert
-mkcert ${HELLO_FLEET_ID} ${HELLO_FLEET_ID}.local ${HELLO_FLEET_ID}.dev localhost 127.0.0.1 0.0.0.0 ::1 &&>> $REDIRECT_LOGFILE
+rm -rf ~/.local/share/mkcert/root*
+cp root* ~/.local/share/mkcert
+mkcert ${HELLO_FLEET_ID} ${HELLO_FLEET_ID}.local ${HELLO_FLEET_ID}.dev localhost 127.0.0.1 0.0.0.0 ::1 &>> $REDIRECT_LOGFILE
 rm mkcert-v*-linux-amd64
 cd $AMENT_WSDIR/src/stretch_teleop_interface
 touch .env
 echo certfile=${HELLO_FLEET_ID}+6.pem >> .env
 echo keyfile=${HELLO_FLEET_ID}+6-key.pem >> .env
+cd $AMENT_WSDIR/
 echo "Compile the workspace (this might take a while)..."
 colcon build --cmake-args -DCMAKE_BUILD_TYPE=Release &>> $REDIRECT_LOGFILE
 echo "Source setup.bash file..."
 source $AMENT_WSDIR/install/setup.bash
 echo "Updating port privledges..."
-sudo sysctl -w net.ipv4.ip_unprivileged_port_start=80
-echo net.ipv4.ip_unprivileged_port_start=80 | sudo tee --append /etc/sysctl.d/99-sysctl.conf
+sudo sysctl -w net.ipv4.ip_unprivileged_port_start=80 &>> $REDIRECT_LOGFILE
+echo net.ipv4.ip_unprivileged_port_start=80 | sudo tee --append /etc/sysctl.d/99-sysctl.conf &>> $REDIRECT_LOGFILE
 echo "Update ~/.bashrc dotfile to source workspace..."
 echo "source $AMENT_WSDIR/install/setup.bash" >> ~/.bashrc
 echo "source /usr/share/colcon_cd/function/colcon_cd.sh" >> ~/.bashrc
