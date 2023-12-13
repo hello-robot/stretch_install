@@ -67,6 +67,8 @@ echo "Install BleachBit"
 install bleachbit
 echo "Install APT HTTPS"
 install apt-transport-https
+echo "Install Network Security Services libraries"
+install libnss3-tools
 echo ""
 
 # https://docs.ros.org/en/humble/Installation/Ubuntu-Install-Debians.html
@@ -135,7 +137,7 @@ echo "Install librealsense2 packages"
 install librealsense2 librealsense2-dkms librealsense2-udev-rules librealsense2-utils librealsense2-dev librealsense2-dbg
 
 echo "###########################################"
-echo "INSTALLATION OF NODEJS"
+echo "INSTALLATION OF WEB INTERFACE"
 echo "###########################################"
 echo "Register the nodesource APT server's public key"
 function register_nodesource_apt_server {
@@ -154,3 +156,5 @@ echo "Apt update"
 sudo apt-get --yes update >> $REDIRECT_LOGFILE
 echo "Install NodeJS"
 install nodejs
+install python3-pcl python3-pykdl screen
+sudo npm install -g pm2 &>> $REDIRECT_LOGFILE
