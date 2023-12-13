@@ -135,6 +135,7 @@ echo "Apt update"
 sudo apt-get --yes update >> $REDIRECT_LOGFILE
 echo "Install librealsense2 packages"
 install librealsense2 librealsense2-dkms librealsense2-udev-rules librealsense2-utils librealsense2-dev librealsense2-dbg
+echo ""
 
 echo "###########################################"
 echo "INSTALLATION OF WEB INTERFACE"
@@ -150,11 +151,11 @@ function add_nodesource_apt_server {
     echo "deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesource.com/node_$NODE_MAJOR.x nodistro main" | sudo tee /etc/apt/sources.list.d/nodesource.list
 }
 add_nodesource_apt_server &>> $REDIRECT_LOGFILE
-echo "Remove old records in case of upgrading"
-sudo rm -f /etc/apt/sources.list.d/nodesource.list
 echo "Apt update"
 sudo apt-get --yes update >> $REDIRECT_LOGFILE
 echo "Install NodeJS"
 install nodejs
+echo "Install PyPCL and PyKDL"
 install python3-pcl python3-pykdl screen
+echo "Install PM2"
 sudo npm install -g pm2 &>> $REDIRECT_LOGFILE
