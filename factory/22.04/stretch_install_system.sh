@@ -159,3 +159,18 @@ echo "Install PyPCL and PyKDL"
 install python3-pcl python3-pykdl screen
 echo "Install PM2"
 sudo npm install -g pm2 &>> $REDIRECT_LOGFILE
+echo ""
+
+echo "###########################################"
+echo "INSTALLATION OF REMOTE DESKTOP"
+echo "###########################################"
+echo "Install Sunshine Remote Desktop Server"
+wget https://github.com/LizardByte/Sunshine/releases/download/v0.21.0/sunshine-ubuntu-22.04-amd64.deb -O /tmp/sunshine.deb &>> $REDIRECT_LOGFILE
+install /tmp/sunshine.deb
+echo "Add Sunshine uinput udev rule"
+function add_sunshine_uinput_rule {
+    echo 'KERNEL=="uinput", SUBSYSTEM=="misc", OPTIONS+="static_node=uinput", TAG+="uaccess"' | sudo tee /etc/udev/rules.d/85-sunshine.rules
+}
+add_sunshine_uinput_rule &>> $REDIRECT_LOGFILE
+echo "Setup Sunshine apps"
+sudo cp ./sunshine_apps.json /usr/share/sunshine/apps.json
