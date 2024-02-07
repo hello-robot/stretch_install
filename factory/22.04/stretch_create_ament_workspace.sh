@@ -89,8 +89,8 @@ echo net.ipv4.ip_unprivileged_port_start=80 | sudo tee --append /etc/sysctl.d/99
 echo "Update ~/.bashrc dotfile to source workspace..."
 echo "source $AMENT_WSDIR/install/setup.bash" >> ~/.bashrc
 echo "source /usr/share/colcon_cd/function/colcon_cd.sh" >> ~/.bashrc
-echo "Updating meshes in stretch_ros to this robot's batch..."
-$AMENT_WSDIR/src/stretch_ros2/stretch_description/batch/update_description.py >> $REDIRECT_LOGFILE
+echo "Updating meshes and xacros to ROS from stretch_urdf package."
+stretch_urdf_ros_update.py -y >> $REDIRECT_LOGFILE
 echo "Setup uncalibrated robot URDF..."
 ros2 run stretch_calibration update_uncalibrated_urdf >> $REDIRECT_LOGFILE
 echo "Setup calibrated robot URDF..."
