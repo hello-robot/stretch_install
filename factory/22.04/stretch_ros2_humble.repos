@@ -27,7 +27,7 @@ repositories:
     type: git
     url: https://github.com/hello-binit/audio_common.git
     version: humble
-  stretch_teleop_interface:
+  stretch_web_teleop:
     type: git
     url: https://github.com/hello-robot/stretch_web_teleop.git
     version: master
