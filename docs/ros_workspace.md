@@ -17,7 +17,7 @@ git pull
 
 ### Ubuntu 18.04
 
-Run the following command to create a ROS1 workspace (replacing `<optional-path-to-ws>` for the `-w` flag with a filepath to the workspace. Not providing the flag defaults to `~/catkin_ws`).
+Run the following command to create a ROS1 Melodic workspace (replacing `<optional-path-to-ws>` for the `-w` flag with a filepath to the workspace. Not providing the flag defaults to `~/catkin_ws`).
 
 ```bash
 ./factory/18.04/stretch_create_catkin_workspace.sh -w <optional-path-to-ws>
@@ -25,14 +25,18 @@ Run the following command to create a ROS1 workspace (replacing `<optional-path-
 
 ### Ubuntu 20.04
 
-Choose one of the following commands to create either or both ROS1/ROS2 workspaces (replacing `<optional-path-to-ws>` for the `-w` flag with a filepath to the workspace. Not providing the flag defaults to `~/catkin_ws` or `~/ament_ws`).
+Run the following command to create a ROS1 Noetic workspace (replacing `<optional-path-to-ws>` for the `-w` flag with a filepath to the workspace. Not providing the flag defaults to `~/catkin_ws`).
 
 ```bash
-# Create a ROS1 workspace
 ./factory/20.04/stretch_create_catkin_workspace.sh -w <optional-path-to-ws>
+```
 
-# Create a ROS2 workspace
-./factory/20.04/stretch_create_ament_workspace.sh -w <optional-path-to-ws>
+### Ubuntu 22.04
+
+Run the following command to create a ROS2 Humble workspace (replacing `<optional-path-to-ws>` for the `-w` flag with a filepath to the workspace. Not providing the flag defaults to `~/ament_ws`).
+
+```bash
+./factory/22.04/stretch_create_ament_workspace.sh -w <optional-path-to-ws>
 ```
 
 ### Wrap up

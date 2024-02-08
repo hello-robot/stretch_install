@@ -23,7 +23,7 @@ fi
 
 PS3="Select model type: "
 
-select model in stretch-re1 stretch-re2
+select model in stretch-re1 stretch-re2 stretch-se3
 do
     echo "Selected model: $model"
 
@@ -33,6 +33,11 @@ do
   fi
 
  if [[ "$model" == "stretch-re2" ]]
+  then
+    break
+  fi
+
+ if [[ "$model" == "stretch-se3" ]]
   then
     break
   fi
@@ -131,8 +136,28 @@ sudo cp $DIR/hello_robot_audio.sh /usr/bin/
 sudo cp $DIR/hello_robot_lrf_off.py /usr/bin/
 sudo cp $DIR/hello_robot_pimu_ping.py /usr/bin/
 sudo cp $DIR/hello_robot_pimu_ping.sh /usr/bin/
-sudo cp $DIR/hello_robot_xbox_teleop.sh /usr/bin/
+sudo cp $DIR/hello_robot_gamepad_teleop.sh /usr/bin/
 
 echo "Setting up apt retries..."
 echo 'Acquire::Retries "3";' > 80-retries
 sudo mv 80-retries /etc/apt/apt.conf.d/
+
+echo "Setting up motd..."
+if [ -d /etc/update-motd.d/ ]; then
+    sudo cp $DIR/motd/00-header /etc/update-motd.d/00-header
+    sudo chmod +x /etc/update-motd.d/00-header
+    sudo cp $DIR/motd/10-help-text /etc/update-motd.d/10-help-text
+    sudo chmod +x /etc/update-motd.d/10-help-text
+fi
+if [ -f /etc/update-motd.d/50-motd-news ]; then
+    sudo chmod -x /etc/update-motd.d/50-motd-news
+fi
+if [ -f /etc/update-motd.d/90-updates-available ]; then
+    sudo chmod -x /etc/update-motd.d/90-updates-available
+fi
+if [ -f /etc/update-motd.d/91-release-upgrade ]; then
+    sudo chmod -x /etc/update-motd.d/91-release-upgrade
+fi
+if [ -f /etc/update-motd.d/95-hwe-eol ]; then
+    sudo chmod -x /etc/update-motd.d/95-hwe-eol
+fi

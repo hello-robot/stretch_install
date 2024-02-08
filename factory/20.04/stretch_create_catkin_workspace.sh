@@ -28,7 +28,7 @@ if [[ $ROS_DISTRO && ! $ROS_DISTRO = "noetic" ]]; then
 fi
 source /opt/ros/noetic/setup.bash
 
-if [[ -d $AMENT_WSDIR ]]; then
+if [[ -d $CATKIN_WSDIR ]]; then
     echo "You are about to delete and replace the existing catkin workspace. If you have any personal data in the workspace, please create a back up before proceeding."
     prompt_yes_no(){
     read -p "Do you want to continue? Press (y/n for yes/no): " x
@@ -51,7 +51,7 @@ echo "Creating the workspace directory..."
 mkdir -p $CATKIN_WSDIR/src
 echo "Cloning the workspace's packages..."
 cd $CATKIN_WSDIR/src
-vcs import --input ~/stretch_install/factory/20.04/stretch_ros_noetic.repos >> $REDIRECT_LOGFILE
+vcs import --input ~/stretch_install/factory/20.04/stretch_ros_noetic.repos &>> $REDIRECT_LOGFILE
 echo "Fetch ROS packages' dependencies (this might take a while)..."
 cd $CATKIN_WSDIR/
 rosdep install --rosdistro=noetic -iy --skip-keys="librealsense2" --from-paths src &>> $REDIRECT_LOGFILE
