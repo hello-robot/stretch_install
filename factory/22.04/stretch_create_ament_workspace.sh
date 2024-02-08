@@ -60,11 +60,11 @@ cd $AMENT_WSDIR/
 rosdep install --rosdistro=humble -iyr --skip-keys="librealsense2" --from-paths src &>> $REDIRECT_LOGFILE
 echo "Install web interface dependencies..."
 pip3 install pyquaternion &>> $REDIRECT_LOGFILE
-cd $AMENT_WSDIR/src/stretch_teleop_interface
+cd $AMENT_WSDIR/src/stretch_web_teleop
 npm install &>> $REDIRECT_LOGFILE
 npx playwright install &>> $REDIRECT_LOGFILE
 echo "Generating web interface certs..."
-cd $AMENT_WSDIR/src/stretch_teleop_interface/certificates
+cd $AMENT_WSDIR/src/stretch_web_teleop/certificates
 curl -JLO "https://dl.filippo.io/mkcert/latest?for=linux/amd64" &>> $REDIRECT_LOGFILE
 chmod +x mkcert-v*-linux-amd64
 sudo cp mkcert-v*-linux-amd64 /usr/local/bin/mkcert
@@ -74,7 +74,7 @@ rm -rf ~/.local/share/mkcert/root*
 cp root* ~/.local/share/mkcert
 mkcert ${HELLO_FLEET_ID} ${HELLO_FLEET_ID}.local ${HELLO_FLEET_ID}.dev localhost 127.0.0.1 0.0.0.0 ::1 &>> $REDIRECT_LOGFILE
 rm mkcert-v*-linux-amd64
-cd $AMENT_WSDIR/src/stretch_teleop_interface
+cd $AMENT_WSDIR/src/stretch_web_teleop
 touch .env
 echo certfile=${HELLO_FLEET_ID}+6.pem >> .env
 echo keyfile=${HELLO_FLEET_ID}+6-key.pem >> .env
