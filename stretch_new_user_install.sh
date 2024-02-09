@@ -34,6 +34,7 @@ else
     echo "export HELLO_FLEET_ID=${HELLO_FLEET_ID}">> ~/.bashrc
     echo "export PATH=\${PATH}:~/.local/bin" >> ~/.bashrc
     echo "export LRS_LOG_LEVEL=None #Debug" >> ~/.bashrc
+    echo "export PYTHONWARNINGS='ignore:setup.py install is deprecated,ignore:Invalid dash-separated options'" >> ~/.bashrc
     if [[ $factory_osdir = "18.04" ]]; then
         echo "source /opt/ros/melodic/setup.bash" >> ~/.bashrc
     elif [[ $factory_osdir = "20.04" ]]; then
