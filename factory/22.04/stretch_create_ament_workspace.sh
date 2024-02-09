@@ -58,7 +58,9 @@ cd $AMENT_WSDIR/src
 vcs import --input ~/stretch_install/factory/22.04/stretch_ros2_humble.repos &>> $REDIRECT_LOGFILE
 echo "Fetch ROS packages' dependencies (this might take a while)..."
 cd $AMENT_WSDIR/
-rosdep install --rosdistro=humble -iyr --skip-keys="librealsense2" --from-paths src &>> $REDIRECT_LOGFILE
+# The rosdep flags below have been chosen very carefully. Please review the docs before changing them.
+# https://docs.ros.org/en/independent/api/rosdep/html/commands.html
+rosdep install --rosdistro=humble -iy --skip-keys="librealsense2" --from-paths src &>> $REDIRECT_LOGFILE
 echo "Install web interface dependencies..."
 pip3 install pyquaternion &>> $REDIRECT_LOGFILE
 cd $AMENT_WSDIR/src/stretch_web_teleop
