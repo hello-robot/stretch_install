@@ -129,6 +129,8 @@ elif [[ $factory_osdir = "20.04" || $factory_osdir = "22.04" ]]; then
     python3 -m pip -q install --no-warn-script-location --upgrade hello-robot-stretch-urdf &>> $REDIRECT_LOGFILE
     echo "Upgrade prompt_toolkit"
     python3 -m pip -q install --no-warn-script-location -U prompt_toolkit &>> $REDIRECT_LOGFILE
+    echo "Remove setuptools-scm"
+    python3 -m pip -q uninstall -y setuptools-scm &>> $REDIRECT_LOGFILE
     echo ""
 fi
 
