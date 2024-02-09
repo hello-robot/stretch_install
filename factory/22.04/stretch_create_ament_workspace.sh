@@ -1,5 +1,6 @@
 #!/bin/bash
 set -e
+export COLCON_EXTENSION_BLOCKLIST=colcon_core.event_handler.desktop_notification
 
 REDIRECT_LOGDIR="$HOME/stretch_user/log"
 AMENT_WSDIR="$HOME/ament_ws"
