@@ -90,7 +90,7 @@ echo "Update ~/.bashrc dotfile to source workspace..."
 echo "source $AMENT_WSDIR/install/setup.bash" >> ~/.bashrc
 echo "source /usr/share/colcon_cd/function/colcon_cd.sh" >> ~/.bashrc
 echo "Updating meshes and xacros to ROS from stretch_urdf package."
-stretch_urdf_ros_update.py -y >> $REDIRECT_LOGFILE
+/home/hello-robot/.local/bin/stretch_urdf_ros_update.py -y -v >> $REDIRECT_LOGFILE
 echo "Setup uncalibrated robot URDF..."
 ros2 run stretch_calibration update_uncalibrated_urdf >> $REDIRECT_LOGFILE
 echo "Setup calibrated robot URDF..."
