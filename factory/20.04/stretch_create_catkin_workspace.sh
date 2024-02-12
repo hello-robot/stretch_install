@@ -68,8 +68,7 @@ echo "Updating meshes in stretch_ros to this robot's batch..."
 export HELLO_FLEET_ID HELLO_FLEET_ID
 export HELLO_FLEET_PATH=${HOME}/stretch_user
 echo "Updating meshes and xacros to ROS from stretch_urdf package."
-stretch_urdf_ros_update.py -y >> $REDIRECT_LOGFILE
-echo "Setup uncalibrated robot URDF..."
+$CATKIN_WSDIR/src/stretch_ros/stretch_description/batch/update_description.py &>> $REDIRECT_LOGFILE
 bash -i $CATKIN_WSDIR/src/stretch_ros/stretch_calibration/nodes/update_uncalibrated_urdf.sh >> $REDIRECT_LOGFILE
 echo "Setup calibrated robot URDF..."
 # TODO: will print to stderr but report exit code 0 for precalibrated robots, it should exit 1 and mitigate precalibration within script
