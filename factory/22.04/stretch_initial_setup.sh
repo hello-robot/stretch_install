@@ -165,3 +165,6 @@ fi
 if [ -f /etc/update-motd.d/95-hwe-eol ]; then
     sudo chmod -x /etc/update-motd.d/95-hwe-eol
 fi
+
+echo "Switching from Wayland to X11..."
+sudo sed -i -e 's/#WaylandEnable=false/WaylandEnable=false/g' /etc/gdm3/custom.conf
