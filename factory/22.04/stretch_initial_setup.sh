@@ -152,6 +152,7 @@ if [ -d /etc/update-motd.d/ ]; then
     sudo chmod +x /etc/update-motd.d/00-header
     sudo cp $DIR/motd/10-help-text /etc/update-motd.d/10-help-text
     sudo chmod +x /etc/update-motd.d/10-help-text
+    sudo cp $DIR/motd/10dpkg_options /etc/apt/apt.conf.d/10dpkg_options
 fi
 if [ -f /etc/update-motd.d/50-motd-news ]; then
     sudo chmod -x /etc/update-motd.d/50-motd-news
