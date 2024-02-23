@@ -175,3 +175,7 @@ function add_sunshine_uinput_rule {
 add_sunshine_uinput_rule &>> $REDIRECT_LOGFILE
 echo "Setup Sunshine apps"
 sudo cp ./sunshine_apps.json /usr/share/sunshine/apps.json
+echo "Setup Sunshine systemd unit"
+mkdir -p ~/.config/systemd/user/
+cp ./sunshine.service ~/.config/systemd/user/sunshine.service
+
