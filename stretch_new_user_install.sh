@@ -35,6 +35,7 @@ else
     echo "export PATH=\${PATH}:~/.local/bin" >> ~/.bashrc
     echo "export LRS_LOG_LEVEL=None #Debug" >> ~/.bashrc
     echo "export PYTHONWARNINGS='ignore:setup.py install is deprecated,ignore:Invalid dash-separated options,ignore:pkg_resources is deprecated as an API,ignore:Usage of dash-separated'" >> ~/.bashrc
+    echo "export _colcon_cd_root=${HOME}" >> ~/.bashrc
     if [[ $factory_osdir = "18.04" ]]; then
         echo "source /opt/ros/melodic/setup.bash" >> ~/.bashrc
     elif [[ $factory_osdir = "20.04" ]]; then
