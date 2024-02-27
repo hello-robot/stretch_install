@@ -10,8 +10,4 @@ REDIRECT_LOGFILE="$REDIRECT_LOGDIR/stretch_install_firmware.`date '+%Y%m%d%H%M'`
 echo "###########################################"
 echo "INSTALLATION OF STRETCH FIRMWARE"
 echo "###########################################"
-source ~/.bashrc
-echo "Read ttyACMx mapping"
-REx_firmware_flash.py --map &>> $REDIRECT_LOGFILE
-echo "Perform firmware update (this might take a while)"
-REx_firmware_updater.py --install --no_prompts &>> $REDIRECT_LOGFILE
+echo "Skipping on Ubuntu 18.04. Contact Hello Robot Support."
