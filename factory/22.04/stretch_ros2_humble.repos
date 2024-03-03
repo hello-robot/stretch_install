@@ -39,7 +39,4 @@ repositories:
     type: git
     url: https://github.com/hello-vinitha/tf2_web_republisher_py.git
     version: master
-  stretch_teleop_interface_msgs:
-    type: git
-    url: https://github.com/hello-chintan/stretch_teleop_interface_msgs.git
-    version: iron 
+
