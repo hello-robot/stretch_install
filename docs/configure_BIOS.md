@@ -2,15 +2,19 @@
 
 This documentation describes how to configure the BIOS of an Intel NUC for compatibility with the stretch installation procedure.
 
-# Accessing the NUC BIOS Settings
+## Accessing the NUC BIOS Settings
 
-First plug in the NUC to a 19V DC power supply. Next power on the NUC using the power button on the fron of the NUC.
+First plug in the NUC to a 19V DC power supply. Next power on the NUC using the power button on the front of the NUC.
 
 When powered on, the NUC should display a welcome screen similar to the picture below:
 
 ![](./images/NUC_startup.png)
 
 When this label becomes visible press 'F2' to enter into the BIOS configuration menu.
+
+!!! note
+
+    If you're using a Bluetooth keyboard, the BIOS likely won't recognize the F2 keypress.
 
 The BIOS Settings page should look like the picture below:
 
@@ -52,4 +56,5 @@ Turn on UEFI third party drivers compatibility by toggling the checkbox labeled 
 
 Now use the F10 key to save BIOS configuration changes and exit.
 
-
+------
+<div align="center"> All materials are Copyright 2020-2024 by Hello Robot Inc. Hello Robot and Stretch are registered trademarks.</div>

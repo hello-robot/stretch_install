@@ -1,4 +1,4 @@
-# Creating a new ROS Workspace
+# Updating your ROS Workspace
 
 ## Why
 
@@ -39,11 +39,13 @@ Run the following command to create a ROS2 Humble workspace (replacing `<optiona
 ./factory/22.04/stretch_create_ament_workspace.sh -w <optional-path-to-ws>
 ```
 
-### Wrap up
+## Wrap up
 
 Close your current terminal and open a new one. The new terminal will have automatically activated the ROS workspace(s).
 
 Your new ROS workspace is now set up successfully!
+
+---
 
 ## Troubleshooting
 
@@ -73,3 +75,6 @@ ROS_DISTRO was set to '<ROS VERSION>' before. Please make sure that the environm
 ```
 
 Multiple versions of ROS are being sourced in the same environment. This is known to cause issues with the `rosdep` tool, and might cause issues elsewhere as well. If you haven't explicitly sourced conflicting versions by using the `source /opt/ros/<ros version>/setup.bash` (a variant on this command could look like `source ~/<ws dir>/develop/setup.bash`) command twice, then it's likely that one or two versions of ROS are implicitly being sourced in the `~/.bashrc` dofile. Every new bash shell (i.e. the terminal you open when searching for 'Terminal' in system applications) runs the commands in the `~/.bashrc` dotfile. Look at the bottom of this dotfile for the `source` command and ensure conflicting versions aren't being sourced.
+
+------
+<div align="center"> All materials are Copyright 2020-2024 by Hello Robot Inc. Hello Robot and Stretch are registered trademarks.</div>

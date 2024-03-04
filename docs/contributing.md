@@ -55,3 +55,6 @@ Other helpful multipass subcommand include `transfer`, which allows you to trans
 ## Filing a Pull Request
 
 Once your changes are committed to your fork, you can [open a pull request](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-a-pull-request) towards the Stretch Install master branch. A member of Hello Robot's software team will review your new PR and get it merged and available for all Stretch users.
+
+------
+<div align="center"> All materials are Copyright 2020-2024 by Hello Robot Inc. Hello Robot and Stretch are registered trademarks.</div>

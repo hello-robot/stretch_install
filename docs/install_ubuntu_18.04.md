@@ -6,15 +6,19 @@ This guide describes how to perform an OS installation of Ubuntu 18.04 LTS onto 
 
 Download the 18.04.1 amd64 Ubuntu desktop image by clicking this link:
 
-http://old-releases.ubuntu.com/releases/18.04.1/ubuntu-18.04.1-desktop-amd64.iso
+[http://old-releases.ubuntu.com/releases/18.04.1/ubuntu-18.04.1-desktop-amd64.iso](http://old-releases.ubuntu.com/releases/18.04.1/ubuntu-18.04.1-desktop-amd64.iso)
 
-Create a bootable drive with this Ubuntu image. There are many ways to do this, but the recommended way is to use [Etcher](https://www.balena.io/etcher/) on your personal machine. Open the Etcher software and follow it's instructions to create the bootable drive.
+Create a bootable drive with this Ubuntu image. There are many ways to do this, but the recommended way is to use [Etcher](https://www.balena.io/etcher/) on your personal machine. Open the Etcher software and follow it's instructions to create the bootable drive. There is a good video tutorial [available here](https://youtu.be/c0TK0ynXLOo) that explains the procedure.
 
 ## Installation
 
 Insert a bootable drive into the USB hub in the robot's trunk, as well as a monitor and keyboard. Next, power on the robot and at the bios startup screen (shown below) press *F10* when prompted to enter the boot menu.
 
 ![](./images/NUC_startup.png)
+
+!!! note
+
+    If you're using a Bluetooth keyboard, the BIOS likely won't recognize the F10 keypress.
 
 From the boot menu, select 'OS BOOTLOADER' or look for a similar option that mentions "USB", "LIVE INSTALLATION", or "UBUNTU".
 
@@ -70,12 +74,12 @@ Next, select your timezone.
 
 ![](./images/18.04/installer_location.png)
 
-Finally, enter the identifying information as written below replacing '1000' with the appropriate serial number for the robot. The robot's serial number can be found on the left wall of the robot's trunk.
+Finally, enter the identifying information as written below, replacing 'stretch-yyy-xxxx' with the appropriate name for the robot. `yyy` is your robot model number ("re1" for a Stretch RE1, "re2" for a Stretch 2, or "se3" for a Stretch 3), and `xxxx` is your robot's serial number. The robot's serial number can be found on a sticker on the left wall of the robot's trunk.
 
  - **name:** Hello Robot Inc.
- - **computer name:** stretch-re1-1000
+ - **computer name:** stretch-yyy-xxxx
  - **username:** hello-robot
- - **password:** xxxx
+ - **password:** choose your own
 
 Also select the 'Log in automatically' option. When finished the 'Who are you' page should look like the picture below.
 
@@ -92,3 +96,6 @@ After the installation is completed, you will be prompted to remove the installa
 Remove the installation medium and turn off the robot.
 
 **Ubuntu 18.04 is now installed successfully.**
+
+------
+<div align="center"> All materials are Copyright 2020-2024 by Hello Robot Inc. Hello Robot and Stretch are registered trademarks.</div>

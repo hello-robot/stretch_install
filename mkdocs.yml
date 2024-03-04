@@ -1,10 +1,9 @@
-site_name: Stretch Install
+site_name: installation
 site_url: https://docs.hello-robot.com/stretch_install
 site_description: "Hello Robot Stretch Body Documentation"
 copyright: 'Copyright &copy; 2022 Hello Robot Inc'
 site_author: Hello Robot Inc
 use_directory_urls: True
-docs_dir: .
 site_dir: ../site
 
 theme:
@@ -75,9 +74,6 @@ extra:
       link: https://linkedin.com/company/hello-robot-inc
 
 nav:
- - Overview: README.md
- - Updating Software: ./docs/updating_software.md
- - Adding New Users: ./docs/add_new_user.md
- - Adding a ROS Workspace: ./docs/ros_workspace.md
- - Robot Install: ./docs/robot_install.md
- - DexWrist Install: https://docs.hello-robot.com/0.1/dex_wrist_user_guide/#appendix-installation-and-configuration
+ - Adding a New User: ./add_new_user.md
+ - Updating your ROS Workspace: ./ros_workspace.md
+ - Upgrading your Operating System: ./robot_install.md

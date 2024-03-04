@@ -42,3 +42,6 @@ stretch_robot_system_check.py
 ```
 
 Your new user account is now set up successfully!
+
+------
+<div align="center"> All materials are Copyright 2020-2024 by Hello Robot Inc. Hello Robot and Stretch are registered trademarks.</div>

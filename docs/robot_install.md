@@ -1,62 +1,74 @@
-# Performing a Robot Installation 
+# Upgrading your Operating System
 
-# Why
+## Why
 
-A fresh robot-level install should only be done under the guidance of [Hello Robot Support](https://forum.hello-robot.com). This guide will lead you through a robot-level install, which can be used to:
+This guide will lead you through installing a new robot distribution, which can be used to:
 
+ - Upgrade Stretch by installing a newer software stack alongside the previous OS
  - Erase the previous OS and set up Stretch with an entirely fresh software stack
  - Erase a corrupted OS and set up Stretch with an entirely fresh software stack
- - Upgrade Stretch by installing a newer software stack alongside the previous OS
 
-Each OS installs on a separate partition on the hard drive. You can create as many robot-level installs (i.e. new partitions) as will fit in your robot's 500GB hard drive.
+Each OS installs on a separate partition on the hard drive. You can create as many robot-level installs (i.e. new partitions) as will fit in your robot's hard drive.
 
-Currently, there are 3 available versions of the software stack, listed from oldest to newest:
+The list of supported/deprecated distributions is available in the [Distributions & Roadmap](../../software/distributions/) guide.
 
- 1. **(Deprecated)** Ubuntu 18.04 LTS shipped on robots until summer 2022, and included software for ROS Melodic and Python2
- 2. **(Stable)** Ubuntu 20.04 LTS comes with ROS Noetic and Python3.8. This is what currently ships on robots.
- 3. **(Experimental)** Ubuntu 22.04 LTS comes with ROS2 Humble and Python3.10. In the future, this version will ship on robots. **Warning:** Both the installation scripts and the software installed are under active development. Please proceed with caution.
-
-# How
+## How
 
 There are a few steps to performing a new robot install:
 
  1. Plug in charger & Attach clip-clamp
- 2. Backup robot configuration data
+ 2. Backup robot calibration data
  3. Setup the BIOS (only necessary for NUCs not previously configured by Hello Robot)
  4. Install Ubuntu
  5. Run the new robot installation script
+ 6. Post installation steps
 
-It typically takes ~2 hours to go through these steps and complete a new robot install.
+It typically takes ~2 hours to go through these steps. Before we get started, you'll need:
 
-## Plug in charger & Attach clip-clamp
+ - 1 Stretch robot
+ - Keyboard, Mouse, and Monitor
+    - Bluetooth keyboards/mouses will not work because they are not recognized by the BIOS. Use a wired USB or wireless USB dongle keyboard/mouse.
+    - Use a computer monitor instead of a TV. Some TVs have trouble displaying Ubuntu when rebooting.
+ - 2 USB sticks
+    - The first flashdrive is used to backup robot calibration data and any other important files
+    - The second flashdrive will contain the Ubuntu installer image. This flashdrive will need to be >8gb in capacity.
+ - 1 NOCO Genius 10 charger
+ - 1 Clip Clamp
+ - A fast connection to the internet
 
-Since a new robot install can take a few hours, it's important the robot remain on the charger throughout the install. Switch the charger into [SUPPLY mode](https://docs.hello-robot.com/0.2/stretch-hardware-guides/docs/battery_maintenance_guide_re2/#charger) and plug the charger into the robot.
+    !!! note
 
-![](./images/clamp_lift.png)
+        It's recommended that you use an Ethernet connection to the internet. You can use a slow Wifi connection if it's difficult to obtain a wired connection at your institution, but expect the install process to take longer because the scripts are downloading gigabytes of software/data to the robot.
+
+### Plug in charger & Attach clip-clamp
+
+Since a new robot install can take a few hours, it's important the robot remain on the charger throughout the install. Switch the charger into SUPPLY mode and plug the charger into the robot.
+
+![attach clip-clamp](./images/clamp_lift.png){ loading=lazy }
 
 Next, attach the clip-clamp below the shoulder as shown. This allows the arm to rest on the clamp during the firmware portion of the install.
 
-## Back up robot configuration data
+### Back up robot calibration data
 
 It is a good idea to backup all valuable data beforehand. If your new robot install will replace a previous one, **data from the previous robot install will be deleted.** Even if your new robot install will live alongside the previous one(s), **data from the previous robot install(s) can be lost.**
 
 In particular, your new robot install will require the old install's robot calibration data. The steps to copy this material from an existing install is:
 
  1. Boot into the robot's original Ubuntu partition and plug in a USB key.
- 2. The robot calibration data lives inside of a directory called `stretch-re<y>-<xxxx>`, where `<y>` is your robot model number (1 or 2), and `<xxxx>` is your robot's serial number. There's a few versions of this directory and you will need to decide which version to backup. Each Ubuntu user has a version of this directory located at `/home/$USER/stretch_user/stretch-re<y>-<xxxx>`. These user versions are updated when the user runs a URDF calibration, swaps out an end effector, updates Stretch parameters, and more. There's also a system version located at `/etc/hello-robot/stretch-re<y>-<xxxx>`, which is likely the oldest version since it was created at Hello Robot HQ. If you're not sure which version to backup, use the version at `/etc/hello-robot/stretch-re<y>-<xxxx>` for the next step.
- 3. Copy the `stretch-re<y>-<xxxx>` directory, where `<xxxx>` is your robot's serial number, to a USB key.
-    - For example, if you're copying the system version, you can run a command similar to `cp -r /etc/hello-robot/stretch-re<y>-<xxxx> /media/$USER/<USBKEY>` from the command line, where `<USBKEY>` and `<xxxx>` is replaced with the mounted USB key's name and the robot's serial number, respectively.
+ 2. The robot calibration data lives inside of a directory called `stretch-<yyy>-<xxxx>`, where `<yyy>` is your robot model number ("re1" for a Stretch RE1, "re2" for a Stretch 2, or "se3" for a Stretch 3), and `<xxxx>` is your robot's serial number. There's a few versions of this directory and you will need to decide which version to backup. Each Ubuntu user has a version of this directory located at `/home/$USER/stretch_user/stretch-<yyy>-<xxxx>`. These user versions are updated when the user runs a URDF calibration, swaps out an end effector, updates Stretch parameters, and more. There's also a system version located at `/etc/hello-robot/stretch-<yyy>-<xxxx>`, which is likely the oldest version since it was created at Hello Robot HQ. If you're not sure which version to backup, use the version at `/etc/hello-robot/stretch-<yyy>-<xxxx>` for the next step.
+ 3. Copy the `stretch-<yyy>-<xxxx>` directory to a USB key.
+    - For example, if you're copying the system version, you can run a command similar to `cp -r /etc/hello-robot/stretch-<yyy>-<xxxx> /media/$USER/<USBKEY>` from the command line, where `<USBKEY>` and `<xxxx>` is replaced with the mounted USB key's name and the robot's serial number, respectively.
     - Or, you can open the file explorer to copy the directory.
 
-If your previous partition is corrupted or inaccessible, contact Hello Robot support and they will be able to supply an older version of the `stretch-re<y>-<xxxx>` directory.
+If your previous partition is corrupted or inaccessible, contact Hello Robot support and they will be able to supply an older version of the `stretch-<yyy>-<xxxx>` directory.
 
-## Setup the BIOS
+### Setup the BIOS
 
 This step can be skipped if your robot had an existing software install on it. Otherwise, follow the [guide to set up the BIOS](./configure_BIOS.md).
 
-## Install Ubuntu
+### Install Ubuntu
 
-Choose between the following guides based on which version of Ubuntu you're installing ([see above](#why) for info on what software ships with each OS). Within these guides, you'll have the choice of whether to replace the previous OS partition or to install alongside it. If you choose to install alongside it, you'll also be able to choose the size of each partition on the hard drive.
+Choose between the following guides based on which version of Ubuntu you're installing (see the [Distributions & Roadmap](../../software/distributions/) guide for info on what software ships with each OS). Within these guides, you'll have the choice of whether to replace the previous OS partition or to install alongside it. If you choose to install alongside it, you'll also be able to choose the size of each partition on the hard drive.
 
  - [Ubuntu 18.04 Installation guide](./install_ubuntu_18.04.md)
  - [Ubuntu 20.04 Installation guide](./install_ubuntu_20.04.md)
@@ -64,7 +76,7 @@ Choose between the following guides based on which version of Ubuntu you're inst
 
 After the Ubuntu install, the default `hello-robot` user account will be set up.
 
-## Run the new robot installation script
+### Run the robot installation script
 
 Login to the `hello-robot` user account on your new Ubuntu partition, open a terminal, and run:
 
@@ -73,16 +85,18 @@ sudo apt update
 sudo apt install git zip
 ```
 
-**Note**: The system may not be able to run 'apt' immediately after a reboot as the OS may be running automatic updates in the background. Typically, waiting 10-20 minutes will allow you to use 'apt' again.
+!!! note
+
+    The system may not be able to run APT immediately after a reboot as the OS may be running automatic updates in the background. Typically, waiting 10-20 minutes will allow you to use APT again.
 
 Next, place the robot's calibration data in the home folder using the following steps:
 
  1. Plug in the USB key that contains the backed up calibration data.
- 2. Copy the `stretch-re<y>-<xxxx>` directory, where `<xxxx>` is your robot's serial number, from the USB key into the home folder (i.e. `/home/$USER/`).
-    - For example, you can run a command similar to `cp -r /media/$USER/<USBKEY>/stretch-re<y>-<xxxx> /home/$USER/` from the command line, where `<USBKEY>` and `<xxxx>` are replaced with your USB key's name and your robot's serial number, respectively.
+ 2. Copy the `stretch-<yyy>-<xxxx>` directory from the USB key into the home folder (i.e. `/home/$USER/`).
+    - For example, you can run a command similar to `cp -r /media/$USER/<USBKEY>/stretch-<yyy>-<xxxx> /home/$USER/` from the command line, where `<USBKEY>` and `<xxxx>` are replaced with your USB key's name and your robot's serial number, respectively.
     - Or, you can open the file explorer to copy the directory.
 
-Next, pull down the Stretch Install repository and being the installation process:
+Next, use git to pull down the [Stretch Install](https://github.com/hello-robot/stretch_install) repository and begin the installation process:
 
 ```bash
 cd ~/
@@ -109,40 +123,58 @@ Next, we'll complete the post install steps. First, in order for the many change
 
  1. Ensure there's a clamp under the lift
  2. Shutdown the Ubuntu OS through the GUI or use `sudo shutdown -h now` in the terminal
- 3. Turn the power switch in the robot's trunk to the off position (orange power LED becomes unlit)
+ 3. Turn off the power switch in the robot's trunk
  4. Ensure a keyboard/monitor is plugged into the robot. When the robot powers up, you can use the keyboard to decide which OS to boot into.
- 5. Turn the power switch in the robot's trunk to the on position (orange power LED becomes lit)
+ 5. Turn on the power switch in the robot's trunk
  6. Boot into the new Ubuntu partition and log in if necessary
 
-Next, we'll ensure the robot's firmware is upgraded to the latest available. Newer firmware unlocks new features (e.g. [waypoint trajectory following](https://docs.hello-robot.com/0.2/stretch-tutorials/stretch_body/tutorial_splined_trajectories/)) and fixes bugs. See the [firmware releases](https://github.com/hello-robot/stretch_firmware/tags) for details.
+Next, we'll ensure the robot's firmware is upgraded to the latest available.
 
-```bash
+```{.bash .shell-prompt .copy}
 REx_firmware_updater.py --install
 ```
 
-Next, if your robot has the [Stretch Dex Wrist](https://hello-robot.com/stretch-dex-wrist), we'll configure the software to recognize it. **Skip this step if you are not using the Dex Wrist.**
+Next, we'll configure the software for the tool attached to your robot.
 
-```
-cd ~/stretch_install
-./stretch_new_dex_wrist_install.sh
-REx_calibrate_guarded_contact.py --arm
+```{.bash .shell-prompt .copy}
+stretch_configure_tool.py
 ```
 
-Next, we'll run Stretch's homing procedure, where every joint's zero is found. Robots with relative encoders (vs absolute encoders) need a homing procedure when they power on. For Stretch, it's a 30-second procedure that must occur everytime the robot wakes up.
+Next, we'll run Stretch's homing procedure, where every joint's zero is found. This is a ~30 second procedure that must occur everytime the robot wakes up.
 
-```bash
+```{.bash .shell-prompt .copy}
 stretch_robot_home.py
 ```
 
-Finally, we'll run the system check to confirm the robot is ready to use. If you see any failures or errors, contact Hello Robot support via email or [the forum](https://forum.hello-robot.com/).
+Next, we'll calibrate the contact thresholds for the robot's arm joint.
 
-```bash
-stretch_robot_system_check.py
+```{.bash .shell-prompt .copy}
+REx_calibrate_guarded_contact.py --arm
 ```
 
-Your robot is now configured with a new robot install! In order to set up new users on this robot install, see the [Adding a New User](./add_new_user.md) guide.
+Next, we'll remove the clip-clamp and calibrate the contact thresholds for the robot's lift joint.
 
-# Troubleshooting
+![remove clip-clamp](./images/remove_clipclamp.jpg){ width="400" loading=lazy }
+
+```{.bash .shell-prompt .copy}
+REx_calibrate_guarded_contact.py --lift
+```
+
+Next, we'll run the system check to confirm the robot is ready to use. If you see any failures or errors, contact Hello Robot support via email or [the forum](https://forum.hello-robot.com/).
+
+```{.bash .shell-prompt .copy}
+stretch_system_check.py
+```
+
+Finally, this step is **optional**. The robot can be configured to automatically run the gamepad teleop program when it boots up. To do this, open Startup Applications and enable the "hello_robot_gamepad_teleop" program.
+
+![enable autostart gamepad teleop](./images/enable_gamepad_autostart.png){ loading=lazy }
+
+Your robot is now set up with a new operating system! If you're new to Stretch, consider going through the [Getting Started](../../getting_started/hello_robot/) tutorials.
+
+---
+
+## Troubleshooting
 
 This section provides suggestions for common errors that occur during installation. If you become stuck and don't find an answer here, please email us or contact us through [the forum](https://forum.hello-robot.com/).
 
@@ -167,7 +199,7 @@ You are performing a new robot install on a robot that has already gone through 
 # STRETCH BASHRC SETUP
 ######################
 export HELLO_FLEET_PATH=/home/ubuntu/stretch_user
-export HELLO_FLEET_ID=stretch-re1-2000
+export HELLO_FLEET_ID=stretch-re1-1000
 export PATH=${PATH}:~/.local/bin
 export LRS_LOG_LEVEL=None #Debug
 source /opt/ros/noetic/setup.bash
@@ -177,21 +209,21 @@ source /home/ubuntu/catkin_ws/devel/setup.bash
 
 Delete this section from the `~/.bashrc`. Note that it's common for other programs (e.g. Conda, Ruby) to append to your `~/.bashrc` as well, and deleting those lines accidentally can impede their functionality. Take care to only delete lines related to 'STRETCH BASHRC SETUP' section. Next, open a new terminal. Every new bash shell (i.e. the terminal you open when searching for 'Terminal' in system applications) automatically runs the commands in the `~/.bashrc` dotfile when opened, so the new terminal won't be set up with the lines that were just deleted. Now you can run a new robot install and this error should gone.
 
-### 'Expecting stretch-re1-xxxx to be present in the home folder' error
+### 'Expecting stretch-yyy-xxxx to be present in the home folder' error
 
 If you are seeing the following error:
 
 ```
 [...]
 Checking robot calibration data in home folder...
-Expecting robot calibration stretch-rey-xxxx to be present in the the home folder. Exiting.
+Expecting robot calibration stretch-yyy-xxxx to be present in the the home folder. Exiting.
 
 #############################################
 FAILURE. INSTALLATION DID NOT COMPLETE.
 [...]
 ```
 
-The install scripts exited before performing the robot install because it was unable to find the robot's calibration data folder, 'stretch-rey-xxxx'. Please ensure you have [backed up your robot's calibration data](#back-up-robot-configuration-data) to a USB key and copied the 'stretch-rey-xxxx' folder to the home folder of your new partition. See the [Run the new robot installation script](#run-the-new-robot-installation-script) section for more details. Then, run the install scripts again and the error should be gone.
+The install scripts exited before performing the robot install because it was unable to find the robot's calibration data folder, 'stretch-yyy-xxxx'. Please ensure you have [backed up your robot's calibration data](#back-up-robot-calibration-data) to a USB key and copied the 'stretch-yyy-xxxx' folder to the home folder of your new partition. See the [Run the robot installation script](#run-the-robot-installation-script) section for more details. Then, run the install scripts again and the error should be gone.
 
 ### 'Repo not up-to-date' error
 
@@ -253,7 +285,7 @@ Please upgrade the firmware and/or version of Stretch Body.
 ----------------
 ```
 
-Your version of Stretch Body does not align with the firmware installed with your robot. It's recommended that Stretch Body is first upgraded to the latest version available (but if you're intentionally running an older version, you can skip this step and the firmware updater will downgrade your firmware appriopriately). To upgrade Stretch Body, follow the [instructions here](./updating_software.md#stretch-python-modules).
+Your version of Stretch Body does not align with the firmware installed with your robot. It's recommended that Stretch Body is first upgraded to the latest version available (but if you're intentionally running an older version, you can skip this step and the firmware updater will downgrade your firmware appropriately). To upgrade Stretch Body, follow the [instructions here](../../software/updating_software/#python-libraries).
 
 Next, run the firmware updater tool to automatically update the firmware to the required version for your software.
 
@@ -263,10 +295,5 @@ REx_firmware_updater.py --install
 
 The firmware mismatch errors should now be gone.
 
-### Homing Error
-
-If using `stretch_robot_home.py` does not result in the robot being homed, try running the command again. If this does not work, try shutting down the robot, turning off the robot with the power switch, waiting for a few seconds, and then powering it on again. Then, try `stretch_robot_home.py` again.
-
-### ROS Launch File Fails
-
-ROS launch files have nondeterministic behavior. Sometimes they need to be run more than once for the nodes to start in a successful order that works. For example, a common symptom of a failed launch is the visualization of the robot's body appearing white and flat in RViz.
+------
+<div align="center"> All materials are Copyright 2020-2024 by Hello Robot Inc. Hello Robot and Stretch are registered trademarks.</div>
