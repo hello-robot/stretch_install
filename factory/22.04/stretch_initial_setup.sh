@@ -169,3 +169,8 @@ fi
 
 echo "Switching from Wayland to X11..."
 sudo sed -i -e 's/#WaylandEnable=false/WaylandEnable=false/g' /etc/gdm3/custom.conf
+
+echo 'Blacklisting hid_nintendo that conflicts with Xpad driver...'
+echo  '# Nintendo conflicts with Xpad controller driver' | sudo tee -a /etc/modprobe.d/blacklist.conf
+echo  'blacklist hid_nintendo' | sudo tee -a /etc/modprobe.d/blacklist.conf
+sudo update-initramfs -u
