@@ -135,7 +135,7 @@ sudo rm -f /etc/apt/sources.list.d/realsense-public.list
 echo "Apt update"
 sudo apt-get --yes update >> $REDIRECT_LOGFILE
 echo "Install librealsense2 packages"
-install librealsense2 librealsense2-dkms librealsense2-udev-rules librealsense2-utils librealsense2-dev librealsense2-dbg
+install librealsense2 librealsense2-udev-rules librealsense2-utils librealsense2-dev librealsense2-dbg
 echo ""
 
 echo "###########################################"
