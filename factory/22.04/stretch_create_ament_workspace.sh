@@ -65,7 +65,7 @@ sudo apt remove -y ros-humble-librealsense2 ros-humble-realsense2-camera ros-hum
 echo "Install web interface dependencies..."
 pip3 install pyquaternion &>> $REDIRECT_LOGFILE
 cd $AMENT_WSDIR/src/stretch_web_teleop
-npm install &>> $REDIRECT_LOGFILE
+npm install --force &>> $REDIRECT_LOGFILE
 npx playwright install &>> $REDIRECT_LOGFILE
 echo "Generating web interface certs..."
 cd $AMENT_WSDIR/src/stretch_web_teleop/certificates
