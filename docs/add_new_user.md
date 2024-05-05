@@ -38,7 +38,7 @@ Execute the following to set up the new user account with Stretch packages and t
 Finally, reboot your robot and execute the following to confirm the new user account was set up successfully.
 
 ```bash
-stretch_robot_system_check.py
+stretch_system_check.py
 ```
 
 Your new user account is now set up successfully!
