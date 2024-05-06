@@ -2,40 +2,45 @@
 
 ## Why
 
-When multiple people are working with the robot, it can be helpful to create separate Ubuntu user accounts. Here's a few reasons you might add a new user:
+If you're sharing Stretch with other developers, it can be helpful to create separate accounts for yourself and your team members. Your code and data will be password protected in your own account, and other developers can modify their own code without accidentally affecting yours.
 
- - Your code and data is protected by password in your user account
- - Your code is dependent on a specific version of Stretch's software and you don't want other users to accidentally upgrade it (NOTE: some of Stretch's software is installed per user, e.g. Stretch Body and Stretch ROS, whereas other parts of the software is installed per OS, e.g. ROS1 or ROS2)
- - Logs from your experiments will not be mixed with logs from other users
+!!! warning
 
-Finally, note that changes made in your user account can break another user account's set up. For example, if you configure a different gripper or end effector onto the robot with your account, other accounts will have outdated configurations for what gripper is attached to the robot.
+    User accounts cannot completely insulate your account from changes in another. For example, if someone attaches a new gripper or end-effector tool to the robot, your account's software would have an outdated configuration for what tool is attached to the robot. A non-exhaustive list of changes that could break/affect accounts:
+
+      - Making hardware changes to the robot
+      - Updating the firmware
+      - Installing/changing [APT packages](#apt-package-manager)
 
 ## How
 
-Login to the "hello-robot" user. The "hello-robot" user account has administrator privileges. Go to Users system settings and unlock the administrator actions.
+Start by logging into the admin Hello Robot user. Go to Users system settings and unlock adminstrator actions.
 
 ![](./images/unlock_users.png)
 
-Click "Add User..." and complete the subsequent form.
+Click "Add User..." and complete the subsequent form. The new user needs to be an administrator.
 
 ![](./images/adding_new_user.png)
 
-Logout and the log back in as the new user. Open a terminal and execute the following to pull down the Stretch Install repository.
+Log out and back in as the new user. Open a terminal and execute the following to pull down the Stretch Install repository:
 
-```bash
-cd ~
-git clone https://github.com/hello-robot/stretch_install
-cd stretch_install
-git pull
+```{.bash .shell-prompt .copy}
+git clone https://github.com/hello-robot/stretch_install ~/stretch_install
 ```
 
-Execute the following to set up the new user account with Stretch packages and the robot's configuration data.
+Make sure it's up-to-date:
 
-```bash
+```{.bash .shell-prompt .copy}
+cd ~/stretch_install && git pull
+```
+
+Run the new user install script to set up the SDK for this new account:
+
+```{.bash .shell-prompt .copy}
 ./stretch_new_user_install.sh
 ```
 
-Finally, reboot your robot and execute the following to confirm the new user account was set up successfully.
+Finally, reboot the robot and run a system check in the new user account to confirm everything was set up correctly.
 
 ```bash
 stretch_system_check.py
