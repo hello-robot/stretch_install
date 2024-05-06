@@ -49,6 +49,8 @@ fi
 . /etc/hello-robot/hello-robot.conf
 export HELLO_FLEET_ID HELLO_FLEET_ID
 export HELLO_FLEET_PATH=${HOME}/stretch_user
+echo "Updating rosdep indices..."
+rosdep update --include-eol-distros &>> $REDIRECT_LOGFILE
 echo "Deleting $AMENT_WSDIR if it already exists..."
 sudo rm -rf $AMENT_WSDIR
 echo "Creating the workspace directory..."
