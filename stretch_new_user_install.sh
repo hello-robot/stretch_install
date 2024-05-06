@@ -115,6 +115,8 @@ elif [[ $factory_osdir = "20.04" || $factory_osdir = "22.04" ]]; then
     echo "###########################################"
     echo "INSTALLATION OF USER LEVEL PIP3 PACKAGES"
     echo "###########################################"
+    echo "Clear pip cache"
+    python3 -m pip cache purge
     echo "Upgrade pip3"
     python3 -m pip -q install --no-warn-script-location --user --upgrade pip &>> $REDIRECT_LOGFILE
     echo "Install Stretch Body"
