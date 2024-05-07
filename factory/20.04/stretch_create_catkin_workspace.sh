@@ -45,6 +45,8 @@ if [[ -d $CATKIN_WSDIR ]]; then
     prompt_yes_no
 fi
 
+echo "Updating rosdep indices..."
+rosdep update --include-eol-distros &>> $REDIRECT_LOGFILE
 echo "Deleting $CATKIN_WSDIR if it already exists..."
 sudo rm -rf $CATKIN_WSDIR
 echo "Creating the workspace directory..."

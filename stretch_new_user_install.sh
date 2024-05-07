@@ -14,6 +14,11 @@ if [[ ! $factory_osdir =~ ^(18.04|20.04|22.04)$ ]]; then
     exit 1
 fi
 
+echo "Prevent screen dimming..."
+gsettings set org.gnome.desktop.session idle-delay 0 &> /dev/null || true
+gsettings set org.gnome.settings-daemon.plugins.power sleep-inactive-ac-timeout 0 &> /dev/null || true
+gsettings set org.gnome.settings-daemon.plugins.power idle-dim false &> /dev/null || true
+
 if [ "$HELLO_FLEET_ID" ]; then
     UPDATING=true
     echo "###########################################"
@@ -115,6 +120,8 @@ elif [[ $factory_osdir = "20.04" || $factory_osdir = "22.04" ]]; then
     echo "###########################################"
     echo "INSTALLATION OF USER LEVEL PIP3 PACKAGES"
     echo "###########################################"
+    echo "Clear pip cache"
+    python3 -m pip cache purge &>> $REDIRECT_LOGFILE
     echo "Upgrade pip3"
     python3 -m pip -q install --no-warn-script-location --user --upgrade pip &>> $REDIRECT_LOGFILE
     echo "Install Stretch Body"

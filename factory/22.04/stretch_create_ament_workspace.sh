@@ -49,6 +49,8 @@ fi
 . /etc/hello-robot/hello-robot.conf
 export HELLO_FLEET_ID HELLO_FLEET_ID
 export HELLO_FLEET_PATH=${HOME}/stretch_user
+echo "Updating rosdep indices..."
+rosdep update --include-eol-distros &>> $REDIRECT_LOGFILE
 echo "Deleting $AMENT_WSDIR if it already exists..."
 sudo rm -rf $AMENT_WSDIR
 echo "Creating the workspace directory..."
@@ -94,7 +96,7 @@ echo "Update ~/.bashrc dotfile to source workspace..."
 echo "source $AMENT_WSDIR/install/setup.bash" >> ~/.bashrc
 echo "source /usr/share/colcon_cd/function/colcon_cd.sh" >> ~/.bashrc
 echo "Updating meshes and xacros to ROS from stretch_urdf package."
-/home/hello-robot/.local/bin/stretch_urdf_ros_update.py -y -v >> $REDIRECT_LOGFILE
+/home/$USER/.local/bin/stretch_urdf_ros_update.py -y -v >> $REDIRECT_LOGFILE
 echo "Setup uncalibrated robot URDF..."
 ros2 run stretch_calibration update_uncalibrated_urdf >> $REDIRECT_LOGFILE
 echo "Setup calibrated robot URDF..."
