@@ -33,7 +33,7 @@ function echo_failure_help {
     echo ""
     echo "#############################################"
     echo "FAILURE. INSTALLATION DID NOT COMPLETE."
-    echo "Look at the troubleshooting guide for solutions to common issues: https://docs.hello-robot.com/0.2/stretch-install/docs/robot_install#troubleshooting"
+    echo "Look at the troubleshooting guide for solutions to common issues: https://docs.hello-robot.com/0.3/installation/robot_install/#troubleshooting"
     echo "or contact Hello Robot support and include $logzip"
     echo "#############################################"
     echo ""
