@@ -1,6 +1,7 @@
 #!/bin/bash
 set -o pipefail
 
+sudo sleep 0.1
 source /etc/os-release
 factory_osdir="$VERSION_ID"
 if [[ ! $factory_osdir =~ ^(18.04|20.04|22.04)$ ]]; then
