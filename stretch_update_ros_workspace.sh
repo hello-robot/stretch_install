@@ -32,3 +32,8 @@ if [ $? -ne 0 ]; then
     echo_failure_help
 fi
 
+echo ""
+echo "#############################################"
+echo "DONE! ROS WORKSPACE SET UP SUCCESSFULLY."
+echo "#############################################"
+echo ""
