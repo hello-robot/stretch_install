@@ -64,7 +64,7 @@ cd $AMENT_WSDIR/
 # https://docs.ros.org/en/independent/api/rosdep/html/commands.html
 rosdep install --rosdistro=humble -iy --skip-keys="librealsense2 realsense2_camera" --from-paths src &>> $REDIRECT_LOGFILE
 sudo apt remove -y ros-humble-librealsense2 ros-humble-realsense2-camera ros-humble-realsense2-camera-msgs &>> $REDIRECT_LOGFILE
-pip3 cache purge
+pip3 cache purge &>> $REDIRECT_LOGFILE
 echo "Install web interface dependencies..."
 pip3 install pyquaternion &>> $REDIRECT_LOGFILE
 cd $AMENT_WSDIR/src/stretch_web_teleop
