@@ -66,10 +66,12 @@ rosdep install --rosdistro=humble -iy --skip-keys="librealsense2 realsense2_came
 sudo apt remove -y ros-humble-librealsense2 ros-humble-realsense2-camera ros-humble-realsense2-camera-msgs &>> $REDIRECT_LOGFILE
 pip3 cache purge
 echo "Install web interface dependencies..."
-pip3 install pyquaternion &>> $REDIRECT_LOGFILE
 cd $AMENT_WSDIR/src/stretch_web_teleop
+pip3 install -r requirements.txt &>> $REDIRECT_LOGFILE
 npm install --force &>> $REDIRECT_LOGFILE
 npx playwright install &>> $REDIRECT_LOGFILE
+echo "Creating web interface specialized URDF..."
+python3 prepare_specialized_urdf.py &>> $REDIRECT_LOGFILE
 echo "Generating web interface certs..."
 cd $AMENT_WSDIR/src/stretch_web_teleop/certificates
 curl -JLO "https://dl.filippo.io/mkcert/latest?for=linux/amd64" &>> $REDIRECT_LOGFILE
