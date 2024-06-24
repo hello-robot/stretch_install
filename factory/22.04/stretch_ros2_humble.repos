@@ -6,7 +6,7 @@ repositories:
   realsense-ros:
     type: git
     url: https://github.com/IntelRealSense/realsense-ros.git
-    version: ros2-development
+    version: 4.55.1
   stretch_ros2:
     type: git
     url: https://github.com/hello-robot/stretch_ros2.git
