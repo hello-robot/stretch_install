@@ -34,8 +34,6 @@ echo "Install ipython3"
 install ipython3
 echo "Install pip3"
 install python3-pip
-echo "Install pyaudio"
-install python3-pyaudio
 echo "Install Emacs packages"
 install emacs yaml-mode
 echo "Install nettools"
