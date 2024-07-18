@@ -14,7 +14,7 @@ repositories:
   sllidar_ros2:
     type: git
     url: https://github.com/Slamtec/sllidar_ros2.git
-    version: main
+    version: 34300099fadfc772965962dec837bf436706188f
   stretch_tutorials:
     type: git
     url: https://github.com/hello-robot/stretch_tutorials.git
