@@ -70,8 +70,6 @@ cd $AMENT_WSDIR/src/stretch_web_teleop
 pip3 install -r requirements.txt &>> $REDIRECT_LOGFILE
 npm install --force &>> $REDIRECT_LOGFILE
 npx playwright install &>> $REDIRECT_LOGFILE
-echo "Creating web interface specialized URDF..."
-python3 prepare_specialized_urdf.py &>> $REDIRECT_LOGFILE
 echo "Generating web interface certs..."
 cd $AMENT_WSDIR/src/stretch_web_teleop/certificates
 curl -JLO "https://dl.filippo.io/mkcert/latest?for=linux/amd64" &>> $REDIRECT_LOGFILE
