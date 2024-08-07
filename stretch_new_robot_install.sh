@@ -2,8 +2,20 @@
 set -o pipefail
 
 do_factory_install='false'
-if getopts ":f:" opt && [[ $opt == : ]]; then
-    do_factory_install='true'
+do_update='false'
+while getopts ":fu" opt; do
+    case $opt in
+        f)
+            do_factory_install='true'
+            ;;
+        u)
+            do_update='true'
+            ;;
+    esac
+done
+if $do_factory_install && $do_update; then
+    echo "Cannot both do_factory_install and do_update."
+    exit 1
 fi
 
 source /etc/os-release
@@ -40,10 +52,12 @@ function echo_failure_help {
     exit 1
 }
 
-cd $HOME/stretch_install/factory/$factory_osdir
-./stretch_initial_setup.sh $do_factory_install |& tee $logfile_initial
-if [ $? -ne 0 ]; then
-    echo_failure_help
+if ! $do_update; then
+    cd $HOME/stretch_install/factory/$factory_osdir
+    ./stretch_initial_setup.sh $do_factory_install |& tee $logfile_initial
+    if [ $? -ne 0 ]; then
+        echo_failure_help
+    fi
 fi
 
 echo ""
