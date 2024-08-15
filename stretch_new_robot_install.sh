@@ -3,13 +3,21 @@ set -o pipefail
 
 do_factory_install='false'
 do_update='false'
-while getopts ":fu" opt; do
+unset GIT_TOKEN SERIAL_NUMBER
+
+while getopts "s:t:fu" opt; do
     case $opt in
         f)
             do_factory_install='true'
             ;;
         u)
             do_update='true'
+            ;;
+        t)
+            GIT_TOKEN=$OPTARG
+            ;;
+        s)
+            SERIAL_NUMBER=$OPTARG
             ;;
     esac
 done
@@ -52,9 +60,22 @@ function echo_failure_help {
     exit 1
 }
 
+
+echo
 if ! $do_update; then
     cd $HOME/stretch_install/factory/$factory_osdir
-    ./stretch_initial_setup.sh $do_factory_install |& tee $logfile_initial
+    if [ $do_factory_install = 'true' ]; then
+        args="-f"
+    fi
+    if [ -n "$GIT_TOKEN" ]; then
+        echo "Using GitHub token for private repository access."
+        args="$args -t $GIT_TOKEN"
+    fi
+    if [ -n "$SERIAL_NUMBER" ]; then
+        echo "Using serial number $SERIAL_NUMBER."
+        args="$args -s $SERIAL_NUMBER"
+    fi
+    ./stretch_initial_setup.sh  $args |& tee $logfile_initial
     if [ $? -ne 0 ]; then
         echo_failure_help
     fi

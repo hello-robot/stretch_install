@@ -1,7 +1,23 @@
 #!/bin/bash
 set -e
 
-do_factory_install=${1:-'false'}
+unset GIT_TOKEN SERIAL_NUMBER
+
+do_factory_install='false'
+
+while getopts "s:t:f" opt; do
+    case $opt in
+        f)
+            do_factory_install='true'
+            ;;
+        t)
+            GIT_TOKEN=$OPTARG
+            ;;
+        s)
+            SERIAL_NUMBER=$OPTARG
+            ;;
+    esac
+done
 
 if $do_factory_install; then
     echo "WARNING: Running a FACTORY install. This is only meant to be run at Hello Robot HQ."
@@ -21,40 +37,44 @@ if [[ ! $REPLY =~ ^[Yy]$ ]]; then
     exit 1
 fi
 
-PS3="Select model type: "
+if [ -z "$SERIAL_NUMBER" ]; then
 
-select model in stretch-re1 stretch-re2 stretch-se3
-do
-    echo "Selected model: $model"
+    PS3="Select model type: "
 
-  if [[ "$model" == "stretch-re1" ]]
-  then
-    break
-  fi
+    select model in stretch-re1 stretch-re2 stretch-se3
+    do
+        echo "Selected model: $model"
 
- if [[ "$model" == "stretch-re2" ]]
-  then
-    break
-  fi
+    if [[ "$model" == "stretch-re1" ]]
+    then
+        break
+    fi
 
- if [[ "$model" == "stretch-se3" ]]
-  then
-    break
-  fi
+    if [[ "$model" == "stretch-re2" ]]
+    then
+        break
+    fi
 
-done
+    if [[ "$model" == "stretch-se3" ]]
+    then
+        break
+    fi
 
-pre=$model"-"
+    done
 
-echo -n "Enter fleet id xxxx for $pre""xxxx> "
-read id
-if [[ ! $id =~ ^[0-9]{4}$ ]]; then
-    echo "Input should be four digits. Exiting."
-    exit 1
+    pre=$model"-"
+
+    echo -n "Enter fleet id xxxx for $pre""xxxx> "
+    read id
+    if [[ ! $id =~ ^[0-9]{4}$ ]]; then
+        echo "Input should be four digits. Exiting."
+        exit 1
+    fi
+
+
+    HELLO_FLEET_ID="$pre$id"
 fi
-
-
-HELLO_FLEET_ID="$pre$id"
+HELLO_FLEET_ID=$SERIAL_NUMBER
 
 read -p "HELLO_FLEET_ID will be $HELLO_FLEET_ID. Proceed with installation (y/n)? " -n 1 -r
 echo
@@ -111,11 +131,16 @@ sudo cp $DIR/stretch_about.png /etc/hello-robot/
 
 if $do_factory_install; then
     echo "Fetching robot's calibration data from Github..."
-    cd ~/
-    git config --global credential.helper store
-    git clone https://github.com/hello-robot/stretch_fleet.git
-    sudo cp -rf ~/stretch_fleet/robots/$HELLO_FLEET_ID /etc/hello-robot/
-    rm -rf stretch_fleet
+    if [ -n "$GIT_TOKEN" ]; then
+        pip3 install github-clone
+        cd /etc/hello-robot/
+        ghclone https://github.com/hello-robot/stretch_fleet/tree/master/robots/$HELLO_FLEET_ID -t $GIT_TOKEN
+    else
+        git config --global credential.helper store
+        git clone https://github.com/hello-robot/stretch_fleet.git
+        sudo cp -rf ~/stretch_fleet/robots/$HELLO_FLEET_ID /etc/hello-robot/
+        rm -rf stretch_fleet
+    fi
 else
     echo "Fetching robot's calibration data locally from $HOME/$HELLO_FLEET_ID directory..."
     sudo cp -rf ~/$HELLO_FLEET_ID /etc/hello-robot
@@ -124,7 +149,8 @@ fi
 
 echo "Setting up UDEV rules..."
 sudo cp /etc/hello-robot/$HELLO_FLEET_ID/udev/*.rules /etc/udev/rules.d
-sudo udevadm control --reload
+# sudo udevadm control --reload
+sudo udevadm control --reload || echo "Unable to reload udev rules"
 
 echo "Allow shutdown without password..."
 sudo cp $DIR/hello_sudoers /etc/sudoers.d/
@@ -173,4 +199,4 @@ sudo sed -i -e 's/#WaylandEnable=false/WaylandEnable=false/g' /etc/gdm3/custom.c
 echo 'Blacklisting hid_nintendo that conflicts with Xpad driver...'
 echo  '# Nintendo conflicts with Xpad controller driver' | sudo tee -a /etc/modprobe.d/blacklist.conf
 echo  'blacklist hid_nintendo' | sudo tee -a /etc/modprobe.d/blacklist.conf
-sudo update-initramfs -u
+sudo update-initramfs -u || echo "Unable to update initramfs"
