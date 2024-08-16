@@ -132,9 +132,10 @@ sudo cp $DIR/stretch_about.png /etc/hello-robot/
 if $do_factory_install; then
     echo "Fetching robot's calibration data from Github..."
     if [ -n "$GIT_TOKEN" ]; then
-        pip3 install github-clone
+        sudo pip3 install github-clone
         cd /etc/hello-robot/
         sudo ghclone https://github.com/hello-robot/stretch_fleet/tree/master/robots/$HELLO_FLEET_ID -t $GIT_TOKEN
+        cd
     else
         git config --global credential.helper store
         git clone https://github.com/hello-robot/stretch_fleet.git
