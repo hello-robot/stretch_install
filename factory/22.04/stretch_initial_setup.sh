@@ -134,7 +134,7 @@ if $do_factory_install; then
     if [ -n "$GIT_TOKEN" ]; then
         pip3 install github-clone
         cd /etc/hello-robot/
-        ghclone https://github.com/hello-robot/stretch_fleet/tree/master/robots/$HELLO_FLEET_ID -t $GIT_TOKEN
+        sudo ghclone https://github.com/hello-robot/stretch_fleet/tree/master/robots/$HELLO_FLEET_ID -t $GIT_TOKEN
     else
         git config --global credential.helper store
         git clone https://github.com/hello-robot/stretch_fleet.git
