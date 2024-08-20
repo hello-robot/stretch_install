@@ -22,15 +22,15 @@ function install_gh {
 }
 install_gh &>> $REDIRECT_LOGFILE
 
-TODO: Add flag for docker, snap wont work in docker
-echo "Install Typora"
-sudo snap install typora >> $REDIRECT_LOGFILE
+# TODO: Add flag for docker, snap wont work in docker
+# echo "Install Typora"
+# sudo snap install typora >> $REDIRECT_LOGFILE
 
-echo "Install PyCharm"
-sudo snap install pycharm-community --classic >> $REDIRECT_LOGFILE
+# echo "Install PyCharm"
+# sudo snap install pycharm-community --classic >> $REDIRECT_LOGFILE
 
-echo "Install VS Code"
-sudo snap install code --classic >> $REDIRECT_LOGFILE
+# echo "Install VS Code"
+# sudo snap install code --classic >> $REDIRECT_LOGFILE
 
 echo "Install tools for system QC and bringup"
 pip3 install -q --no-warn-script-location twine &>> $REDIRECT_LOGFILE
