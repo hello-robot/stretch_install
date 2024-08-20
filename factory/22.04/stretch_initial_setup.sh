@@ -50,7 +50,7 @@ fi
 if [ -z "$SERIAL_NUMBER" ]; then
 
     if [ "$AUTO_YES" = true ]; then
-        HELLO_FLEET_ID=$(echo $CALIBRATION_DIR | grep -oP 'stretch-\d{4}' | head -1)
+        HELLO_FLEET_ID=$(echo $CALIBRATION_DIR | grep -oE 'stretch-[a-zA-Z0-9][a-zA-Z0-9][0-9]-[0-9][0-9][0-9][0-9]')
         echo "HELLO_FLEET_ID will be $HELLO_FLEET_ID based on CALIBRATION_DIR."
     else
         PS3="Select model type: "
