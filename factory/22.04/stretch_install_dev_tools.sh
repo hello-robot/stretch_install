@@ -22,6 +22,7 @@ function install_gh {
 }
 install_gh &>> $REDIRECT_LOGFILE
 
+TODO: Add flag for docker, snap wont work in docker
 echo "Install Typora"
 sudo snap install typora >> $REDIRECT_LOGFILE
 

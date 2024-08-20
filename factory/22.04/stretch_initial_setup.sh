@@ -4,8 +4,8 @@ set -e
 unset GIT_TOKEN SERIAL_NUMBER
 
 do_factory_install='false'
-
-while getopts "s:t:f" opt; do
+AUTO_YES='false'
+while getopts "s:t:fy" opt; do
     case $opt in
         f)
             do_factory_install='true'
@@ -15,6 +15,9 @@ while getopts "s:t:f" opt; do
             ;;
         s)
             SERIAL_NUMBER=$OPTARG
+            ;;
+        y)
+            AUTO_YES='true'
             ;;
     esac
 done
@@ -30,8 +33,12 @@ if [[ $HELLO_FLEET_ID ]]; then
     exit 1
 fi
 
-read -p "Plug in charger & attach clip-clamp. Ready to proceed (y/n)? " -n 1 -r
-echo
+if [ "$AUTO_YES" = true ]; then
+  REPLY="y"
+else
+  read -p "Plug in charger & attach clip-clamp. Ready to proceed (y/n)? " -n 1 -r
+  echo
+fi
 if [[ ! $REPLY =~ ^[Yy]$ ]]; then
     echo "Confirmation failed. Will not proceed with installation."
     exit 1
@@ -76,7 +83,12 @@ if [ -z "$SERIAL_NUMBER" ]; then
 fi
 HELLO_FLEET_ID=$SERIAL_NUMBER
 
-read -p "HELLO_FLEET_ID will be $HELLO_FLEET_ID. Proceed with installation (y/n)? " -n 1 -r
+if [ "$AUTO_YES" = true ]; then
+  REPLY="y"
+else
+  read -p "HELLO_FLEET_ID will be $HELLO_FLEET_ID. Proceed with installation (y/n)? " -n 1 -r
+  echo
+fi
 echo
 if [[ ! $REPLY =~ ^[Yy]$ ]]; then
     echo "Confirmation failed. Will not proceed with installation."

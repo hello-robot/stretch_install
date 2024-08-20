@@ -3,9 +3,10 @@ set -o pipefail
 
 do_factory_install='false'
 do_update='false'
+AUTO_YES='false'
 unset GIT_TOKEN SERIAL_NUMBER
 
-while getopts "s:t:fu" opt; do
+while getopts "s:t:fuy" opt; do
     case $opt in
         f)
             do_factory_install='true'
@@ -18,6 +19,9 @@ while getopts "s:t:fu" opt; do
             ;;
         s)
             SERIAL_NUMBER=$OPTARG
+            ;;
+        y)
+            AUTO_YES=true
             ;;
     esac
 done
@@ -74,6 +78,9 @@ if ! $do_update; then
     if [ -n "$SERIAL_NUMBER" ]; then
         echo "Using serial number $SERIAL_NUMBER."
         args="$args -s $SERIAL_NUMBER"
+    fi
+    if $AUTO_YES; then
+        args="$args -y"
     fi
     ./stretch_initial_setup.sh  $args |& tee $logfile_initial
     if [ $? -ne 0 ]; then
