@@ -162,9 +162,14 @@ if $do_factory_install; then
         rm -rf stretch_fleet
     fi
 else
-    echo "Fetching robot's calibration data locally from $HOME/$HELLO_FLEET_ID directory..."
-    sudo cp -rf ~/$HELLO_FLEET_ID /etc/hello-robot
-    rm -rf ~/$HELLO_FLEET_ID
+    if [ -n "$CALIBRATION_DIR" ]; then
+        echo "Fetching robot's calibration data locally from $CALIBRATION_DIR directory..."
+        sudo cp -rf $CALIBRATION_DIR /etc/hello-robot
+    else
+        echo "Fetching robot's calibration data locally from $HOME/$HELLO_FLEET_ID directory..."
+        sudo cp -rf ~/$HELLO_FLEET_ID /etc/hello-robot
+        rm -rf ~/$HELLO_FLEET_ID
+    fi
 fi
 
 echo "Setting up UDEV rules..."
