@@ -87,8 +87,9 @@ if [ -z "$SERIAL_NUMBER" ]; then
 
         HELLO_FLEET_ID="$pre$id"
     fi
+else
+    HELLO_FLEET_ID=$SERIAL_NUMBER
 fi
-HELLO_FLEET_ID=$SERIAL_NUMBER
 
 if [ "$AUTO_YES" = true ]; then
   REPLY="y"
