@@ -4,9 +4,9 @@ set -o pipefail
 do_factory_install='false'
 do_update='false'
 AUTO_YES='false'
-unset GIT_TOKEN SERIAL_NUMBER
+unset GIT_TOKEN SERIAL_NUMBER CALIBRATION_DIR
 
-while getopts "s:t:fuy" opt; do
+while getopts "c:s:t:fuy" opt; do
     case $opt in
         f)
             do_factory_install='true'
@@ -22,6 +22,9 @@ while getopts "s:t:fuy" opt; do
             ;;
         y)
             AUTO_YES=true
+            ;;
+        c)
+            CALIBRATION_DIR=$OPTARG
             ;;
     esac
 done
@@ -78,6 +81,10 @@ if ! $do_update; then
     if [ -n "$SERIAL_NUMBER" ]; then
         echo "Using serial number $SERIAL_NUMBER."
         args="$args -s $SERIAL_NUMBER"
+    fi
+    if [ -n "$CALIBRATION_DIR" ]; then
+        echo "Using calibration from path $CALIBRATION_DIR."
+        args="$args -c $CALIBRATION_DIR"
     fi
     if $AUTO_YES; then
         args="$args -y"

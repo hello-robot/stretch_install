@@ -1,11 +1,11 @@
 #!/bin/bash
 set -e
 
-unset GIT_TOKEN SERIAL_NUMBER
+unset GIT_TOKEN SERIAL_NUMBER CALIBRATION_DIR
 
 do_factory_install='false'
 AUTO_YES='false'
-while getopts "s:t:fy" opt; do
+while getopts "c:s:t:fy" opt; do
     case $opt in
         f)
             do_factory_install='true'
@@ -18,6 +18,9 @@ while getopts "s:t:fy" opt; do
             ;;
         y)
             AUTO_YES='true'
+            ;;
+        c)
+            CALIBRATION_DIR=$OPTARG
             ;;
     esac
 done
@@ -46,40 +49,44 @@ fi
 
 if [ -z "$SERIAL_NUMBER" ]; then
 
-    PS3="Select model type: "
+    if [ "$AUTO_YES" = true ]; then
+        HELLO_FLEET_ID=$(echo $CALIBRATION_DIR | grep -oP 'stretch-\d{4}' | head -1)
+    else
+        PS3="Select model type: "
 
-    select model in stretch-re1 stretch-re2 stretch-se3
-    do
-        echo "Selected model: $model"
+        select model in stretch-re1 stretch-re2 stretch-se3
+        do
+            echo "Selected model: $model"
 
-    if [[ "$model" == "stretch-re1" ]]
-    then
-        break
+        if [[ "$model" == "stretch-re1" ]]
+        then
+            break
+        fi
+
+        if [[ "$model" == "stretch-re2" ]]
+        then
+            break
+        fi
+
+        if [[ "$model" == "stretch-se3" ]]
+        then
+            break
+        fi
+
+        done
+
+        pre=$model"-"
+
+        echo -n "Enter fleet id xxxx for $pre""xxxx> "
+        read id
+        if [[ ! $id =~ ^[0-9]{4}$ ]]; then
+            echo "Input should be four digits. Exiting."
+            exit 1
+        fi
+
+
+        HELLO_FLEET_ID="$pre$id"
     fi
-
-    if [[ "$model" == "stretch-re2" ]]
-    then
-        break
-    fi
-
-    if [[ "$model" == "stretch-se3" ]]
-    then
-        break
-    fi
-
-    done
-
-    pre=$model"-"
-
-    echo -n "Enter fleet id xxxx for $pre""xxxx> "
-    read id
-    if [[ ! $id =~ ^[0-9]{4}$ ]]; then
-        echo "Input should be four digits. Exiting."
-        exit 1
-    fi
-
-
-    HELLO_FLEET_ID="$pre$id"
 fi
 HELLO_FLEET_ID=$SERIAL_NUMBER
 
@@ -162,7 +169,6 @@ fi
 
 echo "Setting up UDEV rules..."
 sudo cp /etc/hello-robot/$HELLO_FLEET_ID/udev/*.rules /etc/udev/rules.d
-# sudo udevadm control --reload
 sudo udevadm control --reload || echo "Unable to reload udev rules"
 
 echo "Allow shutdown without password..."
