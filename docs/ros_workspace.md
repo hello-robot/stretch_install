@@ -2,41 +2,20 @@
 
 ## Why
 
-ROS1 and ROS2 organize software by "workspaces", where ROS packages are developed, compiled, and made available to run from the command line. By default, a ROS1 workspace called `catkin_ws` is available in the home directory. If your robot is running Ubuntu 20.04, an additional ROS2 workspace called `ament_ws` is also available in the home directory. This guide will show you how to replace existing or create new ROS1/2 workspaces for developing ROS software.
+ROS1 and ROS2 organize software by "workspaces", where ROS packages are developed, compiled, and made available to run from the command line. By default, a ROS1 workspace called `catkin_ws` is available in the home directory. Similarly, a ROS2 workspace called `ament_ws` is available in the home directory. The operating system installed (and therefore version of ROS installed) on your robot dictates whether you'll have a `catkin_ws` or `ament_ws` folder.
+
+This guide will show you how to replace existing or create new ROS1/2 workspaces for developing ROS software.
 
 ## How
 
-Open a terminal and execute the following to pull down the Stretch Install repository.
+Open a terminal and execute the following.
 
 ```bash
 cd ~
 git clone https://github.com/hello-robot/stretch_install
 cd stretch_install
 git pull
-```
-
-### Ubuntu 18.04
-
-Run the following command to create a ROS1 Melodic workspace (replacing `<optional-path-to-ws>` for the `-w` flag with a filepath to the workspace. Not providing the flag defaults to `~/catkin_ws`).
-
-```bash
-./factory/18.04/stretch_create_catkin_workspace.sh -w <optional-path-to-ws>
-```
-
-### Ubuntu 20.04
-
-Run the following command to create a ROS1 Noetic workspace (replacing `<optional-path-to-ws>` for the `-w` flag with a filepath to the workspace. Not providing the flag defaults to `~/catkin_ws`).
-
-```bash
-./factory/20.04/stretch_create_catkin_workspace.sh -w <optional-path-to-ws>
-```
-
-### Ubuntu 22.04
-
-Run the following command to create a ROS2 Humble workspace (replacing `<optional-path-to-ws>` for the `-w` flag with a filepath to the workspace. Not providing the flag defaults to `~/ament_ws`).
-
-```bash
-./factory/22.04/stretch_create_ament_workspace.sh -w <optional-path-to-ws>
+./stretch_update_ros_workspace.sh
 ```
 
 ## Wrap up
