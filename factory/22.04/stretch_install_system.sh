@@ -184,11 +184,16 @@ echo "Ensure NetworkManager enabled & dhcpcd disabled"
 echo "NetworkManager is $(systemctl -p LoadState --value show "NetworkManager") and $(systemctl -p ActiveState --value show "NetworkManager")" &>> $REDIRECT_LOGFILE
 echo "dhcpcd is $(systemctl -p LoadState --value show "dhcpcd") and $(systemctl -p ActiveState --value show "dhcpcd")" &>> $REDIRECT_LOGFILE
 echo "Download and extract WiFi Connect"
-_regex='browser_download_url": "\K.*x86_64.*(?=")'
-RELEASE_URL="https://api.github.com/repos/balena-os/wifi-connect/releases/170779858"
-_arch_url=$(curl "$RELEASE_URL" -s | grep -hoP "$_regex")
+_regex1='browser_download_url": "\K.*x86_64.*(?=")'
+RELEASE_URL1="https://api.github.com/repos/balena-os/wifi-connect/releases/170779858"
+_arch_url=$(curl "$RELEASE_URL1" -s | grep -hoP "$_regex1")
 mkdir -p /tmp/wfc
 curl -Ls "$_arch_url" | tar -xz -C "/tmp/wfc"
 sudo mv /tmp/wfc/wifi-connect /usr/local/sbin
-sudo mkdir -p /usr/local/share/wifi-connect/ui
+sudo mkdir -p /usr/local/share/wifi-connect
+_regex2='browser_download_url": "\K.*rpi\.tar\.gz'
+RELEASE_URL2="https://api.github.com/repos/balena-os/wifi-connect/releases/45509064"
+_ui_url=$(curl "$RELEASE_URL2" -s | grep -hoP "$_regex2")
+curl -Ls "$_ui_url" | tar -xz -C "/tmp/wfc"
+sudo mv /tmp/wfc/ui /usr/local/share/wifi-connect/
 sudo rm -rf /tmp/wfc
