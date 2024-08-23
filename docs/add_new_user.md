@@ -42,7 +42,7 @@ Run the new user install script to set up the SDK for this new account:
 
 Finally, reboot the robot and run a system check in the new user account to confirm everything was set up correctly.
 
-```bash
+```{.bash .shell-prompt .copy}
 stretch_system_check.py
 ```
 
