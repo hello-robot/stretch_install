@@ -14,11 +14,6 @@ if [[ ! $factory_osdir =~ ^(18.04|20.04|22.04)$ ]]; then
     exit 1
 fi
 
-echo "Prevent screen dimming..."
-gsettings set org.gnome.desktop.session idle-delay 0 &> /dev/null || true
-gsettings set org.gnome.settings-daemon.plugins.power sleep-inactive-ac-timeout 0 &> /dev/null || true
-gsettings set org.gnome.settings-daemon.plugins.power idle-dim false &> /dev/null || true
-
 if [ "$HELLO_FLEET_ID" ]; then
     UPDATING=true
     echo "###########################################"
@@ -49,6 +44,11 @@ else
         echo "source /opt/ros/humble/setup.bash" >> ~/.bashrc
     fi
 fi
+
+echo "Prevent screen dimming..."
+gsettings set org.gnome.desktop.session idle-delay 0 &> /dev/null || true
+gsettings set org.gnome.settings-daemon.plugins.power sleep-inactive-ac-timeout 0 &> /dev/null || true
+gsettings set org.gnome.settings-daemon.plugins.power idle-dim false &> /dev/null || true
 
 echo "Creating repos and stretch_user directories..."
 mkdir -p ~/.local/bin
