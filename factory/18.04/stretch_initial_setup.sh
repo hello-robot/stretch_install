@@ -152,6 +152,9 @@ fi
 if [ -f /etc/update-motd.d/50-motd-news ]; then
     sudo chmod -x /etc/update-motd.d/50-motd-news
 fi
+if [ -f /etc/update-motd.d/88-esm-announce ]; then
+    sudo chmod -x /etc/update-motd.d/88-esm-announce
+fi
 if [ -f /etc/update-motd.d/90-updates-available ]; then
     sudo chmod -x /etc/update-motd.d/90-updates-available
 fi
