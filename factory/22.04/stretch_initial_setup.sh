@@ -126,7 +126,7 @@ echo "Setting up UDEV rules..."
 sudo cp /etc/hello-robot/$HELLO_FLEET_ID/udev/*.rules /etc/udev/rules.d
 sudo udevadm control --reload
 
-echo "Allow shutdown without password..."
+echo "Allow shutdown and systemctl without password..."
 sudo cp $DIR/hello_sudoers /etc/sudoers.d/
 
 echo "Setting up startup scripts..."
