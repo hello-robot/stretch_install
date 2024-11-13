@@ -1,5 +1,3 @@
-Cmnd_Alias USER_SERVICES = /usr/bin/systemctl start [servicename], /usr/bin/systemctl stop [servicename], /usr/bin/systemctl restart [servicename]
+Cmnd_Alias ONBOOT_WEBTELEOP_SERVICES = /sbin/shutdown, /usr/bin/udevadm, /usr/bin/pkill
 
-[username] ALL=(ALL) NOPASSWD:USER_SERVICES
-
-ALL ALL=(ALL) NOPASSWD: /sbin/shutdown
+ALL ALL=(ALL) NOPASSWD:ONBOOT_WEBTELEOP_SERVICES
