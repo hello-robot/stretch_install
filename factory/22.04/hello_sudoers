@@ -1,1 +1,5 @@
+Cmnd_Alias USER_SERVICES = /usr/bin/systemctl start [servicename], /usr/bin/systemctl stop [servicename], /usr/bin/systemctl restart [servicename]
+
+[username] ALL=(ALL) NOPASSWD:USER_SERVICES
+
 ALL ALL=(ALL) NOPASSWD: /sbin/shutdown
