@@ -191,9 +191,6 @@ mkdir -p /tmp/wfc
 curl -Ls "$_arch_url" | tar -xz -C "/tmp/wfc"
 sudo mv /tmp/wfc/wifi-connect /usr/local/sbin
 sudo mkdir -p /usr/local/share/wifi-connect
-_regex2='browser_download_url": "\K.*rpi\.tar\.gz'
-RELEASE_URL2="https://api.github.com/repos/balena-os/wifi-connect/releases/45509064"
-_ui_url=$(curl "$RELEASE_URL2" -s | grep -hoP "$_regex2")
-curl -Ls "$_ui_url" | tar -xz -C "/tmp/wfc"
+git clone https://github.com/hello-binit/wifi-connect-ui /tmp/wfc/ui
 sudo mv /tmp/wfc/ui /usr/local/share/wifi-connect/
 sudo rm -rf /tmp/wfc
