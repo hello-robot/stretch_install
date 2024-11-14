@@ -2,7 +2,7 @@
 Description=Web interface for Stretch robots.
 
 [Service]
-ExecStart=/home/hello-robot/ament_ws/src/stretch_web_teleop/launch_interface.sh
+ExecStart=/home/hello-robot/ament_ws/src/stretch_web_teleop/launch_interface.sh -f
 RemainAfterExit=yes
 
 [Install]
