@@ -1,7 +1,10 @@
 [Unit]
 Description=Web interface for Stretch robots.
+Wants=network-online.target
+After=network-online.target
 
 [Service]
+ExecStartPre=/bin/sh -c 'until ping -c1 web.hello-robot.com; do sleep 1; done;'
 ExecStart=/home/hello-robot/ament_ws/src/stretch_web_teleop/launch_interface.sh -f
 RemainAfterExit=yes
 
