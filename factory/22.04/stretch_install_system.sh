@@ -17,7 +17,7 @@ echo "###########################################"
 echo "Apt update & upgrade (this might take a while)"
 sudo apt-add-repository universe -y >> $REDIRECT_LOGFILE
 sudo apt-get --yes update >> $REDIRECT_LOGFILE
-sudo apt-get --yes upgrade &>> $REDIRECT_LOGFILE
+# sudo apt-get --yes upgrade &>> $REDIRECT_LOGFILE
 echo "Install zip & unzip"
 install zip unzip
 echo "Install Curl"
