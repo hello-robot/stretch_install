@@ -195,5 +195,6 @@ curl -Ls "$_arch_url" | tar -xz -C "/tmp/wfc"
 sudo mv /tmp/wfc/wifi-connect /usr/local/sbin
 sudo mkdir -p /usr/local/share/wifi-connect
 git clone https://github.com/hello-binit/wifi-connect-ui /tmp/wfc/ui
+sudo rm -rf /usr/local/share/wifi-connect/ui
 sudo mv /tmp/wfc/ui /usr/local/share/wifi-connect/
 sudo rm -rf /tmp/wfc
