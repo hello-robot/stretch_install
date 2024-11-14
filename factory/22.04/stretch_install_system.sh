@@ -175,4 +175,22 @@ sudo cp ./sunshine_apps.json /usr/share/sunshine/apps.json
 echo "Setup Sunshine systemd unit"
 mkdir -p ~/.config/systemd/user/
 cp ./sunshine.service ~/.config/systemd/user/sunshine.service
+echo ""
 
+echo "###########################################"
+echo "INSTALLATION OF WiFi Connect"
+echo "###########################################"
+echo "Ensure NetworkManager enabled & dhcpcd disabled"
+echo "NetworkManager is $(systemctl -p LoadState --value show "NetworkManager") and $(systemctl -p ActiveState --value show "NetworkManager")" &>> $REDIRECT_LOGFILE
+echo "dhcpcd is $(systemctl -p LoadState --value show "dhcpcd") and $(systemctl -p ActiveState --value show "dhcpcd")" &>> $REDIRECT_LOGFILE
+echo "Download and extract WiFi Connect"
+_regex1='browser_download_url": "\K.*x86_64.*(?=")'
+RELEASE_URL1="https://api.github.com/repos/balena-os/wifi-connect/releases/170779858"
+_arch_url=$(curl "$RELEASE_URL1" -s | grep -hoP "$_regex1")
+mkdir -p /tmp/wfc
+curl -Ls "$_arch_url" | tar -xz -C "/tmp/wfc"
+sudo mv /tmp/wfc/wifi-connect /usr/local/sbin
+sudo mkdir -p /usr/local/share/wifi-connect
+git clone https://github.com/hello-binit/wifi-connect-ui /tmp/wfc/ui
+sudo mv /tmp/wfc/ui /usr/local/share/wifi-connect/
+sudo rm -rf /tmp/wfc
