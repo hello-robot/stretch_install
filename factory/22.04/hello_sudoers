@@ -1,3 +1,3 @@
-Cmnd_Alias ONBOOT_WEBTELEOP_SERVICES = /sbin/shutdown, /usr/bin/udevadm, /usr/bin/pkill
+Cmnd_Alias ONBOOT_WEBTELEOP_SERVICES = /sbin/shutdown, /usr/bin/udevadm, /usr/bin/pkill, /usr/local/sbin/wifi-connect
 
 ALL ALL=(ALL) NOPASSWD:ONBOOT_WEBTELEOP_SERVICES
