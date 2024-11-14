@@ -193,8 +193,9 @@ _arch_url=$(curl "$RELEASE_URL1" -s | grep -hoP "$_regex1")
 mkdir -p /tmp/wfc
 curl -Ls "$_arch_url" | tar -xz -C "/tmp/wfc"
 sudo mv /tmp/wfc/wifi-connect /usr/local/sbin
+echo "Setup WiFi Connect UI"
 sudo mkdir -p /usr/local/share/wifi-connect
-git clone https://github.com/hello-binit/wifi-connect-ui /tmp/wfc/ui
+git clone https://github.com/hello-binit/wifi-connect-ui /tmp/wfc/ui &>> $REDIRECT_LOGFILE
 sudo rm -rf /usr/local/share/wifi-connect/ui
 sudo mv /tmp/wfc/ui /usr/local/share/wifi-connect/
 sudo rm -rf /tmp/wfc
