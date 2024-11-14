@@ -157,6 +157,9 @@ echo "Install PyPCL and PyKDL"
 install python3-pcl python3-pykdl screen
 echo "Install PM2"
 sudo npm install -g pm2 &>> $REDIRECT_LOGFILE
+echo "Setup Sunshine systemd unit"
+mkdir -p ~/.config/systemd/user/
+cp ./web-teleop.service ~/.config/systemd/user/web-teleop.service
 echo ""
 
 echo "###########################################"
