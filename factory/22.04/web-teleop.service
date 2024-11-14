@@ -1,0 +1,9 @@
+[Unit]
+Description=Web interface for Stretch robots.
+
+[Service]
+ExecStart=/home/hello-robot/ament_ws/src/stretch_web_teleop/launch_interface.sh
+RemainAfterExit=yes
+
+[Install]
+WantedBy=graphical-session.target
