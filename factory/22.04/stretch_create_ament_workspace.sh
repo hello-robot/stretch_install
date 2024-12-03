@@ -49,6 +49,8 @@ fi
 . /etc/hello-robot/hello-robot.conf
 export HELLO_FLEET_ID HELLO_FLEET_ID
 export HELLO_FLEET_PATH=${HOME}/stretch_user
+echo "Configuring kernel modules..."
+sudo modprobe -r ov13858
 echo "Updating rosdep indices..."
 rosdep update --include-eol-distros &>> $REDIRECT_LOGFILE
 echo "Deleting $AMENT_WSDIR if it already exists..."
