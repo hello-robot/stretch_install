@@ -67,6 +67,8 @@ echo "Install APT HTTPS"
 install apt-transport-https
 echo "Install Network Security Services libraries"
 install libnss3-tools
+echo "Install uv"
+curl -LsSf https://astral.sh/uv/install.sh | sh &>> $REDIRECT_LOGFILE
 echo ""
 
 # https://docs.ros.org/en/humble/Installation/Ubuntu-Install-Debians.html
