@@ -65,6 +65,7 @@ cd $AMENT_WSDIR/
 rosdep install --rosdistro=humble -iy --skip-keys="librealsense2 realsense2_camera" --from-paths src &>> $REDIRECT_LOGFILE
 sudo apt remove -y ros-humble-librealsense2 ros-humble-realsense2-camera ros-humble-realsense2-camera-msgs &>> $REDIRECT_LOGFILE
 pip3 cache purge &>> $REDIRECT_LOGFILE
+
 echo "Install web interface dependencies..."
 cd $AMENT_WSDIR/src/stretch_web_teleop
 pip3 install -r requirements.txt &>> $REDIRECT_LOGFILE
@@ -86,8 +87,17 @@ touch .env
 echo certfile=${HELLO_FLEET_ID}+6.pem >> .env
 echo keyfile=${HELLO_FLEET_ID}+6-key.pem >> .env
 cd $AMENT_WSDIR/
+
+echo "Install FUNMAP dependencies..."
+cd $AMENT_WSDIR/src/stretch_ros2/stretch_funmap
+uv venv --system-site-packages --allow-existing .venv &>> $REDIRECT_LOGFILE
+uv sync --frozen &>> $REDIRECT_LOGFILE
+echo "Compile cython modules..."
+uv run cythonize stretch_funmap/cython_min_cost_path.pyx -3 -i &>> $REDIRECT_LOGFILE
+cd $AMENT_WSDIR/
+
 echo "Compile the workspace (this might take a while)..."
-colcon build --cmake-args -DCMAKE_BUILD_TYPE=Release &>> $REDIRECT_LOGFILE
+colcon build --symlink-install &>> $REDIRECT_LOGFILE
 echo "Source setup.bash file..."
 source $AMENT_WSDIR/install/setup.bash
 echo "Updating port privledges..."
@@ -102,4 +112,8 @@ echo "Setup uncalibrated robot URDF..."
 ros2 run stretch_calibration update_uncalibrated_urdf >> $REDIRECT_LOGFILE
 echo "Setup calibrated robot URDF..."
 ros2 run stretch_calibration update_with_most_recent_calibration >> $REDIRECT_LOGFILE
-colcon build &>> $REDIRECT_LOGFILE
+colcon build --symlink-install &>> $REDIRECT_LOGFILE
+
+echo "Amend FUNMAP executables to use venv..."
+REx_amend_venv_execs.py stretch_funmap &>> $REDIRECT_LOGFILE
+
