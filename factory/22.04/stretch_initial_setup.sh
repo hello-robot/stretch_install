@@ -171,7 +171,9 @@ if [ -f /etc/update-motd.d/95-hwe-eol ]; then
 fi
 
 echo "Switching from Wayland to X11..."
-sudo sed -i -e 's/#WaylandEnable=false/WaylandEnable=false/g' /etc/gdm3/custom.conf
+if [ -f /etc/gdm3/custom.conf ]; then
+    sudo sed -i -e 's/#WaylandEnable=false/WaylandEnable=false/g' /etc/gdm3/custom.conf
+fi
 
 echo 'Blacklisting hid_nintendo that conflicts with Xpad driver...'
 echo  '# Nintendo conflicts with Xpad controller driver' | sudo tee -a /etc/modprobe.d/blacklist.conf
