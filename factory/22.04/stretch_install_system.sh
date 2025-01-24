@@ -49,8 +49,6 @@ install portaudio19-dev
 echo "Install lm-sensors & nvme-cli"
 install lm-sensors
 install nvme-cli
-echo "Install Cython for FUNMAP"
-install cython3
 echo "Install cheese for camera testing"
 install cheese
 echo "Install SSH Server"
