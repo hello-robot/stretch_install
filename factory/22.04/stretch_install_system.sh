@@ -142,7 +142,7 @@ echo "INSTALLATION OF WEB INTERFACE"
 echo "###########################################"
 echo "Register the nodesource APT server's public key"
 function register_nodesource_apt_server {
-    curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | sudo gpg --dearmor -o /etc/apt/keyrings/nodesource.gpg
+    curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | sudo gpg --batch --yes --dearmor -o /etc/apt/keyrings/nodesource.gpg
 }
 register_nodesource_apt_server &>> $REDIRECT_LOGFILE
 echo "Add the nodesource APT server to the list of APT respositories"
