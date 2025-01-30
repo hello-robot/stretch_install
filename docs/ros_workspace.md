@@ -30,6 +30,17 @@ Your new ROS workspace is now set up successfully!
 
 This section provides suggestions for common errors that occur during installation. If you become stuck and don't find an answer here, please email us or contact us through [the forum](https://forum.hello-robot.com/).
 
+### Rosdep failure on RTabMap
+
+After a failure, if you see the following error in your log file (from `~/stretch_user/log/stretch_create_ament_workspace.<timestamp>_log.txt`):
+
+```
+ERROR: the following rosdeps failed to install
+  apt: command [sudo -H apt-get install -y ros-humble-rtabmap-ros] failed
+```
+
+Open a terminal, run `sudo apt install ros-humble-rtabmap-ros`, and then try updating the ROS workspace again.
+
 ### 'Conflicting ROS version sourced' error
 
 If you are seeing the following error:
