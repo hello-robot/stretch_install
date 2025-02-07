@@ -71,8 +71,8 @@ echo "Setting up user copy of robot factory data (if not already there)..."
 if [ "$UPDATING" = true ]; then
     echo "~/stretch_user/$HELLO_FLEET_ID data present: not updating"
 else
-    cp -rf /etc/hello-robot/$HELLO_FLEET_ID $HOME/stretch_user
-    chmod a-w $HOME/stretch_user/$HELLO_FLEET_ID/udev/*.rules
+    sudo cp -rf /etc/hello-robot/$HELLO_FLEET_ID $HOME/stretch_user
+    sudo chmod a-w $HOME/stretch_user/$HELLO_FLEET_ID/udev/*.rules
     #chmod a-w $HOME/stretch_user/$HELLO_FLEET_ID/calibration_steppers/*.yaml
 fi
 

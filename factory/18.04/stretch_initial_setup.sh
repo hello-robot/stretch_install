@@ -123,7 +123,11 @@ else
 fi
 
 echo "Setting up UDEV rules..."
-sudo cp /etc/hello-robot/$HELLO_FLEET_ID/udev/*.rules /etc/udev/rules.d
+for rule in /etc/hello-robot/$HELLO_FLEET_ID/udev/*.rules; do
+    if [ -f "$rule" ]; then
+        sudo cp "$rule" /etc/udev/rules.d/
+    fi
+done
 sudo udevadm control --reload
 
 echo "Allow shutdown without password..."
