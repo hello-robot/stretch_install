@@ -48,7 +48,7 @@ fi
 
 export PATH=${PATH}:~/.local/bin
 . /etc/hello-robot/hello-robot.conf
-export HELLO_FLEET_ID HELLO_FLEET_ID
+export HELLO_FLEET_ID=$HELLO_FLEET_ID
 export HELLO_FLEET_PATH=${HOME}/stretch_user
 echo "Updating rosdep indices..."
 rosdep update --include-eol-distros &>> $REDIRECT_LOGFILE
@@ -107,6 +107,9 @@ echo net.ipv4.ip_unprivileged_port_start=80 | sudo tee --append /etc/sysctl.d/99
 echo "Update ~/.bashrc dotfile to source workspace..."
 echo "source $AMENT_WSDIR/install/setup.bash" >> ~/.bashrc
 echo "source /usr/share/colcon_cd/function/colcon_cd.sh" >> ~/.bashrc
+# TODO: Insert Migration of RE1 params (if required)
+# TODO: Use --no_prompt args to pass default True value to the click.confirm() function.
+# /home/hello-robot/.local/bin/RE1_migrate_params.py --path /home/hello-robot/stretch_user/$HELLO_FLEET_ID
 echo "Updating meshes and xacros to ROS from stretch_urdf package."
 /home/$USER/.local/bin/stretch_urdf_ros_update.py -y -v >> $REDIRECT_LOGFILE
 echo "Setup uncalibrated robot URDF..."
