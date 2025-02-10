@@ -111,7 +111,7 @@ echo "source /usr/share/colcon_cd/function/colcon_cd.sh" >> ~/.bashrc
 # TODO: Use --no_prompt args to pass default True value to the click.confirm() function.
 # /home/hello-robot/.local/bin/RE1_migrate_params.py --path /home/hello-robot/stretch_user/$HELLO_FLEET_ID
 echo "Updating meshes and xacros to ROS from stretch_urdf package."
-/home/$USER/.local/bin/stretch_urdf_ros_update.py -y -v >> $REDIRECT_LOGFILE
+/home/$USER/.local/bin/stretch_urdf_ros_update.py -y -v >> $REDIRECT_LOGFILE || echo "Failed to update meshes and xacros to ROS from stretch_urdf package. Check if you have to migrate the RE1 params. Run '/home/hello-robot/.local/bin/RE1_migrate_params.py --path /home/hello-robot/stretch_user/$HELLO_FLEET_ID'" >> $REDIRECT_LOGFILE
 echo "Setup uncalibrated robot URDF..."
 ros2 run stretch_calibration update_uncalibrated_urdf >> $REDIRECT_LOGFILE
 echo "Setup calibrated robot URDF..."
