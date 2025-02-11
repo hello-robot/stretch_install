@@ -90,6 +90,7 @@ echo keyfile=${HELLO_FLEET_ID}+6-key.pem >> .env
 cd $AMENT_WSDIR/
 
 echo "Install FUNMAP dependencies..."
+curl -LsSf https://astral.sh/uv/install.sh | sh &>> $REDIRECT_LOGFILE
 cd $AMENT_WSDIR/src/stretch_ros2/stretch_funmap
 uv venv --system-site-packages --allow-existing .venv &>> $REDIRECT_LOGFILE
 uv sync --frozen &>> $REDIRECT_LOGFILE
