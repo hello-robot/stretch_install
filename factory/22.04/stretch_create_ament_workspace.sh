@@ -99,6 +99,7 @@ uv run cythonize stretch_funmap/cython_min_cost_path.pyx -3 -i &>> $REDIRECT_LOG
 cd $AMENT_WSDIR/
 
 echo "Compile the workspace (this might take a while)..."
+pip3 install setuptools==59.6.0 &>> $REDIRECT_LOGFILE # must use <61 for Colcon to correctly build Stretch FUNMAP
 colcon build --symlink-install &>> $REDIRECT_LOGFILE
 echo "Source setup.bash file..."
 source $AMENT_WSDIR/install/setup.bash
