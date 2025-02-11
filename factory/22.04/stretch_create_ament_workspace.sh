@@ -118,5 +118,6 @@ ros2 run stretch_calibration update_with_most_recent_calibration >> $REDIRECT_LO
 colcon build --symlink-install &>> $REDIRECT_LOGFILE
 
 echo "Amend FUNMAP executables to use venv..."
+pip3 install -U hello-robot-stretch-factory &>> $REDIRECT_LOGFILE # Necessary for the below CLI
 REx_amend_venv_execs.py stretch_funmap &>> $REDIRECT_LOGFILE
 
