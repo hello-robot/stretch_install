@@ -87,6 +87,8 @@ cd $AMENT_WSDIR/src/stretch_web_teleop
 touch .env
 echo certfile=${HELLO_FLEET_ID}+6.pem >> .env
 echo keyfile=${HELLO_FLEET_ID}+6-key.pem >> .env
+cd $AMENT_WSDIR/src/stretch_show_tablet
+pip3 install -r requirements.txt &>> $REDIRECT_LOGFILE
 cd $AMENT_WSDIR/
 
 echo "Install FUNMAP dependencies..."
