@@ -56,6 +56,7 @@ if [[ ! -f $new_config_params && ! -f $new_user_params ]]; then
     fi
 else
     echo "Required parameter files are present in the directory. Skipping migration."
+fi
 
 echo "Ensuring correct version of ROS is sourced..."
 if [[ $ROS_DISTRO && ! $ROS_DISTRO = "humble" ]]; then
