@@ -22,6 +22,41 @@ echo "###########################################"
 echo "CREATING HUMBLE AMENT WORKSPACE at $AMENT_WSDIR"
 echo "###########################################"
 
+export PATH=${PATH}:~/.local/bin
+. /etc/hello-robot/hello-robot.conf
+export HELLO_FLEET_ID=$HELLO_FLEET_ID
+export HELLO_FLEET_PATH=${HOME}/stretch_user
+
+echo "Ensuring correct version of params present..."
+params_dir_path=$HELLO_FLEET_PATH/$HELLO_FLEET_ID
+echo "Checking params directory path: $params_dir_path"
+
+# Define file paths based on the provided directory
+user_params="$params_dir_path/stretch_re1_user_params.yaml"
+factory_params="$params_dir_path/stretch_re1_factory_params.yaml"
+new_config_params="$params_dir_path/stretch_configuration_params.yaml"
+new_user_params="$params_dir_path/stretch_user_params.yaml"
+
+# Check if the new files do not exist
+if [[ ! -f $new_config_params && ! -f $new_user_params ]]; then
+    # Check if the original RE1 files exist
+    if [[ -f $user_params && -f $factory_params ]]; then
+        echo "Old RE1 params are present. Starting the migration script..."
+        /home/$USER/.local/bin/RE1_migrate_params.py --path $dir_path >> $REDIRECT_LOGFILE
+        # Check if the script ran successfully
+        if [ $? -eq 0 ]; then
+            echo "Migration script ran successfully."
+        else
+            echo "Migration script failed. Exiting the script."
+            exit 1
+        fi
+    else
+        echo "Original RE1 parameter files are not found in the directory. Exiting the script."
+        exit 1
+    fi
+else
+    echo "Required parameter files are present in the directory. Skipping migration."
+
 echo "Ensuring correct version of ROS is sourced..."
 if [[ $ROS_DISTRO && ! $ROS_DISTRO = "humble" ]]; then
     echo "Cannot create workspace while a conflicting ROS version is sourced. Exiting."
@@ -46,10 +81,6 @@ if [[ -d $AMENT_WSDIR ]]; then
     prompt_yes_no
 fi
 
-export PATH=${PATH}:~/.local/bin
-. /etc/hello-robot/hello-robot.conf
-export HELLO_FLEET_ID=$HELLO_FLEET_ID
-export HELLO_FLEET_PATH=${HOME}/stretch_user
 echo "Updating rosdep indices..."
 rosdep update --include-eol-distros &>> $REDIRECT_LOGFILE
 echo "Deleting $AMENT_WSDIR if it already exists..."
@@ -109,9 +140,6 @@ echo net.ipv4.ip_unprivileged_port_start=80 | sudo tee --append /etc/sysctl.d/99
 echo "Update ~/.bashrc dotfile to source workspace..."
 echo "source $AMENT_WSDIR/install/setup.bash" >> ~/.bashrc
 echo "source /usr/share/colcon_cd/function/colcon_cd.sh" >> ~/.bashrc
-# TODO: Insert Migration of RE1 params (if required)
-# TODO: Use --no_prompt args to pass default True value to the click.confirm() function.
-# /home/hello-robot/.local/bin/RE1_migrate_params.py --path /home/hello-robot/stretch_user/$HELLO_FLEET_ID
 echo "Updating meshes and xacros to ROS from stretch_urdf package."
 /home/$USER/.local/bin/stretch_urdf_ros_update.py -y -v >> $REDIRECT_LOGFILE || echo "Failed to update meshes and xacros to ROS from stretch_urdf package. Check if you have to migrate the RE1 params. Run '/home/hello-robot/.local/bin/RE1_migrate_params.py --path /home/hello-robot/stretch_user/$HELLO_FLEET_ID'" >> $REDIRECT_LOGFILE
 echo "Setup uncalibrated robot URDF..."
@@ -123,4 +151,3 @@ colcon build --symlink-install &>> $REDIRECT_LOGFILE
 echo "Amend FUNMAP executables to use venv..."
 pip3 install -U hello-robot-stretch-factory &>> $REDIRECT_LOGFILE # Necessary for the below CLI
 REx_amend_venv_execs.py stretch_funmap &>> $REDIRECT_LOGFILE
-
