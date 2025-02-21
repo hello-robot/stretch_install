@@ -77,6 +77,7 @@ if [ $do_factory_install = 'false' ]; then
         exit 1
     fi
 fi
+chmod a-r $HOME/$HELLO_FLEET_ID
 
 echo "Waiting to get online..."
 while ! timeout 0.2 ping -c 1 -n google.com &> /dev/null
