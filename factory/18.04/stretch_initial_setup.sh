@@ -77,7 +77,7 @@ if [ $do_factory_install = 'false' ]; then
         exit 1
     fi
 fi
-chmod a-r $HOME/$HELLO_FLEET_ID
+chmod -R a+r $HOME/$HELLO_FLEET_ID
 
 echo "Waiting to get online..."
 while ! timeout 0.2 ping -c 1 -n google.com &> /dev/null
@@ -124,11 +124,7 @@ else
 fi
 
 echo "Setting up UDEV rules..."
-for rule in /etc/hello-robot/$HELLO_FLEET_ID/udev/*.rules; do
-    if [ -f "$rule" ]; then
-        sudo cp "$rule" /etc/udev/rules.d/
-    fi
-done
+sudo cp /etc/hello-robot/$HELLO_FLEET_ID/udev/*.rules /etc/udev/rules.d
 sudo udevadm control --reload
 
 echo "Allow shutdown without password..."
