@@ -95,6 +95,7 @@ cd $AMENT_WSDIR/src/stretch_ros2/stretch_funmap
 uv venv --system-site-packages --allow-existing .venv &>> $REDIRECT_LOGFILE
 uv sync --frozen &>> $REDIRECT_LOGFILE
 echo "Compile cython modules..."
+pip3 install setuptools==59.6.0 &>> $REDIRECT_LOGFILE # must use <61 for Colcon to correctly build Stretch FUNMAP
 uv run cythonize stretch_funmap/cython_min_cost_path.pyx -3 -i &>> $REDIRECT_LOGFILE
 cd $AMENT_WSDIR/
 
