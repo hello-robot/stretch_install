@@ -72,6 +72,7 @@ if [ "$UPDATING" = true ]; then
     echo "~/stretch_user/$HELLO_FLEET_ID data present: not updating"
 else
     sudo cp -rf /etc/hello-robot/$HELLO_FLEET_ID $HOME/stretch_user
+    sudo chown $USER:$USER $HOME/stretch_user/$HELLO_FLEET_ID
     chmod a-w $HOME/stretch_user/$HELLO_FLEET_ID/udev/*.rules
 fi
 chmod -R a-x,o-w,+X ~/stretch_user
@@ -161,8 +162,17 @@ new_user_params="$params_dir_path/stretch_user_params.yaml"
 if [[ ! -f $new_config_params && ! -f $new_user_params ]]; then
     # Check if the original RE1 files exist
     if [[ -f $user_params && -f $factory_params ]]; then
-        echo "Old RE1 params are present. Starting the migration scripts..."
+        echo "Old RE1 params are present. Starting param migration..."
         /home/$USER/.local/bin/RE1_migrate_params.py --path $dir_path
+        # Check if the script ran successfully
+        if [ $? -eq 0 ]; then
+            echo "Migration script ran successfully."
+        else
+            echo "Migration script failed. Exiting the script."
+            exit 1
+        fi
+
+        echo "Migrating contact params..."
         /home/$USER/.local/bin/RE1_migrate_contacts.py --path $dir_path
         # Check if the script ran successfully
         if [ $? -eq 0 ]; then
