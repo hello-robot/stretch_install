@@ -67,7 +67,7 @@ echo "Update ~/.bashrc dotfile to source workspace..."
 echo "source $CATKIN_WSDIR/devel/setup.bash" >> ~/.bashrc
 echo "Updating meshes in stretch_ros to this robot's batch..."
 . /etc/hello-robot/hello-robot.conf
-export HELLO_FLEET_ID HELLO_FLEET_ID
+export HELLO_FLEET_ID=$HELLO_FLEET_ID
 export HELLO_FLEET_PATH=${HOME}/stretch_user
 $CATKIN_WSDIR/src/stretch_ros/stretch_description/batch/update_description.py &>> $REDIRECT_LOGFILE
 echo "Setup uncalibrated robot URDF..."

@@ -71,10 +71,11 @@ echo "Setting up user copy of robot factory data (if not already there)..."
 if [ "$UPDATING" = true ]; then
     echo "~/stretch_user/$HELLO_FLEET_ID data present: not updating"
 else
-    cp -rf /etc/hello-robot/$HELLO_FLEET_ID $HOME/stretch_user
+    sudo cp -rf /etc/hello-robot/$HELLO_FLEET_ID $HOME/stretch_user
+    sudo chown $USER:$USER $HOME/stretch_user/$HELLO_FLEET_ID
     chmod a-w $HOME/stretch_user/$HELLO_FLEET_ID/udev/*.rules
-    #chmod a-w $HOME/stretch_user/$HELLO_FLEET_ID/calibration_steppers/*.yaml
 fi
+chmod -R a-x,o-w,+X ~/stretch_user
 
 echo "Setting up this user to start the robot's code automatically on boot..."
 mkdir -p ~/.config/autostart
@@ -141,6 +142,51 @@ elif [[ $factory_osdir = "20.04" || $factory_osdir = "22.04" ]]; then
     echo "Remove setuptools-scm"
     python3 -m pip -q uninstall -y setuptools-scm &>> $REDIRECT_LOGFILE
     echo ""
+fi
+
+export PATH=${PATH}:~/.local/bin
+export HELLO_FLEET_ID=$HELLO_FLEET_ID
+export HELLO_FLEET_PATH=${HOME}/stretch_user
+
+echo "Ensuring correct version of params present..."
+params_dir_path=$HELLO_FLEET_PATH/$HELLO_FLEET_ID
+echo "Checking params directory path: $params_dir_path"
+
+# Define file paths based on the provided directory
+user_params="$params_dir_path/stretch_re1_user_params.yaml"
+factory_params="$params_dir_path/stretch_re1_factory_params.yaml"
+new_config_params="$params_dir_path/stretch_configuration_params.yaml"
+new_user_params="$params_dir_path/stretch_user_params.yaml"
+
+# Check if the new files do not exist
+if [[ ! -f $new_config_params && ! -f $new_user_params ]]; then
+    # Check if the original RE1 files exist
+    if [[ -f $user_params && -f $factory_params ]]; then
+        echo "Old RE1 params are present. Starting param migration..."
+        /home/$USER/.local/bin/RE1_migrate_params.py --path $dir_path
+        # Check if the script ran successfully
+        if [ $? -eq 0 ]; then
+            echo "Migration script ran successfully."
+        else
+            echo "Migration script failed. Exiting the script."
+            exit 1
+        fi
+
+        echo "Migrating contact params..."
+        /home/$USER/.local/bin/RE1_migrate_contacts.py --path $dir_path
+        # Check if the script ran successfully
+        if [ $? -eq 0 ]; then
+            echo "Migration script ran successfully."
+        else
+            echo "Migration script failed. Exiting the script."
+            exit 1
+        fi
+    else
+        echo "Original RE1 parameter files are not found in the directory. Exiting the script."
+        exit 1
+    fi
+else
+    echo "Required parameter files are present in the directory. Skipping migration."
 fi
 
 if [[ $factory_osdir = "18.04" ]]; then

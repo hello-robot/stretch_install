@@ -48,7 +48,7 @@ fi
 
 export PATH=${PATH}:~/.local/bin
 . /etc/hello-robot/hello-robot.conf
-export HELLO_FLEET_ID HELLO_FLEET_ID
+export HELLO_FLEET_ID=$HELLO_FLEET_ID
 export HELLO_FLEET_PATH=${HOME}/stretch_user
 echo "Updating rosdep indices..."
 rosdep update --include-eol-distros &>> $REDIRECT_LOGFILE
@@ -120,4 +120,3 @@ colcon build --symlink-install &>> $REDIRECT_LOGFILE
 echo "Amend FUNMAP executables to use venv..."
 pip3 install -U hello-robot-stretch-factory &>> $REDIRECT_LOGFILE # Necessary for the below CLI
 REx_amend_venv_execs.py stretch_funmap &>> $REDIRECT_LOGFILE
-
