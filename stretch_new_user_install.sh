@@ -72,7 +72,7 @@ if [ "$UPDATING" = true ]; then
     echo "~/stretch_user/$HELLO_FLEET_ID data present: not updating"
 else
     sudo cp -rf /etc/hello-robot/$HELLO_FLEET_ID $HOME/stretch_user
-    sudo chown $USER:$USER $HOME/stretch_user/$HELLO_FLEET_ID
+    sudo chown -R $USER:$USER $HOME/stretch_user/$HELLO_FLEET_ID
     chmod a-w $HOME/stretch_user/$HELLO_FLEET_ID/udev/*.rules
 fi
 chmod -R a-x,o-w,+X ~/stretch_user
