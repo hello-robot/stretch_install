@@ -15,6 +15,8 @@ cd ~
 git clone https://github.com/hello-robot/stretch_install
 cd stretch_install
 git pull
+git checkout master
+git pull
 ./stretch_update_ros_workspace.sh
 ```
 
