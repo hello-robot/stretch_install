@@ -9,7 +9,13 @@ REDIRECT_LOGFILE="$REDIRECT_LOGDIR/stretch_new_user_install.`date '+%Y%m%d%H%M'`
 
 source /etc/os-release
 factory_osdir="$VERSION_ID"
-if [[ ! $factory_osdir =~ ^(18.04|20.04|22.04)$ ]]; then
+
+if [[ "$factory_osdir" = "11" ]]; then
+    echo "Raspberry Pi OS detected. This is an unsupported experimental OS."
+    factory_osdir='RPiOS'
+fi
+
+if [[ ! $factory_osdir =~ ^(18.04|20.04|22.04|"RPiOS")$ ]]; then
     echo "Could not identify OS. Please contact Hello Robot Support."
     exit 1
 fi
@@ -45,10 +51,12 @@ else
     fi
 fi
 
+if [[ ! "$factory_osdir" = "RPiOS" ]]; then
 echo "Prevent screen dimming..."
 gsettings set org.gnome.desktop.session idle-delay 0 &> /dev/null || true
 gsettings set org.gnome.settings-daemon.plugins.power sleep-inactive-ac-timeout 0 &> /dev/null || true
 gsettings set org.gnome.settings-daemon.plugins.power idle-dim false &> /dev/null || true
+fi
 
 echo "Creating repos and stretch_user directories..."
 mkdir -p ~/.local/bin
@@ -59,6 +67,7 @@ mkdir -p ~/stretch_user/debug
 mkdir -p ~/stretch_user/maps
 mkdir -p ~/stretch_user/models
 
+if [[ ! "$factory_osdir" = "RPiOS" ]]; then
 echo "Cloning Stretch deep perception models..."
 cd ~/stretch_user
 if [ ! -d "$HOME/stretch_user/stretch_deep_perception_models" ]; then
@@ -66,6 +75,8 @@ if [ ! -d "$HOME/stretch_user/stretch_deep_perception_models" ]; then
 fi
 cd stretch_deep_perception_models
 git pull >> $REDIRECT_LOGFILE
+fi
+
 
 echo "Setting up user copy of robot factory data (if not already there)..."
 if [ "$UPDATING" = true ]; then
@@ -77,13 +88,14 @@ else
 fi
 chmod -R a-x,o-w,+X ~/stretch_user
 
+if [[ ! "$factory_osdir" = "RPiOS" ]]; then
 echo "Setting up this user to start the robot's code automatically on boot..."
 mkdir -p ~/.config/autostart
 cp ~/stretch_install/factory/$factory_osdir/hello_robot_audio.desktop ~/.config/autostart/
 cp ~/stretch_install/factory/$factory_osdir/hello_robot_gamepad_teleop.desktop ~/.config/autostart/
 cp ~/stretch_install/factory/$factory_osdir/hello_robot_lrf_off.desktop ~/.config/autostart/
 cp ~/stretch_install/factory/$factory_osdir/hello_robot_pimu_ping.desktop ~/.config/autostart/
-
+fi
 echo "Updating media assets..."
 sudo cp $HOME/stretch_install/factory/$factory_osdir/stretch_about.png /etc/hello-robot
 
@@ -142,6 +154,25 @@ elif [[ $factory_osdir = "20.04" || $factory_osdir = "22.04" ]]; then
     echo "Remove setuptools-scm"
     python3 -m pip -q uninstall -y setuptools-scm &>> $REDIRECT_LOGFILE
     echo ""
+elif [[ "$factory_osdir" = "RPiOS" ]]; then
+    echo "#############################################################"
+    echo "INSTALLATION OF USER LEVEL PIP3 PACKAGES for Raspberry Pi OS"
+    echo "#############################################################"
+    echo "Upgrade pip3"
+    #TODO:Pull in new stretch_body_ii stuff
+    
+    # python3 -m pip -q install --no-warn-script-location --user --upgrade pip &>> $REDIRECT_LOGFILE
+    # echo "Install Stretch Body"
+    # python3 -m pip -q install --no-warn-script-location hello-robot-stretch-body &>> $REDIRECT_LOGFILE
+    # echo "Install Stretch Body Tools"
+    # python3 -m pip -q install --no-warn-script-location hello-robot-stretch-body-tools &>> $REDIRECT_LOGFILE
+    # echo "Install Stretch Factory"
+    # python3 -m pip -q install --no-warn-script-location hello-robot-stretch-factory &>> $REDIRECT_LOGFILE
+    # echo "Install Stretch Tool Share"
+    # python3 -m pip -q install --no-warn-script-location hello-robot-stretch-tool-share &>> $REDIRECT_LOGFILE
+    # echo "Upgrade prompt_toolkit"
+    # python3 -m pip -q install --no-warn-script-location -U prompt_toolkit &>> $REDIRECT_LOGFILE
+    echo ""
 fi
 
 export PATH=${PATH}:~/.local/bin
@@ -195,4 +226,7 @@ elif [[ $factory_osdir = "20.04" ]]; then
     ~/stretch_install/factory/$factory_osdir/stretch_create_catkin_workspace.sh -w "$HOME/catkin_ws" -l $REDIRECT_LOGDIR
 elif [[ $factory_osdir = "22.04" ]]; then
     ~/stretch_install/factory/$factory_osdir/stretch_create_ament_workspace.sh -w "$HOME/ament_ws" -l $REDIRECT_LOGDIR
+elif [[ "$factory_osdir" =  "RPiOS" ]]; then
+    echo "ROS is not installed on Raspberry Pi OS (RPiOS), so no catkin or ament workspace will be created."
+    echo ""
 fi
