@@ -20,7 +20,11 @@ fi
 
 source /etc/os-release
 factory_osdir="$VERSION_ID"
-if [[ ! $factory_osdir =~ ^(18.04|20.04|22.04|RPiOS)$ ]]; then
+
+if [[ "$factory_osdir" = "12" ]]; then
+    echo "Raspberry Pi OS detected. This is an unsupported experimental OS."
+    factory_osdir='RPiOS'
+elif [[ ! $factory_osdir =~ ^(18.04|20.04|22.04)$ ]]; then
     echo "Could not identify OS. Please contact Hello Robot Support."
     exit 1
 fi

@@ -10,7 +10,7 @@ REDIRECT_LOGFILE="$REDIRECT_LOGDIR/stretch_new_user_install.`date '+%Y%m%d%H%M'`
 source /etc/os-release
 factory_osdir="$VERSION_ID"
 
-if [[ "$factory_osdir" = "11" ]]; then
+if [[ "$factory_osdir" = "12" ]]; then
     echo "Raspberry Pi OS detected. This is an unsupported experimental OS."
     factory_osdir='RPiOS'
 fi
