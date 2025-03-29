@@ -17,7 +17,7 @@ echo "###########################################"
 echo "Apt update & upgrade (this might take a while)"
 sudo apt-add-repository universe -y >> $REDIRECT_LOGFILE
 sudo apt-get --yes update >> $REDIRECT_LOGFILE
-sudo apt-get --yes upgrade &>> $REDIRECT_LOGFILE
+# sudo apt-get --yes upgrade &>> $REDIRECT_LOGFILE
 echo "Install zip & unzip"
 install zip unzip
 echo "Install Curl"
@@ -157,6 +157,9 @@ echo "Install PyPCL and PyKDL"
 install python3-pcl python3-pykdl screen
 echo "Install PM2"
 sudo npm install -g pm2 &>> $REDIRECT_LOGFILE
+echo "Setup Web Teleop systemd unit"
+mkdir -p ~/.config/systemd/user/
+cp ./web-teleop.service ~/.config/systemd/user/web-teleop.service
 echo ""
 
 echo "###########################################"
@@ -175,4 +178,24 @@ sudo cp ./sunshine_apps.json /usr/share/sunshine/apps.json
 echo "Setup Sunshine systemd unit"
 mkdir -p ~/.config/systemd/user/
 cp ./sunshine.service ~/.config/systemd/user/sunshine.service
+echo ""
 
+echo "###########################################"
+echo "INSTALLATION OF WiFi Connect"
+echo "###########################################"
+echo "Ensure NetworkManager enabled & dhcpcd disabled"
+echo "NetworkManager is $(systemctl -p LoadState --value show "NetworkManager") and $(systemctl -p ActiveState --value show "NetworkManager")" &>> $REDIRECT_LOGFILE
+echo "dhcpcd is $(systemctl -p LoadState --value show "dhcpcd") and $(systemctl -p ActiveState --value show "dhcpcd")" &>> $REDIRECT_LOGFILE
+echo "Download and extract WiFi Connect"
+_regex1='browser_download_url": "\K.*x86_64.*(?=")'
+RELEASE_URL1="https://api.github.com/repos/balena-os/wifi-connect/releases/170779858"
+_arch_url=$(curl "$RELEASE_URL1" -s | grep -hoP "$_regex1")
+mkdir -p /tmp/wfc
+curl -Ls "$_arch_url" | tar -xz -C "/tmp/wfc"
+sudo mv /tmp/wfc/wifi-connect /usr/local/sbin
+echo "Setup WiFi Connect UI"
+sudo mkdir -p /usr/local/share/wifi-connect
+git clone https://github.com/hello-binit/wifi-connect-ui /tmp/wfc/ui &>> $REDIRECT_LOGFILE
+sudo rm -rf /usr/local/share/wifi-connect/ui
+sudo mv /tmp/wfc/ui /usr/local/share/wifi-connect/
+sudo rm -rf /tmp/wfc
