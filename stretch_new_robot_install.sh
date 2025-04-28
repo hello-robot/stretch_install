@@ -3,19 +3,77 @@ set -o pipefail
 
 do_factory_install='false'
 do_update='false'
-while getopts ":fu" opt; do
+hello_fleet_id=''
+hello_model=''
+fleet_number=''
+
+# Display help function
+show_help() {
+    echo "Usage: $0 [options]"
+    echo
+    echo "Options:"
+    echo "  -h                       Display this help message"
+    echo "  -f                       Run factory install (Hello Robot HQ only)"
+    echo "  -u                       Run system update only"
+    echo "  -m MODEL                 Set model type (stretch-re1, stretch-re2, stretch-se3)"
+    echo "  -i ID                    Set 4-digit fleet ID"
+    echo "  -H HELLO_FLEET_ID        Set complete fleet ID (e.g., stretch-re2-1234)"
+    echo
+    exit 0
+}
+
+while getopts ":fuhm:i:H:" opt; do
     case $opt in
+        h)
+            show_help
+            ;;
         f)
             do_factory_install='true'
             ;;
         u)
             do_update='true'
             ;;
+        m)
+            hello_model="$OPTARG"
+            ;;
+        i)
+            fleet_number="$OPTARG"
+            ;;
+        H)
+            hello_fleet_id="$OPTARG"
+            ;;
+        \?)
+            echo "Invalid option: -$OPTARG" >&2
+            show_help
+            ;;
+        :)
+            echo "Option -$OPTARG requires an argument." >&2
+            show_help
+            ;;
     esac
 done
+
 if $do_factory_install && $do_update; then
     echo "Cannot both do_factory_install and do_update."
     exit 1
+fi
+
+# Prepare HELLO_FLEET_ID
+if [[ -n "$hello_fleet_id" ]]; then
+    export HELLO_FLEET_ID="$hello_fleet_id"
+elif [[ -n "$hello_model" && -n "$fleet_number" ]]; then
+    export HELLO_FLEET_ID="${hello_model}-${fleet_number}"
+    export HELLO_MODEL="$hello_model"
+    export HELLO_FLEET_NUMBER="$fleet_number"
+fi
+
+# Validate HELLO_FLEET_ID if provided
+if [[ -n "$HELLO_FLEET_ID" ]]; then
+    if [[ ! $HELLO_FLEET_ID =~ ^stretch-(re1|re2|se3)-[0-9]{4}$ ]]; then
+        echo "Error: HELLO_FLEET_ID '$HELLO_FLEET_ID' does not match required format stretch-(re1|re2|se3)-XXXX. Run 'stretch_new_robot_install.sh -h' for help."
+        exit 1
+    fi
+    echo "Using HELLO_FLEET_ID: $HELLO_FLEET_ID"
 fi
 
 source /etc/os-release
@@ -26,7 +84,7 @@ if [[ ! $factory_osdir =~ ^(18.04|20.04|22.04)$ ]]; then
 fi
 
 
-sudo echo "#############################################"
+echo "#############################################"
 echo "STARTING NEW ROBOT INSTALL"
 echo "#############################################"
 
