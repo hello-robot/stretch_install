@@ -4,7 +4,7 @@ This guide describes how to perform an OS installation of Ubuntu 22.04 LTS onto 
 
 ## Ubuntu Image
 
-Download the [22.04.3 amd64 Ubuntu desktop image](https://ubuntu.com/download/desktop).
+Download the [22.04.3 amd64 Ubuntu desktop image](https://releases.ubuntu.com/jammy/).
 
 Create a bootable drive with this Ubuntu image. There are many ways to do this, but the recommended way is to use [Etcher](https://www.balena.io/etcher/) on your personal machine. Open the Etcher software and follow it's instructions to create the bootable drive. There is a good video tutorial [available here](https://youtu.be/c0TK0ynXLOo) that explains the procedure.
 
