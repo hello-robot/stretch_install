@@ -22,13 +22,6 @@ else
         exit 1
     fi
 
-    read -p "Plug in charger & attach clip-clamp. Ready to proceed (y/n)? " -n 1 -r
-    echo
-    if [[ ! $REPLY =~ ^[Yy]$ ]]; then
-        echo "Confirmation failed. Will not proceed with installation."
-        exit 1
-    fi
-
     PS3="Select model type: "
 
     select model in stretch-re1 stretch-re2 stretch-se3
@@ -65,7 +58,9 @@ else
     HELLO_FLEET_ID="$pre$id"
 fi
 
-read -p "HELLO_FLEET_ID will be $HELLO_FLEET_ID. Proceed with installation (y/n)? " -n 1 -r
+echo "HELLO_FLEET_ID will be $HELLO_FLEET_ID."
+echo "Plug in charger & attach clip-clamp before proceeding."
+read -p "Ready to proceed with installation (y/n)? " -n 1 -r
 echo
 if [[ ! $REPLY =~ ^[Yy]$ ]]; then
     echo "Confirmation failed. Will not proceed with installation."
