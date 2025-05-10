@@ -8,54 +8,59 @@ if $do_factory_install; then
 fi
 echo "WARNING: Run this installation for fresh Ubuntu installs only."
 
-echo "Checking ~/.bashrc doesn't already define HELLO_FLEET_ID..."
-if [[ $HELLO_FLEET_ID ]]; then
-    echo "Expecting var HELLO_FLEET_ID to be undefined. Check end of ~/.bashrc file, delete all lines in 'STRETCH BASHRC SETUP' section, and open a new terminal. Exiting."
-    exit 1
+# Process automation variables from parent script
+if [[ -n "$SETUP_FLEET_ID" ]]; then
+    echo "Using SETUP_FLEET_ID from environment: $SETUP_FLEET_ID"
+    HELLO_FLEET_ID="$SETUP_FLEET_ID"
+elif [[ -n "$SETUP_MODEL" && -n "$SETUP_FLEET_NUMBER" ]]; then
+    HELLO_FLEET_ID="${SETUP_MODEL}-${SETUP_FLEET_NUMBER}"
+    echo "Using HELLO_FLEET_ID constructed from environment variables: $HELLO_FLEET_ID"
+else
+    # Original interactive prompt if no automation variables provided
+    echo "Checking ~/.bashrc doesn't already define HELLO_FLEET_ID..."
+    if [[ $HELLO_FLEET_ID ]]; then
+        echo "Expecting var HELLO_FLEET_ID to be undefined. Check end of ~/.bashrc file, delete all lines in 'STRETCH BASHRC SETUP' section, and open a new terminal. Exiting."
+        exit 1
+    fi
+
+    PS3="Select model type: "
+
+    select model in stretch-re1 stretch-re2 stretch-se3
+    do
+        echo "Selected model: $model"
+
+      if [[ "$model" == "stretch-re1" ]]
+      then
+        break
+      fi
+
+     if [[ "$model" == "stretch-re2" ]]
+      then
+        break
+      fi
+
+     if [[ "$model" == "stretch-se3" ]]
+      then
+        break
+      fi
+    done
+
+    pre=$model"-"
+
+    echo -n "Enter fleet id xxxx for $pre""xxxx> "
+    read id
+    if [[ ! $id =~ ^[0-9]{4}$ ]]; then
+        echo "Input should be four digits. Exiting."
+        exit 1
+    fi
+
+
+    HELLO_FLEET_ID="$pre$id"
 fi
 
-read -p "Plug in charger & attach clip-clamp. Ready to proceed (y/n)? " -n 1 -r
-echo
-if [[ ! $REPLY =~ ^[Yy]$ ]]; then
-    echo "Confirmation failed. Will not proceed with installation."
-    exit 1
-fi
-
-PS3="Select model type: "
-
-select model in stretch-re1 stretch-re2 stretch-se3
-do
-    echo "Selected model: $model"
-
-  if [[ "$model" == "stretch-re1" ]]
-  then
-    break
-  fi
-
- if [[ "$model" == "stretch-re2" ]]
-  then
-    break
-  fi
-
- if [[ "$model" == "stretch-se3" ]]
-  then
-    break
-  fi
-done
-
-pre=$model"-"
-
-echo -n "Enter fleet id xxxx for $pre""xxxx> "
-read id
-if [[ ! $id =~ ^[0-9]{4}$ ]]; then
-    echo "Input should be four digits. Exiting."
-    exit 1
-fi
-
-
-HELLO_FLEET_ID="$pre$id"
-
-read -p "HELLO_FLEET_ID will be $HELLO_FLEET_ID. Proceed with installation (y/n)? " -n 1 -r
+echo "HELLO_FLEET_ID will be $HELLO_FLEET_ID."
+echo "Plug in charger & attach clip-clamp before proceeding."
+read -p "Ready to proceed with installation (y/n)? " -n 1 -r
 echo
 if [[ ! $REPLY =~ ^[Yy]$ ]]; then
     echo "Confirmation failed. Will not proceed with installation."
