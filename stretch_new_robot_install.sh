@@ -12,13 +12,23 @@ show_help() {
     echo "Usage: $0 [options]"
     echo
     echo "Options:"
-    echo "  -h                       Display this help message"
-    echo "  -f                       Run factory install (Hello Robot HQ only)"
-    echo "  -u                       Run system update only"
-    echo "  -m MODEL                 Set model type (stretch-re1, stretch-re2, stretch-se3)"
-    echo "  -i ID                    Set 4-digit fleet ID"
-    echo "  -H HELLO_FLEET_ID        Set complete fleet ID (e.g., stretch-re2-1234)"
+    echo "  -h           Display this help message"
+    echo "  -f           Run factory install (Hello Robot HQ only)"
+    echo "  -u           Run system update only"
+    echo "  -m MODEL     Set model type (stretch-re1, stretch-re2, stretch-se3)"
+    echo "  -i ID        Set 4-digit fleet ID"
+    echo "  -H ID        Set complete fleet ID (e.g., stretch-re2-1234)"
     echo
+    echo "Environment Variables:"
+    echo "  SETUP_FLEET_ID        Set complete fleet ID (same as -H flag)"
+    echo "  SETUP_MODEL           Model type (used with SETUP_FLEET_NUMBER)"
+    echo "  SETUP_FLEET_NUMBER    4-digit ID (used with SETUP_MODEL)"
+    echo
+    echo "Examples:"
+    echo "  $0 -m stretch-re2 -i 1234"
+    echo "  $0 -H stretch-re2-1234"
+    echo "  SETUP_FLEET_ID=stretch-re2-1234 $0"
+    echo "  SETUP_MODEL=stretch-re2 SETUP_FLEET_NUMBER=1234 $0"
     exit 0
 }
 
@@ -58,22 +68,34 @@ if $do_factory_install && $do_update; then
     exit 1
 fi
 
-# Prepare HELLO_FLEET_ID
+# Prepare SETUP_FLEET_ID for the child setup scripts
 if [[ -n "$hello_fleet_id" ]]; then
-    export HELLO_FLEET_ID="$hello_fleet_id"
+    # From command-line flag -H
+    export SETUP_FLEET_ID="$hello_fleet_id"
+    echo "Using fleet ID from command-line argument: $SETUP_FLEET_ID"
 elif [[ -n "$hello_model" && -n "$fleet_number" ]]; then
-    export HELLO_FLEET_ID="${hello_model}-${fleet_number}"
-    export HELLO_MODEL="$hello_model"
-    export HELLO_FLEET_NUMBER="$fleet_number"
+    # From command-line flags -m and -i
+    export SETUP_FLEET_ID="${hello_model}-${fleet_number}"
+    export SETUP_MODEL="$hello_model"
+    export SETUP_FLEET_NUMBER="$fleet_number"
+    echo "Using fleet ID constructed from command-line arguments: $SETUP_FLEET_ID"
+# Check environment variables if no command-line flags were provided
+elif [[ -n "$SETUP_FLEET_ID" ]]; then
+    # From environment variable SETUP_FLEET_ID
+    echo "Using fleet ID from environment variable SETUP_FLEET_ID: $SETUP_FLEET_ID"
+elif [[ -n "$SETUP_MODEL" && -n "$SETUP_FLEET_NUMBER" ]]; then
+    # From environment variables SETUP_MODEL and SETUP_FLEET_NUMBER
+    export SETUP_FLEET_ID="${SETUP_MODEL}-${SETUP_FLEET_NUMBER}"
+    echo "Using fleet ID constructed from environment variables: $SETUP_FLEET_ID"
 fi
 
-# Validate HELLO_FLEET_ID if provided
-if [[ -n "$HELLO_FLEET_ID" ]]; then
-    if [[ ! $HELLO_FLEET_ID =~ ^stretch-(re1|re2|se3)-[0-9]{4}$ ]]; then
-        echo "Error: HELLO_FLEET_ID '$HELLO_FLEET_ID' does not match required format stretch-(re1|re2|se3)-XXXX. Run 'stretch_new_robot_install.sh -h' for help."
+# Validate SETUP_FLEET_ID if provided
+if [[ -n "$SETUP_FLEET_ID" ]]; then
+    if [[ ! $SETUP_FLEET_ID =~ ^stretch-(re1|re2|se3)-[0-9]{4}$ ]]; then
+        echo "Error: Fleet ID '$SETUP_FLEET_ID' does not match required format stretch-(re1|re2|se3)-XXXX."
+        echo "Run 'stretch_new_robot_install.sh -h' for help."
         exit 1
     fi
-    echo "Using HELLO_FLEET_ID: $HELLO_FLEET_ID"
 fi
 
 source /etc/os-release

@@ -8,14 +8,15 @@ if $do_factory_install; then
 fi
 echo "WARNING: Run this installation for fresh Ubuntu installs only."
 
-# Check for environment variables or prompt for HELLO_FLEET_ID
-if [[ -n "$HELLO_FLEET_ID" ]]; then
-    echo "Using HELLO_FLEET_ID from environment: $HELLO_FLEET_ID"
-elif [[ -n "$HELLO_MODEL" && -n "$HELLO_FLEET_NUMBER" ]]; then
-    HELLO_FLEET_ID="${HELLO_MODEL}-${HELLO_FLEET_NUMBER}"
+# Process automation variables from parent script
+if [[ -n "$SETUP_FLEET_ID" ]]; then
+    echo "Using SETUP_FLEET_ID from environment: $SETUP_FLEET_ID"
+    HELLO_FLEET_ID="$SETUP_FLEET_ID"
+elif [[ -n "$SETUP_MODEL" && -n "$SETUP_FLEET_NUMBER" ]]; then
+    HELLO_FLEET_ID="${SETUP_MODEL}-${SETUP_FLEET_NUMBER}"
     echo "Using HELLO_FLEET_ID constructed from environment variables: $HELLO_FLEET_ID"
 else
-    # Original interactive prompt if no environment variables provided
+    # Original interactive prompt if no automation variables provided
     echo "Checking ~/.bashrc doesn't already define HELLO_FLEET_ID..."
     if [[ $HELLO_FLEET_ID ]]; then
         echo "Expecting var HELLO_FLEET_ID to be undefined. Check end of ~/.bashrc file, delete all lines in 'STRETCH BASHRC SETUP' section, and open a new terminal. Exiting."
