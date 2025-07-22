@@ -146,7 +146,7 @@ register_nodesource_apt_server &>> $REDIRECT_LOGFILE
 echo "Add the nodesource APT server to the list of APT respositories"
 function add_nodesource_apt_server {
     NODE_MAJOR=21
-    echo "deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesource.com/node_$NODE_MAJOR.x nodistro main" | sudo tee /etc/apt/sources.list.d/nodesource.list
+    echo "deb [signed-by=/etc/apt/keyrings/nodesource.gpg, arch=amd64] https://deb.nodesource.com/node_$NODE_MAJOR.x nodistro main" | sudo tee /etc/apt/sources.list.d/nodesource.list
 }
 add_nodesource_apt_server &>> $REDIRECT_LOGFILE
 echo "Apt update"
