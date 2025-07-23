@@ -4,7 +4,7 @@ set -o pipefail
 sudo sleep 0.1
 source /etc/os-release
 factory_osdir="$VERSION_ID"
-if [[ ! $factory_osdir =~ ^(18.04|20.04|22.04)$ ]]; then
+if [[ ! $factory_osdir =~ ^(18.04|20.04|22.04|24.04)$ ]]; then
     echo "Could not identify OS. Please contact Hello Robot Support."
     exit 1
 fi
@@ -26,6 +26,8 @@ if [[ $factory_osdir = "18.04" ]]; then
 elif [[ $factory_osdir = "20.04" ]]; then
     ./stretch_create_catkin_workspace.sh -w "$HOME/catkin_ws"
 elif [[ $factory_osdir = "22.04" ]]; then
+    ./stretch_create_ament_workspace.sh -w "$HOME/ament_ws"
+elif [[ $factory_osdir = "24.04" ]]; then
     ./stretch_create_ament_workspace.sh -w "$HOME/ament_ws"
 fi
 if [ $? -ne 0 ]; then
