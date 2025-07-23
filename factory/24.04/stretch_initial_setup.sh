@@ -181,6 +181,9 @@ if [ -f /etc/gdm3/custom.conf ]; then
 fi
 
 echo 'Blacklisting hid_nintendo that conflicts with Xpad driver...'
-echo  '# Nintendo conflicts with Xpad controller driver' | sudo tee -a /etc/modprobe.d/blacklist.conf
-echo  'blacklist hid_nintendo' | sudo tee -a /etc/modprobe.d/blacklist.conf
-sudo update-initramfs -u
+function blacklist_hid_nintendo {
+    echo  '# Nintendo conflicts with Xpad controller driver' | sudo tee -a /etc/modprobe.d/blacklist.conf
+    echo  'blacklist hid_nintendo' | sudo tee -a /etc/modprobe.d/blacklist.conf
+    sudo update-initramfs -u
+}
+blacklist_hid_nintendo &> /dev/null
