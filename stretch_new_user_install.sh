@@ -43,6 +43,10 @@ else
         echo "export _colcon_cd_root=${HOME}/ament_ws" >> ~/.bashrc
         echo "source /opt/ros/humble/setup.bash" >> ~/.bashrc
     fi
+    elif [[ $factory_osdir = "24.04" ]]; then
+        echo "export RMW_IMPLEMENTATION=rmw_zenoh_cpp" >> ~/.bashrc
+        echo "source /opt/ros/jazzy/setup.bash" >> ~/.bashrc
+    fi
 fi
 
 echo "Prevent screen dimming..."
