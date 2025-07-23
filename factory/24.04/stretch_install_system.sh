@@ -35,6 +35,8 @@ install ipython3
 echo "Install pip3"
 install python3-pip
 echo "Install Emacs packages"
+sudo bash -c 'echo "postfix postfix/mailname string my.hostname.example" | debconf-set-selections'
+sudo bash -c 'echo "postfix postfix/main_mailer_type string '\''Internet Site'\''" | debconf-set-selections'
 install emacs yaml-mode
 echo "Install nettools"
 install net-tools
