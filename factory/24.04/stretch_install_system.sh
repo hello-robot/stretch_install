@@ -105,19 +105,19 @@ install python3-vcstool
 echo ""
 
 echo "###########################################"
-echo "INSTALLATION OF ADDITIONAL ROS HUMBLE PKGS"
+echo "INSTALLATION OF ADDITIONAL ROS JAZZY PKGS"
 echo "###########################################"
 echo "Install packages to work with URDFs"
 install liburdfdom-tools meshlab
-install ros-humble-urdfdom-py
+install ros-jazzy-urdfdom-py
 echo "Install joint state GUI package"
-install ros-humble-joint-state-publisher-gui
+install ros-jazzy-joint-state-publisher-gui
 echo "Install IMU visualization plugin for RViz and IMU filter"
-install ros-humble-rviz-imu-plugin ros-humble-imu-filter-madgwick
+install ros-jazzy-rviz-imu-plugin ros-jazzy-imu-filter-madgwick
 echo "Install robot localization package for use with IMU and wheel odometry"
-install ros-humble-robot-localization
+install ros-jazzy-robot-localization
 echo "Install teleop packages"
-install ros-humble-teleop-twist-keyboard
+install ros-jazzy-teleop-twist-keyboard
 echo ""
 
 echo "###########################################"
