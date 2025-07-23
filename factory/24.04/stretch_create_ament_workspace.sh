@@ -19,15 +19,15 @@ done
 REDIRECT_LOGFILE="$REDIRECT_LOGDIR/stretch_create_ament_workspace.`date '+%Y%m%d%H%M'`_redirected.txt"
 
 echo "###########################################"
-echo "CREATING HUMBLE AMENT WORKSPACE at $AMENT_WSDIR"
+echo "CREATING JAZZY AMENT WORKSPACE at $AMENT_WSDIR"
 echo "###########################################"
 
 echo "Ensuring correct version of ROS is sourced..."
-if [[ $ROS_DISTRO && ! $ROS_DISTRO = "humble" ]]; then
+if [[ $ROS_DISTRO && ! $ROS_DISTRO = "jazzy" ]]; then
     echo "Cannot create workspace while a conflicting ROS version is sourced. Exiting."
     exit 1
 fi
-source /opt/ros/humble/setup.bash
+source /opt/ros/jazzy/setup.bash
 
 if [[ -d $AMENT_WSDIR ]]; then
     echo "You are about to delete and replace the existing ament workspace. If you have any personal data in the workspace, please create a back up before proceeding."
