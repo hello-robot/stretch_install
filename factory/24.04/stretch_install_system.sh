@@ -121,7 +121,7 @@ install ros-jazzy-teleop-twist-keyboard
 echo ""
 
 echo "###########################################"
-echo "INSTALLATION OF INTEL D435i"
+echo "INSTALLATION OF INTEL REALSENSE"
 echo "###########################################"
 echo "Register the librealsense APT server's public key"
 function register_librealsense_apt_server {
@@ -169,7 +169,7 @@ echo "###########################################"
 echo "INSTALLATION OF REMOTE DESKTOP"
 echo "###########################################"
 echo "Install Sunshine Remote Desktop Server"
-wget https://github.com/LizardByte/Sunshine/releases/download/v0.21.0/sunshine-ubuntu-22.04-amd64.deb -O /tmp/sunshine.deb &>> $REDIRECT_LOGFILE
+wget https://github.com/LizardByte/Sunshine/releases/download/v2025.721.150932/sunshine-ubuntu-24.04-amd64.deb -O /tmp/sunshine.deb &>> $REDIRECT_LOGFILE
 install /tmp/sunshine.deb
 echo "Add Sunshine uinput udev rule"
 function add_sunshine_uinput_rule {
