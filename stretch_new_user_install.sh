@@ -174,13 +174,14 @@ elif [[ $factory_osdir = "24.04" ]]; then
     echo ""
 fi
 
+echo "###########################################"
+echo "CONFIGURATION OF ROBOT PARAMETERS"
+echo "###########################################"
+echo "Checking params migrated..."
 export PATH=${PATH}:~/.local/bin
 export HELLO_FLEET_ID=$HELLO_FLEET_ID
 export HELLO_FLEET_PATH=${HOME}/stretch_user
-
-echo "Ensuring correct version of params present..."
 params_dir_path=$HELLO_FLEET_PATH/$HELLO_FLEET_ID
-echo "Checking params directory path: $params_dir_path"
 
 # Define file paths based on the provided directory
 user_params="$params_dir_path/stretch_re1_user_params.yaml"
@@ -193,7 +194,7 @@ if [[ ! -f $new_config_params && ! -f $new_user_params ]]; then
     # Check if the original RE1 files exist
     if [[ -f $user_params && -f $factory_params ]]; then
         echo "Old RE1 params are present. Starting param migration..."
-        /home/$USER/.local/bin/RE1_migrate_params.py --path $dir_path
+        /home/$USER/.local/bin/RE1_migrate_params.py
         # Check if the script ran successfully
         if [ $? -eq 0 ]; then
             echo "Migration script ran successfully."
@@ -203,7 +204,7 @@ if [[ ! -f $new_config_params && ! -f $new_user_params ]]; then
         fi
 
         echo "Migrating contact params..."
-        /home/$USER/.local/bin/RE1_migrate_contacts.py --path $dir_path
+        /home/$USER/.local/bin/RE1_migrate_contacts.py
         # Check if the script ran successfully
         if [ $? -eq 0 ]; then
             echo "Migration script ran successfully."
@@ -218,6 +219,7 @@ if [[ ! -f $new_config_params && ! -f $new_user_params ]]; then
 else
     echo "Required parameter files are present in the directory. Skipping migration."
 fi
+echo ""
 
 if [[ $factory_osdir = "18.04" ]]; then
     ~/stretch_install/factory/$factory_osdir/stretch_create_catkin_workspace.sh -w "$HOME/catkin_ws" -l $REDIRECT_LOGDIR
