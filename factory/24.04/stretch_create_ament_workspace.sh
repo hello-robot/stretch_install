@@ -61,13 +61,12 @@ echo "Creating the workspace directory..."
 mkdir -p $AMENT_WSDIR/src
 echo "Cloning the workspace's packages..."
 cd $AMENT_WSDIR/src
-vcs import --input ~/stretch_install/factory/22.04/stretch_ros2_humble.repos &>> $REDIRECT_LOGFILE
+vcs import --input ~/stretch_install/factory/24.04/stretch_ros2_jazzy.repos &>> $REDIRECT_LOGFILE
 echo "Fetch ROS packages' dependencies (this might take a while)..."
 cd $AMENT_WSDIR/
 # The rosdep flags below have been chosen very carefully. Please review the docs before changing them.
 # https://docs.ros.org/en/independent/api/rosdep/html/commands.html
-rosdep install --rosdistro=humble -iy --skip-keys="librealsense2 realsense2_camera" --from-paths src &>> $REDIRECT_LOGFILE
-sudo apt remove -y ros-humble-librealsense2 ros-humble-realsense2-camera ros-humble-realsense2-camera-msgs &>> $REDIRECT_LOGFILE
+rosdep install --rosdistro=jazzy -iy --from-paths src &>> $REDIRECT_LOGFILE
 pip3 cache purge &>> $REDIRECT_LOGFILE
 
 echo "Install web interface dependencies..."
