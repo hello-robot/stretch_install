@@ -47,6 +47,7 @@ if [[ -d $AMENT_WSDIR ]]; then
 fi
 
 echo "Downgrade to numpy 1.26.4..."
+export PIP_BREAK_SYSTEM_PACKAGES=1
 pip3 install numpy==1.26.4 &>> $REDIRECT_LOGFILE
 
 export PATH=${PATH}:~/.local/bin
@@ -69,27 +70,27 @@ cd $AMENT_WSDIR/
 rosdep install --rosdistro=jazzy -iy --from-paths src &>> $REDIRECT_LOGFILE
 pip3 cache purge &>> $REDIRECT_LOGFILE
 
-echo "Install web interface dependencies..."
-cd $AMENT_WSDIR/src/stretch_web_teleop
-pip3 install -r requirements.txt &>> $REDIRECT_LOGFILE
-npm install --force &>> $REDIRECT_LOGFILE
-npx playwright install &>> $REDIRECT_LOGFILE
-echo "Generating web interface certs..."
-cd $AMENT_WSDIR/src/stretch_web_teleop/certificates
-curl -JLO "https://dl.filippo.io/mkcert/latest?for=linux/amd64" &>> $REDIRECT_LOGFILE
-chmod +x mkcert-v*-linux-amd64
-sudo cp mkcert-v*-linux-amd64 /usr/local/bin/mkcert
-CAROOT=`pwd` mkcert --install &>> $REDIRECT_LOGFILE
-mkdir -p ~/.local/share/mkcert
-rm -rf ~/.local/share/mkcert/root*
-cp root* ~/.local/share/mkcert
-mkcert ${HELLO_FLEET_ID} ${HELLO_FLEET_ID}.local ${HELLO_FLEET_ID}.dev localhost 127.0.0.1 0.0.0.0 ::1 &>> $REDIRECT_LOGFILE
-rm mkcert-v*-linux-amd64
-cd $AMENT_WSDIR/src/stretch_web_teleop
-touch .env
-echo certfile=${HELLO_FLEET_ID}+6.pem >> .env
-echo keyfile=${HELLO_FLEET_ID}+6-key.pem >> .env
-cd $AMENT_WSDIR/
+# echo "Install web interface dependencies..."
+# cd $AMENT_WSDIR/src/stretch_web_teleop
+# pip3 install -r requirements.txt &>> $REDIRECT_LOGFILE
+# npm install --force &>> $REDIRECT_LOGFILE
+# npx playwright install &>> $REDIRECT_LOGFILE
+# echo "Generating web interface certs..."
+# cd $AMENT_WSDIR/src/stretch_web_teleop/certificates
+# curl -JLO "https://dl.filippo.io/mkcert/latest?for=linux/amd64" &>> $REDIRECT_LOGFILE
+# chmod +x mkcert-v*-linux-amd64
+# sudo cp mkcert-v*-linux-amd64 /usr/local/bin/mkcert
+# CAROOT=`pwd` mkcert --install &>> $REDIRECT_LOGFILE
+# mkdir -p ~/.local/share/mkcert
+# rm -rf ~/.local/share/mkcert/root*
+# cp root* ~/.local/share/mkcert
+# mkcert ${HELLO_FLEET_ID} ${HELLO_FLEET_ID}.local ${HELLO_FLEET_ID}.dev localhost 127.0.0.1 0.0.0.0 ::1 &>> $REDIRECT_LOGFILE
+# rm mkcert-v*-linux-amd64
+# cd $AMENT_WSDIR/src/stretch_web_teleop
+# touch .env
+# echo certfile=${HELLO_FLEET_ID}+6.pem >> .env
+# echo keyfile=${HELLO_FLEET_ID}+6-key.pem >> .env
+# cd $AMENT_WSDIR/
 
 echo "Install FUNMAP dependencies..."
 curl -LsSf https://astral.sh/uv/install.sh | sh &>> $REDIRECT_LOGFILE
