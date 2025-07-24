@@ -120,11 +120,11 @@ echo "Setup uncalibrated robot URDF..."
 ros2 run stretch_calibration update_uncalibrated_urdf >> $REDIRECT_LOGFILE
 echo "Setup calibrated robot URDF..."
 ros2 run stretch_calibration update_with_most_recent_calibration >> $REDIRECT_LOGFILE
-colcon build --symlink-install &>> $REDIRECT_LOGFILE
+colcon build &>> $REDIRECT_LOGFILE
 
-echo "Amend FUNMAP executables to use venv..."
-pip3 install -U hello-robot-stretch-factory &>> $REDIRECT_LOGFILE # Necessary for the below CLI
-REx_amend_venv_execs.py stretch_funmap &>> $REDIRECT_LOGFILE
+# echo "Amend FUNMAP executables to use venv..."
+# pip3 install -U hello-robot-stretch-factory &>> $REDIRECT_LOGFILE # Necessary for the below CLI
+# REx_amend_venv_execs.py stretch_funmap &>> $REDIRECT_LOGFILE
 
 echo "Downgrade to numpy 1.26.4..."
 pip3 install numpy==1.26.4 &>> $REDIRECT_LOGFILE
