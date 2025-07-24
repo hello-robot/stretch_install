@@ -6,7 +6,7 @@ repositories:
   stretch_ros2:
     type: git
     url: https://github.com/hello-robot/stretch_ros2.git
-    version: humble
+    version: jazzy
   sllidar_ros2:
     type: git
     url: https://github.com/Slamtec/sllidar_ros2.git
