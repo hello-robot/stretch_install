@@ -121,7 +121,33 @@ if [[ $factory_osdir = "18.04" ]]; then
     echo "Install opencv-python-inference-engine"
     python3 -m pip -q install --no-warn-script-location opencv-python-inference-engine &>> $REDIRECT_LOGFILE
     echo ""
-elif [[ $factory_osdir = "20.04" || $factory_osdir = "22.04" || $factory_osdir = "24.04" ]]; then
+elif [[ $factory_osdir = "20.04" || $factory_osdir = "22.04" ]]; then
+    echo "###########################################"
+    echo "INSTALLATION OF USER LEVEL PIP3 PACKAGES"
+    echo "###########################################"
+    echo "Upgrade pip3"
+    python3 -m pip -q install --no-warn-script-location --user --upgrade pip &>> $REDIRECT_LOGFILE
+    echo "Clear pip cache"
+    python3 -m pip cache purge &>> $REDIRECT_LOGFILE
+    echo "Install Stretch Body"
+    python3 -m pip -q install --no-warn-script-location --upgrade hello-robot-stretch-body &>> $REDIRECT_LOGFILE
+    echo "Install Stretch Body Tools"
+    python3 -m pip -q install --no-warn-script-location --upgrade hello-robot-stretch-body-tools &>> $REDIRECT_LOGFILE
+    echo "Install Stretch Factory"
+    python3 -m pip -q install --no-warn-script-location --upgrade hello-robot-stretch-factory &>> $REDIRECT_LOGFILE
+    echo "Install Stretch Tool Share"
+    python3 -m pip -q install --no-warn-script-location --upgrade hello-robot-stretch-tool-share &>> $REDIRECT_LOGFILE
+    echo "Install Stretch Diagnostics"
+    python3 -m pip -q install --no-warn-script-location --upgrade hello-robot-stretch-diagnostics &>> $REDIRECT_LOGFILE
+    echo "Install Stretch URDF"
+    python3 -m pip -q install --no-warn-script-location --upgrade hello-robot-stretch-urdf &>> $REDIRECT_LOGFILE
+    echo "Upgrade prompt_toolkit"
+    python3 -m pip -q install --no-warn-script-location -U prompt_toolkit &>> $REDIRECT_LOGFILE
+    echo "Remove setuptools-scm"
+    python3 -m pip -q uninstall -y setuptools-scm &>> $REDIRECT_LOGFILE
+    echo ""
+elif [[ $factory_osdir = "24.04" ]]; then
+    export PIP_BREAK_SYSTEM_PACKAGES=1
     echo "###########################################"
     echo "INSTALLATION OF USER LEVEL PIP3 PACKAGES"
     echo "###########################################"
