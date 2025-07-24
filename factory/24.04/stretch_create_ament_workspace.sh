@@ -105,6 +105,7 @@ pip3 cache purge &>> $REDIRECT_LOGFILE
 echo "Compile the workspace (this might take a while)..."
 # pip3 install setuptools==59.6.0 &>> $REDIRECT_LOGFILE # must use <61 for Colcon to correctly build Stretch FUNMAP
 # pip3 uninstall -y setuptools-scm &>> $REDIRECT_LOGFILE
+pip3 uninstall -y nose &>> $REDIRECT_LOGFILE
 colcon build &>> $REDIRECT_LOGFILE
 echo "Source setup.bash file..."
 source $AMENT_WSDIR/install/setup.bash
