@@ -171,7 +171,7 @@ echo "###########################################"
 echo "INSTALLATION OF REMOTE DESKTOP"
 echo "###########################################"
 echo "Install Sunshine Remote Desktop Server"
-wget https://github.com/LizardByte/Sunshine/releases/download/v2025.721.150932/sunshine-ubuntu-24.04-amd64.deb -O /tmp/sunshine.deb &>> $REDIRECT_LOGFILE
+wget https://github.com/LizardByte/Sunshine/releases/download/v2025.628.4510/sunshine-ubuntu-24.04-amd64.deb -O /tmp/sunshine.deb &>> $REDIRECT_LOGFILE
 install /tmp/sunshine.deb
 echo "Add Sunshine uinput udev rule"
 function add_sunshine_uinput_rule {
