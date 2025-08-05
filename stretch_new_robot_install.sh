@@ -177,6 +177,6 @@ zip -r $logzip $logdir/ > /dev/null
 echo ""
 echo "#############################################"
 echo "DONE! INSTALLATION COMPLETED SUCCESSFULLY."
-echo "Perform post install steps: https://docs.hello-robot.com/0.2/stretch-install/docs/robot_install/#post-install-steps"
+echo "Perform post install steps: https://docs.hello-robot.com/0.3/installation/robot_install/#post-install-steps"
 echo "#############################################"
 echo ""
