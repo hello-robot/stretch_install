@@ -35,5 +35,6 @@ fi
 echo ""
 echo "#############################################"
 echo "DONE! ROS WORKSPACE SET UP SUCCESSFULLY."
+echo "Close your current terminal and open a new one."
 echo "#############################################"
 echo ""
