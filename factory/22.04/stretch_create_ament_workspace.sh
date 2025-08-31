@@ -53,6 +53,8 @@ export PATH=${PATH}:~/.local/bin
 . /etc/hello-robot/hello-robot.conf
 export HELLO_FLEET_ID=$HELLO_FLEET_ID
 export HELLO_FLEET_PATH=${HOME}/stretch_user
+echo "Apt update..."
+sudo apt update &>> $REDIRECT_LOGFILE
 echo "Updating rosdep indices..."
 rosdep update --include-eol-distros &>> $REDIRECT_LOGFILE
 echo "Deleting $AMENT_WSDIR if it already exists..."
