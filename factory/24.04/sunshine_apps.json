@@ -1,0 +1,17 @@
+{
+    "env": {
+        "PATH": "$(PATH):$(HOME)\/.local\/bin"
+    },
+    "apps": [
+        {
+            "name": "Desktop",
+            "image-path": "desktop.png",
+            "prep-cmd": [
+                {
+                    "do": "sh -c \"REx_xrandr_display.py --set ${SUNSHINE_CLIENT_WIDTH}x${SUNSHINE_CLIENT_HEIGHT}x${SUNSHINE_CLIENT_FPS}\"",
+                    "undo": "sh -c \"REx_xrandr_display.py --revert\""
+                }
+            ]
+        }
+    ]
+}

@@ -9,7 +9,7 @@ REDIRECT_LOGFILE="$REDIRECT_LOGDIR/stretch_new_user_install.`date '+%Y%m%d%H%M'`
 
 source /etc/os-release
 factory_osdir="$VERSION_ID"
-if [[ ! $factory_osdir =~ ^(18.04|20.04|22.04)$ ]]; then
+if [[ ! $factory_osdir =~ ^(18.04|20.04|22.04|24.04)$ ]]; then
     echo "Could not identify OS. Please contact Hello Robot Support."
     exit 1
 fi
@@ -42,6 +42,10 @@ else
     elif [[ $factory_osdir = "22.04" ]]; then
         echo "export _colcon_cd_root=${HOME}/ament_ws" >> ~/.bashrc
         echo "source /opt/ros/humble/setup.bash" >> ~/.bashrc
+    elif [[ $factory_osdir = "24.04" ]]; then
+        echo "export PIP_BREAK_SYSTEM_PACKAGES=1" >> ~/.bashrc
+        echo "export RMW_IMPLEMENTATION=rmw_zenoh_cpp" >> ~/.bashrc
+        echo "source /opt/ros/jazzy/setup.bash" >> ~/.bashrc
     fi
 fi
 
@@ -88,7 +92,7 @@ echo "Updating media assets..."
 sudo cp $HOME/stretch_install/factory/$factory_osdir/stretch_about.png /etc/hello-robot
 
 echo "Installing Arduino CLI..."
-~/stretch_install/factory/$factory_osdir/stretch_install_arduino.sh >> $REDIRECT_LOGFILE
+~/stretch_install/factory/$factory_osdir/stretch_install_arduino.sh &>> $REDIRECT_LOGFILE
 
 echo "Adding user to the dialout group to access Arduino..."
 sudo adduser $USER dialout >> $REDIRECT_LOGFILE
@@ -142,15 +146,42 @@ elif [[ $factory_osdir = "20.04" || $factory_osdir = "22.04" ]]; then
     echo "Remove setuptools-scm"
     python3 -m pip -q uninstall -y setuptools-scm &>> $REDIRECT_LOGFILE
     echo ""
+elif [[ $factory_osdir = "24.04" ]]; then
+    export PIP_BREAK_SYSTEM_PACKAGES=1
+    echo "###########################################"
+    echo "INSTALLATION OF USER LEVEL PIP3 PACKAGES"
+    echo "###########################################"
+    echo "Upgrade pip3"
+    python3 -m pip -q install --no-warn-script-location --user --upgrade pip &>> $REDIRECT_LOGFILE
+    echo "Clear pip cache"
+    python3 -m pip cache purge &>> $REDIRECT_LOGFILE
+    echo "Install Stretch Body"
+    python3 -m pip -q install --no-warn-script-location --upgrade hello-robot-stretch-body &>> $REDIRECT_LOGFILE
+    echo "Install Stretch Body Tools"
+    python3 -m pip -q install --no-warn-script-location --upgrade hello-robot-stretch-body-tools &>> $REDIRECT_LOGFILE
+    echo "Install Stretch Factory"
+    python3 -m pip -q install --no-warn-script-location --upgrade hello-robot-stretch-factory &>> $REDIRECT_LOGFILE
+    echo "Install Stretch Tool Share"
+    python3 -m pip -q install --no-warn-script-location --upgrade hello-robot-stretch-tool-share &>> $REDIRECT_LOGFILE
+    echo "Install Stretch Diagnostics"
+    python3 -m pip -q install --no-warn-script-location --upgrade hello-robot-stretch-diagnostics &>> $REDIRECT_LOGFILE
+    echo "Install Stretch URDF"
+    python3 -m pip -q install --no-warn-script-location --upgrade hello-robot-stretch-urdf &>> $REDIRECT_LOGFILE
+    echo "Upgrade prompt_toolkit"
+    python3 -m pip -q install --no-warn-script-location -U prompt_toolkit &>> $REDIRECT_LOGFILE
+    echo "Remove setuptools-scm"
+    python3 -m pip -q uninstall -y setuptools-scm &>> $REDIRECT_LOGFILE
+    echo ""
 fi
 
+echo "###########################################"
+echo "CONFIGURATION OF ROBOT PARAMETERS"
+echo "###########################################"
+echo "Checking params migrated..."
 export PATH=${PATH}:~/.local/bin
 export HELLO_FLEET_ID=$HELLO_FLEET_ID
 export HELLO_FLEET_PATH=${HOME}/stretch_user
-
-echo "Ensuring correct version of params present..."
 params_dir_path=$HELLO_FLEET_PATH/$HELLO_FLEET_ID
-echo "Checking params directory path: $params_dir_path"
 
 # Define file paths based on the provided directory
 user_params="$params_dir_path/stretch_re1_user_params.yaml"
@@ -163,7 +194,7 @@ if [[ ! -f $new_config_params && ! -f $new_user_params ]]; then
     # Check if the original RE1 files exist
     if [[ -f $user_params && -f $factory_params ]]; then
         echo "Old RE1 params are present. Starting param migration..."
-        /home/$USER/.local/bin/RE1_migrate_params.py --path $dir_path
+        /home/$USER/.local/bin/RE1_migrate_params.py
         # Check if the script ran successfully
         if [ $? -eq 0 ]; then
             echo "Migration script ran successfully."
@@ -173,7 +204,7 @@ if [[ ! -f $new_config_params && ! -f $new_user_params ]]; then
         fi
 
         echo "Migrating contact params..."
-        /home/$USER/.local/bin/RE1_migrate_contacts.py --path $dir_path
+        /home/$USER/.local/bin/RE1_migrate_contacts.py
         # Check if the script ran successfully
         if [ $? -eq 0 ]; then
             echo "Migration script ran successfully."
@@ -188,11 +219,14 @@ if [[ ! -f $new_config_params && ! -f $new_user_params ]]; then
 else
     echo "Required parameter files are present in the directory. Skipping migration."
 fi
+echo ""
 
 if [[ $factory_osdir = "18.04" ]]; then
     ~/stretch_install/factory/$factory_osdir/stretch_create_catkin_workspace.sh -w "$HOME/catkin_ws" -l $REDIRECT_LOGDIR
 elif [[ $factory_osdir = "20.04" ]]; then
     ~/stretch_install/factory/$factory_osdir/stretch_create_catkin_workspace.sh -w "$HOME/catkin_ws" -l $REDIRECT_LOGDIR
 elif [[ $factory_osdir = "22.04" ]]; then
+    ~/stretch_install/factory/$factory_osdir/stretch_create_ament_workspace.sh -w "$HOME/ament_ws" -l $REDIRECT_LOGDIR
+elif [[ $factory_osdir = "24.04" ]]; then
     ~/stretch_install/factory/$factory_osdir/stretch_create_ament_workspace.sh -w "$HOME/ament_ws" -l $REDIRECT_LOGDIR
 fi
