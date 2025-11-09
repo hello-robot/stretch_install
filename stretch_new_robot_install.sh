@@ -100,7 +100,7 @@ fi
 
 source /etc/os-release
 factory_osdir="$VERSION_ID"
-if [[ ! $factory_osdir =~ ^(18.04|20.04|22.04)$ ]]; then
+if [[ ! $factory_osdir =~ ^(18.04|20.04|22.04|24.04)$ ]]; then
     echo "Could not identify OS. Please contact Hello Robot Support."
     exit 1
 fi
@@ -177,6 +177,6 @@ zip -r $logzip $logdir/ > /dev/null
 echo ""
 echo "#############################################"
 echo "DONE! INSTALLATION COMPLETED SUCCESSFULLY."
-echo "Perform post install steps: https://docs.hello-robot.com/0.2/stretch-install/docs/robot_install/#post-install-steps"
+echo "Perform post install steps: https://docs.hello-robot.com/0.3/installation/robot_install/#post-install-steps"
 echo "#############################################"
 echo ""

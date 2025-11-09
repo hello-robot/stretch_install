@@ -55,7 +55,6 @@ else
         exit 1
     fi
 
-
     HELLO_FLEET_ID="$pre$id"
 fi
 
@@ -137,7 +136,6 @@ sudo cp $DIR/hello_sudoers /etc/sudoers.d/
 
 echo "Setting up startup scripts..."
 mkdir -p ~/.local/bin
-sudo cp $DIR/xbox_dongle_init.py ~/.local/bin/
 sudo cp $DIR/hello_robot_audio.sh /usr/bin/
 sudo cp $DIR/hello_robot_lrf_off.py /usr/bin/
 sudo cp $DIR/hello_robot_pimu_ping.py /usr/bin/
@@ -148,12 +146,18 @@ echo "Setting up apt retries..."
 echo 'Acquire::Retries "3";' > 80-retries
 sudo mv 80-retries /etc/apt/apt.conf.d/
 
+echo "Prevent screen dimming..."
+gsettings set org.gnome.desktop.session idle-delay 0 &> /dev/null || true
+gsettings set org.gnome.settings-daemon.plugins.power sleep-inactive-ac-timeout 0 &> /dev/null || true
+gsettings set org.gnome.settings-daemon.plugins.power idle-dim false &> /dev/null || true
+
 echo "Setting up motd..."
 if [ -d /etc/update-motd.d/ ]; then
     sudo cp $DIR/motd/00-header /etc/update-motd.d/00-header
     sudo chmod +x /etc/update-motd.d/00-header
     sudo cp $DIR/motd/10-help-text /etc/update-motd.d/10-help-text
     sudo chmod +x /etc/update-motd.d/10-help-text
+    sudo cp $DIR/motd/10dpkg_options /etc/apt/apt.conf.d/10dpkg_options
 fi
 if [ -f /etc/update-motd.d/50-motd-news ]; then
     sudo chmod -x /etc/update-motd.d/50-motd-news
@@ -170,3 +174,16 @@ fi
 if [ -f /etc/update-motd.d/95-hwe-eol ]; then
     sudo chmod -x /etc/update-motd.d/95-hwe-eol
 fi
+
+echo "Switching from Wayland to X11..."
+if [ -f /etc/gdm3/custom.conf ]; then
+    sudo sed -i -e 's/#WaylandEnable=false/WaylandEnable=false/g' /etc/gdm3/custom.conf
+fi
+
+echo 'Blacklisting hid_nintendo that conflicts with Xpad driver...'
+function blacklist_hid_nintendo {
+    echo  '# Nintendo conflicts with Xpad controller driver' | sudo tee -a /etc/modprobe.d/blacklist.conf
+    echo  'blacklist hid_nintendo' | sudo tee -a /etc/modprobe.d/blacklist.conf
+    sudo update-initramfs -u
+}
+blacklist_hid_nintendo &> /dev/null
