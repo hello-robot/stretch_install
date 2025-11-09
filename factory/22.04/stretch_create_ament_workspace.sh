@@ -46,6 +46,9 @@ if [[ -d $AMENT_WSDIR ]]; then
     prompt_yes_no
 fi
 
+echo "Apt update..."
+sudo apt-get --yes update >> $REDIRECT_LOGFILE
+
 echo "Downgrade to numpy 1.26.4..."
 pip3 install numpy==1.26.4 &>> $REDIRECT_LOGFILE
 

@@ -45,6 +45,8 @@ if [[ -d $CATKIN_WSDIR ]]; then
     prompt_yes_no
 fi
 
+echo "Apt update..."
+sudo apt-get --yes update >> $REDIRECT_LOGFILE
 echo "Updating rosdep indices..."
 rosdep update --include-eol-distros &>> $REDIRECT_LOGFILE
 echo "Deleting $CATKIN_WSDIR if it already exists..."

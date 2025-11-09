@@ -45,6 +45,8 @@ if [[ -d $CATKIN_WSDIR ]]; then
     prompt_yes_no
 fi
 
+echo "Apt update..."
+sudo apt-get --yes update >> $REDIRECT_LOGFILE
 echo "Deleting $CATKIN_WSDIR if it already exists..."
 sudo rm -rf $CATKIN_WSDIR
 # see http://wiki.ros.org/ROS/Tutorials/InstallingandConfiguringROSEnvironment for details
