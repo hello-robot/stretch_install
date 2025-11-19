@@ -12,6 +12,17 @@ function install {
 }
 
 echo "###########################################"
+echo "RECONFIGURATION OF ROS 2 APT"
+echo "###########################################"
+echo "Remove old configuration"
+sudo rm -f /usr/share/keyrings/ros-archive-keyring.gpg
+sudo rm -f /etc/apt/sources.list.d/ros2.list
+echo "Setting up new keys"
+export ROS_APT_SOURCE_VERSION=$(curl -s https://api.github.com/repos/ros-infrastructure/ros-apt-source/releases/latest | grep -F "tag_name" | awk -F\" '{print $4}')
+curl -L -o /tmp/ros2-apt-source.deb "https://github.com/ros-infrastructure/ros-apt-source/releases/download/${ROS_APT_SOURCE_VERSION}/ros2-apt-source_${ROS_APT_SOURCE_VERSION}.$(. /etc/os-release && echo ${UBUNTU_CODENAME:-${VERSION_CODENAME}})_all.deb" &>> $REDIRECT_LOGFILE
+sudo dpkg -i /tmp/ros2-apt-source.deb >> $REDIRECT_LOGFILE
+
+echo "###########################################"
 echo "INSTALLATION OF SYSTEM WIDE PACKAGES"
 echo "###########################################"
 echo "Apt update & upgrade (this might take a while)"
@@ -73,13 +84,6 @@ echo ""
 echo "###########################################"
 echo "INSTALLATION OF ROS 2 HUMBLE"
 echo "###########################################"
-echo "Setting up keys"
-sudo rm -f /usr/share/keyrings/ros-archive-keyring.gpg
-sudo rm -f /etc/apt/sources.list.d/ros2.list
-export ROS_APT_SOURCE_VERSION=$(curl -s https://api.github.com/repos/ros-infrastructure/ros-apt-source/releases/latest | grep -F "tag_name" | awk -F\" '{print $4}')
-curl -L -o /tmp/ros2-apt-source.deb "https://github.com/ros-infrastructure/ros-apt-source/releases/download/${ROS_APT_SOURCE_VERSION}/ros2-apt-source_${ROS_APT_SOURCE_VERSION}.$(. /etc/os-release && echo ${UBUNTU_CODENAME:-${VERSION_CODENAME}})_all.deb" &>> $REDIRECT_LOGFILE
-sudo dpkg -i /tmp/ros2-apt-source.deb >> $REDIRECT_LOGFILE
-
 echo "Apt update"
 sudo apt-get --yes update >> $REDIRECT_LOGFILE
 echo "Install ROS 2 Humble (this might take a while)"
