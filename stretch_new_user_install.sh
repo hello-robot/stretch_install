@@ -163,7 +163,7 @@ if [[ ! -f $new_config_params && ! -f $new_user_params ]]; then
     # Check if the original RE1 files exist
     if [[ -f $user_params && -f $factory_params ]]; then
         echo "Old RE1 params are present. Starting param migration..."
-        /home/$USER/.local/bin/RE1_migrate_params.py --path $dir_path
+        /home/$USER/.local/bin/RE1_migrate_params.py --path $params_dir_path
         # Check if the script ran successfully
         if [ $? -eq 0 ]; then
             echo "Migration script ran successfully."
@@ -173,7 +173,7 @@ if [[ ! -f $new_config_params && ! -f $new_user_params ]]; then
         fi
 
         echo "Migrating contact params..."
-        /home/$USER/.local/bin/RE1_migrate_contacts.py --path $dir_path
+        /home/$USER/.local/bin/RE1_migrate_contacts.py --path $params_dir_path
         # Check if the script ran successfully
         if [ $? -eq 0 ]; then
             echo "Migration script ran successfully."
