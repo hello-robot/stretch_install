@@ -94,14 +94,21 @@ echo certfile=${HELLO_FLEET_ID}+6.pem >> .env
 echo keyfile=${HELLO_FLEET_ID}+6-key.pem >> .env
 cd $AMENT_WSDIR/
 
-echo "Install FUNMAP dependencies..."
+echo "Installing uv..."
 curl -LsSf https://astral.sh/uv/install.sh | sh &>> $REDIRECT_LOGFILE
+# FUNMAP & DEEP PERCEPTION venv + deps
+echo "Install FUNMAP dependencies..."
 cd $AMENT_WSDIR/src/stretch_ros2/stretch_funmap
 uv venv --system-site-packages --allow-existing .venv &>> $REDIRECT_LOGFILE
 uv sync --frozen &>> $REDIRECT_LOGFILE
 echo "Compile cython modules..."
 pip3 install setuptools==59.6.0 &>> $REDIRECT_LOGFILE # must use <61 for Colcon to correctly build Stretch FUNMAP
 uv run cythonize stretch_funmap/cython_min_cost_path.pyx -3 -i &>> $REDIRECT_LOGFILE
+cd $AMENT_WSDIR/
+echo "Install stretch_deep_perception dependencies..."
+cd $AMENT_WSDIR/src/stretch_ros2/stretch_deep_perception
+uv venv --system-site-packages --allow-existing .venv &>> $REDIRECT_LOGFILE
+uv sync --frozen &>> $REDIRECT_LOGFILE
 cd $AMENT_WSDIR/
 
 echo "Compile the workspace (this might take a while)..."
@@ -124,9 +131,12 @@ echo "Setup calibrated robot URDF..."
 ros2 run stretch_calibration update_with_most_recent_calibration >> $REDIRECT_LOGFILE
 colcon build --symlink-install &>> $REDIRECT_LOGFILE
 
-echo "Amend FUNMAP executables to use venv..."
+echo "Amend executables to use venv..."
 pip3 install -U hello-robot-stretch-factory &>> $REDIRECT_LOGFILE # Necessary for the below CLI
+echo "Amend FUNMAP executables to use venv..."
 REx_amend_venv_execs.py stretch_funmap &>> $REDIRECT_LOGFILE
+echo "Amend stretch_deep_perception executables to use venv..."
+REx_amend_venv_execs.py stretch_deep_perception &>> $REDIRECT_LOGFILE
 
 echo "Downgrade to numpy 1.26.4..."
 pip3 install numpy==1.26.4 &>> $REDIRECT_LOGFILE
