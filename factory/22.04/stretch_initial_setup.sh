@@ -80,8 +80,8 @@ if [ $do_factory_install = 'false' ]; then
         echo "Expecting robot calibration $HELLO_FLEET_ID to be present in the the home folder. Exiting."
         exit 1
     fi
+    chmod -R a+r $HOME/$HELLO_FLEET_ID
 fi
-chmod -R a+r $HOME/$HELLO_FLEET_ID
 
 echo "Waiting to get online..."
 while ! timeout 0.2 ping -c 1 -n google.com &> /dev/null
