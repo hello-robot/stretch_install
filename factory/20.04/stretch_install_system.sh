@@ -17,7 +17,7 @@ echo "###########################################"
 echo "Apt update & upgrade (this might take a while)"
 sudo apt-add-repository universe >> $REDIRECT_LOGFILE
 sudo apt-get --yes update >> $REDIRECT_LOGFILE
-sudo apt-get --yes upgrade &>> $REDIRECT_LOGFILE
+sudo DEBIAN_FRONTEND=noninteractive apt-get --yes -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" upgrade &>> $REDIRECT_LOGFILE
 echo "Install zip & unzip"
 install zip unzip
 echo "Install Curl"
