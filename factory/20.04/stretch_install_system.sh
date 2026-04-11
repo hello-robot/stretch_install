@@ -124,11 +124,16 @@ echo "Install dynamic reconfiguration"
 install ros-noetic-ddynamic-reconfigure ros-noetic-ddynamic-reconfigure-python
 echo "Register the librealsense APT server's public key"
 function register_librealsense_apt_server {
-    sudo apt-key adv --keyserver keys.gnupg.net --recv-key F6E65AC044F831AC80A06380C8B3A55A6F3EFCDE || sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-key F6E65AC044F831AC80A06380C8B3A55A6F3EFCDE
+    sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-key F6E65AC044F831AC80A06380C8B3A55A6F3EFCDE
+    sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-key FB0B24895113F120
 }
 register_librealsense_apt_server &>> $REDIRECT_LOGFILE
+
 echo "Add the librealsense APT server to the list of APT repositories"
-sudo add-apt-repository "deb https://librealsense.intel.com/Debian/apt-repo bionic main" -u &>> $REDIRECT_LOGFILE
+function add_librealsense_apt_server {
+    echo "deb https://librealsense.intel.com/Debian/apt-repo bionic main" | sudo tee /etc/apt/sources.list.d/librealsense.list
+}
+add_librealsense_apt_server &>> $REDIRECT_LOGFILE
 echo "Remove old records in case of upgrading"
 sudo rm -f /etc/apt/sources.list.d/realsense-public.list
 echo "Apt update"
