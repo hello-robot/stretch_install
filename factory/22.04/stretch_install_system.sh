@@ -122,12 +122,27 @@ echo "INSTALLATION OF INTEL D435i"
 echo "###########################################"
 echo "Register the librealsense APT server's public key"
 function register_librealsense_apt_server {
-    curl -sSf https://librealsense.intel.com/Debian/librealsense.pgp | sudo tee /etc/apt/keyrings/librealsense.pgp > /dev/null
+    echo "Fetching specific RealSense Signing Key (5113F120) from keyserver..."
+    
+    # FIX: Force create the root GPG directory if it's missing
+    sudo mkdir -p /root/.gnupg
+    sudo chmod 700 /root/.gnupg
+    sudo mkdir -p /etc/apt/keyrings
+    
+    # Fetch the key
+    # We use --no-options to avoid reading potentially broken config files
+    sudo gpg --no-options --no-default-keyring --keyring /tmp/realsense_temp.gpg --keyserver keyserver.ubuntu.com --recv-keys FB0B24895113F120
+    
+    # Export and Cleanup
+    sudo gpg --no-options --no-default-keyring --keyring /tmp/realsense_temp.gpg --export --output /etc/apt/keyrings/librealsense.gpg
+    sudo rm -f /tmp/realsense_temp.gpg
+    sudo chmod 644 /etc/apt/keyrings/librealsense.gpg
 }
 register_librealsense_apt_server &>> $REDIRECT_LOGFILE
 echo "Add the librealsense APT server to the list of APT repositories"
 function add_librealsense_apt_server {
-    echo "deb [signed-by=/etc/apt/keyrings/librealsense.pgp] https://librealsense.intel.com/Debian/apt-repo `lsb_release -cs` main" | sudo tee /etc/apt/sources.list.d/librealsense.list
+    # Point exactly to the binary .gpg keyring we just created
+    echo "deb [signed-by=/etc/apt/keyrings/librealsense.gpg] https://librealsense.intel.com/Debian/apt-repo $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/librealsense.list
 }
 add_librealsense_apt_server &>> $REDIRECT_LOGFILE
 echo "Remove old records in case of upgrading"
