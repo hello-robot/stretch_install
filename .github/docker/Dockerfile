@@ -14,9 +14,11 @@ ENV TZ=UTC
 # This will be used by the installation scripts
 ARG SETUP_FLEET_ID=stretch-se3-0000
 ENV SETUP_FLEET_ID=${SETUP_FLEET_ID}
+ENV USER=hello-robot
 
 # Install basic dependencies required by the installation scripts
 # Including iputils-ping for network connectivity checks and zip for logs packaging
+# Pre-install heavy Python dependencies via apt to avoid compiling them from source
 RUN apt-get update && apt-get install -y \
     sudo \
     git \
@@ -29,6 +31,10 @@ RUN apt-get update && apt-get install -y \
     expect \
     zip \
     software-properties-common \
+    apt-utils \
+    python3-numpy \
+    python3-scipy \
+    python3-yaml \
     && rm -rf /var/lib/apt/lists/*
 
 # Pre-create necessary directories that don't exist by default in basic Docker images
@@ -48,9 +54,9 @@ RUN useradd -m -s /bin/bash hello-robot && \
 USER hello-robot
 WORKDIR /home/hello-robot
 
-# Clone the stretch_install repository to the container
+# Copy the entire stretch_install repository to the container
 # This must be in the home directory as expected by the scripts
-RUN git clone https://github.com/hello-robot/stretch_install /home/hello-robot/stretch_install
+COPY --chown=hello-robot:hello-robot . /home/hello-robot/stretch_install
 
 # Patch the stretch_initial_setup.sh script to skip git checks and network connectivity checks in Docker
 # This is necessary because:
@@ -66,6 +72,8 @@ RUN cd /home/hello-robot/stretch_install/factory/22.04 && \
 # For Docker builds, we'll create a minimal structure to satisfy the script
 RUN mkdir -p /home/hello-robot/${SETUP_FLEET_ID}/udev && \
     echo '# Minimal udev rules for Docker build' > /home/hello-robot/${SETUP_FLEET_ID}/udev/stretch-device.rules && \
+    printf 'robot:\n  batch_name: NA\n  serial_no: "%s"\n  model_name: SE3\n  tool: eoa_wrist_dw3_tool_sg3\n' "${SETUP_FLEET_ID##*-}" > /home/hello-robot/${SETUP_FLEET_ID}/stretch_configuration_params.yaml && \
+    touch /home/hello-robot/${SETUP_FLEET_ID}/stretch_user_params.yaml && \
     chmod -R a+r /home/hello-robot/${SETUP_FLEET_ID}
 
 # Pre-create required directories to ensure proper permissions
@@ -85,7 +93,7 @@ SHELL ["/bin/bash", "-e", "-o", "pipefail", "-c"]
 # We redirect stderr to stdout to capture all output
 # The script will exit with non-zero code on failure, causing the build to fail
 RUN cd /home/hello-robot/stretch_install && \
-    bash -c 'yes | ./stretch_new_robot_install.sh -H ${SETUP_FLEET_ID} 2>&1 | tee /home/hello-robot/stretch_user/log/docker_install.log; exit ${PIPESTATUS[0]}'
+    bash -c 'yes | ./stretch_new_robot_install.sh -H ${SETUP_FLEET_ID} 2>&1 | tee /home/hello-robot/stretch_user/log/docker_install.log; exit ${PIPESTATUS[1]}'
 
 # Verify that the FLEET_ID was properly configured in both locations
 RUN if [ ! -f /etc/hello-robot/hello-robot.conf ]; then \
