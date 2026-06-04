@@ -1,0 +1,58 @@
+name: Run stretch_new_robot_install.sh in a Docker container
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+  workflow_dispatch:  # Allow manual triggering
+
+jobs:
+  test-docker-installation:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120  # Installation can take a while
+    
+    strategy:
+      matrix:
+        fleet_id:
+          - stretch-se3-0000
+          - stretch-re2-0001
+      fail-fast: true  # If False, continue testing other fleet IDs even if one fails
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+      
+      - name: Make scripts executable
+        run: |
+          chmod +x .github/docker/build.sh
+          chmod +x .github/docker/test.sh
+
+      - name: Build Docker image
+        run: |
+          ./.github/docker/build.sh -f ${{ matrix.fleet_id }} -n stretch-install-test
+
+      - name: Verify installation
+        run: |
+          ./.github/docker/test.sh -i stretch-install-test:${{ matrix.fleet_id }}
+
+      # - name: Extract logs from container
+      #   if: always()
+      #   run: |
+      #     # Create a temporary container to extract logs
+      #     container_id=$(docker create stretch-install-test:${{ matrix.fleet_id }})
+      #     docker cp $container_id:/home/hello-robot/stretch_user/log /tmp/stretch-logs-${{ matrix.fleet_id }} || true
+      #     docker rm $container_id
+      # 
+      # - name: Upload extracted logs
+      #   if: always()
+      #   uses: actions/upload-artifact@v3
+      #   with:
+      #     name: stretch-installation-logs-${{ matrix.fleet_id }}
+      #     path: /tmp/stretch-logs-${{ matrix.fleet_id }}/
+      #     retention-days: 30
+      #     if-no-files-found: ignore
+
