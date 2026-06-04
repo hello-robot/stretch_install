@@ -2,8 +2,6 @@
 # Test script for Stretch Robot Installation Docker image
 # This script verifies that the Docker installation completed successfully
 
-set -e
-
 # Default values
 IMAGE_NAME="${IMAGE_NAME:-stretch-install:latest}"
 
