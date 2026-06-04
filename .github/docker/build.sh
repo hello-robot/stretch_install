@@ -65,6 +65,15 @@ if [[ ! $FLEET_ID =~ ^stretch-(re1|re2|se3)-[0-9]{4}$ ]]; then
     exit 1
 fi
 
+# Determine Dockerfile based on FLEET_ID
+if [[ $FLEET_ID =~ ^stretch-re1-[0-9]{4}$ ]]; then
+    DOCKERFILE_PATH=".github/docker/Dockerfile.18.04"
+elif [[ $FLEET_ID =~ ^stretch-re2-[0-9]{4}$ ]]; then
+    DOCKERFILE_PATH=".github/docker/Dockerfile.20.04"
+else
+    DOCKERFILE_PATH=".github/docker/Dockerfile"
+fi
+
 print_info "Building Stretch Robot Installation Docker image"
 print_info "Fleet ID: $FLEET_ID"
 print_info "Image name: $IMAGE_NAME"

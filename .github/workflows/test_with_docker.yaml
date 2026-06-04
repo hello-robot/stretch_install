@@ -17,6 +17,7 @@ jobs:
         fleet_id:
           - stretch-se3-0000
           - stretch-re2-0001
+          - stretch-re1-0000
       fail-fast: true  # If False, continue testing other fleet IDs even if one fails
     
     steps:
@@ -39,20 +40,19 @@ jobs:
         run: |
           ./.github/docker/test.sh -i stretch-install-test:${{ matrix.fleet_id }}
 
-      # - name: Extract logs from container
-      #   if: always()
-      #   run: |
-      #     # Create a temporary container to extract logs
-      #     container_id=$(docker create stretch-install-test:${{ matrix.fleet_id }})
-      #     docker cp $container_id:/home/hello-robot/stretch_user/log /tmp/stretch-logs-${{ matrix.fleet_id }} || true
-      #     docker rm $container_id
-      # 
-      # - name: Upload extracted logs
-      #   if: always()
-      #   uses: actions/upload-artifact@v3
-      #   with:
-      #     name: stretch-installation-logs-${{ matrix.fleet_id }}
-      #     path: /tmp/stretch-logs-${{ matrix.fleet_id }}/
-      #     retention-days: 30
-      #     if-no-files-found: ignore
-
+      - name: Extract logs from container
+        if: always()
+        run: |
+          # Create a temporary container to extract logs
+          container_id=$(docker create stretch-install-test:${{ matrix.fleet_id }})
+          docker cp $container_id:/home/hello-robot/stretch_user/log /tmp/stretch-logs-${{ matrix.fleet_id }} || true
+          docker rm $container_id
+      
+      - name: Upload extracted logs
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: stretch-installation-logs-${{ matrix.fleet_id }}
+          path: /tmp/stretch-logs-${{ matrix.fleet_id }}/
+          retention-days: 30
+          if-no-files-found: ignore
