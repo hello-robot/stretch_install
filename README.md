@@ -1,6 +1,8 @@
 ![](./docs/images/banner.png)
 
-The stretch_install repository provides scripts required to install the Stretch software.
+The stretch_install repository provides scripts required to install the Stretch 1-3 software.
+
+Looking for the Stretch 4 repository? Check out https://github.com/hello-robot/stretch4_install
 
 ## Guides
 
