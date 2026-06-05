@@ -1,0 +1,121 @@
+# Dockerfile for Stretch Robot Installation
+# Can be executed in GitHub Actions workflows or manually
+# Usage:
+#   docker build -t stretch-install -f .github/docker/Dockerfile .
+#   docker run --rm stretch-install
+
+FROM ubuntu:22.04
+
+# Prevent interactive prompts during package installation
+ENV DEBIAN_FRONTEND=noninteractive
+ENV TZ=UTC
+
+# Set the FLEET_ID environment variable
+# This will be used by the installation scripts
+ARG SETUP_FLEET_ID=stretch-se3-0000
+ENV SETUP_FLEET_ID=${SETUP_FLEET_ID}
+ENV USER=hello-robot
+
+# Install basic dependencies required by the installation scripts
+# Including iputils-ping for network connectivity checks and zip for logs packaging
+# Pre-install heavy Python dependencies via apt to avoid compiling them from source
+RUN apt-get update && apt-get install -y \
+    sudo \
+    git \
+    curl \
+    wget \
+    ca-certificates \
+    gnupg \
+    lsb-release \
+    iputils-ping \
+    expect \
+    zip \
+    software-properties-common \
+    apt-utils \
+    python3-numpy \
+    python3-scipy \
+    python3-yaml \
+    && rm -rf /var/lib/apt/lists/*
+
+# Pre-create necessary directories that don't exist by default in basic Docker images
+# Also mock udevadm and update-initramfs which are not useful inside Docker and fail/warn in container environments
+RUN mkdir -p /etc/udev/rules.d /etc/modprobe.d /etc/apt/keyrings && \
+    printf '#!/bin/sh\nexit 0\n' > /usr/sbin/update-initramfs && \
+    chmod +x /usr/sbin/update-initramfs && \
+    printf '#!/bin/sh\nexit 0\n' > /usr/bin/udevadm && \
+    chmod +x /usr/bin/udevadm
+
+# Create a non-root user 'hello-robot' with sudo privileges
+# The installation scripts expect to run as a regular user with sudo access
+RUN useradd -m -s /bin/bash hello-robot && \
+    echo "hello-robot ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
+
+# Switch to the hello-robot user
+USER hello-robot
+WORKDIR /home/hello-robot
+
+# Copy the entire stretch_install repository to the container
+# This must be in the home directory as expected by the scripts
+COPY --chown=hello-robot:hello-robot . /home/hello-robot/stretch_install
+
+# Patch the stretch_initial_setup.sh script to skip git checks and network connectivity checks in Docker
+# This is necessary because:
+# 1. The git remote check won't work in a Docker build context (no .git directory is copied due to .dockerignore)
+# 2. Network connectivity checks (pinging google.com) may fail in some Docker build environments
+RUN cd /home/hello-robot/stretch_install/factory/22.04 && \
+    cp stretch_initial_setup.sh stretch_initial_setup.sh.orig && \
+    sed -i '/^echo "Checking install repo is up-to-date..."/,/^fi$/d' stretch_initial_setup.sh && \
+    sed -i '/^echo "Waiting to get online..."/,/^done$/c\echo "Skipping network check in Docker environment..."' stretch_initial_setup.sh
+
+# Create the calibration data directory structure
+# The installation script expects calibration data in $HOME/<FLEET_ID>
+# For Docker builds, we'll create a minimal structure to satisfy the script
+RUN mkdir -p /home/hello-robot/${SETUP_FLEET_ID}/udev && \
+    echo '# Minimal udev rules for Docker build' > /home/hello-robot/${SETUP_FLEET_ID}/udev/stretch-device.rules && \
+    printf 'robot:\n  batch_name: NA\n  serial_no: "%s"\n  model_name: SE3\n  tool: eoa_wrist_dw3_tool_sg3\n' "${SETUP_FLEET_ID##*-}" > /home/hello-robot/${SETUP_FLEET_ID}/stretch_configuration_params.yaml && \
+    touch /home/hello-robot/${SETUP_FLEET_ID}/stretch_user_params.yaml && \
+    chmod -R a+r /home/hello-robot/${SETUP_FLEET_ID}
+
+# Pre-create required directories to ensure proper permissions
+RUN mkdir -p /home/hello-robot/stretch_user/log && \
+    mkdir -p /home/hello-robot/stretch_user/debug && \
+    mkdir -p /home/hello-robot/stretch_user/maps && \
+    mkdir -p /home/hello-robot/stretch_user/models && \
+    mkdir -p /home/hello-robot/.local/bin
+
+# Set up error handling for the installation
+# The script already uses 'set -e' and 'set -o pipefail' for error propagation
+# We'll use shell options to ensure any errors cause the build to fail
+SHELL ["/bin/bash", "-e", "-o", "pipefail", "-c"]
+
+# Run the installation script with the FLEET_ID environment variable
+# The -H flag passes the complete fleet ID to the script
+# We redirect stderr to stdout to capture all output
+# The script will exit with non-zero code on failure, causing the build to fail
+RUN cd /home/hello-robot/stretch_install && \
+    bash -c 'yes | ./stretch_new_robot_install.sh -H ${SETUP_FLEET_ID} 2>&1 | tee /home/hello-robot/stretch_user/log/docker_install.log; exit ${PIPESTATUS[1]}'
+
+# Verify that the FLEET_ID was properly configured in both locations
+RUN if [ ! -f /etc/hello-robot/hello-robot.conf ]; then \
+        echo "ERROR: /etc/hello-robot/hello-robot.conf not found"; \
+        exit 1; \
+    fi && \
+    if ! grep -q "HELLO_FLEET_ID=${SETUP_FLEET_ID}" /etc/hello-robot/hello-robot.conf; then \
+        echo "ERROR: FLEET_ID not properly configured in /etc/hello-robot/hello-robot.conf"; \
+        cat /etc/hello-robot/hello-robot.conf; \
+        exit 1; \
+    fi && \
+    if [ ! -d /home/hello-robot/stretch_user/${SETUP_FLEET_ID} ]; then \
+        echo "ERROR: /home/hello-robot/stretch_user/${SETUP_FLEET_ID} directory not found"; \
+        exit 1; \
+    fi && \
+    echo "SUCCESS: FLEET_ID properly configured in all required locations"
+
+# Set the default command to display installation success and fleet ID
+CMD ["/bin/bash", "-c", "echo 'Stretch Robot Installation Complete' && \
+     echo 'Fleet ID: '${SETUP_FLEET_ID} && \
+     echo 'Configuration verified in:' && \
+     echo '  - /etc/hello-robot/hello-robot.conf' && \
+     echo '  - /home/hello-robot/stretch_user/'${SETUP_FLEET_ID} && \
+     /bin/bash"]
+
